@@ -9,6 +9,9 @@ set guifont=DejaVu\ Sans\ Mono:h12:b
 " 修改Tab栏
 exe 'GuiTabline 0'
 
+" 修改弹出菜单样式
+exe 'GuiPopupmenu 0'
+
 " 隐藏鼠标
 call GuiMousehide(1)
 

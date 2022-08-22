@@ -5,7 +5,6 @@ function M.config()
     vim.cmd [[
         exe 'PackerLoad lspkind-nvim'
     ]]
-    lspkind = require('lspkind')
     cmp.setup({
         mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -31,7 +30,7 @@ function M.config()
             end, { 'i', 's' }),
         }),
         formatting = {
-            format = lspkind.cmp_format({
+            format = require('lspkind').cmp_format({
                 with_text = true, -- do not show text alongside icons
                 maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
                 before = function (entry, vim_item)

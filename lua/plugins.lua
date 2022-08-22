@@ -18,8 +18,21 @@ return require('packer').startup({
         use 'wbthomason/packer.nvim'
 
         -- filetype
+        use "nathom/filetype.nvim"
+
+        -- 语法高亮
         use {
-            "nathom/filetype.nvim",
+            'nvim-treesitter/nvim-treesitter',
+            opt = true,
+            run = ':TSUpdate',
+            event = {'BufNewFile *', 'BufReadPre *'},
+            cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
+            config = function()
+                require('plugin-configs.nvim-treesitter').config()
+            end,
+            requires = {
+                {'p00f/nvim-ts-rainbow', opt = true},
+            },
         }
 
         -- LSP
@@ -27,15 +40,19 @@ return require('packer').startup({
             "neovim/nvim-lspconfig",
             opt = true,
             ft = {'python'},
-            config = function() require('lsp.setup') end,
+            config = function()
+                require('lsp.setup') 
+            end,
         }
 
         -- 自动完成
         use {
             'hrsh7th/nvim-cmp',
             opt = true,
-            event = {'BufNewFile *', 'BufReadPre *', 'InsertEnter *'},
-            config = function() require('plugin-configs.nvim-cmp').config() end,
+            event = {'InsertEnter *'},
+            config = function()
+                require('plugin-configs.nvim-cmp').config()
+            end,
         }
 
         -- cmp ui improve
@@ -69,9 +86,23 @@ return require('packer').startup({
             'skywind3000/asynctasks.vim',
             opt = true,
             cmd = {'AsyncTask', 'AsyncTaskEdit', 'AsyncTaskList', 'AsyncTaskMacro'},
-            setup = function() require('plugin-configs.asynctasks').setup() end,
+            setup = function()
+                require('plugin-configs.asynctasks').setup()
+            end,
             -- 异步运行
-            requires = {{'skywind3000/asyncrun.vim', opt = true}}
+            requires = {
+                {'skywind3000/asyncrun.vim', opt = true},
+            },
+        }
+
+        -- git集成
+        use {
+             'lewis6991/gitsigns.nvim',
+             opt = true,
+             event = {'BufEnter *'},
+             config = function()
+                 require('plugin-configs.gitsigns').config()
+             end,
         }
 
         -- 选中编辑
@@ -81,8 +112,12 @@ return require('packer').startup({
             keys = {{'n', '<c-s>a'}, {'x', '<c-s>a'}, {'o', '<c-s>a'},
                     {'n', '<c-s>d'}, {'x', '<c-s>d'}, {'n', '<c-s>db'},
                     {'n', '<c-s>r'}, {'x', '<c-s>r'}, {'n', '<c-s>rb'}},
-            setup = function() require('plugin-configs.vim-sandwich').setup() end,
-            config = function() require('plugin-configs.vim-sandwich').config() end,
+            setup = function()
+                require('plugin-configs.vim-sandwich').setup()
+            end,
+            config = function()
+                require('plugin-configs.vim-sandwich').config()
+            end,
         }
 
         -- 多光标
@@ -90,8 +125,12 @@ return require('packer').startup({
             'mg979/vim-visual-multi',
             opt = true,
             keys = {{'n', '<c-d>'}, {'x', '<c-d>'}, {'n', '<C-Up>'}, {'n', '<C-Down>'}},
-            setup = function() require('plugin-configs.vim-visual-multi').setup() end,
-            config = function() require('plugin-configs.vim-visual-multi').config() end,
+            setup = function()
+                require('plugin-configs.vim-visual-multi').setup()
+            end,
+            config = function()
+                require('plugin-configs.vim-visual-multi').config()
+            end,
         }
 
         -- 扩展区域
@@ -106,7 +145,9 @@ return require('packer').startup({
             'windwp/nvim-autopairs',
             opt = true,
             event = {'InsertEnter *'},
-            config = function() require('plugin-configs.nvim-autopairs').config() end,
+            config = function()
+                require('plugin-configs.nvim-autopairs').config()
+            end,
         }
 
         -- terminal help
@@ -114,22 +155,19 @@ return require('packer').startup({
             'skywind3000/vim-terminal-help',
             opt = true,
             keys = {{'n', '<M-=>'}},
-            setup = function() require('plugin-configs.vim-terminal-help').setup() end,
+            setup = function()
+                require('plugin-configs.vim-terminal-help').setup()
+            end,
         }
 
+        -- 缩进线
         use {
             'lukas-reineke/indent-blankline.nvim',
             opt = true,
-            ft = {'python', 'pyrex'},
-            config = function() require('plugin-configs.indent-blankline').config() end,
-        }
-
-        -- python 语法
-        use {
-            'vim-python/python-syntax',
-            opt = true,
-            ft = {'python'},
-            setup = 'vim.cmd [[let g:python_highlight_all = 1]]',
+            event = {'BufEnter *'},
+            config = function()
+                require('plugin-configs.indent-blankline').config()
+            end,
         }
 
         -- 颜色主题

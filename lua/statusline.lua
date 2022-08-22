@@ -61,7 +61,13 @@ function M.setup()
         hi warningmsg guifg=red
     ]]
     local parts = {
-        [[%<» %{luaeval("require'statusline'.file_or_lsp_status()")} %y%m%r%h%w%=]],
+        [[%<» %{luaeval("require'statusline'.file_or_lsp_status()")}]],
+
+        " %y%m%r%h%w",
+
+        " %{get(b:,'gitsigns_status','')}",
+
+        "%=",
 
         -- %# starts a highlight group; Another # indicates the end of the highlight group name
         -- This causes the next content to display in colors (depending on the color scheme)
@@ -75,7 +81,7 @@ function M.setup()
         -- vimL expressions can be placed into `%{ ... }` blocks
         -- The expression uses a conditional (ternary) operator: <condition> ? <truthy> : <falsy>
         -- If the current file format is not 'unix', display it surrounded by [], otherwise show nothing
-        "(line %l/%L, col %c %3p%%)",
+        " (line %l/%L, col %c %3p%%)",
         "%{&ff!='dos'?'['.&ff.'] ':''}",
 
         -- Same as before with the file format, except for the file encoding and checking for `utf-8`

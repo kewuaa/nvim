@@ -1,4 +1,7 @@
 
+" 主题选择
+" colorscheme industry
+
 " 分割出来的窗口位于当前窗口下边/右边
 set splitbelow
 set splitright
@@ -13,8 +16,6 @@ set mouse=a
 set termguicolors
 
 set background=dark
-
-" colorscheme industry
 
 " 编码设置
 set encoding=utf-8
