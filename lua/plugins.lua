@@ -18,7 +18,14 @@ return require('packer').startup({
         use 'wbthomason/packer.nvim'
 
         -- filetype
-        use "nathom/filetype.nvim"
+        use 'nathom/filetype.nvim'
+
+        -- 启动时间
+        use {
+            'dstein64/vim-startuptime',
+            opt = true,
+            cmd = {'StartupTime'},
+        }
 
         -- 语法高亮
         use {
@@ -37,28 +44,85 @@ return require('packer').startup({
 
         -- LSP
         use {
-            "neovim/nvim-lspconfig",
+            'neovim/nvim-lspconfig',
             opt = true,
             ft = {'python'},
             config = function()
+                -- 加载依赖
+                vim.cmd [[
+                    exe 'PackerLoad cmp-nvim-lsp lsp_signature.nvim'
+                ]]
                 require('lsp.setup') 
             end,
+        }
+
+        -- 符号提示
+        use {
+            'ray-x/lsp_signature.nvim',
+            opt = true,
+        }
+
+        -- snippets
+        use {
+            'L3MON4D3/LuaSnip',
+            opt = true,
+            config = function()
+                require("luasnip").config.set_config({ history = true, updateevents = "TextChanged,TextChangedI" })
+                require("luasnip.loaders.from_vscode").lazy_load()
+            end,
+            requires = {
+                {'rafamadriz/friendly-snippets', opt = true}
+            }
         }
 
         -- 自动完成
         use {
             'hrsh7th/nvim-cmp',
             opt = true,
-            event = {'InsertEnter *'},
+            event = 'InsertEnter *',
             config = function()
+                -- 加载依赖
+                vim.cmd [[
+                    exe 'PackerLoad LuaSnip'
+                ]]
                 require('plugin-configs.nvim-cmp').config()
-            end,
-        }
 
-        -- cmp ui improve
-        use {
-            'onsails/lspkind-nvim',
-            opt = true,
+                if vim.api.nvim_eval('&ft') == 'lua' then
+                    vim.cmd [[exe 'PackerLoad cmp-nvim-lua']]
+                else
+                    vim.cmd [[
+                        au packer_load_aucmds FileType lua ++once lua require("packer.load")({'cmp-nvim-lua'}, { ft = "lua" }, _G.packer_plugins)
+                    ]]
+                end
+            end,
+            requires = {
+                -- 括号补全
+                {
+                    'windwp/nvim-autopairs',
+                    opt = true,
+                    config = function()
+                        require('plugin-configs.nvim-autopairs').config()
+                    end,
+                },
+                -- snippets source
+                {
+                    'saadparwaiz1/cmp_luasnip',
+                    opt = true,
+                    after = 'LuaSnip',
+                },
+                -- buffer source
+                {
+                    'hrsh7th/cmp-buffer',
+                    opt = true,
+                    after = 'cmp_luasnip',
+                },
+                -- path source
+                {
+                    'hrsh7th/cmp-path',
+                    opt = true,
+                    after = 'cmp-buffer',
+                },
+            }
         }
 
         -- LSP source
@@ -67,18 +131,10 @@ return require('packer').startup({
             opt = true,
         }
 
-        -- buffer source
+        -- lua source
         use {
-            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-nvim-lua',
             opt = true,
-            event = {'InsertCharPre *'},
-        }
-
-        -- path source
-        use {
-            'hrsh7th/cmp-path',
-            opt = true,
-            event = {'InsertCharPre *'},
         }
 
         -- 异步任务系统
@@ -99,7 +155,7 @@ return require('packer').startup({
         use {
              'lewis6991/gitsigns.nvim',
              opt = true,
-             event = {'BufEnter *'},
+             event = 'BufRead *',
              config = function()
                  require('plugin-configs.gitsigns').config()
              end,
@@ -140,16 +196,6 @@ return require('packer').startup({
             keys = {{'n', '+'}, {'v', '+'}, {'v', '-'}},
         }
 
-        -- 括号补全
-        use {
-            'windwp/nvim-autopairs',
-            opt = true,
-            event = {'InsertEnter *'},
-            config = function()
-                require('plugin-configs.nvim-autopairs').config()
-            end,
-        }
-
         -- terminal help
         use {
             'skywind3000/vim-terminal-help',
@@ -164,7 +210,7 @@ return require('packer').startup({
         use {
             'lukas-reineke/indent-blankline.nvim',
             opt = true,
-            event = {'BufEnter *'},
+            event = 'BufRead *',
             config = function()
                 require('plugin-configs.indent-blankline').config()
             end,
@@ -173,6 +219,8 @@ return require('packer').startup({
         -- 颜色主题
         use {
             'tomasr/molokai',
+            opt = true,
+            event = {'BufNewFile *', 'BufReadPre *'},
             config = 'vim.cmd [[colorscheme molokai]]',
         }
     end,

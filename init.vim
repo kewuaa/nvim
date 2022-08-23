@@ -143,5 +143,13 @@ nmap <C-w>[ :resize-5<CR>
 
 lua vim.g.python3_host_prog = require('settings').nvim_py3
 
+" 设置内置文件树
+let g:netrw_sort_by = 'name'
+let g:netrw_sort_direction = 'normal'
+let g:netrw_browse_split = 2
+let g:netrw_liststyle = 4
+let g:netrw_banner = 0
+let g:netrw_winsize = 20
+
 lua require('plugins')
 
