@@ -42,6 +42,16 @@ return require('packer').startup({
             },
         }
 
+        -- 缩进线
+        use {
+            'lukas-reineke/indent-blankline.nvim',
+            opt = true,
+            event = 'BufRead *',
+            config = function()
+                require('plugin-configs.indent-blankline').config()
+            end,
+        }
+
         -- LSP
         use {
             'neovim/nvim-lspconfig',
@@ -152,6 +162,7 @@ return require('packer').startup({
         }
 
         -- git集成
+        -- git显示
         use {
              'lewis6991/gitsigns.nvim',
              opt = true,
@@ -159,6 +170,12 @@ return require('packer').startup({
              config = function()
                  require('plugin-configs.gitsigns').config()
              end,
+        }
+        -- git命令
+        use {
+            'tpope/vim-fugitive',
+            opt = true,
+            cmd = {'Git', 'G'},
         }
 
         -- 选中编辑
@@ -180,7 +197,12 @@ return require('packer').startup({
         use {
             'mg979/vim-visual-multi',
             opt = true,
-            keys = {{'n', '<c-d>'}, {'x', '<c-d>'}, {'n', '<C-Up>'}, {'n', '<C-Down>'}},
+            keys = {
+                {'n', '<c-d>'},
+                {'x', '<c-d>'},
+                {'n', '<C-Up>'},
+                {'n', '<C-Down>'}
+            },
             setup = function()
                 require('plugin-configs.vim-visual-multi').setup()
             end,
@@ -206,13 +228,42 @@ return require('packer').startup({
             end,
         }
 
-        -- 缩进线
+        -- jk增强
         use {
-            'lukas-reineke/indent-blankline.nvim',
+            'rainbowhxch/accelerated-jk.nvim',
             opt = true,
-            event = 'BufRead *',
+            keys = {{'n', 'j'}, {'n', 'k'}},
             config = function()
-                require('plugin-configs.indent-blankline').config()
+                require('plugin-configs.accelerated-jk').config()
+            end,
+        }
+
+        -- f/F, t/T增强
+        use {
+            'hrsh7th/vim-eft',
+            opt = true,
+            keys = {
+                {'n', ';'},
+                {'x', ';'},
+                {'o', ';'},
+                {'n', 'f'},
+                {'x', 'f'},
+                {'o', 'f'},
+                {'n', 'F'},
+                {'x', 'F'},
+                {'o', 'F'},
+                {'n', 't'},
+                {'x', 't'},
+                {'o', 't'},
+                {'n', 'T'},
+                {'x', 'T'},
+                {'o', 'T'},
+            },
+            setup = function()
+                require('plugin-configs.vim-eft').setup()
+            end,
+            config = function()
+                require('plugin-configs.vim-eft').config()
             end,
         }
 
