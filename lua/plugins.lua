@@ -267,6 +267,36 @@ return require('packer').startup({
             end,
         }
 
+        -- 搜索后自动关闭高亮
+        use {
+            'romainl/vim-cool',
+            opt = true,
+            event = 'CmdLineEnter /',
+            setup = 'vim.g.CoolTotalMatches = 1',
+        }
+
+        -- 缓冲区关闭时保留原有布局
+        use {
+            'famiu/bufdelete.nvim',
+            opt = true,
+            cmd = 'Bdelete',
+            setup = 'vim.api.nvim_set_keymap("n", "<leader>bd", ":Bdelete<CR>", {noremap = true, silent = true})',
+        }
+
+        -- 注释
+        use {
+            'terrortylor/nvim-comment',
+            opt = true,
+            keys = {
+                {'n', 'gcc'},
+                {'n', 'gc'},
+                {'v', 'gc'},
+            },
+            config = function()
+                require('plugin-configs.nvim-comment').config()
+            end,
+        }
+
         -- 颜色主题
         use {
             'tomasr/molokai',
