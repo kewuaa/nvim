@@ -46,12 +46,12 @@ function M.diagnostic_status()
     local num_errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
     -- If there are any errors only show the error count, don't include the number of warnings
     if num_errors > 0 then
-        return ' 💀 ' .. num_errors .. ' '
+        return '  ' .. num_errors .. ' '
     end
     -- Otherwise show amount of warnings, or nothing if there aren't any.
     local num_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
     if num_warnings > 0 then
-        return ' 💩 ' .. num_warnings .. ' '
+        return '  ' .. num_warnings .. ' '
     end
     return ''
 end
@@ -71,17 +71,16 @@ function M.setup()
 
         -- %# starts a highlight group; Another # indicates the end of the highlight group name
         -- This causes the next content to display in colors (depending on the color scheme)
-        "%#warningmsg#",
+        -- "%#warningmsg#",
 
         [[%{luaeval("require'statusline'.diagnostic_status()")}]],
  
         -- Resets the highlight group
-        "%*",
+        -- "%*",
 
         -- vimL expressions can be placed into `%{ ... }` blocks
         -- The expression uses a conditional (ternary) operator: <condition> ? <truthy> : <falsy>
         -- If the current file format is not 'unix', display it surrounded by [], otherwise show nothing
-        " (line %l/%L, col %c %3p%%)",
         "%{&ff!='dos'?'['.&ff.'] ':''}",
 
         -- Same as before with the file format, except for the file encoding and checking for `utf-8`

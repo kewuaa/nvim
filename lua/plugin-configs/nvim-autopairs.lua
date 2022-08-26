@@ -2,8 +2,8 @@ local M = {}
 
 function M.config()
     require('nvim-autopairs').setup({
-        map_bs = false,
-        map_c_h = true,
+        map_bs = true,
+        map_c_h = false,
         map_c_w = true,
         check_ts = true,
         enable_check_bracket_line = false,

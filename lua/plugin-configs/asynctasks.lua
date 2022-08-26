@@ -10,7 +10,10 @@ function M.setup()
     vim.g.asynctasks_term_pos = 'external'
     vim.g.asynctasks_template = 0
 
-    vim.api.nvim_set_keymap('n', '<F5>', ':AsyncTask file-run<CR>', {noremap = true, silent = true})
+    vim.keymap.set('n', '<F5>', ':AsyncTask file-run<CR>', {
+        noremap = true,
+        silent = true,
+    })
 end
 
 return M

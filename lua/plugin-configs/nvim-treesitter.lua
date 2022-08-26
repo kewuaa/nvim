@@ -18,11 +18,8 @@ function M.config()
             -- termcolors = {} -- table of colour name strings
         },
     })
-
-    vim.cmd [[
-        set foldmethod=expr
-        set foldexpr=nvim_treesitter#foldexpr()
-    ]]
+    vim.api.nvim_set_option_value("foldmethod", "expr", {})
+    vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
 end
 
 return M
