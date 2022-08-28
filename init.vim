@@ -90,8 +90,6 @@ set nowrap
 
 " 状态栏设置
 set laststatus=2  "显示状态栏
-"set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
-set statusline=%!v:lua.require'statusline'.setup()
 
 " 在空行末显示$
 set list
@@ -172,9 +170,10 @@ function! s:load_clipboard()
     exe 'source ' . $VIMRUNTIME . '/autoload/provider/clipboard.vim'
 endfunction
 
-augroup clipboard
+augroup setup
     au!
     au CursorMoved * ++once call s:load_clipboard()
+    au BufRead * ++once set statusline=%!v:lua.require'statusline'.setup()
 augroup END
 
 lua require('plugins')
