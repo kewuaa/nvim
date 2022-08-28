@@ -1,7 +1,9 @@
 local M = {}
+local npairs = require("nvim-autopairs")
+local Rule = require("nvim-autopairs.rule")
 
 function M.config()
-    require('nvim-autopairs').setup({
+    npairs.setup({
         map_bs = true,
         map_c_h = false,
         map_c_w = true,
@@ -26,6 +28,7 @@ function M.config()
       'confirm_done',
       cmp_autopairs.on_confirm_done()
     )
+    npairs.add_rule(Rule('<', '>'))
 end
 
 return M

@@ -16,6 +16,7 @@ function M.config()
             "Trouble",
             "lspsagafinder",
             "lspsagaoutline",
+            "startuptime",
         }
     })
 end

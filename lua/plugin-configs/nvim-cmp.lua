@@ -63,6 +63,16 @@ function M.config()
             end, { 'i', 's' }),
         }),
     })
+    cmp.setup.cmdline(':', {
+      sources = {
+        { name = 'cmdline' }
+      }
+    })
+    cmp.setup.cmdline('/', {
+      sources = {
+        { name = 'buffer' }
+      }
+    })
 end
 
 return M

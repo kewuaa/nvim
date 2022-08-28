@@ -73,6 +73,7 @@ return require('packer').startup({
                 require('lsp').setup()
             end,
             requires = {
+                -- ui增强
                 {
                     'glepnir/lspsaga.nvim',
                     opt = true,
@@ -174,6 +175,12 @@ return require('packer').startup({
                         command = [[lua require('packer.load')({'cmp-nvim-lua'}, { ft = "lua" }, _G.packer_plugins)]],
                     })
                 end
+                vim.api.nvim_create_autocmd('CmdLineEnter', {
+                    group = 'packer_load_aucmds',
+                    pattern = '/,:',
+                    once = true,
+                    command = [[lua require('packer.load')({'cmp-cmdline'}, {event = 'CmdLineEnter /,:'}, _G.packer_plugins)]],
+                })
             end,
             requires = {
                 -- ui 美化
@@ -225,6 +232,12 @@ return require('packer').startup({
             opt = true,
         }
 
+        -- cmdline source
+        use {
+            'hrsh7th/cmp-cmdline',
+            opt = true,
+        }
+
         -- 异步任务系统
         use {
             'skywind3000/asynctasks.vim',
@@ -248,12 +261,6 @@ return require('packer').startup({
              config = function()
                  require('plugin-configs.gitsigns').config()
              end,
-        }
-        -- git命令
-        use {
-            'tpope/vim-fugitive',
-            opt = true,
-            cmd = {'Git', 'G'},
         }
 
         -- 文件树
@@ -418,21 +425,6 @@ return require('packer').startup({
                 {'n', 'N'},
             },
             setup = 'vim.g.CoolTotalMatches = 1',
-            requires = {
-                -- 光标移动时突出显示
-                {
-                    'edluffy/specs.nvim',
-                    opt = true,
-                    keys = {
-                        {'n', '<C-F>'},
-                        {'n', '<C-B>'},
-                        {'n', '<C-W>'},
-                    },
-                    config = function()
-                        require("plugin-configs.specs").config()
-                    end,
-                },
-            }
         }
 
         -- 缓冲区关闭时保留原有布局
@@ -461,13 +453,15 @@ return require('packer').startup({
 
         -- 颜色主题
         use {
-            'rafamadriz/neon',
+            'tanvirtin/monokai.nvim',
             opt = true,
             event = {'BufNewFile *', 'BufReadPre *'},
             setup = function()
-                require('plugin-configs.neon').setup()
+                require("plugin-configs.monokai").setup()
             end,
-            config = 'vim.cmd [[colorscheme neon]]',
+            config = function()
+                require("plugin-configs.monokai").config()
+            end,
         }
     end,
 

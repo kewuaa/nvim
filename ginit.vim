@@ -1,7 +1,7 @@
 
 " 改变字体和字体大小
-exe 'Guifont! DejaVu Sans Mono:h12:b'
-set guifont=DejaVu\ Sans\ Mono:h12:b
+exe 'Guifont! JetBrainsMono NF:h12'
+set guifont=JetBrainsMono\ NF:h12
 
 " 图形自适应
 " exe 'GuiAdaptiveColor 1'

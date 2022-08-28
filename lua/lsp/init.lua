@@ -2,7 +2,8 @@ local M = {}
 local map = vim.keymap.set
 
 function M.setup()
-    local pylsp = require('lsp.python')
+    local pylsp = require('lsp.pylsp')
+    -- local pyright = require("lsp.pyright")
     local lsp_config = require('lspconfig')
 
 
@@ -71,7 +72,7 @@ function M.setup()
         map("n","<leader>o", "<cmd>LSoutlineToggle<CR>", bufopts)
 
         -- format
-        -- map('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+        map('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 
         -- code action
         -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
@@ -103,12 +104,12 @@ function M.setup()
       -- This is the default in Nvim 0.7+
       debounce_text_changes = 150,
     }
-    local find_root = lsp_config.util.root_pattern(unpack(pylsp.rootmarks))
+    local find_root = lsp_config.util.root_pattern
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
     lsp_config.pylsp.setup({
-        root_dir = find_root,
+        root_dir = find_root(unpack(pylsp.rootmarks)),
         name = 'pylsp',
         filetypes = {'python'},
         autostart = true,
@@ -120,6 +121,19 @@ function M.setup()
         capabilities = capabilities,
         flags = lsp_flags,
     })
+    -- lsp_config.pyright.setup({
+    --     root_dir = find_root(unpack(pyright.rootmarks)),
+    --     name = 'pyright',
+    --     filetypes = {'python'},
+    --     autostart = true,
+    --     single_file_support = true,
+    --     on_new_config = pyright.update_config,
+    --     cmd = {pyright.path .. 'pyright-python-langserver.exe', '--stdio'},
+    --     on_attach = on_attach,
+    --     settings = pyright.settings,
+    --     capabilities = capabilities,
+    --     flags = lsp_flags,
+    -- })
 end
 
 return M

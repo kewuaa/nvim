@@ -1,3 +1,7 @@
+if exists("g:neovide")
+    let g:neovide_fullscreen=v:true
+    set guifont=JetBrains\ Mono\ NF:h12
+endif
 
 " 主题选择
 " colorscheme industry
@@ -7,7 +11,7 @@ set splitbelow
 set splitright
 
 " 共享剪切板
-set clipboard^=unnamed,unnamedplus
+set clipboard^=unnamedplus
 
 " 兼容鼠标
 set mouse=a
@@ -112,7 +116,7 @@ set completeopt=menu,menuone,noselect,noinsert
 " 命令模式下,底部操作指令按下Tab键自动补全。
 " 第一次按下Tab,会显示所有匹配的操作指令的清单;第二次按下Tab,会依次选择各个指令
 set wildmenu
-set wildmode=longest:list,full
+" set wildmode=longest:list,full
 
 " 显示左侧图标指示列
 set signcolumn=yes
@@ -121,35 +125,57 @@ set signcolumn=yes
 
 let g:mapleader = ","
 
-nmap <leader>rc :e $MYVIMRC<CR>
-nmap <leader>rr :source $MYVIMRC<CR>
+nnoremap <silent> <leader>rc :e $MYVIMRC<CR>
+nnoremap <silent> <leader>rr :source $MYVIMRC<CR>
 
 " 映射切换buffer的键位
-nmap <leader>bp :bp<CR>
-nmap <leader>bn :bn<CR>
-nmap <leader>bd :bdelete<CR>
+nnoremap <silent> <leader>bp :bp<CR>
+nnoremap <silent> <leader>bn :bn<CR>
+nnoremap <silent> <leader>bd :bdelete<CR>
 
 " 映射切换tab的键位
-nmap <leader>tp :tabprevious<CR>
-nmap <leader>tn :tabnext<CR>
-nmap <leader>td :tabclose<CR>
+nnoremap <silent> <leader>tp :tabprevious<CR>
+nnoremap <silent> <leader>tn :tabnext<CR>
+nnoremap <silent> <leader>td :tabclose<CR>
 
-nmap <C-w>= :vertical resize+5<CR>
-nmap <C-w>- :vertical resize-5<CR>
-nmap <C-w>] :resize+5<CR>
-nmap <C-w>[ :resize-5<CR>
+nnoremap <silent> <C-w>= :vertical resize+5<CR>
+nnoremap <silent> <C-w>- :vertical resize-5<CR>
+nnoremap <silent> <C-w>] :resize+5<CR>
+nnoremap <silent> <C-w>[ :resize-5<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua vim.g.python3_host_prog = require('settings').nvim_py3
 
-" 设置内置文件树
-let g:netrw_sort_by = 'name'
-let g:netrw_sort_direction = 'normal'
-let g:netrw_browse_split = 2
-let g:netrw_liststyle = 4
-let g:netrw_banner = 0
-let g:netrw_winsize = 20
+let g:loaded_gzip = 1
+let g:loaded_tar = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_zip = 1
+let g:loaded_zipPlugin = 1
+let g:loaded_getscript = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_vimball = 1
+let g:loaded_vimballPlugin = 1
+let g:loaded_matchit = 1
+let g:loaded_matchparen = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_logiPat = 1
+let g:loaded_rrhelper = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwSettings = 1
+let g:loaded_netrwFileHandlers = 1
+let g:loaded_clipboard_provider = 1
+
+function! s:load_clipboard()
+    unlet g:loaded_clipboard_provider
+    exe 'source ' . $VIMRUNTIME . '/autoload/provider/clipboard.vim'
+endfunction
+
+augroup clipboard
+    au!
+    au CursorMoved * ++once call s:load_clipboard()
+augroup END
 
 lua require('plugins')
 

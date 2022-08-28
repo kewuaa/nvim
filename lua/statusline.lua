@@ -1,5 +1,6 @@
 local M = {}
 
+
 function M.file_or_lsp_status()
     -- Neovim keeps the messages send from the language server in a buffer and
     -- get_progress_messages polls the messages
@@ -56,16 +57,34 @@ function M.diagnostic_status()
     return ''
 end
 
+function M.get_lsp_info()
+    local active_clients = vim.lsp.buf_get_clients()
+    local num = #active_clients
+    if num > 0 then
+        local active_client = active_clients[num]
+        local name = active_client.name
+        local state = 'running'
+        if active_client.is_stopped() then
+            state = 'stopped'
+        end
+        return '[' .. name .. ': ' .. state .. ']'
+    else
+        return ''
+    end
+end
+
 function M.setup()
-    vim.cmd [[
-        hi warningmsg guifg=red
-    ]]
+    -- vim.cmd [[
+    --     hi warningmsg guifg=red
+    -- ]]
     local parts = {
         [[%<» %{luaeval("require'statusline'.file_or_lsp_status()")}]],
 
+        [[ %{luaeval("require('statusline').get_lsp_info()")}]],
+
         " %y%m%r%h%w",
 
-        " %{get(b:,'gitsigns_status','')}",
+        " %{get(b:,'gitsigns_status','')} ",
 
         "%=",
 

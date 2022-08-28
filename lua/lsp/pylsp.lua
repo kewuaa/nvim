@@ -1,12 +1,11 @@
 local pylsp = {}
-
 local settings = require('settings')
 
+
 pylsp.default_env = settings.py3_path .. 'global'
-
 pylsp.path = settings.py3_path .. 'pylsp/Scripts/'
+pylsp.rootmarks = settings.py3_rootmarks
 
-pylsp.rootmarks = settings.rootmarks
 
 function pylsp.update_config(new_config, new_root)
     local new_env = new_root .. '/.venv'
@@ -21,6 +20,7 @@ function pylsp.update_config(new_config, new_root)
     new_config.settings.pylsp.plugins.jedi.extra_paths = {extra_path}
     return new_config
 end
+
 
 pylsp.settings = {
     pylsp = {
