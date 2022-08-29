@@ -41,9 +41,11 @@ pylsp.settings = {
             },
             jedi = {},
             jedi_completion = {
-                cache_for = {'numpy'},
+                cache_for = {'numpy', 'pytorch'},
+                include_params = true,
                 fuzzy = true,
             },
+            pylsp_rope = {enabled = false}
         },
     },
 

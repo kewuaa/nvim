@@ -3,7 +3,6 @@ local map = vim.keymap.set
 
 function M.setup()
     local pylsp = require('lsp.pylsp')
-    -- local pyright = require("lsp.pyright")
     local lsp_config = require('lspconfig')
 
 
@@ -32,7 +31,7 @@ function M.setup()
         map("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
 
         -- Show cursor diagnostic
-        map("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
+        map("n", "<leader>cc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
 
         -- Diagnsotic jump can use `<c-o>` to jump back
         map("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
@@ -121,19 +120,6 @@ function M.setup()
         capabilities = capabilities,
         flags = lsp_flags,
     })
-    -- lsp_config.pyright.setup({
-    --     root_dir = find_root(unpack(pyright.rootmarks)),
-    --     name = 'pyright',
-    --     filetypes = {'python'},
-    --     autostart = true,
-    --     single_file_support = true,
-    --     on_new_config = pyright.update_config,
-    --     cmd = {pyright.path .. 'pyright-python-langserver.exe', '--stdio'},
-    --     on_attach = on_attach,
-    --     settings = pyright.settings,
-    --     capabilities = capabilities,
-    --     flags = lsp_flags,
-    -- })
 end
 
 return M

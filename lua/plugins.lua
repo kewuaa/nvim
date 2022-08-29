@@ -62,35 +62,39 @@ return require('packer').startup({
             end,
         }
 
-        -- LSP
+        -- lsp增强
         use {
-            'neovim/nvim-lspconfig',
+            'glepnir/lspsaga.nvim',
             opt = true,
             ft = {'python'},
             config = function()
-                -- -- 加载依赖
-                vim.cmd [[exe 'PackerLoad cmp-nvim-lsp lsp_signature.nvim']]
-                require('lsp').setup()
+                require("lsp.ui").setup()
             end,
             requires = {
-                -- ui增强
+                -- LSP
                 {
-                    'glepnir/lspsaga.nvim',
+                    'neovim/nvim-lspconfig',
                     opt = true,
+                    after = {'cmp-nvim-lsp', 'lsp_signature.nvim'},
                     config = function()
-                        require("lsp.ui").setup()
+                        require('lsp').setup()
                     end,
                 },
-            }
-        }
+                -- 符号提示
+                {
+                    'ray-x/lsp_signature.nvim',
+                    opt = true,
+                    setup = function()
+                        require("plugin-configs.lsp_signature").setup()
+                    end,
+                },
+                -- LSP source
+                {
+                    'hrsh7th/cmp-nvim-lsp',
+                    opt = true,
+                },
 
-        -- 符号提示
-        use {
-            'ray-x/lsp_signature.nvim',
-            opt = true,
-            setup = function()
-                require("plugin-configs.lsp_signature").setup()
-            end,
+            },
         }
 
         -- 显示代码错误
@@ -218,12 +222,6 @@ return require('packer').startup({
                     after = 'cmp-buffer',
                 },
             }
-        }
-
-        -- LSP source
-        use {
-            'hrsh7th/cmp-nvim-lsp',
-            opt = true,
         }
 
         -- lua source
