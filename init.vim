@@ -141,6 +141,14 @@ nnoremap <silent> <C-w>- :vertical resize-5<CR>
 nnoremap <silent> <C-w>] :resize+5<CR>
 nnoremap <silent> <C-w>[ :resize-5<CR>
 
+" 多行应用宏
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echom "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua vim.g.python3_host_prog = require('settings').nvim_py3

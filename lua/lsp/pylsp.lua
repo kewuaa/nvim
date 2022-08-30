@@ -9,15 +9,11 @@ pylsp.rootmarks = settings.py3_rootmarks
 
 function pylsp.update_config(new_config, new_root)
     local new_env = new_root .. '/.venv'
-    local extra_path = ''
-    if os.execute('cd ' .. new_env) == 0 then
-        extra_path = new_root
-    else
+    if not (os.execute('cd ' .. new_env) == 0) then
         new_env = pylsp.default_env
-        extra_path = vim.api.nvim_eval('fnamemodify(bufname("%"), ":p:h")')
     end
     new_config.settings.pylsp.plugins.jedi.environment = new_env
-    new_config.settings.pylsp.plugins.jedi.extra_paths = {extra_path}
+    new_config.settings.pylsp.plugins.jedi.extra_paths = {new_root}
     return new_config
 end
 
@@ -41,7 +37,7 @@ pylsp.settings = {
             },
             jedi = {},
             jedi_completion = {
-                cache_for = {'numpy', 'pytorch'},
+                cache_for = {'numpy', 'torch'},
                 include_params = true,
                 fuzzy = true,
             },

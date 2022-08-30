@@ -45,10 +45,20 @@ return require('packer').startup({
             event = {'BufNewFile *', 'BufReadPre *'},
             cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
             config = function()
+                vim.cmd [[exe 'PackerLoad nvim_context_vt']]
                 require('plugin-configs.nvim-treesitter').config()
             end,
             requires = {
+                -- 彩虹括号
                 {'p00f/nvim-ts-rainbow', opt = true},
+                -- 显示上下文
+                {
+                    'haringsrob/nvim_context_vt',
+                    opt = true,
+                    config = function()
+                        require("plugin-configs.nvim_context_vt").config()
+                    end,
+                },
             },
         }
 
@@ -279,34 +289,23 @@ return require('packer').startup({
 
         -- 选中编辑
         use {
-            'machakann/vim-sandwich',
-            opt = true,
-            keys = {{'n', '<c-s>a'}, {'x', '<c-s>a'}, {'o', '<c-s>a'},
-                    {'n', '<c-s>d'}, {'x', '<c-s>d'}, {'n', '<c-s>db'},
-                    {'n', '<c-s>r'}, {'x', '<c-s>r'}, {'n', '<c-s>rb'}},
-            setup = function()
-                require('plugin-configs.vim-sandwich').setup()
-            end,
-            config = function()
-                require('plugin-configs.vim-sandwich').config()
-            end,
-        }
-
-        -- 多光标
-        use {
-            'mg979/vim-visual-multi',
+            'kylechui/nvim-surround',
+            tag = '*',
             opt = true,
             keys = {
-                {'n', '<c-d>'},
-                {'x', '<c-d>'},
-                {'n', '<C-Up>'},
-                {'n', '<C-Down>'}
+                {'n', 'ys'},
+                {'n', 'yss'},
+                {'n', 'yS'},
+                {'n', 'ySS'},
+                {'n', 'ds'},
+                {'n', 'cs'},
+                {'i', '<c-g>s'},
+                {'i', '<c-g>S'},
+                {'x', 'S'},
+                {'x', 'gS'},
             },
-            setup = function()
-                require('plugin-configs.vim-visual-multi').setup()
-            end,
             config = function()
-                require('plugin-configs.vim-visual-multi').config()
+                require('plugin-configs.nvim-surround').config()
             end,
         }
 
@@ -451,14 +450,14 @@ return require('packer').startup({
 
         -- 颜色主题
         use {
-            'tanvirtin/monokai.nvim',
+            'Yazeed1s/minimal.nvim',
             opt = true,
             event = {'BufNewFile *', 'BufReadPre *'},
             setup = function()
-                require("plugin-configs.monokai").setup()
+                require("plugin-configs.minimal").setup()
             end,
             config = function()
-                require("plugin-configs.monokai").config()
+                require("plugin-configs.minimal").config()
             end,
         }
     end,

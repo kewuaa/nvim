@@ -29,9 +29,9 @@ function M.config()
         },
         delay = 100,
         filetypes_denylist = {
-            "fugitive",
+            -- "fugitive",
             "help",
-            "netrw",
+            -- "netrw",
             "packer",
             "Outline",
             "NvimTree",
