@@ -453,12 +453,7 @@ return require('packer').startup({
             'Yazeed1s/minimal.nvim',
             opt = true,
             event = {'BufNewFile *', 'BufReadPre *'},
-            setup = function()
-                require("plugin-configs.minimal").setup()
-            end,
-            config = function()
-                require("plugin-configs.minimal").config()
-            end,
+            config = 'vim.cmd([[colorscheme minimal]])',
         }
     end,
 
