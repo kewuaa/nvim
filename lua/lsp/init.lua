@@ -2,9 +2,30 @@ local M = {}
 local map = vim.keymap.set
 
 function M.setup()
+    -- Set icons for sidebar.
+    local diagnostic_icons = {
+        Error = " ",
+        Warn = " ",
+        Info = " ",
+        Hint = " ",
+    }
+    for type, icon in pairs(diagnostic_icons) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl })
+    end
+
+    vim.diagnostic.config({
+      signs = true,
+      update_in_insert = false,
+      underline = true,
+      severity_sort = true,
+      virtual_text = {
+        source = true,
+      },
+    })
+
     local pylsp = require('lsp.pylsp')
     local lsp_config = require('lspconfig')
-
 
     -- Mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -77,16 +98,6 @@ function M.setup()
         -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
         map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
         map("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", bufopts)
-
-        local action = require("lspsaga.action")
-        -- scroll in hover doc or  definition preview window
-        map("n", "<C-f>", function()
-            action.smart_scroll_with_saga(1)
-        end, { silent = true })
-        -- scroll in hover doc or  definition preview window
-        map("n", "<C-b>", function()
-            action.smart_scroll_with_saga(-1)
-        end, { silent = true })
 
         -- workspace
         map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)

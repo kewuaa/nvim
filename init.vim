@@ -1,8 +1,3 @@
-if exists("g:neovide")
-    let g:neovide_fullscreen=v:true
-    set guifont=JetBrains\ Mono\ NF:h12
-endif
-
 " 主题选择
 " colorscheme industry
 

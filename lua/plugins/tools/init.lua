@@ -1,0 +1,161 @@
+local configs = require("plugins.tools.configs")
+
+
+return {
+    -- 图标
+    {
+        'kyazdani42/nvim-web-devicons',
+        opt = true,
+        setup = [[
+            vim.fn.timer_start(500, function(timer)
+                vim.cmd("exe 'PackerLoad nvim-web-devicons'") end)
+        ]]
+    },
+
+    -- 启动时间
+    {
+        'dstein64/vim-startuptime',
+        opt = true,
+        cmd = 'StartupTime',
+    },
+
+    -- 语法高亮
+    {
+        'nvim-treesitter/nvim-treesitter',
+        opt = true,
+        run = ':TSUpdate',
+        event = {'BufNewFile *', 'BufReadPre *'},
+        cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
+        config = configs.nvim_treesitter,
+        requires = {
+            -- 彩虹括号
+            {'p00f/nvim-ts-rainbow', opt = true},
+            -- 显示上下文
+            {
+                'haringsrob/nvim_context_vt',
+                opt = true,
+                config = configs.nvim_context_vt,
+            },
+        },
+    },
+
+    -- 缩进线
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        opt = true,
+        event = 'BufRead *',
+        config = configs.indent_blankline,
+    },
+
+    -- 显示代码错误
+    {
+        'folke/trouble.nvim',
+        opt = true,
+        cmd = 'Trouble',
+        setup = function()
+            require("lsp.hook").add(
+                function(client, bufnr)
+                    local map = vim.keymap.set
+                    local bufopts = {noremap = true, silent = true, buffer = bufnr}
+                    map("n", "<leader>xx", "<cmd>Trouble<cr>", bufopts)
+                    map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", bufopts)
+                    map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", bufopts)
+                    map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", bufopts)
+                    map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", bufopts)
+                    map("n", "gR", "<cmd>Trouble lsp_references<cr>", bufopts)
+                end
+            )
+        end,
+        config = configs.trouble,
+    },
+
+    -- symbols tree
+    {
+        'simrat39/symbols-outline.nvim',
+        opt = true,
+        cmd = 'SymbolsOutline',
+        setup = function()
+            require('lsp.hook').add(
+                function(client, bufnr)
+                    vim.keymap.set('n', '<leader>st', ':SymbolsOutline<CR>', {
+                        noremap = true,
+                        silent = true,
+                        buffer = bufnr,
+                    })
+                end
+            )
+        end,
+        config = configs.symbols_outline,
+    },
+
+    -- 异步依赖
+    {
+        'nvim-lua/plenary.nvim',
+        opt = true,
+    },
+    -- 查找
+    {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.0',
+        opt = true,
+        cmd = 'Telescope',
+        config = configs.telescope,
+    },
+    -- fzf支持
+    {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make',
+        opt = true,
+    },
+
+    -- 异步任务系统
+    {
+        'skywind3000/asynctasks.vim',
+        opt = true,
+        cmd = {'AsyncTask', 'AsyncTaskEdit', 'AsyncTaskList', 'AsyncTaskMacro'},
+        config = configs.asynctasks,
+        -- 异步运行
+        requires = {
+            {'skywind3000/asyncrun.vim', opt = true},
+        },
+    },
+
+    -- terminal help
+    {
+        'skywind3000/vim-terminal-help',
+        opt = true,
+        keys = {{'n', '<M-=>'}},
+        config = configs.vim_terminal_help,
+    },
+
+    -- git集成
+    {
+        'lewis6991/gitsigns.nvim',
+        opt = true,
+        event = 'BufRead *',
+        config = configs.gitsigns,
+    },
+
+    -- 文件树
+    {
+        'kyazdani42/nvim-tree.lua',
+        opt = true,
+        cmd = 'NvimTreeToggle',
+        config = configs.nvim_tree,
+    },
+
+    -- 缓冲区关闭时保留原有布局
+    {
+        'famiu/bufdelete.nvim',
+        opt = true,
+        cmd = 'Bdelete',
+    },
+
+    -- 缓冲区管理
+    {
+        'matbme/JABS.nvim',
+        opt = true,
+        cmd = 'JABSOpen',
+        config = configs.JABS,
+    },
+}

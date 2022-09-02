@@ -41,7 +41,6 @@ pylsp.settings = {
                 include_params = true,
                 fuzzy = true,
             },
-            pylsp_rope = {enabled = false}
         },
     },
 

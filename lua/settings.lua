@@ -6,6 +6,20 @@ settings.nvim_py3 = settings.py3_path .. 'nvim/Scripts/python.exe'
 settings.lua_path = program_files_path .. 'Lua/'
 settings.py3_rootmarks = {'.git', '.venv'}
 settings.lua_rootmarks = {'.git'}
+settings.exclude_filetypes = {
+    "fugitive",
+    "help",
+    "tutor",
+    "netrw",
+    "packer",
+    "Outline",
+    "NvimTree",
+    "Quickfix List",
+    "Trouble",
+    "lspsagafinder",
+    "lspsagaoutline",
+    "startuptime",
+}
 
 return settings
 

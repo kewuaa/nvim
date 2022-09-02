@@ -6,8 +6,8 @@ function M.add(func)
 end
 
 function M.trigger(client, bufnr)
-    for i = 1, #hooks do
-        hooks[i](client, bufnr)
+    for _, func in pairs(hooks) do
+        func(client, bufnr)
     end
 end
 
