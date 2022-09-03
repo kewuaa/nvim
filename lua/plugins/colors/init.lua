@@ -16,7 +16,7 @@ local function config_color()
     vim.cmd [=[
         colorscheme monokai
     ]=]
-    vim.fn.timer_start(1000, function()
+    vim.fn.timer_start(1000, function(timer)
         vim.cmd [[
             hi CmpItemAbbrMatch guibg=none
             hi CmpItemAbbrMatch guifg=lightblue

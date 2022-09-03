@@ -30,12 +30,6 @@ return {
         requires = {
             -- 彩虹括号
             {'p00f/nvim-ts-rainbow', opt = true},
-            -- 显示上下文
-            {
-                'haringsrob/nvim_context_vt',
-                opt = true,
-                config = configs.nvim_context_vt,
-            },
         },
     },
 

@@ -25,6 +25,9 @@ map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opt)
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', opt)
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', opt)
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opt)
+map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opt)
+map('n', '<leader>fm', '<cmd>Telescope keymaps<cr>', opt)
+map('n', '<leader>fc', '<cmd>Telescope commands<cr>', opt)
 
 map('n', '<leader>bd', '<cmd>Bdelete<CR>', opt)
 

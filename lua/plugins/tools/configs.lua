@@ -23,38 +23,6 @@ configs.nvim_treesitter = function()
     vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
 end
 
-configs.nvim_context_vt = function()
-    require('nvim_context_vt').setup({
-      -- Enable by default. You can disable and use :NvimContextVtToggle to maually enable.
-      -- Default: true
-      enabled = true,
-
-      -- Override default virtual text prefix
-      -- Default: '-->'
-      prefix = '',
-
-      -- Disable virtual text for given filetypes
-      -- Default: { 'markdown' }
-      disable_ft = { 'markdown' },
-
-      -- Disable display of virtual text below blocks for indentation based languages like Python
-      -- Default: false
-      disable_virtual_lines = false,
-
-      -- Same as above but only for spesific filetypes
-      -- Default: {}
-      disable_virtual_lines_ft = { 'yaml' },
-
-      -- How many lines required after starting position to show virtual text
-      -- Default: 1 (equals two lines total)
-      min_rows = 1,
-
-      -- Same as above but only for spesific filetypes
-      -- Default: {}
-      min_rows_ft = {},
-    })
-end
-
 configs.indent_blankline = function()
     require('indent_blankline').setup({
         show_end_of_line = true,
@@ -193,6 +161,7 @@ configs.telescope = function()
             file_previewer = require('telescope.previewers').vim_buffer_cat.new,
             grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
             qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+            file_ignore_patterns = { "^.git/", "^.venv/", "^__pycache__/", "^.cache/", "%.class", "%.pdf", "%.mkv", "%.mp4", "%.zip" },
         },
         extensions = {
             fzf = {
