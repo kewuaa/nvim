@@ -144,6 +144,9 @@ configs.nvim_cmp = function()
     -- 加载依赖
     local cmp = require('cmp')
 
+    local t = function(str)
+        return vim.api.nvim_replace_termcodes(str, true, true, true)
+    end
     local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -153,28 +156,6 @@ configs.nvim_cmp = function()
         window = {
             completion = cmp.config.window.bordered(),
             documentation = cmp.config.window.bordered(),
-        },
-        sources = {
-            {name = 'nvim_lsp'},
-            {name = 'nvim_lua'},
-            {name = 'luasnip'},
-            {
-                name = 'buffer',
-                option = {
-                    get_bufnrs = function()
-                        return vim.api.nvim_list_bufs()
-                    end,
-                },
-            },
-            {
-                name = 'path',
-                option = {
-                    trailing_slash = false,
-                    get_cwd = function()
-                        return vim.api.nvim_eval('fnamemodify(bufname("%"), ":p:h")')
-                    end,
-                },
-            },
         },
         mapping = cmp.mapping.preset.insert({
             ["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -214,6 +195,28 @@ configs.nvim_cmp = function()
                 end
             end,
         }),
+        sources = {
+            {name = 'nvim_lsp'},
+            {name = 'nvim_lua'},
+            {name = 'luasnip'},
+            {
+                name = 'buffer',
+                option = {
+                    get_bufnrs = function()
+                        return vim.api.nvim_list_bufs()
+                    end,
+                },
+            },
+            {
+                name = 'path',
+                option = {
+                    trailing_slash = false,
+                    get_cwd = function()
+                        return vim.api.nvim_eval('fnamemodify(bufname("%"), ":p:h")')
+                    end,
+                },
+            },
+        },
     })
     cmp.setup.cmdline(':', {
         sources = {
@@ -258,6 +261,23 @@ configs.cmp_luasnip = function()
             end,
         },
     })
+end
+
+configs.cmp_under_comparator = function()
+    require("cmp").setup {
+        sorting = {
+            comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                require("cmp-under-comparator").under,
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+            },
+        },
+    }
 end
 
 configs.lspkind = function()

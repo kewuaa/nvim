@@ -23,6 +23,54 @@ configs.nvim_treesitter = function()
     vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
 end
 
+configs.nvim_gps = function()
+    require("nvim-gps").setup({
+        icons = {
+            ["class-name"] = " ", -- Classes and class-like objects
+            ["function-name"] = " ", -- Functions
+            ["method-name"] = " ", -- Methods (functions inside class-like objects)
+            ["container-name"] = '⛶ ',  -- Containers (example: lua tables)
+            ["tag-name"] = '炙'         -- Tags (example: html tags)
+        },
+        languages = {
+            -- You can disable any language individually here
+            ["c"] = true,
+            ["cpp"] = true,
+            -- ["go"] = true,
+            -- ["java"] = true,
+            ["javascript"] = true,
+            ["lua"] = true,
+            ["python"] = true,
+            -- ["rust"] = true,
+        },
+        separator = " > ",
+    })
+end
+
+configs.winbar = function()
+    require('winbar').setup({
+        enabled = true,
+
+        show_file_path = true,
+        show_symbols = true,
+
+        colors = {
+            path = '', -- You can customize colors like #c946fd
+            file_name = '',
+            symbols = '',
+        },
+
+        icons = {
+            file_icon_default = '',
+            seperator = ' > ',
+            editor_state = '●',
+            lock_icon = '',
+        },
+
+        exclude_filetype = require("settings").exclude_filetypes,
+    })
+end
+
 configs.indent_blankline = function()
     require('indent_blankline').setup({
         show_end_of_line = true,
@@ -146,7 +194,9 @@ configs.symbols_outline = function()
 end
 
 configs.telescope = function()
-    vim.cmd [[exe 'PackerLoad plenary.nvim telescope-fzf-native.nvim']]
+    vim.cmd [[
+        exe 'PackerLoad plenary.nvim telescope-fzf-native.nvim'
+    ]]
     local telescope = require("telescope")
 
     telescope.setup({
@@ -170,7 +220,7 @@ configs.telescope = function()
                 override_file_sorter = true,     -- override the file sorter
                 case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
                 -- the default case_mode is "smart_case"
-            }
+            },
         }
     })
     -- To get fzf loaded and working with telescope, you need to call

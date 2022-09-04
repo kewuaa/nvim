@@ -71,6 +71,13 @@ return {
                     opt = true,
                     config = configs.nvim_autopairs,
                 },
+                -- underline sort
+                {
+                    'lukas-reineke/cmp-under-comparator',
+                    opt = true,
+                    after = 'nvim-lspconfig',
+                    config = configs.cmp_under_comparator,
+                },
                 -- snippets source
                 {
                     'saadparwaiz1/cmp_luasnip',

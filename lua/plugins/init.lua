@@ -32,6 +32,10 @@ packer.init({
 })
 packer.reset()
 
+vim.api.nvim_create_augroup('setup_plugins', {
+    clear = true,
+})
+
 -- manage itself
 use({
     'wbthomason/packer.nvim',

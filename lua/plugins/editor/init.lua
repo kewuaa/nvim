@@ -78,11 +78,8 @@ return {
             opt = true,
             cmd = 'IlluminateResumeBuf',
             setup = function()
-                vim.api.nvim_create_augroup('setup_illuminate', {
-                    clear = true
-                })
                 vim.api.nvim_create_autocmd('FileType', {
-                    group = 'setup_illuminate',
+                    group = 'setup_plugins',
                     pattern = {'python', 'vim', 'lua'},
                     command = 'IlluminateResumeBuf',
                 })

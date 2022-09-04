@@ -33,6 +33,31 @@ return {
         },
     },
 
+    -- 上下文显示
+    {
+        'SmiteshP/nvim-gps',
+        opt = true,
+        setup = function()
+            vim.api.nvim_create_autocmd('BufRead', {
+                group = 'setup_plugins',
+                pattern = '*',
+                once = true,
+                callback = function()
+                    vim.fn.timer_start(500, function(timer)
+                        vim.cmd [[exe 'PackerLoad nvim-gps']] end)
+                end,
+            })
+        end,
+        config = configs.nvim_gps,
+        requires = {
+            {
+                'fgheng/winbar.nvim',
+                opt = true,
+                config = configs.winbar,
+            },
+        },
+    },
+
     -- 缩进线
     {
         'lukas-reineke/indent-blankline.nvim',
@@ -127,7 +152,9 @@ return {
         'lewis6991/gitsigns.nvim',
         opt = true,
         event = 'BufRead *',
-        config = configs.gitsigns,
+        config = [[
+            vim.fn.timer_start(1000, require("plugins.tools.configs").gitsigns)
+        ]],
     },
 
     -- 文件树
