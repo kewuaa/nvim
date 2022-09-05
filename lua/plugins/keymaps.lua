@@ -15,6 +15,9 @@ map('n', '<leader><leader>f', '<cmd>HopChar1<CR>', opt)
 map('n', '<leader><leader>c', '<cmd>HopChar2<CR>', opt)
 map('n', '<leader><leader>/', '<cmd>HopPattern<CR>', opt)
 
+map('n', '<leader>nf', '<cmd>Neogen func<CR>', opt)
+map('n', '<leader>nc', '<cmd>Neogen class<CR>', opt)
+
 map('n', '<leader>sw', '<cmd>ISwapWith<CR>', opt)
 
 map('n', '<leader>bb', '<cmd>JABSOpen<CR>', opt)

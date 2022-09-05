@@ -37,6 +37,7 @@ return {
     {
         'SmiteshP/nvim-gps',
         opt = true,
+        event = 'BufRead *',
         setup = function()
             vim.api.nvim_create_autocmd('BufRead', {
                 group = 'setup_plugins',
@@ -49,13 +50,6 @@ return {
             })
         end,
         config = configs.nvim_gps,
-        requires = {
-            {
-                'fgheng/winbar.nvim',
-                opt = true,
-                config = configs.winbar,
-            },
-        },
     },
 
     -- 缩进线
@@ -115,7 +109,8 @@ return {
     -- 查找
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.0',
+        -- tag = '0.1.0',
+        branch = '0.1.x',
         opt = true,
         cmd = 'Telescope',
         config = configs.telescope,
@@ -151,10 +146,18 @@ return {
     {
         'lewis6991/gitsigns.nvim',
         opt = true,
-        event = 'BufRead *',
-        config = [[
-            vim.fn.timer_start(1000, require("plugins.tools.configs").gitsigns)
-        ]],
+        setup = function()
+            vim.api.nvim_create_autocmd('BufRead', {
+                group = 'setup_plugins',
+                pattern = '*',
+                once = true,
+                callback = function()
+                    vim.fn.timer_start(1000, function()
+                        vim.cmd [[exe 'PackerLoad gitsigns.nvim']] end)
+                end,
+            })
+        end,
+        config = configs.gitsigns,
     },
 
     -- 文件树

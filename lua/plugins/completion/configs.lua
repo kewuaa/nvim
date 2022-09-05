@@ -183,6 +183,8 @@ configs.nvim_cmp = function()
             ["<C-h>"] = function(fallback)
                 if require("luasnip").jumpable(-1) then
                     vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
+                elseif require('neogen').jumpable(true) then
+                    require('neogen').jump_prev()
                 else
                     fallback()
                 end
@@ -190,6 +192,8 @@ configs.nvim_cmp = function()
             ["<C-l>"] = function(fallback)
                 if require("luasnip").expand_or_jumpable() then
                     vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
+                elseif require('neogen').jumpable() then
+                    require('neogen').jump_next()
                 else
                     fallback()
                 end
@@ -264,7 +268,8 @@ configs.cmp_luasnip = function()
 end
 
 configs.cmp_under_comparator = function()
-    require("cmp").setup {
+    local cmp = require("cmp")
+    cmp.setup {
         sorting = {
             comparators = {
                 cmp.config.compare.offset,

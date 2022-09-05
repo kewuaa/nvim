@@ -24,7 +24,8 @@ configs.nvim_treesitter = function()
 end
 
 configs.nvim_gps = function()
-    require("nvim-gps").setup({
+    gps = require("nvim-gps")
+    gps.setup({
         icons = {
             ["class-name"] = " ", -- Classes and class-like objects
             ["function-name"] = " ", -- Functions
@@ -45,30 +46,17 @@ configs.nvim_gps = function()
         },
         separator = " > ",
     })
-end
-
-configs.winbar = function()
-    require('winbar').setup({
-        enabled = true,
-
-        show_file_path = true,
-        show_symbols = true,
-
-        colors = {
-            path = '', -- You can customize colors like #c946fd
-            file_name = '',
-            symbols = '',
-        },
-
-        icons = {
-            file_icon_default = '',
-            seperator = ' > ',
-            editor_state = '●',
-            lock_icon = '',
-        },
-
-        exclude_filetype = require("settings").exclude_filetypes,
+    local function setup_winbar()
+        if gps.is_available() then
+            vim.opt_local.winbar = [[%{luaeval("require('nvim-gps').get_location()")}]]
+        end
+    end
+    vim.api.nvim_create_autocmd('BufRead', {
+        group = 'setup_plugins',
+        pattern = '*',
+        callback = setup_winbar,
     })
+    setup_winbar()
 end
 
 configs.indent_blankline = function()
