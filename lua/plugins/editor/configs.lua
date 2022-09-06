@@ -13,6 +13,7 @@ configs.guess_indent = function()
             "prompt",
         },
     }
+    vim.cmd [[exe 'GuessIndent']]
 end
 
 configs.nvim_surround = function()

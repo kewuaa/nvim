@@ -143,7 +143,6 @@ end
 configs.nvim_cmp = function()
     -- 加载依赖
     local cmp = require('cmp')
-
     local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
     end
@@ -180,7 +179,7 @@ configs.nvim_cmp = function()
                     fallback()
                 end
             end, { "i", "s" }),
-            ["<C-h>"] = function(fallback)
+            ["<C-k>"] = function(fallback)
                 if require("luasnip").jumpable(-1) then
                     vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
                 elseif require('neogen').jumpable(true) then
@@ -189,7 +188,7 @@ configs.nvim_cmp = function()
                     fallback()
                 end
             end,
-            ["<C-l>"] = function(fallback)
+            ["<C-j>"] = function(fallback)
                 if require("luasnip").expand_or_jumpable() then
                     vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
                 elseif require('neogen').jumpable() then
@@ -222,39 +221,32 @@ configs.nvim_cmp = function()
             },
         },
     })
-    cmp.setup.cmdline(':', {
-        sources = {
-            { name = 'cmdline' }
-        }
-    })
-    cmp.setup.cmdline('/', {
-        sources = {
-            { name = 'buffer' }
-        }
-    })
-
-    if vim.o.ft == 'lua' then
-        vim.cmd [[exe 'PackerLoad cmp-nvim-lua']]
-    else
-        vim.api.nvim_create_autocmd('FileType', {
+    local function callback()
+        if vim.o.ft == 'lua' then
+            vim.cmd [[exe 'PackerLoad cmp-nvim-lua']]
+        else
+            vim.api.nvim_create_autocmd('FileType', {
+                group = 'packer_load_aucmds',
+                pattern = 'lua',
+                once = true,
+                command = [[lua require('packer.load')({'cmp-nvim-lua'}, { ft = "lua" }, _G.packer_plugins)]],
+            })
+        end
+        vim.api.nvim_create_autocmd('InsertEnter', {
             group = 'packer_load_aucmds',
-            pattern = 'lua',
+            pattern = '*',
             once = true,
-            command = [[lua require('packer.load')({'cmp-nvim-lua'}, { ft = "lua" }, _G.packer_plugins)]],
+            command = [[lua require("packer.load")({'LuaSnip'}, {event = 'InsertEnter *'}, _G.packer_plugins)]],
+        })
+        vim.api.nvim_create_autocmd('CmdLineEnter', {
+            group = 'packer_load_aucmds',
+            pattern = '/,:',
+            once = true,
+            command = [[lua require('packer.load')({'cmp-cmdline'}, {event = 'CmdLineEnter /,:'}, _G.packer_plugins)]],
         })
     end
-    vim.api.nvim_create_autocmd('InsertEnter', {
-        group = 'packer_load_aucmds',
-        pattern = '*',
-        once = true,
-        command = [[lua require("packer.load")({'LuaSnip'}, {event = 'InsertEnter *'}, _G.packer_plugins)]],
-    })
-    vim.api.nvim_create_autocmd('CmdLineEnter', {
-        group = 'packer_load_aucmds',
-        pattern = '/,:',
-        once = true,
-        command = [[lua require('packer.load')({'cmp-cmdline'}, {event = 'CmdLineEnter /,:'}, _G.packer_plugins)]],
-    })
+
+    callback()
 end
 
 configs.cmp_luasnip = function()
@@ -264,6 +256,30 @@ configs.cmp_luasnip = function()
                 require("luasnip").lsp_expand(args.body)
             end,
         },
+    })
+end
+
+configs.cmp_cmdline = function()
+    local cmp = require("cmp")
+    if not packer_plugins['cmp-buffer'].loaded then
+        vim.cmd [[exe 'PackerLoad cmp-buffer']]
+    end
+    if not packer_plugins['cmp-path'].loaded then
+        vim.cmd [[exe 'PackerLoad cmp-path']]
+    end
+    cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            { name = 'buffer' }
+        }
+    })
+    cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            { name = 'path' }
+        }, {
+            { name = 'cmdline' }
+        })
     })
 end
 

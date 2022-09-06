@@ -52,6 +52,14 @@ return {
             config = configs.LuaSnip,
         },
 
+        -- 括号补全
+        {
+            'windwp/nvim-autopairs',
+            opt = true,
+            event = 'InsertEnter *',
+            config = configs.nvim_autopairs,
+        },
+
         -- 自动完成
         {
             'hrsh7th/nvim-cmp',
@@ -64,12 +72,6 @@ return {
                     'onsails/lspkind.nvim',
                     opt = true,
                     config = configs.lspkind,
-                },
-                -- 括号补全
-                {
-                    'windwp/nvim-autopairs',
-                    opt = true,
-                    config = configs.nvim_autopairs,
                 },
                 -- underline sort
                 {
@@ -110,5 +112,6 @@ return {
         {
             'hrsh7th/cmp-cmdline',
             opt = true,
+            config = configs.cmp_cmdline,
         },
 }
