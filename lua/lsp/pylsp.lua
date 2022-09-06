@@ -4,7 +4,7 @@ local settings = require('settings')
 
 pylsp.default_env = settings.py3_path .. 'global'
 pylsp.path = settings.py3_path .. 'pylsp/Scripts/'
-pylsp.rootmarks = settings.py3_rootmarks
+pylsp.rootmarks = settings.rootmarks
 
 
 function pylsp.update_config(new_config, new_root)

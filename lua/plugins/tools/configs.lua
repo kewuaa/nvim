@@ -220,18 +220,20 @@ configs.asynctasks = function()
     vim.g.asyncrun_mode = 4
     vim.g.asyncrun_save = 2
     vim.g.asyncrun_bell = 1
-    vim.g.asyncrun_rootmarks = require("settings").py3_rootmarks
+    vim.g.asyncrun_rootmarks = require("settings").rootmarks
     vim.g.asynctasks_term_focus = 0
     vim.g.asynctasks_term_pos = 'external'
     vim.g.asynctasks_template = 1
 end
 
 configs.vim_terminal_help = function()
-    vim.g.terminal_cwd = 0
+    vim.g.terminal_cwd = 2
     vim.g.terminal_height = 10
+    vim.g.terminal_shell = 'powershell'
     vim.g.terminal_pos = 'rightbelow'
     vim.g.terminal_list = 0
     vim.g.terminal_close = 1
+    vim.g.terminal_rootmarks = require("settings").rootmarks
 end
 
 configs.gitsigns = function()
