@@ -30,6 +30,12 @@ return {
         requires = {
             -- 彩虹括号
             {'p00f/nvim-ts-rainbow', opt = true},
+            -- 凸显函数参数
+            {
+                'm-demare/hlargs.nvim',
+                opt = true,
+                config = configs.hlargs,
+            }
         },
     },
 
@@ -38,17 +44,6 @@ return {
         'SmiteshP/nvim-gps',
         opt = true,
         event = 'BufRead *',
-        setup = function()
-            vim.api.nvim_create_autocmd('BufRead', {
-                group = 'setup_plugins',
-                pattern = '*',
-                once = true,
-                callback = function()
-                    vim.fn.timer_start(500, function(timer)
-                        vim.cmd [[exe 'PackerLoad nvim-gps']] end)
-                end,
-            })
-        end,
         config = configs.nvim_gps,
     },
 

@@ -23,6 +23,12 @@ configs.nvim_treesitter = function()
     vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
 end
 
+configs.hlargs = function()
+    require('hlargs').setup {
+        excluded_filetypes = require("settings").exclude_filetypes,
+    }
+end
+
 configs.nvim_gps = function()
     gps = require("nvim-gps")
     gps.setup({
@@ -233,7 +239,7 @@ configs.vim_terminal_help = function()
     vim.g.terminal_pos = 'rightbelow'
     vim.g.terminal_list = 0
     vim.g.terminal_close = 1
-    vim.g.terminal_rootmarks = require("settings").rootmarks
+    vim.g.terminal_rootmarkers = require("settings").rootmarks
 end
 
 configs.gitsigns = function()

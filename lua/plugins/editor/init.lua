@@ -57,14 +57,6 @@ return {
             config = configs.nvim_comment,
         },
 
-        -- 生成注释文档
-        {
-            'danymat/neogen',
-            opt = true,
-            cmd = 'Neogen',
-            config = configs.neogen,
-        },
-
         -- 扩展区域
         {
             'terryma/vim-expand-region',
