@@ -198,27 +198,32 @@ configs.nvim_cmp = function()
                 end
             end,
         }),
-        sources = {
-            {name = 'nvim_lsp'},
-            {name = 'luasnip'},
+        sources = cmp.config.sources(
             {
-                name = 'buffer',
-                option = {
-                    get_bufnrs = function()
-                        return vim.api.nvim_list_bufs()
-                    end,
-                },
+                {name = 'nvim_lsp'},
+                {name = 'luasnip'},
+                {
+                    name = 'path',
+                    option = {
+                        trailing_slash = false,
+                        get_cwd = function()
+                            return vim.fn.get_cwd()
+                        end,
+                    },
+                }
             },
             {
-                name = 'path',
-                option = {
-                    trailing_slash = false,
-                    get_cwd = function()
-                        return vim.api.nvim_eval('fnamemodify(bufname("%"), ":p:h")')
-                    end,
+                {name = 'nvim_lua'},
+                {
+                    name = 'buffer',
+                    option = {
+                        get_bufnrs = function()
+                            return vim.api.nvim_list_bufs()
+                        end,
+                    },
                 },
-            },
-        },
+            }
+        ),
     })
     local function callback()
         if vim.o.ft == 'lua' then
