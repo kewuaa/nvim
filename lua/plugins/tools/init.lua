@@ -6,10 +6,6 @@ return {
     {
         'kyazdani42/nvim-web-devicons',
         opt = true,
-        setup = [[
-            vim.fn.timer_start(500, function(timer)
-                vim.cmd("exe 'PackerLoad nvim-web-devicons'") end)
-        ]]
     },
 
     -- 启动时间

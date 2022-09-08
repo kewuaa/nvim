@@ -260,13 +260,11 @@ configs.cmp_luasnip = function()
 end
 
 configs.cmp_cmdline = function()
+    require("plugins").check_loaded({
+        'cmp-buffer',
+        'cmp-path',
+    })
     local cmp = require("cmp")
-    if not packer_plugins['cmp-buffer'].loaded then
-        vim.cmd [[exe 'PackerLoad cmp-buffer']]
-    end
-    if not packer_plugins['cmp-path'].loaded then
-        vim.cmd [[exe 'PackerLoad cmp-path']]
-    end
     cmp.setup.cmdline('/', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {

@@ -75,6 +75,9 @@ configs.indent_blankline = function()
 end
 
 configs.trouble = function()
+    require("plugins").check_loaded({
+        'nvim-web-devicons',
+    })
     require("trouble").setup({
         position = "bottom", -- position of the list can be: bottom, top, left, right
         height = 10, -- height of the trouble list when position is top or bottom
@@ -188,9 +191,11 @@ configs.symbols_outline = function()
 end
 
 configs.telescope = function()
-    vim.cmd [[
-        exe 'PackerLoad plenary.nvim telescope-fzf-native.nvim'
-    ]]
+    require("plugins").check_loaded({
+        'plenary.nvim',
+        'telescope-fzf-native.nvim',
+        'nvim-web-devicons',
+    })
     local telescope = require("telescope")
 
     telescope.setup({
@@ -293,6 +298,9 @@ configs.gitsigns = function()
 end
 
 configs.nvim_tree = function()
+    require("plugins").check_loaded({
+        'nvim-web-devicons',
+    })
     require("nvim-tree").setup({
       sort_by = "case_sensitive",
       view = {
@@ -307,6 +315,9 @@ configs.nvim_tree = function()
 end
 
 configs.JABS = function()
+    require("plugins").check_loaded({
+        'nvim-web-devicons',
+    })
     require('jabs').setup({
         -- Options for the main window
         position = 'center', -- center, corner. Default corner
