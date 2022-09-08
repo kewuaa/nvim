@@ -207,7 +207,13 @@ configs.nvim_cmp = function()
                     option = {
                         trailing_slash = false,
                         get_cwd = function()
-                            return vim.fn.get_cwd()
+                            local activate_clients = vim.lsp.buf_get_clients()
+                            local num = #activate_clients
+                            if num > 0 then
+                                return activate_clients[num].config.root_dir
+                            else
+                                return vim.fn.getcwd()
+                            end
                         end,
                     },
                 }
