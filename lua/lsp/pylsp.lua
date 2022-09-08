@@ -1,10 +1,15 @@
 local pylsp = {}
 local settings = require('settings')
+local py3_path = settings.program_files_path .. 'Python/'
 
 
-pylsp.default_env = settings.py3_path .. 'global'
-pylsp.path = settings.py3_path .. 'pylsp/Scripts/'
-pylsp.rootmarks = settings.rootmarks
+pylsp.default_env = py3_path .. 'global'
+pylsp.path = py3_path .. 'pylsp/Scripts/'
+pylsp.rootmarks = {}
+for k, v in pairs(settings.rootmarks) do
+    pylsp.rootmarks[k] = v
+end
+pylsp.rootmarks[#pylsp.rootmarks + 1] = '.venv'
 
 
 function pylsp.update_config(new_config, new_root)

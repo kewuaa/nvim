@@ -24,7 +24,6 @@ function M.setup()
       },
     })
 
-    local pylsp = require('lsp.pylsp')
     local lsp_config = require('lspconfig')
 
     -- Mappings.
@@ -118,6 +117,7 @@ function M.setup()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
+    local pylsp = require('lsp.pylsp')
     lsp_config.pylsp.setup({
         root_dir = find_root(unpack(pylsp.rootmarks)),
         name = 'pylsp',
@@ -128,6 +128,19 @@ function M.setup()
         cmd = {pylsp.path .. 'pylsp.exe'},
         on_attach = on_attach,
         settings = pylsp.settings,
+        capabilities = capabilities,
+        flags = lsp_flags,
+    })
+    local sumneko_lua = require("lsp.sumneko_lua")
+    lsp_config.sumneko_lua.setup({
+        root_dir = find_root(unpack(sumneko_lua.rootmarks)),
+        name = 'sumneko_lua',
+        filetypes = {'lua'},
+        autostart = true,
+        single_file_support = true,
+        cmd = {sumneko_lua.path .. 'lua-language-server.exe'},
+        on_attach = on_attach,
+        settings = sumneko_lua.settings,
         capabilities = capabilities,
         flags = lsp_flags,
     })

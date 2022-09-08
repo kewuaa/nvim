@@ -5,7 +5,7 @@ return {
         {
             'glepnir/lspsaga.nvim',
             opt = true,
-            ft = {'python'},
+            ft = {'python', 'lua'},
             config = configs.lspsaga,
             requires = {
                 -- LSP

@@ -146,7 +146,7 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-lua vim.g.python3_host_prog = require('settings').getpy('nvim')
+lua vim.g.python3_host_prog = require('settings'):getpy('nvim')
 
 let g:loaded_gzip = 1
 let g:loaded_tar = 1

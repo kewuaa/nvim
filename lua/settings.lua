@@ -1,8 +1,7 @@
 local settings = {}
-local program_files_path = 'D:/Softwares/Program_Files/'
+settings.program_files_path = 'D:/Softwares/Program_Files/'
 
-settings.py3_path = program_files_path .. 'Python/'
-settings.rootmarks = {'.git', '.venv'}
+settings.rootmarks = {'.git', '.root'}
 settings.exclude_filetypes = {
     "fugitive",
     "help",
@@ -20,8 +19,9 @@ settings.exclude_filetypes = {
     "",
 }
 
-function settings.getpy(name)
-    return settings.py3_path .. name .. '/Scripts/python.exe'
+function settings:getpy(name)
+    local py3_path = self.program_files_path .. 'Python/'
+    return py3_path .. name .. '/Scripts/python.exe'
 end
 
 return settings
