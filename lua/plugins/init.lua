@@ -70,5 +70,20 @@ function M.check_loaded(plugins)
     end
 end
 
+function M.get_cwd()
+    local activate_clients = vim.lsp.buf_get_clients()
+    local num = #activate_clients
+    if num > 0 then
+        local root = activate_clients[num].config.root_dir
+        if root then
+            return root
+        else
+            return vim.fn.getcwd()
+        end
+    else
+        return vim.fn.getcwd()
+    end
+end
+
 M.init()
 return M

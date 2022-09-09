@@ -5,7 +5,16 @@ return {
         {
             'glepnir/lspsaga.nvim',
             opt = true,
-            ft = {'python', 'lua', "c", "cpp", "objc", "objcpp", "cuda" },
+            ft = {
+                'python',
+                'lua',
+                "c",
+                "cpp",
+                "objc",
+                "objcpp",
+                "cuda",
+                "proto"
+            },
             config = configs.lspsaga,
             requires = {
                 -- LSP

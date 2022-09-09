@@ -4,6 +4,12 @@ local opt = {
     silent = true,
 }
 
+local function telescope(option)
+    return function()
+        local cmd = string.format('Telescope %s cwd=%s', option, require('plugins').get_cwd())
+        vim.cmd(cmd)
+    end
+end
 ---------------------------------------------------------------------------------------------------
 
 map('n', '<F5>', '<cmd>AsyncTask file-run<CR>', opt)
@@ -24,14 +30,18 @@ map('n', '<leader>bb', '<cmd>JABSOpen<CR>', opt)
 
 map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>', opt)
 
-map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opt)
-map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', opt)
-map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', opt)
-map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opt)
-map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', opt)
-map('n', '<leader>fm', '<cmd>Telescope keymaps<cr>', opt)
-map('n', '<leader>fc', '<cmd>Telescope commands<cr>', opt)
+map('n', '<leader>ff', telescope('find_files'), opt)
+map('n', '<leader>fg', telescope('live_grep'), opt)
+map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opt)
+map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', opt)
+map('n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>', opt)
+map('n', '<leader>fm', '<cmd>Telescope keymaps<CR>', opt)
+map('n', '<leader>fc', '<cmd>Telescope commands<CR>', opt)
 
 map('n', '<leader>bd', '<cmd>Bdelete<CR>', opt)
+
+map('n', '<leader>//', function ()
+    print('test')
+end)
 
 ---------------------------------------------------------------------------------------------------
