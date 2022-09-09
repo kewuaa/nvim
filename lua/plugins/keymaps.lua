@@ -40,8 +40,4 @@ map('n', '<leader>fc', '<cmd>Telescope commands<CR>', opt)
 
 map('n', '<leader>bd', '<cmd>Bdelete<CR>', opt)
 
-map('n', '<leader>//', function ()
-    print('test')
-end)
-
 ---------------------------------------------------------------------------------------------------

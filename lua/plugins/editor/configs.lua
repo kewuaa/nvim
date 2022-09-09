@@ -1,21 +1,6 @@
 local configs = {}
 
 
-configs.guess_indent = function()
-    -- This is the default configuration
-    require('guess-indent').setup {
-        auto_cmd = true,  -- Set to false to disable automatic execution
-        filetype_exclude = require("settings").exclude_filetypes,  -- A list of filetypes for which the auto command gets disabled
-        buftype_exclude = {  -- A list of buffer types for which the auto command gets disabled
-            "help",
-            "nofile",
-            "terminal",
-            "prompt",
-        },
-    }
-    vim.cmd [[exe 'GuessIndent']]
-end
-
 configs.nvim_surround = function()
     require("nvim-surround").setup({
         keymaps = {
@@ -61,10 +46,33 @@ configs.nvim_comment = function()
     })
 end
 
+configs.nvim_trevJ = function()
+    vim.keymap.set('n', '<leader>j',
+        "<cmd>lua require('trevj').format_at_cursor()<CR>",
+        { noremap = true, silent =true })
+end
+
 configs.iswap = function()
     require("iswap").setup({
         autoswap = true,
     })
+end
+
+configs.nvim_toggler = function()
+    require("nvim-toggler").setup({
+        inverses = {
+            ['vim'] = 'emacs'
+        },
+        -- removes the default <leader>i keymap
+        remove_default_keybinds = true,
+    })
+
+    vim.keymap.set(
+        {'n', 'v'},
+        '<leader>tw',
+        '<cmd>lua require("nvim-toggler").toggle()<CR>',
+        { noremap = true, silent = true }
+    )
 end
 
 configs.vim_illuminate = function()
