@@ -146,8 +146,6 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-lua vim.g.python3_host_prog = require('settings'):getpy('nvim')
-
 let g:loaded_gzip = 1
 let g:loaded_tar = 1
 let g:loaded_tarPlugin = 1
@@ -179,5 +177,8 @@ augroup setup
     au BufRead * ++once set statusline=%!v:lua.require'statusline'.setup()
 augroup END
 
-lua require('plugins')
+lua << EOF
+require('plugins')
+vim.g.python3_host_prog = require('settings'):getpy('nvim')
+EOF
 
