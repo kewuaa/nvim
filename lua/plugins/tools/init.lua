@@ -26,12 +26,6 @@ return {
         requires = {
             -- 彩虹括号
             {'p00f/nvim-ts-rainbow', opt = true},
-            -- 凸显函数参数
-            {
-                'm-demare/hlargs.nvim',
-                opt = true,
-                config = configs.hlargs,
-            }
         },
     },
 
@@ -56,20 +50,6 @@ return {
         'folke/trouble.nvim',
         opt = true,
         cmd = 'Trouble',
-        setup = function()
-            require("lsp.hook").add(
-                function(client, bufnr)
-                    local map = vim.keymap.set
-                    local bufopts = {noremap = true, silent = true, buffer = bufnr}
-                    map("n", "<leader>xx", "<cmd>Trouble<cr>", bufopts)
-                    map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", bufopts)
-                    map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", bufopts)
-                    map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", bufopts)
-                    map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", bufopts)
-                    map("n", "gR", "<cmd>Trouble lsp_references<cr>", bufopts)
-                end
-            )
-        end,
         config = configs.trouble,
     },
 
@@ -78,17 +58,6 @@ return {
         'simrat39/symbols-outline.nvim',
         opt = true,
         cmd = 'SymbolsOutline',
-        setup = function()
-            require('lsp.hook').add(
-                function(client, bufnr)
-                    vim.keymap.set('n', '<leader>st', ':SymbolsOutline<CR>', {
-                        noremap = true,
-                        silent = true,
-                        buffer = bufnr,
-                    })
-                end
-            )
-        end,
         config = configs.symbols_outline,
     },
 

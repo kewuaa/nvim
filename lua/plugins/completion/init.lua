@@ -5,7 +5,7 @@ return {
         {
             'glepnir/lspsaga.nvim',
             opt = true,
-            ft = {'python', 'lua'},
+            ft = {'python', 'lua', "c", "cpp", "objc", "objcpp", "cuda" },
             config = configs.lspsaga,
             requires = {
                 -- LSP
@@ -19,18 +19,6 @@ return {
                 {
                     'ray-x/lsp_signature.nvim',
                     opt = true,
-                    setup = function()
-                        require("lsp.hook").add(
-                            function(client, bufnr)
-                                require("lsp_signature").on_attach({
-                                    bind = true,
-                                    handler_opts = {
-                                        border = "single",
-                                    },
-                                }, bufnr)
-                            end
-                        )
-                    end,
                 },
                 -- LSP source
                 {

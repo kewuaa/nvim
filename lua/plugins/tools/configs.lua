@@ -23,14 +23,8 @@ configs.nvim_treesitter = function()
     vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
 end
 
-configs.hlargs = function()
-    require('hlargs').setup {
-        excluded_filetypes = require("settings").exclude_filetypes,
-    }
-end
-
 configs.nvim_gps = function()
-    gps = require("nvim-gps")
+    local gps = require("nvim-gps")
     gps.setup({
         icons = {
             ["class-name"] = " ", -- Classes and class-like objects

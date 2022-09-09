@@ -1,6 +1,3 @@
-local function setup_color()
-end
-
 local function config_color()
     local monokai = require("monokai")
     local palette = monokai.classic

@@ -210,7 +210,12 @@ configs.nvim_cmp = function()
                             local activate_clients = vim.lsp.buf_get_clients()
                             local num = #activate_clients
                             if num > 0 then
-                                return activate_clients[num].config.root_dir
+                                local root = activate_clients[num].config.root_dir
+                                if root then
+                                    return root
+                                else
+                                    return vim.fn.getcwd()
+                                end
                             else
                                 return vim.fn.getcwd()
                             end

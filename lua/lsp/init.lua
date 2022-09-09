@@ -104,9 +104,7 @@ function M.setup()
         map('n', '<leader>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, bufopts)
-
-        -- trigger hook
-        require('lsp.hook').trigger(client, bufnr)
+        require("plugins.attach").lsp(client, bufnr)
     end
 
     local lsp_flags = {
@@ -141,6 +139,32 @@ function M.setup()
         cmd = {sumneko_lua.path .. 'lua-language-server.exe'},
         on_attach = on_attach,
         settings = sumneko_lua.settings,
+        capabilities = capabilities,
+        flags = lsp_flags,
+    })
+    local clangd = require("lsp.clangd")
+    lsp_config.clangd.setup({
+        root_dir = find_root(unpack(clangd.rootmarks)),
+        name = 'clangd',
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+        autostart = true,
+        single_file_support = true,
+        cmd = {
+            clangd.path .. 'clangd.exe',
+            "--background-index",
+            "--pch-storage=memory",
+            -- You MUST set this arg ↓ to your clangd executable location (if not included)!
+            "--query-driver=" .. clangd.executable,
+            "--clang-tidy",
+            "--all-scopes-completion",
+            "--cross-file-rename",
+            "--completion-style=detailed",
+            "--header-insertion-decorators",
+            "--header-insertion=iwyu",
+        },
+        commands = clangd.commands,
+        on_attach = on_attach,
+        -- settings = clangd.settings,
         capabilities = capabilities,
         flags = lsp_flags,
     })
