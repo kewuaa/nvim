@@ -28,11 +28,11 @@ local function switch_source_header_splitcmd(bufnr, splitcmd)
     end
 end
 
-clangd.path = c_path .. 'clangd/bin/'
-clangd.executable = table.concat({
-    settings.program_files_path .. 'MYSY2/mingw64/bin/g++',
-    settings.program_files_path .. 'MYSY2/mingw64/bin/gcc',
-}, ',')
+clangd.path = c_path .. 'MSYS2/clang64/bin/'
+-- clangd.executable = table.concat({
+--     clangd.path .. '/clang',
+--     clangd.path .. '/clang++',
+-- }, ',')
 clangd.rootmarks = {}
 for k, v in pairs(settings.rootmarks) do
     clangd.rootmarks[k] = v

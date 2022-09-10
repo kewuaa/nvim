@@ -154,7 +154,7 @@ function M.setup()
             "--background-index",
             "--pch-storage=memory",
             -- You MUST set this arg ↓ to your clangd executable location (if not included)!
-            "--query-driver=" .. clangd.executable,
+            -- "--query-driver=" .. clangd.executable,
             "--clang-tidy",
             "--all-scopes-completion",
             "--cross-file-rename",

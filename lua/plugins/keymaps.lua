@@ -13,6 +13,7 @@ end
 ---------------------------------------------------------------------------------------------------
 
 map('n', '<F5>', '<cmd>AsyncTask file-run<CR>', opt)
+map('n', '<F9>', '<cmd>AsyncTask file-build<CR>', opt)
 
 map('n', '<leader><leader>w', '<cmd>HopWord<CR>', opt)
 map('n', '<leader><leader>j', '<cmd>HopLine<CR>', opt)
@@ -20,9 +21,6 @@ map('n', '<leader><leader>k', '<cmd>HopLine<CR>', opt)
 map('n', '<leader><leader>f', '<cmd>HopChar1<CR>', opt)
 map('n', '<leader><leader>c', '<cmd>HopChar2<CR>', opt)
 map('n', '<leader><leader>/', '<cmd>HopPattern<CR>', opt)
-
-map('n', '<leader>nf', '<cmd>Neogen func<CR>', opt)
-map('n', '<leader>nc', '<cmd>Neogen class<CR>', opt)
 
 map('n', '<leader>sw', '<cmd>ISwapWith<CR>', opt)
 
