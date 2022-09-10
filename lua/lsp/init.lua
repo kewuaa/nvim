@@ -69,7 +69,7 @@ function M.setup()
         map('n', 'gD', vim.lsp.buf.declaration, bufopts)
         map('n', 'gd', vim.lsp.buf.definition, bufopts)
         -- preview the definition
-        map("n", "<leader>pd", "<cmd>Lspsaga preview_definition<CR>", bufopts)
+        map("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
 
         -- hover doc
         -- map('n', 'K', vim.lsp.buf.hover, bufopts)
