@@ -231,6 +231,9 @@ configs.lspkind = function()
 end
 
 configs.nvim_autopairs = function()
+    require("plugins").check_loaded({
+        'nvim-cmp',
+    })
     local npairs = require("nvim-autopairs")
     local Rule = require("nvim-autopairs.rule")
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')

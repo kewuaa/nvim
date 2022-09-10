@@ -62,10 +62,10 @@ function M.check_loaded(plugins)
     for _, name in ipairs(plugins) do
         if packer_plugins[name] then
             if not packer_plugins[name].loaded then
-                vim.cmd([[exe 'PackerLoad ]] .. name .. "'")
+                vim.cmd(string.format([[packadd %s]], name))
             end
         else
-            print('plugin ' .. name .. ' not found')
+            print(string.format('plugin %s not found', name))
         end
     end
 end
