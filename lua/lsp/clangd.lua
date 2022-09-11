@@ -1,6 +1,5 @@
 local clangd = {}
 local settings = require("settings")
-local c_path = settings.program_files_path .. 'C/'
 
 
 local function switch_source_header_splitcmd(bufnr, splitcmd)
@@ -28,7 +27,7 @@ local function switch_source_header_splitcmd(bufnr, splitcmd)
     end
 end
 
-clangd.path = c_path .. 'MSYS2/clang64/bin/'
+clangd.path = settings.c_path .. 'MSYS2/clang64/bin/'
 -- clangd.executable = table.concat({
 --     clangd.path .. '/clang',
 --     clangd.path .. '/clang++',

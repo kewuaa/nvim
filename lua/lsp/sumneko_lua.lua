@@ -1,9 +1,8 @@
 local sumneko_lua = {}
 local settings = require("settings")
-local lua_path = settings.program_files_path .. 'Lua/'
 
 
-sumneko_lua.path = lua_path .. 'sumneko_lua/bin/'
+sumneko_lua.path = settings.lua_path .. 'sumneko_lua/bin/'
 sumneko_lua.rootmarks = {}
 for k, v in pairs(settings.rootmarks) do
     sumneko_lua.rootmarks[k] = v

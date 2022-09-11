@@ -19,7 +19,7 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         opt = true,
-        run = ':TSUpdate',
+        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
         event = {'BufNewFile *', 'BufReadPre *'},
         cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
         config = configs.nvim_treesitter,

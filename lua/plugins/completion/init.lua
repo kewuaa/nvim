@@ -4,6 +4,7 @@ return {
     -- lsp增强
     {
         'glepnir/lspsaga.nvim',
+        branch = 'main',
         opt = true,
         ft = {
             'python',

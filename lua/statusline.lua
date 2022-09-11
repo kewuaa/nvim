@@ -59,15 +59,12 @@ end
 
 function M.get_lsp_info()
     local active_clients = vim.lsp.buf_get_clients()
-    local num = #active_clients
-    if num > 0 then
-        local active_client = active_clients[num]
-        local name = active_client.name
-        local state = 'running'
-        if active_client.is_stopped() then
-            state = 'stopped'
-        end
-        return '[' .. name .. ': ' .. state .. ']'
+    local msg = {}
+    for _, client in pairs(active_clients) do
+        msg[#msg+1] = client.name
+    end
+    if #msg > 0 then
+        return string.format('[%s]', table.concat(msg, ', '))
     else
         return ''
     end
@@ -93,7 +90,7 @@ function M.setup()
         -- "%#warningmsg#",
 
         [[%{luaeval("require'statusline'.diagnostic_status()")}]],
- 
+
         -- Resets the highlight group
         -- "%*",
 

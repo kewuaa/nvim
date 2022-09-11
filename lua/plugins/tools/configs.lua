@@ -22,8 +22,13 @@ configs.nvim_treesitter = function()
             -- termcolors = {} -- table of colour name strings
         },
     })
-    vim.api.nvim_set_option_value("foldmethod", "expr", {})
-    vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
+    vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
+        group = 'setup_plugins',
+        callback = function()
+            vim.opt.foldmethod     = 'expr'
+            vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+        end
+    })
 end
 
 configs.nvim_gps = function()
@@ -200,14 +205,29 @@ configs.telescope = function()
             prompt_prefix = '🔭 ',
             selection_caret = ' ',
             layout_config = {
-                horizontal = { prompt_position = 'top', results_width = 0.6 },
-                vertical = { mirror = false },
+                horizontal = {
+                    prompt_position = 'top',
+                    results_width = 0.6,
+                },
+                vertical = {
+                    mirror = false,
+                },
             },
             sorting_strategy = 'ascending',
             file_previewer = require('telescope.previewers').vim_buffer_cat.new,
             grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
             qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-            file_ignore_patterns = { "^.git/", "^.venv/", "^__pycache__/", "^.cache/", "%.class", "%.pdf", "%.mkv", "%.mp4", "%.zip" },
+            file_ignore_patterns = {
+                "^.git/",
+                "^.venv/",
+                "^__pycache__/",
+                "^.cache/",
+                "%.class",
+                "%.pdf",
+                "%.mkv",
+                "%.mp4",
+                "%.zip",
+            },
         },
         extensions = {
             fzf = {
