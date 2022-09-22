@@ -38,7 +38,6 @@ map('n', '<leader>fc', '<cmd>Telescope commands<CR>', opts)
 
 map('n', '<leader>bd', '<cmd>Bdelete<CR>', opts)
 
-map('n', '<leader>tr', '<cmd>TranslateW<CR>', opts)
-map('x', '<leader>tr', '<cmd>TranslateWV<CR>', opts)
+map({'n', 'x'}, '<leader>tr', '<cmd>TranslateW<CR>', opts)
 
 ---------------------------------------------------------------------------------------------------

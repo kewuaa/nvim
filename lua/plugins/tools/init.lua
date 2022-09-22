@@ -126,14 +126,13 @@ return {
         opt = true,
         cmd = {
             'Translate',
-            'TranslateV',
             'TranslateW',
-            'TranslateWV',
             'TranslateR',
-            'TranslateRV',
             'TranslateX',
             'TranslateH',
-        }
+            'TranslateL',
+        },
+        setup = configs.vim_translator,
     },
 
     -- 文件树

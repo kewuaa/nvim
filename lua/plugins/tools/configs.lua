@@ -314,6 +314,10 @@ configs.gitsigns = function()
     }
 end
 
+configs.vim_translator = function ()
+    vim.g.translator_default_engines = {'bing', 'haici', 'youdao'}
+end
+
 configs.nvim_tree = function()
     require("plugins").check_loaded({
         'nvim-web-devicons',
