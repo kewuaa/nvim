@@ -42,7 +42,6 @@ configs.nvim_comment = function()
         comment_chunk_text_object = "ic",
         -- Hook function to call before commenting takes place
         hook = nil
-
     })
 end
 
@@ -56,23 +55,6 @@ configs.iswap = function()
     require("iswap").setup({
         autoswap = true,
     })
-end
-
-configs.nvim_toggler = function()
-    require("nvim-toggler").setup({
-        inverses = {
-            ['vim'] = 'emacs'
-        },
-        -- removes the default <leader>i keymap
-        remove_default_keybinds = true,
-    })
-
-    vim.keymap.set(
-        {'n', 'v'},
-        '<leader>tw',
-        '<cmd>lua require("nvim-toggler").toggle()<CR>',
-        { noremap = true, silent = true }
-    )
 end
 
 configs.vim_illuminate = function()

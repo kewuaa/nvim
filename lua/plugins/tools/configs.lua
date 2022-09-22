@@ -59,7 +59,7 @@ configs.nvim_gps = function()
             vim.opt_local.winbar = [[%{luaeval("require('nvim-gps').get_location()")}]]
         end
     end
-    vim.api.nvim_create_autocmd('BufRead', {
+    vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
         group = 'setup_plugins',
         pattern = '*',
         callback = setup_winbar,

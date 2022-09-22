@@ -120,6 +120,22 @@ return {
         config = configs.gitsigns,
     },
 
+    -- 翻译
+    {
+        'voldikss/vim-translator',
+        opt = true,
+        cmd = {
+            'Translate',
+            'TranslateV',
+            'TranslateW',
+            'TranslateWV',
+            'TranslateR',
+            'TranslateRV',
+            'TranslateX',
+            'TranslateH',
+        }
+    },
+
     -- 文件树
     {
         'kyazdani42/nvim-tree.lua',

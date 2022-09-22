@@ -74,17 +74,6 @@ return {
         config = configs.iswap,
     },
 
-    -- 反转文本
-    {
-        'nguyenvukhang/nvim-toggler',
-        opt = true,
-        keys = {
-            {'n', vim.g.mapleader .. 'tw'},
-            {'v', vim.g.mapleader .. 'tw'},
-        },
-        config = configs.nvim_toggler,
-    },
-
     -- 高亮相同单词
     {
         'RRethy/vim-illuminate',
