@@ -32,7 +32,9 @@ configs.nvim_treesitter = function()
 end
 
 configs.hlargs = function()
-    require("hlargs").setup()
+    require("hlargs").setup({
+        excluded_filetypes = require("settings").exclude_filetypes,
+    })
 end
 
 configs.nvim_gps = function()
