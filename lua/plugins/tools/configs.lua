@@ -31,6 +31,10 @@ configs.nvim_treesitter = function()
     })
 end
 
+configs.hlargs = function()
+    require("hlargs").setup()
+end
+
 configs.nvim_gps = function()
     local gps = require("nvim-gps")
     gps.setup({
@@ -312,10 +316,6 @@ configs.gitsigns = function()
             map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
         end
     }
-end
-
-configs.vim_translator = function ()
-    vim.g.translator_default_engines = {'bing', 'haici', 'youdao'}
 end
 
 configs.nvim_tree = function()

@@ -20,12 +20,17 @@ return {
         'nvim-treesitter/nvim-treesitter',
         opt = true,
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-        event = {'BufNewFile *', 'BufReadPre *'},
         cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
         config = configs.nvim_treesitter,
         requires = {
             -- 彩虹括号
             {'p00f/nvim-ts-rainbow', opt = true},
+            -- 参数高亮
+            {
+                'm-demare/hlargs.nvim',
+                opt = true,
+                config = configs.hlargs,
+            },
         },
     },
 
@@ -33,7 +38,7 @@ return {
     {
         'SmiteshP/nvim-gps',
         opt = true,
-        event = 'BufRead *',
+        after = 'nvim-treesitter',
         config = configs.nvim_gps,
     },
 
@@ -41,7 +46,7 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         opt = true,
-        event = 'BufRead *',
+        after = 'nvim-treesitter',
         config = configs.indent_blankline,
     },
 
@@ -118,21 +123,6 @@ return {
             })
         end,
         config = configs.gitsigns,
-    },
-
-    -- 翻译
-    {
-        'voldikss/vim-translator',
-        opt = true,
-        cmd = {
-            'Translate',
-            'TranslateW',
-            'TranslateR',
-            'TranslateX',
-            'TranslateH',
-            'TranslateL',
-        },
-        setup = configs.vim_translator,
     },
 
     -- 文件树
