@@ -36,9 +36,6 @@ function M.file_or_lsp_status()
 end
 
 function M.format_uri(uri)
-    if vim.startswith(uri, 'term://') then
-        return string.sub(uri, 8)
-    end
     return vim.fn.fnamemodify(vim.uri_to_fname(uri), ':.')
 end
 

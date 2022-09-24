@@ -23,6 +23,7 @@ settings.exclude_filetypes = {
     "lspsagaoutline",
     "startuptime",
     "TelescopePrompt",
+    "toggleterm",
     "",
 }
 

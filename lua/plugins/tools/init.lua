@@ -100,12 +100,12 @@ return {
         },
     },
 
-    -- terminal help
+    -- float terminal
     {
-        'skywind3000/vim-terminal-help',
-        opt = true,
-        keys = {{'n', '<M-=>'}},
-        config = configs.vim_terminal_help,
+        'akinsho/toggleterm.nvim',
+        tag = '*',
+        cmd = 'ToggleTerm',
+        config = configs.toggleterm,
     },
 
     -- git集成

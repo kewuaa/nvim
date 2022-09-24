@@ -10,6 +10,13 @@ local function telescope(option)
         vim.cmd(cmd)
     end
 end
+
+local function toggleterm()
+    return function()
+        local cmd = string.format('ToggleTerm dir=%s', require('plugins').get_cwd())
+        vim.cmd(cmd)
+    end
+end
 ---------------------------------------------------------------------------------------------------
 
 map('n', '<F5>', '<cmd>AsyncTask file-run<CR>', opts)
@@ -37,5 +44,9 @@ map('n', '<leader>fm', '<cmd>Telescope keymaps<CR>', opts)
 map('n', '<leader>fc', '<cmd>Telescope commands<CR>', opts)
 
 map('n', '<leader>bd', '<cmd>Bdelete<CR>', opts)
+
+map('t', '<ESC>', [[<c-\><c-n>]], opts)
+map({'n', 't'}, '<M-=>', toggleterm(), opts)
+map({'n', 'x'}, '<M-->', '<cmd>ToggleTermSendCurrentLine<CR>', opts)
 
 ---------------------------------------------------------------------------------------------------
