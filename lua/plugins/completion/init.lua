@@ -9,12 +9,9 @@ return {
         ft = {
             'python',
             'lua',
-            "c",
-            "cpp",
-            "objc",
-            "objcpp",
-            "cuda",
-            "proto"
+            'c',
+            'cpp',
+            'rust',
         },
         config = configs.lspsaga,
         requires = {

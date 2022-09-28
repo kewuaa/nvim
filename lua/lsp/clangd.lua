@@ -1,5 +1,13 @@
 local clangd = {}
 local settings = require("settings")
+local rootmarks = {}
+
+
+for k, v in pairs(settings.rootmarks) do
+    rootmarks[k] = v
+end
+rootmarks[#rootmarks+1] = 'compile_commands.json'
+rootmarks[#rootmarks+1] = '.clangd'
 
 
 local function switch_source_header_splitcmd(bufnr, splitcmd)
@@ -9,7 +17,7 @@ local function switch_source_header_splitcmd(bufnr, splitcmd)
     local params = { uri = vim.uri_from_bufnr(bufnr) }
     if clangd_client then
         clangd_client.request("textDocument/switchSourceHeader", params, function(err, result)
-            if err then
+        if err then
                 error(tostring(err))
             end
             if not result then
@@ -20,23 +28,29 @@ local function switch_source_header_splitcmd(bufnr, splitcmd)
         end)
     else
         vim.notify(
-        "Method textDocument/switchSourceHeader is not supported by any active server on this buffer",
-        vim.log.levels.ERROR,
-        { title = "LSP Error!" }
+            "Method textDocument/switchSourceHeader is not supported by any active server on this buffer",
+            vim.log.levels.ERROR,
+            { title = "LSP Error!" }
         )
     end
 end
 
-clangd.path = settings.c_path .. 'MSYS2/clang64/bin/'
--- clangd.executable = table.concat({
---     clangd.path .. '/clang',
---     clangd.path .. '/clang++',
--- }, ',')
-clangd.rootmarks = {}
-for k, v in pairs(settings.rootmarks) do
-    clangd.rootmarks[k] = v
-end
-clangd.rootmarks[#clangd.rootmarks + 1] = '.clangd'
+
+clangd.rootmarks = rootmarks
+clangd.filetypes = {'c', 'cpp'}
+clangd.cmd = {
+    settings.c_path .. 'mingw64/bin/clangd.exe',
+    "--background-index",
+    "--pch-storage=memory",
+    -- You MUST set this arg ↓ to your clangd executable location (if not included)!
+    -- "--query-driver=/usr/bin/clang++,/usr/bin/**/clang-*,/bin/clang,/bin/clang++,/usr/bin/gcc,/usr/bin/g++",
+    "--clang-tidy",
+    "--all-scopes-completion",
+    "--cross-file-rename",
+    "--completion-style=detailed",
+    "--header-insertion-decorators",
+    "--header-insertion=iwyu",
+}
 clangd.commands = {
     ClangdSwitchSourceHeader = {
         function()
@@ -57,5 +71,6 @@ clangd.commands = {
         description = "Open source/header in a new split",
     },
 }
+
 
 return clangd

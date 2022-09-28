@@ -1,27 +1,19 @@
 local pylsp = {}
 local settings = require('settings')
+local default_env = settings.py3_path .. 'global'
+local path = settings.py3_path .. 'pylsp/Scripts/'
+local rootmarks = {}
 
 
-pylsp.default_env = settings.py3_path .. 'global'
-pylsp.path = settings.py3_path .. 'pylsp/Scripts/'
-pylsp.rootmarks = {}
 for k, v in pairs(settings.rootmarks) do
-    pylsp.rootmarks[k] = v
+    rootmarks[k] = v
 end
-pylsp.rootmarks[#pylsp.rootmarks + 1] = '.venv'
+rootmarks[#rootmarks + 1] = '.venv'
 
 
-function pylsp.update_config(new_config, new_root)
-    local new_env = new_root .. '/.venv'
-    if not (os.execute('cd ' .. new_env) == 0) then
-        new_env = pylsp.default_env
-    end
-    new_config.settings.pylsp.plugins.jedi.environment = new_env
-    new_config.settings.pylsp.plugins.jedi.extra_paths = {new_root}
-    return new_config
-end
-
-
+pylsp.rootmarks = rootmarks
+pylsp.filetypes = {'python'}
+pylsp.cmd = {path .. 'pylsp.exe'}
 pylsp.settings = {
     pylsp = {
         configurationSources = {},
@@ -34,14 +26,16 @@ pylsp.settings = {
             preload = {enabled = false},
             flake8 = {
                 enabled = true,
-                executable = pylsp.path .. 'flake8.exe',
+                executable = path .. 'flake8.exe',
                 exclude = {'.git', '**/__pycache__', '.venv'},
                 ignore = {'E402'},
                 indentSize = 4,
             },
             jedi = {},
             jedi_completion = {
-                cache_for = {'numpy', 'torch'},
+                cache_for = {
+                    'numpy',
+                },
                 include_params = true,
                 fuzzy = true,
             },
@@ -49,6 +43,15 @@ pylsp.settings = {
     },
 
 }
+function pylsp.on_new_config(new_config, new_root)
+    local new_env = new_root .. '/.venv'
+    if not (os.execute('cd ' .. new_env) == 0) then
+        new_env = default_env
+    end
+    new_config.settings.pylsp.plugins.jedi.environment = new_env
+    new_config.settings.pylsp.plugins.jedi.extra_paths = {new_root}
+    return new_config
+end
+
 
 return pylsp
-

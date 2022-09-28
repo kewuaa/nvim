@@ -4,6 +4,7 @@ local program_files_path = 'D:/Softwares/Program_Files/'
 settings.py3_path = program_files_path .. 'Python/'
 settings.lua_path = program_files_path .. 'Lua/'
 settings.c_path = program_files_path .. 'C/'
+settings.rust_path = program_files_path .. 'Rust/'
 
 settings.rootmarks = {
     '.git',
