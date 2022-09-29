@@ -1,7 +1,7 @@
 local pylsp = {}
 local settings = require('settings')
 local default_env = settings.py3_path .. 'global'
-local path = settings.py3_path .. 'pylsp/Scripts/'
+local path = settings.py3_path .. 'global/Scripts/'
 local rootmarks = {}
 
 
@@ -20,10 +20,8 @@ pylsp.settings = {
         plugins = {
             pyflakes = {enabled = false},
             pycodestyle = {enabled = false},
-            mccabe = {enabled = false},
             autopep8 = {enabled = false},
             yapf = {enabled = false},
-            preload = {enabled = false},
             flake8 = {
                 enabled = true,
                 executable = path .. 'flake8.exe',
@@ -33,9 +31,6 @@ pylsp.settings = {
             },
             jedi = {},
             jedi_completion = {
-                cache_for = {
-                    'numpy',
-                },
                 include_params = true,
                 fuzzy = true,
             },
@@ -43,7 +38,7 @@ pylsp.settings = {
     },
 
 }
-function pylsp.on_new_config(new_config, new_root)
+pylsp.on_new_config = function(new_config, new_root)
     local new_env = new_root .. '/.venv'
     if not (os.execute('cd ' .. new_env) == 0) then
         new_env = default_env
