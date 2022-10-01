@@ -4,12 +4,14 @@ local program_files_path = 'D:/Softwares/Program_Files/'
 settings.py3_path = program_files_path .. 'Python/'
 settings.lua_path = program_files_path .. 'Lua/'
 settings.c_path = program_files_path .. 'C/'
-settings.rust_path = program_files_path .. 'Rust/'
-
-settings.rootmarks = {
-    '.git',
-    '.root',
-}
+settings.zig_path = program_files_path .. 'Zig/'
+settings.nim_path = program_files_path .. 'Nim/'
+settings.rootmarks = function()
+    return {
+        '.git',
+        '.root',
+    }
+end
 settings.exclude_filetypes = {
     "fugitive",
     "help",

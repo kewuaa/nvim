@@ -1,11 +1,6 @@
 local clangd = {}
 local settings = require("settings")
-local rootmarks = {}
-
-
-for k, v in pairs(settings.rootmarks) do
-    rootmarks[k] = v
-end
+local rootmarks = settings.rootmarks()
 rootmarks[#rootmarks+1] = 'compile_commands.json'
 rootmarks[#rootmarks+1] = '.clangd'
 

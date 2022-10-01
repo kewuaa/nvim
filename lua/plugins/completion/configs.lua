@@ -245,6 +245,7 @@ configs.nvim_autopairs = function()
         cmp_autopairs.on_confirm_done()
     )
     npairs.add_rule(Rule('<', '>'))
+    npairs.add_rule(Rule("|", "|", {'zig'}))
 end
 
 

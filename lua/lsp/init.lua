@@ -119,8 +119,8 @@ function M.setup()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
     for _, name in pairs({
         'pylsp',
-        'rust_analyzer',
         'clangd',
+        'zls',
         'sumneko_lua',
     }) do
         local server = require("lsp." .. name)

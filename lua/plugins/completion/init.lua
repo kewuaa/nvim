@@ -9,9 +9,10 @@ return {
         ft = {
             'python',
             'lua',
+            'zig',
+            'zir',
             'c',
             'cpp',
-            'rust',
         },
         config = configs.lspsaga,
         requires = {
