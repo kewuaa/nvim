@@ -176,7 +176,7 @@ augroup setup
     au CursorMoved * ++once call s:load_clipboard()
     au BufRead * ++once set statusline=%!v:lua.require'statusline'.setup()
 augroup END
-au! filetype qf,lspsagaoutline,OverseerList,OverseerForm,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
+au! filetype qf,lspsagaoutline,OverseerList,OverseerForm,notify,DressingSelect,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
 
 lua << EOF
 require('plugins')

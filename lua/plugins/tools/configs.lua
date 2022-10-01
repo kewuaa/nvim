@@ -191,6 +191,7 @@ configs.telescope = function()
 end
 
 configs.overseer = function()
+    local settings = require("settings")
     local overseer = require('overseer')
     overseer.setup({
         dap = false,
@@ -204,38 +205,9 @@ configs.overseer = function()
             },
         },
     })
-    overseer.register_template({
-        name = 'run file',
-        builder = function(params)
-            local ft = vim.bo.filetype
-            local file = vim.fn.expand('%:p')
-            local root = require('plugins').get_cwd()
-            vim.cmd [[wa]]
-            local cmd = require("settings").run_file_config[ft](root, file)
-            return {
-                cmd = cmd,
-                name = 'run ' .. ft,
-                components = {
-                    {
-                        "on_output_quickfix",
-                        set_diagnostics = true,
-                        open = true,
-                    },
-                    {
-                        "on_complete_dispose",
-                        statuses = {"SUCCESS"},
-                    },
-                    {
-                        "on_result_diagnostics",
-                        remove_on_restart = true,
-                    },
-                    "default",
-                },
-                cwd = root,
-            }
-        end,
-        desc = "run the current file",
-    })
+    for _, template in pairs(settings.templates) do
+        overseer.register_template(template)
+    end
     vim.api.nvim_create_user_command("OverseerRestartLast", function()
         local tasks = overseer.list_tasks({ recent_first = true })
         if vim.tbl_isempty(tasks) then

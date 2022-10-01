@@ -1,7 +1,7 @@
+---@diagnostic disable: unused-local
 local settings = {}
 local program_files_path = 'D:/Softwares/Program_Files/'
 setmetatable(settings, {
----@diagnostic disable-next-line: unused-local
     __index = function(table, key)
         if key == 'rootmarks' then
             return {
@@ -11,6 +11,7 @@ setmetatable(settings, {
         end
     end
 })
+
 
 settings.py3_path = program_files_path .. 'Python/'
 settings.lua_path = program_files_path .. 'Lua/'
@@ -33,9 +34,13 @@ settings.exclude_filetypes = {
     "toggleterm",
     "OverseerList",
     "overseerForm",
+    "notify",
+    "DressingSelect",
     "",
 }
-settings.run_file_config = {
+
+
+local run_file_config = {
     python = function(root, file)
         local venv = root .. '/.venv'
         local exe_path = venv .. '/Scripts/python.exe'
@@ -54,7 +59,7 @@ settings.run_file_config = {
         return {'node', file}
     end,
 }
-setmetatable(settings.run_file_config, {
+setmetatable(run_file_config, {
     __index = function (table, key)
         return function(root, file)
             local file_without_ext = string.gsub(file, '%.(%a*)', '')
@@ -62,6 +67,61 @@ setmetatable(settings.run_file_config, {
         end
     end
 })
+local components = {
+    {
+        "on_output_quickfix",
+        set_diagnostics = true,
+        open = true,
+    },
+    {
+        "on_complete_dispose",
+        statuses = {"SUCCESS"},
+    },
+    {
+        "on_result_diagnostics",
+        remove_on_restart = true,
+    },
+    "default",
+}
+settings.templates = {
+    {
+        name = 'run file',
+        builder = function(params)
+            local ft = vim.bo.filetype
+            local file = vim.fn.expand('%:p')
+            local root = require('plugins').get_cwd()
+            vim.cmd [[wa]]
+            local cmd = run_file_config[ft](root, file)
+            return {
+                cmd = cmd,
+                name = 'run ' .. ft,
+                components = components,
+                cwd = root,
+            }
+        end,
+        desc = "run the current file",
+    },
+    {
+        name = 'build c/c++',
+        builder = function (params)
+            local file = vim.fn.expand('%:p')
+            local file_without_ext = string.gsub(file, '%.(%a*)', '')
+            vim.cmd [[wa]]
+            return {
+                cmd = {'clang', '-O2', '-Wall', file, '-o', file_without_ext},
+                name = 'build ' .. vim.bo.filetype,
+                components = components,
+                cwd = require("plugins").get_cwd(),
+            }
+        end,
+        desc = 'build c/c++ file',
+        condition = {
+            filetype = {
+                'c', 'cpp'
+            }
+        }
+    },
+}
 
 function settings:getpy(name)
     return self.py3_path .. name .. '/Scripts/python.exe'
