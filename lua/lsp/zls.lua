@@ -1,6 +1,6 @@
 local zls = {}
 local settings = require("settings")
-local rootmarks = settings.rootmarks()
+local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = 'zls.json'
 
 

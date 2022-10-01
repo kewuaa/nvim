@@ -135,69 +135,6 @@ configs.trouble = function()
     })
 end
 
-configs.symbols_outline = function()
-    require('symbols-outline').setup({
-        highlight_hovered_item = true,
-        show_guides = true,
-        auto_preview = false,
-        position = 'right',
-        relative_width = true,
-        width = 25,
-        auto_close = false,
-        show_numbers = false,
-        show_relative_numbers = false,
-        show_symbol_details = true,
-        preview_bg_highlight = 'Pmenu',
-        autofold_depth = nil,
-        auto_unfold_hover = true,
-        fold_markers = { '', '' },
-        keymaps = { -- These keymaps can be a string or a table for multiple keys
-            close = {"<Esc>", "q"},
-            goto_location = "<Cr>",
-            focus_location = "o",
-            hover_symbol = "<C-K>",
-            toggle_preview = "K",
-            rename_symbol = "r",
-            code_actions = "a",
-            fold = "h",
-            unfold = "l",
-            fold_all = "W",
-            unfold_all = "E",
-            fold_reset = "R",
-        },
-        lsp_blacklist = {},
-        symbol_blacklist = {},
-        symbols = {
-            File = {icon = "", hl = "TSURI"},
-            Module = {icon = "", hl = "TSNamespace"},
-            Namespace = {icon = "", hl = "TSNamespace"},
-            Package = {icon = "", hl = "TSNamespace"},
-            Class = {icon = "𝓒", hl = "TSType"},
-            Method = {icon = "ƒ", hl = "TSMethod"},
-            Property = {icon = "", hl = "TSMethod"},
-            Field = {icon = "", hl = "TSField"},
-            Constructor = {icon = "", hl = "TSConstructor"},
-            Enum = {icon = "ℰ", hl = "TSType"},
-            Interface = {icon = "ﰮ", hl = "TSType"},
-            Function = {icon = "", hl = "TSFunction"},
-            Variable = {icon = "", hl = "TSConstant"},
-            Constant = {icon = "", hl = "TSConstant"},
-            String = {icon = "𝓐", hl = "TSString"},
-            Number = {icon = "#", hl = "TSNumber"},
-            Boolean = {icon = "⊨", hl = "TSBoolean"},
-            Array = {icon = "", hl = "TSConstant"},
-            Object = {icon = "⦿", hl = "TSType"},
-            Key = {icon = "🔐", hl = "TSType"},
-            Null = {icon = "NULL", hl = "TSType"},
-            EnumMember = {icon = "", hl = "TSField"},
-            Struct = {icon = "𝓢", hl = "TSType"},
-            Event = {icon = "🗲", hl = "TSType"},
-            Operator = {icon = "+", hl = "TSOperator"},
-            TypeParameter = {icon = "𝙏", hl = "TSParameter"}
-        }
-    })
-end
-
 configs.telescope = function()
     require("plugins").check_loaded({
         'plenary.nvim',
@@ -250,19 +187,103 @@ configs.telescope = function()
     -- To get fzf loaded and working with telescope, you need to call
     -- load_extension, somewhere after setup function:
     telescope.load_extension('fzf')
+    telescope.load_extension("notify")
 end
 
-configs.asynctasks = function()
-    vim.g.asyncrun_mode = 4
-    vim.g.asyncrun_save = 2
-    vim.g.asyncrun_bell = 1
-    vim.g.asyncrun_rootmarks = require("settings").rootmarks
-    vim.g.asynctasks_term_focus = 0
-    vim.g.asynctasks_term_pos = 'external'
-    vim.g.asynctasks_template = 1
+configs.overseer = function()
+    local overseer = require('overseer')
+    overseer.setup({
+        dap = false,
+        task_list = {
+            default_detail = 2,
+        },
+        log = {
+            {
+                type = "notify",
+                level = vim.log.levels.WARN,
+            },
+        },
+    })
+    overseer.register_template({
+        name = 'run file',
+        builder = function(params)
+            local ft = vim.bo.filetype
+            local file = vim.fn.expand('%:p')
+            local root = require('plugins').get_cwd()
+            vim.cmd [[wa]]
+            local cmd = require("settings").run_file_config[ft](root, file)
+            return {
+                cmd = cmd,
+                name = 'run ' .. ft,
+                components = {
+                    {
+                        "on_output_quickfix",
+                        set_diagnostics = true,
+                        open = true,
+                    },
+                    {
+                        "on_complete_dispose",
+                        statuses = {"SUCCESS"},
+                    },
+                    {
+                        "on_result_diagnostics",
+                        remove_on_restart = true,
+                    },
+                    "default",
+                },
+                cwd = root,
+            }
+        end,
+        desc = "run the current file",
+    })
+    vim.api.nvim_create_user_command("OverseerRestartLast", function()
+        local tasks = overseer.list_tasks({ recent_first = true })
+        if vim.tbl_isempty(tasks) then
+            vim.notify("No tasks found", vim.log.levels.WARN)
+        else
+            vim.cmd [[wa]]
+            overseer.run_action(tasks[1], "restart")
+        end
+    end, {})
 end
 
-configs.toggleterm = function ()
+configs.dressing = function ()
+    require("dressing").setup()
+end
+
+configs.notify = function ()
+    local notify = require("notify")
+    notify.setup({
+        ---@usage Animation style one of { "fade", "slide", "fade_in_slide_out", "static" }
+        stages = "slide",
+        ---@usage Function called when a new window is opened, use for changing win settings/config
+        on_open = nil,
+        ---@usage Function called when a window is closed
+        on_close = nil,
+        ---@usage timeout for notifications in ms, default 5000
+        timeout = 2000,
+        -- Render function for notifications. See notify-render()
+        render = "default",
+        ---@usage highlight behind the window for stages that change opacity
+        background_colour = "Normal",
+        ---@usage minimum width for notification windows
+        minimum_width = 50,
+        ---@usage notifications with level lower than this would be ignored. [ERROR > WARN > INFO > DEBUG > TRACE]
+        level = "TRACE",
+        ---@usage Icons for the different levels
+        icons = {
+            ERROR = "",
+            WARN = "",
+            INFO = "",
+            DEBUG = "",
+            TRACE = "✎",
+        },
+    })
+
+    vim.notify = notify
+end
+
+configs.toggleterm = function()
     local function shell()
         local shell_ = 'pwsh'
         if vim.fn.has('win32') then

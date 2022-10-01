@@ -14,8 +14,6 @@ function M.lsp(client, bufnr)
     map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", bufopt)
     map("n", "gR", "<cmd>Trouble lsp_references<cr>", bufopt)
 
-    map('n', '<leader>st', ':SymbolsOutline<CR>', bufopt)
-
     require("lsp_signature").on_attach({
         bind = true,
         use_lspsaga = true,

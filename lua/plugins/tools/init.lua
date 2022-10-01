@@ -59,14 +59,6 @@ return {
         config = configs.trouble,
     },
 
-    -- symbols tree
-    {
-        'simrat39/symbols-outline.nvim',
-        opt = true,
-        cmd = 'SymbolsOutline',
-        config = configs.symbols_outline,
-    },
-
     -- 异步依赖
     {
         'nvim-lua/plenary.nvim',
@@ -88,16 +80,33 @@ return {
         opt = true,
     },
 
-    -- 异步任务系统
+    -- 运行
     {
-        'skywind3000/asynctasks.vim',
+        'stevearc/overseer.nvim',
         opt = true,
-        cmd = {'AsyncTask', 'AsyncTaskEdit', 'AsyncTaskList', 'AsyncTaskMacro'},
-        config = configs.asynctasks,
-        -- 异步运行
-        requires = {
-            {'skywind3000/asyncrun.vim', opt = true},
+        cmd = {
+            'OverseerRun',
+            'OverseerToggle',
+            'OverseerRestartLast',
+            'OverseerQuickAction',
         },
+        config = configs.overseer,
+    },
+
+    -- 增强vim.ui
+    {
+        'stevearc/dressing.nvim',
+        opt = true,
+        event = 'BufRead *',
+        config = configs.dressing,
+    },
+
+    -- 消息提示
+    {
+        'rcarriga/nvim-notify',
+        opt = true,
+        after = 'nvim-treesitter',
+        config = configs.notify,
     },
 
     -- float terminal

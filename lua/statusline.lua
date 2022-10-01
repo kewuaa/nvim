@@ -36,6 +36,9 @@ function M.file_or_lsp_status()
 end
 
 function M.format_uri(uri)
+    if string.match(uri, 'term://') then
+        return string.match(uri, 'term://(.*);')
+    end
     return vim.fn.fnamemodify(vim.uri_to_fname(uri), ':.')
 end
 

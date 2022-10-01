@@ -82,7 +82,14 @@ return {
         setup = function()
             vim.api.nvim_create_autocmd('FileType', {
                 group = 'setup_plugins',
-                pattern = {'python', 'vim', 'lua', 'c', 'cpp'},
+                pattern = {
+                    'python',
+                    'vim',
+                    'lua',
+                    'zig',
+                    'c',
+                    'cpp',
+                },
                 command = 'IlluminateResumeBuf',
             })
         end,

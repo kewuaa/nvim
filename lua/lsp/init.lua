@@ -53,7 +53,7 @@ local on_attach = function(client, bufnr)
     map("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
 
     -- Outline
-    map("n","<leader>o", "<cmd>LSoutlineToggle<CR>", bufopts)
+    map("n","<leader><leader>o", "<cmd>LSoutlineToggle<CR>", bufopts)
 
     -- format
     map('n', '<space>f', vim.lsp.buf.formatting, bufopts)
@@ -108,8 +108,8 @@ function M.setup()
     -- map('n', '<c-p>', vim.diagnostic.goto_prev, opts)
     -- map('n', '<c-n>', vim.diagnostic.goto_next, opts)
     -- map('n', '<space>q', vim.diagnostic.setloclist, opts)
-    map("n", "<A-d>", "<cmd>Lspsaga open_floaterm python<CR>", opts)
-    map("t", "<A-d>", "<C-\\><C-n><cmd>Lspsaga close_floaterm<CR>", opts)
+    -- map("n", "<A-d>", "<cmd>Lspsaga open_floaterm python<CR>", opts)
+    -- map("t", "<A-d>", "<C-\\><C-n><cmd>Lspsaga close_floaterm<CR>", opts)
 
     local lsp_flags = {
       -- This is the default in Nvim 0.7+
