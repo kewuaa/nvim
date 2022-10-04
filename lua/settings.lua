@@ -121,6 +121,40 @@ settings.templates = {
             }
         }
     },
+    {
+        name = 'build zig',
+        builder = function (params)
+            local file = vim.fn.expand("%:p")
+            vim.cmd [[wa]]
+            return {
+                cmd = {'zig', 'build-exe', file},
+                name = 'build zig',
+                components = components,
+                cwd = require("plugins").get_cwd(),
+            }
+        end,
+        desc = 'build zig file',
+        condition = {
+            filetype = {'zig'},
+        }
+    },
+    {
+        name = 'test zig',
+        builder = function (params)
+            local file = vim.fn.expand("%:p")
+            vim.cmd [[wa]]
+            return {
+                cmd = {'zig', 'test', file},
+                name = 'test zig',
+                components = components,
+                cwd = require("plugins").get_cwd(),
+            }
+        end,
+        desc = 'test zig file',
+        condition = {
+            filetype = {'zig'},
+        }
+    },
 }
 
 function settings:getpy(name)

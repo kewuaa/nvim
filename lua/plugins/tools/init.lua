@@ -2,12 +2,6 @@ local configs = require("plugins.tools.configs")
 
 
 return {
-    -- 图标
-    {
-        'kyazdani42/nvim-web-devicons',
-        opt = true,
-    },
-
     -- 启动时间
     {
         'dstein64/vim-startuptime',
@@ -33,22 +27,6 @@ return {
                 config = configs.hlargs,
             },
         },
-    },
-
-    -- 上下文显示
-    {
-        'SmiteshP/nvim-gps',
-        opt = true,
-        after = 'nvim-treesitter',
-        config = configs.nvim_gps,
-    },
-
-    -- 缩进线
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        opt = true,
-        after = 'nvim-treesitter',
-        config = configs.indent_blankline,
     },
 
     -- 显示代码错误
@@ -91,22 +69,6 @@ return {
             'OverseerQuickAction',
         },
         config = configs.overseer,
-    },
-
-    -- 增强vim.ui
-    {
-        'stevearc/dressing.nvim',
-        opt = true,
-        event = 'BufRead *',
-        config = configs.dressing,
-    },
-
-    -- 消息提示
-    {
-        'rcarriga/nvim-notify',
-        opt = true,
-        after = 'nvim-treesitter',
-        config = configs.notify,
     },
 
     -- float terminal

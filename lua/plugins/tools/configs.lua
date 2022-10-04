@@ -37,55 +37,7 @@ configs.hlargs = function()
     })
 end
 
-configs.nvim_gps = function()
-    local gps = require("nvim-gps")
-    gps.setup({
-        icons = {
-            ["class-name"] = " ", -- Classes and class-like objects
-            ["function-name"] = " ", -- Functions
-            ["method-name"] = " ", -- Methods (functions inside class-like objects)
-            ["container-name"] = '⛶ ',  -- Containers (example: lua tables)
-            ["tag-name"] = '炙'         -- Tags (example: html tags)
-        },
-        languages = {
-            -- You can disable any language individually here
-            ["c"] = true,
-            ["cpp"] = true,
-            -- ["go"] = true,
-            -- ["java"] = true,
-            ["javascript"] = true,
-            ["lua"] = true,
-            ["python"] = true,
-            -- ["rust"] = true,
-        },
-        separator = " > ",
-    })
-    local function setup_winbar()
-        if gps.is_available() then
-            vim.opt_local.winbar = [[%{luaeval("require('nvim-gps').get_location()")}]]
-        end
-    end
-    vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
-        group = 'setup_plugins',
-        pattern = '*',
-        callback = setup_winbar,
-    })
-    setup_winbar()
-end
-
-configs.indent_blankline = function()
-    require('indent_blankline').setup({
-        show_end_of_line = true,
-        show_current_context = true,
-        show_current_context_start = true,
-        filetype_exclude = require("settings").exclude_filetypes,
-    })
-end
-
 configs.trouble = function()
-    require("plugins").check_loaded({
-        'nvim-web-devicons',
-    })
     require("trouble").setup({
         position = "bottom", -- position of the list can be: bottom, top, left, right
         height = 10, -- height of the trouble list when position is top or bottom
@@ -139,7 +91,6 @@ configs.telescope = function()
     require("plugins").check_loaded({
         'plenary.nvim',
         'telescope-fzf-native.nvim',
-        'nvim-web-devicons',
     })
     local telescope = require("telescope")
 
@@ -219,42 +170,6 @@ configs.overseer = function()
     end, {})
 end
 
-configs.dressing = function ()
-    require("dressing").setup()
-end
-
-configs.notify = function ()
-    local notify = require("notify")
-    notify.setup({
-        ---@usage Animation style one of { "fade", "slide", "fade_in_slide_out", "static" }
-        stages = "slide",
-        ---@usage Function called when a new window is opened, use for changing win settings/config
-        on_open = nil,
-        ---@usage Function called when a window is closed
-        on_close = nil,
-        ---@usage timeout for notifications in ms, default 5000
-        timeout = 2000,
-        -- Render function for notifications. See notify-render()
-        render = "default",
-        ---@usage highlight behind the window for stages that change opacity
-        background_colour = "Normal",
-        ---@usage minimum width for notification windows
-        minimum_width = 50,
-        ---@usage notifications with level lower than this would be ignored. [ERROR > WARN > INFO > DEBUG > TRACE]
-        level = "TRACE",
-        ---@usage Icons for the different levels
-        icons = {
-            ERROR = "",
-            WARN = "",
-            INFO = "",
-            DEBUG = "",
-            TRACE = "✎",
-        },
-    })
-
-    vim.notify = notify
-end
-
 configs.toggleterm = function()
     local function shell()
         local shell_ = 'pwsh'
@@ -313,6 +228,14 @@ configs.gitsigns = function()
             topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
             changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
         },
+        watch_gitdir = { interval = 1000, follow_files = true },
+        current_line_blame = true,
+        current_line_blame_opts = { delay = 1000, virtual_text_pos = "eol" },
+        sign_priority = 6,
+        update_debounce = 100,
+        status_formatter = nil, -- Use default
+        word_diff = false,
+        diff_opts = { internal = true },
         on_attach = function(bufnr)
             local gs = package.loaded.gitsigns
 
@@ -355,26 +278,183 @@ configs.gitsigns = function()
 end
 
 configs.nvim_tree = function()
-    require("plugins").check_loaded({
-        'nvim-web-devicons',
-    })
     require("nvim-tree").setup({
-      sort_by = "case_sensitive",
-      view = {
-        adaptive_size = true,
-        mappings = {
-          list = {
-            { key = "u", action = "dir_up" },
-          },
+        create_in_closed_folder = false,
+        respect_buf_cwd = true,
+        auto_reload_on_write = true,
+        disable_netrw = false,
+        hijack_cursor = true,
+        hijack_netrw = true,
+        hijack_unnamed_buffer_when_opening = false,
+        ignore_buffer_on_setup = false,
+        open_on_setup = false,
+        open_on_setup_file = false,
+        open_on_tab = false,
+        sort_by = "name",
+        update_cwd = true,
+        view = {
+            adaptive_size = false,
+            centralize_selection = false,
+            width = 30,
+            side = "left",
+            preserve_window_proportions = false,
+            number = false,
+            relativenumber = false,
+            signcolumn = "yes",
+            hide_root_folder = false,
+            float = {
+                enable = false,
+                open_win_config = {
+                    relative = "editor",
+                    border = "rounded",
+                    width = 30,
+                    height = 30,
+                    row = 1,
+                    col = 1,
+                },
+            },
         },
-      },
+        renderer = {
+            add_trailing = false,
+            group_empty = true,
+            highlight_git = false,
+            full_name = false,
+            highlight_opened_files = "none",
+            special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md", "CMakeLists.txt" },
+            symlink_destination = true,
+            indent_markers = {
+                enable = true,
+                icons = {
+                    corner = "└ ",
+                    edge = "│ ",
+                    item = "│ ",
+                    none = "  ",
+                },
+            },
+            root_folder_modifier = ":e",
+            icons = {
+                webdev_colors = true,
+                git_placement = "before",
+                show = {
+                    file = true,
+                    folder = true,
+                    folder_arrow = false,
+                    git = true,
+                },
+                padding = " ",
+                symlink_arrow = "  ",
+                glyphs = {
+                    default = "", --
+                    symlink = "",
+                    bookmark = "",
+                    git = {
+                        unstaged = "",
+                        staged = "", --
+                        unmerged = "שׂ",
+                        renamed = "", --
+                        untracked = "ﲉ",
+                        deleted = "",
+                        ignored = "", --◌
+                    },
+                    folder = {
+                        -- arrow_open = "",
+                        -- arrow_closed = "",
+                        arrow_open = "",
+                        arrow_closed = "",
+                        default = "",
+                        open = "",
+                        empty = "",
+                        empty_open = "",
+                        symlink = "",
+                        symlink_open = "",
+                    },
+                },
+            },
+        },
+        hijack_directories = {
+            enable = true,
+            auto_open = true,
+        },
+        update_focused_file = {
+            enable = true,
+            update_cwd = true,
+            ignore_list = {},
+        },
+        ignore_ft_on_setup = {},
+        filters = {
+            dotfiles = false,
+            custom = { ".DS_Store" },
+            exclude = {},
+        },
+        actions = {
+            use_system_clipboard = true,
+            change_dir = {
+                enable = true,
+                global = false,
+            },
+            open_file = {
+                quit_on_open = false,
+                resize_window = false,
+                window_picker = {
+                    enable = true,
+                    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    exclude = {
+                        filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+                        buftype = { "nofile", "terminal", "help" },
+                    },
+                },
+            },
+            remove_file = {
+                close_window = true,
+            },
+        },
+        diagnostics = {
+            enable = false,
+            show_on_dirs = false,
+            debounce_delay = 50,
+            icons = {
+                hint = "",
+                info = "",
+                warning = "",
+                error = "",
+            },
+        },
+        filesystem_watchers = {
+            enable = true,
+            debounce_delay = 50,
+        },
+        git = {
+            enable = true,
+            ignore = true,
+            show_on_dirs = true,
+            timeout = 400,
+        },
+        trash = {
+            cmd = "gio trash",
+            require_confirm = true,
+        },
+        live_filter = {
+            prefix = "[FILTER]: ",
+            always_show_folders = true,
+        },
+        log = {
+            enable = false,
+            truncate = false,
+            types = {
+                all = false,
+                config = false,
+                copy_paste = false,
+                dev = false,
+                diagnostics = false,
+                git = false,
+                profile = false,
+                watcher = false,
+            },
+        },
     })
 end
 
 configs.JABS = function()
-    require("plugins").check_loaded({
-        'nvim-web-devicons',
-    })
     require('jabs').setup({
         -- Options for the main window
         position = 'center', -- center, corner. Default corner

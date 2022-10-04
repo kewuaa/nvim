@@ -39,14 +39,17 @@ return {
 
     -- 注释
     {
-        'terrortylor/nvim-comment',
+        'numToStr/Comment.nvim',
         opt = true,
         keys = {
             {'n', 'gcc'},
+            {'n', 'gbc'},
             {'n', 'gc'},
-            {'v', 'gc'},
+            {'n', 'gb'},
+            {'x', 'gc'},
+            {'x', 'gb'},
         },
-        config = configs.nvim_comment,
+        config = configs.comment,
     },
 
     -- 扩展区域

@@ -15,7 +15,7 @@ function M.init()
         'completion',
         'editor',
         'tools',
-        'colors',
+        'ui',
     }
 
     packer.init({
@@ -44,7 +44,7 @@ function M.init()
         'wbthomason/packer.nvim',
         opt = false
     })
-        -- filetype
+    -- filetype
     use({
         'nathom/filetype.nvim',
         opt = false,
