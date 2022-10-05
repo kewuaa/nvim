@@ -32,9 +32,8 @@ local on_attach = function(client, bufnr)
 
     -- go to the definition
     map('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    map('n', 'gd', vim.lsp.buf.definition, bufopts)
-    -- preview the definition
-    map("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+    map("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+    -- map('n', 'gd', vim.lsp.buf.definition, bufopts)
 
     -- hover doc
     -- map('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -103,7 +102,7 @@ function M.setup()
 
     -- Mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    local opts = { noremap=true, silent=true }
+    -- local opts = { noremap=true, silent=true }
     -- map('n', '<space>e', vim.diagnostic.open_float, opts)
     -- map('n', '<c-p>', vim.diagnostic.goto_prev, opts)
     -- map('n', '<c-n>', vim.diagnostic.goto_next, opts)

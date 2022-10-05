@@ -81,11 +81,13 @@ configs.lualine = function()
     require('lualine').setup {
         options = {
             icons_enabled = true,
-            theme = 'auto',
-            component_separators = { left = '', right = ''},
-            section_separators = { left = '', right = ''},
+            theme = 'molokai',
+            -- component_separators = { left = '', right = ''},
+            component_separators = "|",
+            -- section_separators = { left = '', right = ''},
+            section_separators = { left = "", right = "" },
             disabled_filetypes = {
-                statusline = {},
+                statusline = {'OverseerList'},
                 winbar = {},
             },
             ignore_focus = {},
@@ -116,7 +118,10 @@ configs.lualine = function()
                 {'encoding'},
                 {'fileformat'},
             },
-            lualine_z = {'location'},
+            lualine_z = {
+                'location',
+                'progress',
+            },
         },
         inactive_sections = {
             lualine_a = {},

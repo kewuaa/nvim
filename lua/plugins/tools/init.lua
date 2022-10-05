@@ -60,15 +60,16 @@ return {
 
     -- 运行
     {
-        'stevearc/overseer.nvim',
+        'skywind3000/asyncrun.vim',
         opt = true,
         cmd = {
-            'OverseerRun',
-            'OverseerToggle',
-            'OverseerRestartLast',
-            'OverseerQuickAction',
+            'AsyncTask',
+            'AsyncTaskList',
+            'AsyncTaskMacro',
+            'AsyncTaskEdit',
         },
-        config = configs.overseer,
+        config = configs.asyncrun,
+        requires = {'skywind3000/asynctasks.vim', opt = true},
     },
 
     -- float terminal

@@ -141,33 +141,14 @@ configs.telescope = function()
     telescope.load_extension("notify")
 end
 
-configs.overseer = function()
-    local settings = require("settings")
-    local overseer = require('overseer')
-    overseer.setup({
-        dap = false,
-        task_list = {
-            default_detail = 2,
-        },
-        log = {
-            {
-                type = "notify",
-                level = vim.log.levels.WARN,
-            },
-        },
-    })
-    for _, template in pairs(settings.templates) do
-        overseer.register_template(template)
-    end
-    vim.api.nvim_create_user_command("OverseerRestartLast", function()
-        local tasks = overseer.list_tasks({ recent_first = true })
-        if vim.tbl_isempty(tasks) then
-            vim.notify("No tasks found", vim.log.levels.WARN)
-        else
-            vim.cmd [[wa]]
-            overseer.run_action(tasks[1], "restart")
-        end
-    end, {})
+configs.asyncrun = function()
+    vim.g.asyncrun_mode = 4
+    vim.g.asyncrun_save = 2
+    vim.g.asyncrun_rootmarks = require("settings").rootmarks
+    vim.g.asynctasks_term_pos = 'external'
+    vim.g.asynctasks_term_focus = 0
+    vim.g.asynctasks_template = 1
+    vim.g.asynctasks_confirm = 0
 end
 
 configs.toggleterm = function()

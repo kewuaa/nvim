@@ -22,11 +22,7 @@ local function toggleterm(option)
 end
 ---------------------------------------------------------------------------------------------------
 
-map('n', '<F5>', '<cmd>OverseerRun run\\ file<CR>', opts)
-map('n', '<F6>', '<cmd>OverseerRestartLast<CR>', opts)
-map('n', '<leader>q', '<cmd>OverseerQuickAction<CR>', opts)
-map('n', '<leader>l', '<cmd>OverseerRun<CR>', opts)
-map('n', '<leader>o', '<cmd>OverseerToggle<CR>', opts)
+map('n', '<F5>', '<cmd>AsyncTask file-run<CR>', opts)
 
 map('n', '<leader><leader>w', '<cmd>HopWord<CR>', opts)
 map('n', '<leader><leader>j', '<cmd>HopLine<CR>', opts)
