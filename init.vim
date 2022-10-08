@@ -1,3 +1,9 @@
+
+" 设置nvy
+if exists("g:nvy")
+    set guifont=JetbrainsMono\ NFM:h12:Consolas
+endif
+
 " 主题选择
 " colorscheme industry
 
@@ -29,7 +35,7 @@ set showmode
 set number
 
 " 相对行号
-set relativenumber
+" set relativenumber
 
 " 显示光标位置
 set ruler
@@ -174,6 +180,7 @@ endfunction
 augroup setup
     au!
     au CursorMoved * ++once call s:load_clipboard()
+    " au BufReadPre,BufNewFile * ++once lua require('statusline')
 augroup END
 au! filetype qf,lspsagaoutline,OverseerList,OverseerForm,notify,DressingSelect,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
 

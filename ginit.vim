@@ -1,7 +1,7 @@
 
 " 改变字体和字体大小
-exe 'Guifont! JetBrainsMono NF:h12'
-set guifont=JetBrainsMono\ NF:h12
+exe 'Guifont! JetBrainsMono NFM:h12'
+set guifont=JetBrainsMono\ NFM:h12
 
 " 图形自适应
 " exe 'GuiAdaptiveColor 1'

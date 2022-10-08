@@ -23,7 +23,7 @@ configs.monokai = function ()
                 bg = palette.base2
             },
         },
-        italics = false,
+        italics = true,
     })
 end
 
@@ -51,6 +51,33 @@ configs.indent_blankline = function()
             "import",
         },
     })
+end
+
+configs.feline = function ()
+    require("plugins").check_loaded({
+        'nvim-web-devicons'
+    })
+    local feline = require("feline")
+    feline.setup({
+        force_inactive = {
+            filetypes = {
+                '^NvimTree$',
+                '^packer$',
+                '^startify$',
+                '^fugitive$',
+                '^fugitiveblame$',
+                '^qf$',
+                '^help$',
+                '^lspsagaoutline$',
+                '^startuptime$'
+            },
+            buftypes = {
+                '^terminal$'
+            },
+            bufnames = {}
+        }
+    })
+    feline.winbar.setup()
 end
 
 configs.lualine = function()
@@ -84,8 +111,7 @@ configs.lualine = function()
             theme = 'molokai',
             -- component_separators = { left = '', right = ''},
             component_separators = "|",
-            -- section_separators = { left = '', right = ''},
-            section_separators = { left = "", right = "" },
+            section_separators = { left = '', right = ''},
             disabled_filetypes = {
                 statusline = {'OverseerList'},
                 winbar = {},

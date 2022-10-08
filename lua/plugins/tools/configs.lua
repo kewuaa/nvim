@@ -91,6 +91,7 @@ configs.telescope = function()
     require("plugins").check_loaded({
         'plenary.nvim',
         'telescope-fzf-native.nvim',
+        'nvim-web-devicons',
     })
     local telescope = require("telescope")
 
@@ -259,6 +260,9 @@ configs.gitsigns = function()
 end
 
 configs.nvim_tree = function()
+    require("plugins").check_loaded({
+        'nvim-web-devicons'
+    })
     require("nvim-tree").setup({
         create_in_closed_folder = false,
         respect_buf_cwd = true,
@@ -436,6 +440,9 @@ configs.nvim_tree = function()
 end
 
 configs.JABS = function()
+    require("plugins").check_loaded({
+        'nvim-web-devicons'
+    })
     require('jabs').setup({
         -- Options for the main window
         position = 'center', -- center, corner. Default corner

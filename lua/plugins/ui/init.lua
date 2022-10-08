@@ -24,19 +24,25 @@ return {
         config = configs.indent_blankline,
     },
 
-    -- statusline
+    -- -- statusline
     {
-        'nvim-lualine/lualine.nvim',
+        'feline-nvim/feline.nvim',
         opt = true,
         event = 'BufRead *',
-        config = configs.lualine,
+        config = configs.feline,
     },
+    -- {
+    --     'nvim-lualine/lualine.nvim',
+    --     opt = true,
+    --     event = 'BufRead *',
+    --     config = configs.lualine,
+    -- },
 
     -- 增强vim.ui
     {
         'stevearc/dressing.nvim',
         opt = true,
-        after = 'lualine.nvim',
+        after = 'nvim-notify',
         config = configs.dressing,
     },
 
