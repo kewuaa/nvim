@@ -1,3 +1,4 @@
+" 设置nvim-qt
 
 " 改变字体和字体大小
 exe 'Guifont! JetBrainsMono NFM:h12'

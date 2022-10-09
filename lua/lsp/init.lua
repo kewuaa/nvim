@@ -52,10 +52,10 @@ local on_attach = function(client, bufnr)
     map("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
 
     -- Outline
-    map("n","<leader><leader>o", "<cmd>LSoutlineToggle<CR>", bufopts)
+    map("n","<leader>o", "<cmd>LSoutlineToggle<CR>", bufopts)
 
     -- format
-    map('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+    map('n', '<space>f', function() vim.lsp.buf.format{async = true} end, bufopts)
 
     -- code action
     -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
@@ -117,7 +117,8 @@ function M.setup()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
     for _, name in pairs({
-        'pylsp',
+        -- 'pylsp',
+        'jedi_language_server',
         'clangd',
         'zls',
         'sumneko_lua',
