@@ -45,8 +45,7 @@ return {
     -- 查找
     {
         'nvim-telescope/telescope.nvim',
-        -- tag = '0.1.0',
-        branch = '0.1.x',
+        tag = '0.1.0',
         opt = true,
         cmd = 'Telescope',
         config = configs.telescope,
@@ -91,7 +90,10 @@ return {
                 once = true,
                 callback = function()
                     vim.fn.timer_start(1000, function()
-                        vim.cmd [[exe 'PackerLoad gitsigns.nvim']] end)
+                        vim.cmd [[
+                        exe 'PackerLoad gitsigns.nvim'
+                        ]]
+                    end)
                 end,
             })
         end,

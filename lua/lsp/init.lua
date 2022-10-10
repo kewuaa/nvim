@@ -119,9 +119,10 @@ function M.setup()
     for _, name in pairs({
         -- 'pylsp',
         'jedi_language_server',
-        'clangd',
         'zls',
+        'clangd',
         'sumneko_lua',
+        'denols',
     }) do
         local server = require("lsp." .. name)
         local server_config = {

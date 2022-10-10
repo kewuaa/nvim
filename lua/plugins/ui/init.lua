@@ -10,10 +10,10 @@ return {
 
     -- 颜色主题
     {
-        'tanvirtin/monokai.nvim',
+        'Mofiqul/dracula.nvim',
         opt = true,
         event = {'BufReadPre *', 'BufNewFile *'},
-        config = configs.monokai,
+        config = configs.dracula,
     },
 
     -- 缩进线

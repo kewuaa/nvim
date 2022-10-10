@@ -14,9 +14,10 @@ setmetatable(settings, {
 
 
 settings.py3_path = program_files_path .. 'Python/'
-settings.lua_path = program_files_path .. 'Lua/'
 settings.c_path = program_files_path .. 'C/'
 settings.zig_path = program_files_path .. 'Zig/'
+settings.deno_path = program_files_path .. 'Deno/'
+settings.lua_path = program_files_path .. 'Lua/'
 settings.exclude_filetypes = {
     "qf",
     "help",

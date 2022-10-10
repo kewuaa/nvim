@@ -6,14 +6,7 @@ return {
         'glepnir/lspsaga.nvim',
         branch = 'main',
         opt = true,
-        ft = {
-            'python',
-            'lua',
-            'zig',
-            'zir',
-            'c',
-            'cpp',
-        },
+        after = 'nvim-cmp',
         config = configs.lspsaga,
         requires = {
             -- LSP

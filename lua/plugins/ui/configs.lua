@@ -1,30 +1,30 @@
 local configs = {}
 
 
-configs.monokai = function ()
-    local monokai = require("monokai")
-    local palette = monokai.classic
-    monokai.setup({
-        palette = require('monokai').soda,
-        custom_hlgroups = {
-            TSInclude = {
-                fg = palette.aqua,
-            },
-            GitSignsAdd = {
-                fg = palette.green,
-                bg = palette.base2
-            },
-            GitSignsDelete = {
-                fg = palette.pink,
-                bg = palette.base2
-            },
-            GitSignsChange = {
-                fg = palette.orange,
-                bg = palette.base2
-            },
+configs.dracula = function ()
+    local dracula = require("dracula")
+    local colors = dracula.colors()
+    dracula.setup({
+        colors = {
+            menu = colors.bg,
         },
-        italics = true,
+        show_end_of_buffer = true, -- default false
+        italic_comment = true, -- default false
+        overrides = {
+            NonText = { fg = colors.white }, -- set NonText fg to white
+            NvimTreeIndentMarker = { link = "NonText" }, -- link to NonText highlight
+            Nothing = {} -- clear highlight of Nothing
+        }
     })
+    vim.cmd [[
+    colorscheme dracula
+    ]]
+    vim.fn.timer_start(1000, function()
+        vim.cmd [[
+        hi Pmenu guibg=none
+        hi CmpItemAbbrMatch guibg=none
+        ]]
+    end)
 end
 
 configs.indent_blankline = function()

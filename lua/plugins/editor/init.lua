@@ -81,21 +81,7 @@ return {
     {
         'RRethy/vim-illuminate',
         opt = true,
-        cmd = 'IlluminateResumeBuf',
-        setup = function()
-            vim.api.nvim_create_autocmd('FileType', {
-                group = 'setup_plugins',
-                pattern = {
-                    'python',
-                    'vim',
-                    'lua',
-                    'zig',
-                    'c',
-                    'cpp',
-                },
-                command = 'IlluminateResumeBuf',
-            })
-        end,
+        event = 'BufRead *',
         config = configs.vim_illuminate,
     },
 

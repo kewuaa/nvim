@@ -125,8 +125,6 @@ configs.nvim_cmp = function()
             ["<C-k>"] = function(fallback)
                 if require("luasnip").jumpable(-1) then
                     vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
-                elseif require('neogen').jumpable(true) then
-                    require('neogen').jump_prev()
                 else
                     fallback()
                 end
@@ -134,8 +132,6 @@ configs.nvim_cmp = function()
             ["<C-j>"] = function(fallback)
                 if require("luasnip").expand_or_jumpable() then
                     vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
-                elseif require('neogen').jumpable() then
-                    require('neogen').jump_next()
                 else
                     fallback()
                 end
