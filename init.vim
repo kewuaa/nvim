@@ -180,7 +180,6 @@ endfunction
 augroup setup
     au!
     au CursorMoved * ++once call s:load_clipboard()
-    " au BufReadPre,BufNewFile * ++once lua require('statusline')
 augroup END
 au! filetype qf,lspsagaoutline,OverseerList,OverseerForm,notify,DressingSelect,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
 

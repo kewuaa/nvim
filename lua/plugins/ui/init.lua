@@ -10,10 +10,10 @@ return {
 
     -- 颜色主题
     {
-        'Mofiqul/dracula.nvim',
+        'catppuccin/nvim', as = 'catppuccin',
         opt = true,
         event = {'BufReadPre *', 'BufNewFile *'},
-        config = configs.dracula,
+        config = configs.catppuccin,
     },
 
     -- 缩进线
@@ -24,19 +24,13 @@ return {
         config = configs.indent_blankline,
     },
 
-    -- -- statusline
+    -- statusline
     {
         'feline-nvim/feline.nvim',
         opt = true,
         event = 'BufRead *',
         config = configs.feline,
     },
-    -- {
-    --     'nvim-lualine/lualine.nvim',
-    --     opt = true,
-    --     event = 'BufRead *',
-    --     config = configs.lualine,
-    -- },
 
     -- 增强vim.ui
     {

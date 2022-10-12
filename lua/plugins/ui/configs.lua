@@ -1,30 +1,71 @@
 local configs = {}
 
 
-configs.dracula = function ()
-    local dracula = require("dracula")
-    local colors = dracula.colors()
-    dracula.setup({
-        colors = {
-            menu = colors.bg,
+configs.catppuccin = function()
+    vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+    require("catppuccin").setup({
+        compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+        transparent_background = false,
+        term_colors = false,
+        dim_inactive = {
+            enabled = true,
+            shade = "dark",
+            percentage = 0.15,
         },
-        show_end_of_buffer = true, -- default false
-        italic_comment = true, -- default false
-        overrides = {
-            NonText = { fg = colors.white }, -- set NonText fg to white
-            NvimTreeIndentMarker = { link = "NonText" }, -- link to NonText highlight
-            Nothing = {} -- clear highlight of Nothing
-        }
+        styles = {
+            comments = { "italic" },
+            conditionals = { "italic" },
+            loops = {},
+            functions = { "italic", "bold" },
+            keywords = {},
+            strings = {},
+            variables = {},
+            numbers = {},
+            booleans = {},
+            properties = {},
+            types = {},
+            operators = {},
+        },
+        integrations = {
+            cmp = true,
+            gitsigns = true,
+            nvimtree = true,
+            telescope = true,
+            treesitter = true,
+            hop = true,
+            lsp_saga = true,
+            notify = true,
+            ts_rainbow = true,
+            lsp_trouble = true,
+            illuminate = true,
+            fidget = true,
+            indent_blankline = {
+                enabled = true,
+                colored_indent_levels = false,
+            },
+            native_lsp = {
+                enabled = true,
+                virtual_text = {
+                    errors = { "italic" },
+                    hints = { "italic" },
+                    warnings = { "italic" },
+                    information = { "italic" },
+                },
+                underlines = {
+                    errors = { "underline" },
+                    hints = { "underline" },
+                    warnings = { "underline" },
+                    information = { "underline" },
+                },
+            },
+            -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+        },
+        color_overrides = {},
+        custom_highlights = {},
     })
     vim.cmd [[
-    colorscheme dracula
+    colorscheme catppuccin
     ]]
-    vim.fn.timer_start(1000, function()
-        vim.cmd [[
-        hi Pmenu guibg=none
-        hi CmpItemAbbrMatch guibg=none
-        ]]
-    end)
 end
 
 configs.indent_blankline = function()
@@ -53,12 +94,20 @@ configs.indent_blankline = function()
     })
 end
 
-configs.feline = function ()
+configs.feline = function()
     require("plugins").check_loaded({
         'nvim-web-devicons'
     })
     local feline = require("feline")
+    local ctp_feline = require('catppuccin.groups.integrations.feline')
+    ctp_feline.setup({
+        assets ={
+            left_separator = "",
+            right_separator = "",
+        },
+    })
     feline.setup({
+        components = ctp_feline.get(),
         force_inactive = {
             filetypes = {
                 '^NvimTree$',
@@ -69,7 +118,6 @@ configs.feline = function ()
                 '^qf$',
                 '^help$',
                 '^lspsagaoutline$',
-                '^startuptime$'
             },
             buftypes = {
                 '^terminal$'
@@ -78,95 +126,6 @@ configs.feline = function ()
         }
     })
     feline.winbar.setup()
-end
-
-configs.lualine = function()
-    require("plugins").check_loaded({
-        'nvim-web-devicons'
-    })
-    local outline = {
-        sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = { "location" },
-        },
-        filetypes = { "lspsagaoutline" },
-    }
-    local function diff_source()
-        local gitsigns = vim.b.gitsigns_status_dict
-        if gitsigns then
-            return {
-                added = gitsigns.added,
-                modified = gitsigns.changed,
-                removed = gitsigns.removed,
-            }
-        end
-    end
-    require('lualine').setup {
-        options = {
-            icons_enabled = true,
-            theme = 'molokai',
-            -- component_separators = { left = '', right = ''},
-            component_separators = "|",
-            section_separators = { left = '', right = ''},
-            disabled_filetypes = {
-                statusline = {'OverseerList'},
-                winbar = {},
-            },
-            ignore_focus = {},
-            always_divide_middle = true,
-            globalstatus = false,
-            refresh = {
-                statusline = 1000,
-                tabline = 1000,
-                winbar = 1000,
-            }
-        },
-        sections = {
-            lualine_a = {'mode'},
-            lualine_b = {
-                {'branch'},
-                {'diff', source = diff_source},
-            },
-            lualine_c = {'filename'},
-            lualine_x = {
-                {
-                    "diagnostics",
-                    sources = { "nvim_diagnostic" },
-                    symbols = { error = " ", warn = " ", info = " ", hint = " "},
-                },
-            },
-            lualine_y = {
-                {'filetype', colored = true, icon_only = true},
-                {'encoding'},
-                {'fileformat'},
-            },
-            lualine_z = {
-                'location',
-                'progress',
-            },
-        },
-        inactive_sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = {'filename'},
-            lualine_x = {'location'},
-            lualine_y = {},
-            lualine_z = {}
-        },
-        tabline = {},
-        winbar = {},
-        inactive_winbar = {},
-        extensions = {
-            'quickfix',
-            'nvim-tree',
-            'toggleterm',
-            outline,
-        }
-    }
 end
 
 configs.dressing = function()

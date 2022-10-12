@@ -45,7 +45,7 @@ return {
     -- 查找
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.0',
+        branch = '0.1.x',
         opt = true,
         cmd = 'Telescope',
         config = configs.telescope,
