@@ -184,7 +184,7 @@ augroup END
 au! filetype qf,lspsagaoutline,OverseerList,OverseerForm,notify,DressingSelect,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
 
 lua << EOF
-require('plugins')
+require('plugins').load_compile()
 vim.g.python3_host_prog = require('settings'):getpy('nvim')
 EOF
 

@@ -1,71 +1,35 @@
 local configs = {}
 
 
-configs.catppuccin = function()
-    vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-    require("catppuccin").setup({
-        compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
-        transparent_background = false,
-        term_colors = false,
-        dim_inactive = {
-            enabled = true,
-            shade = "dark",
-            percentage = 0.15,
-        },
-        styles = {
-            comments = { "italic" },
-            conditionals = { "italic" },
-            loops = {},
-            functions = { "italic", "bold" },
-            keywords = {},
-            strings = {},
-            variables = {},
-            numbers = {},
-            booleans = {},
-            properties = {},
-            types = {},
-            operators = {},
-        },
-        integrations = {
-            cmp = true,
-            gitsigns = true,
-            nvimtree = true,
-            telescope = true,
-            treesitter = true,
-            hop = true,
-            lsp_saga = true,
-            notify = true,
-            ts_rainbow = true,
-            lsp_trouble = true,
-            illuminate = true,
-            fidget = true,
-            indent_blankline = {
-                enabled = true,
-                colored_indent_levels = false,
-            },
-            native_lsp = {
-                enabled = true,
-                virtual_text = {
-                    errors = { "italic" },
-                    hints = { "italic" },
-                    warnings = { "italic" },
-                    information = { "italic" },
-                },
-                underlines = {
-                    errors = { "underline" },
-                    hints = { "underline" },
-                    warnings = { "underline" },
-                    information = { "underline" },
-                },
-            },
-            -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-        },
-        color_overrides = {},
-        custom_highlights = {},
+configs.sonokai = function()
+    local style = 'atlantis'
+    local api, fn = vim.api, vim.fn
+    vim.g.sonokai_style = style
+    vim.g.sonokai_disable_italic_comment = 0
+    vim.g.sonokai_enable_italic = 1
+    vim.g.sonokai_cursor = 'yellow'
+    vim.g.sonokai_menu_selection_background = 'blue'
+    vim.g.sonokai_show_eob = 1
+    vim.g.sonokai_diagnostic_text_highlight = 0
+    vim.g.sonokai_diagnostic_line_highlight = 0
+    vim.g.sonokai_diagnostic_virtual_text = 'colored'
+    -- vim.g.sonokai_current_word = 'underline'
+    vim.g.sonokai_disable_terminal_colors = 0
+    vim.g.sonokai_better_performance = 1
+
+    local function sonokai_custom()
+        local palette = fn['sonokai#get_palette'](style, vim.empty_dict())
+        fn['sonokai#highlight']('Visual', palette.none, palette.bg_blue)
+    end
+    local group = api.nvim_create_augroup('SonokaiCustom', {clear = true})
+    api.nvim_create_autocmd('ColorScheme', {
+        group = group,
+        pattern = 'sonokai',
+        callback = sonokai_custom,
     })
-    vim.cmd [[
-    colorscheme catppuccin
-    ]]
+    fn.timer_start(100, function()
+        vim.cmd("colorscheme sonokai")
+    end)
 end
 
 configs.indent_blankline = function()
@@ -94,45 +58,144 @@ configs.indent_blankline = function()
     })
 end
 
-configs.feline = function()
-    require("plugins").check_loaded({
+configs.lualine = function()
+    require("plugins").check_loaded(
         'nvim-web-devicons'
-    })
-    local feline = require("feline")
-    local ctp_feline = require('catppuccin.groups.integrations.feline')
-    ctp_feline.setup({
-        assets ={
-            left_separator = "",
-            right_separator = "",
+    )
+    local function diff_source()
+        local gitsigns = vim.b.gitsigns_status_dict
+        if gitsigns then
+            return {
+                added = gitsigns.added,
+                modified = gitsigns.changed,
+                removed = gitsigns.removed,
+            }
+        end
+    end
+    local function min_window_width(width)
+        return function() return vim.fn.winwidth(0) > width end
+    end
+    local outline = {
+        sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = { "location" },
+        },
+        filetypes = { "lspsagaoutline" },
+    }
+    local nvimtree = {
+        sections = {
+            lualine_a = { "bo:filetype" },
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {},
+        },
+        filetypes = { "NvimTree" },
+    }
+    local trouble = {
+        sections = {
+            lualine_a = { "bo:filetype" },
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {},
+        },
+        filetypes = { "Trouble" },
+    }
+    require("lualine").setup({
+        options = {
+            icons_enabled = true,
+            theme = "sonokai",
+            disabled_filetypes = {},
+            component_separators = { left = '', right = '' },
+            section_separators = { left = "", right = "" },
+        },
+        sections = {
+            lualine_a = {
+                {
+                    "mode",
+                    cond = min_window_width(40),
+                },
+            },
+            lualine_b = {
+                {
+                    'filename',
+                    newfile_status = true,
+                    symbols = {
+                        modified = '●',
+                        readonly = '🔒',
+                    }
+                },
+            },
+            lualine_c = {
+                { "branch", icon = '', cond = min_window_width(120) },
+                {
+                    "diff",
+                    symbols = {added = ' ', modified = ' ', removed = ' '},
+                    source = diff_source,
+                }
+            },
+            lualine_x = {
+                {
+                    "diagnostics",
+                    sources = { "nvim_diagnostic" },
+                    symbols = { error = " ", warn = " ", info = " " },
+                },
+            },
+            lualine_y = {
+                { "filetype", colored = true, icon_only = true },
+                {
+                    "encoding",
+                    fmt = string.upper,
+                    cond = function()
+                        return string.match((vim.bo.fenc or vim.go.enc), '^utf%-8$') == ''
+                    end,
+                },
+                {
+                    "fileformat",
+                    icons_enabled = true,
+                    symbols = {
+                        unix = "Unix",
+                        dos = "Dos",
+                        mac = "Mac",
+                    },
+                    cond = function()
+                        return vim.bo.fileformat ~= 'dos'
+                    end
+                },
+            },
+            lualine_z = { "progress", "location" },
+        },
+        inactive_sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = { "filename" },
+            lualine_x = { "location" },
+            lualine_y = {},
+            lualine_z = {},
+        },
+        tabline = {},
+        extensions = {
+            "quickfix",
+            "toggleterm",
+            nvimtree,
+            outline,
+            trouble,
         },
     })
-    feline.setup({
-        components = ctp_feline.get(),
-        force_inactive = {
-            filetypes = {
-                '^NvimTree$',
-                '^packer$',
-                '^startify$',
-                '^fugitive$',
-                '^fugitiveblame$',
-                '^qf$',
-                '^help$',
-                '^lspsagaoutline$',
-            },
-            buftypes = {
-                '^terminal$'
-            },
-            bufnames = {}
-        }
-    })
-    feline.winbar.setup()
 end
 
 configs.dressing = function()
     require("dressing").setup()
 end
 
-configs.notify = function ()
+configs.notify = function()
     local notify = require("notify")
     notify.setup({
         ---@usage Animation style one of { "fade", "slide", "fade_in_slide_out", "static" }
@@ -164,9 +227,7 @@ configs.notify = function ()
 end
 
 configs.fidget = function()
-    require("fidget").setup({
-        window = { blend = 0 },
-    })
+    require("fidget").setup()
 end
 
 

@@ -63,6 +63,7 @@ end
 
 configs.nvim_lspconfig = function()
     require("lsp").setup()
+    vim.cmd("LspStart")
 end
 
 configs.LuaSnip = function()
@@ -164,7 +165,7 @@ configs.nvim_cmp = function()
     })
     local function callback()
         if vim.o.ft == 'lua' then
-            vim.cmd [[exe 'PackerLoad cmp-nvim-lua']]
+            require('plugins').check_loaded('cmp-nvim-lua')
         else
             vim.api.nvim_create_autocmd('FileType', {
                 group = 'packer_load_aucmds',
@@ -201,10 +202,10 @@ configs.cmp_luasnip = function()
 end
 
 configs.cmp_cmdline = function()
-    require("plugins").check_loaded({
+    require("plugins").check_loaded(
         'cmp-buffer',
-        'cmp-path',
-    })
+        'cmp-path'
+    )
     local cmp = require("cmp")
     cmp.setup.cmdline('/', {
         mapping = cmp.mapping.preset.cmdline(),
@@ -261,9 +262,7 @@ configs.lspkind = function()
 end
 
 configs.nvim_autopairs = function()
-    require("plugins").check_loaded({
-        'nvim-cmp',
-    })
+    require("plugins").check_loaded('nvim-cmp')
     local npairs = require("nvim-autopairs")
     local Rule = require("nvim-autopairs.rule")
     local cmp_autopairs = require('nvim-autopairs.completion.cmp')

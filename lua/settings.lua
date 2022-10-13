@@ -1,23 +1,27 @@
----@diagnostic disable: unused-local
-local settings = {}
 local program_files_path = 'D:/Softwares/Program_Files/'
-setmetatable(settings, {
-    __index = function(table, key)
+
+
+local settings = setmetatable({}, {
+    __index = function(_, key)
         if key == 'rootmarks' then
             return {
                 '.git',
                 '.root',
             }
         end
+        local lang = string.match(key, '(.+)_path')
+        if lang then
+            lang = lang:gsub("^%l", string.upper)
+            return string.format("%s%s/", program_files_path, lang)
+        end
     end
 })
 
+function settings:getpy(name)
+    return self.python_path .. name .. '/Scripts/python.exe'
+end
 
-settings.py3_path = program_files_path .. 'Python/'
-settings.c_path = program_files_path .. 'C/'
-settings.zig_path = program_files_path .. 'Zig/'
-settings.deno_path = program_files_path .. 'Deno/'
-settings.lua_path = program_files_path .. 'Lua/'
+
 settings.exclude_filetypes = {
     "qf",
     "help",
@@ -39,10 +43,8 @@ settings.exclude_filetypes = {
     "DressingSelect",
     "",
 }
+settings.data_dir = string.format("%s/site/", vim.fn.stdpath("data"))
+settings.vim_path = vim.fn.stdpath("config")
 
-
-function settings:getpy(name)
-    return self.py3_path .. name .. '/Scripts/python.exe'
-end
 
 return settings

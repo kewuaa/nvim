@@ -9,17 +9,30 @@ return {
         cmd = 'StartupTime',
     },
 
+    -- filetype speedup
+    {
+        'nathom/filetype.nvim',
+        opt = false,
+    },
+
     -- 语法高亮
     {
         'nvim-treesitter/nvim-treesitter',
         opt = true,
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-        event = 'BufRead *',
+        -- event = 'BufRead *',
+        setup = function ()
+            require("plugins").delay_load('BufRead', '*', 500, 'nvim-treesitter')
+        end,
         cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
         config = configs.nvim_treesitter,
         requires = {
             -- 彩虹括号
-            {'p00f/nvim-ts-rainbow', opt = true},
+            {
+                'p00f/nvim-ts-rainbow',
+                opt = true,
+            },
+
             -- 参数高亮
             {
                 'm-demare/hlargs.nvim',
@@ -35,13 +48,11 @@ return {
         opt = true,
         cmd = 'Trouble',
         config = configs.trouble,
+        requires = {
+            {'kyazdani42/nvim-web-devicons', opt = true}
+        }
     },
 
-    -- 异步依赖
-    {
-        'nvim-lua/plenary.nvim',
-        opt = true,
-    },
     -- 查找
     {
         'nvim-telescope/telescope.nvim',
@@ -49,12 +60,25 @@ return {
         opt = true,
         cmd = 'Telescope',
         config = configs.telescope,
-    },
-    -- fzf支持
-    {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make',
-        opt = true,
+        requires = {
+            {
+                'kyazdani42/nvim-web-devicons',
+                opt = true,
+            },
+
+            -- 异步依赖
+            {
+                'nvim-lua/plenary.nvim',
+                opt = true,
+            },
+
+            -- fzf支持
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                run = 'make',
+                opt = true,
+            },
+        }
     },
 
     -- 运行
@@ -68,7 +92,12 @@ return {
             'AsyncTaskEdit',
         },
         config = configs.asyncrun,
-        requires = {'skywind3000/asynctasks.vim', opt = true},
+        requires = {
+            {
+                'skywind3000/asynctasks.vim',
+                opt = true,
+            }
+        },
     },
 
     -- float terminal
@@ -84,18 +113,7 @@ return {
         'lewis6991/gitsigns.nvim',
         opt = true,
         setup = function()
-            vim.api.nvim_create_autocmd('BufRead', {
-                group = 'setup_plugins',
-                pattern = '*',
-                once = true,
-                callback = function()
-                    vim.fn.timer_start(1000, function()
-                        vim.cmd [[
-                        exe 'PackerLoad gitsigns.nvim'
-                        ]]
-                    end)
-                end,
-            })
+            require('plugins').delay_load('BufRead', '*', 1500, 'gitsigns.nvim')
         end,
         config = configs.gitsigns,
     },
@@ -106,6 +124,12 @@ return {
         opt = true,
         cmd = 'NvimTreeToggle',
         config = configs.nvim_tree,
+        requires = {
+            {
+                'kyazdani42/nvim-web-devicons',
+                opt = true,
+            }
+        }
     },
 
     -- 缓冲区关闭时保留原有布局
@@ -121,5 +145,11 @@ return {
         opt = true,
         cmd = 'JABSOpen',
         config = configs.JABS,
+        requires = {
+            {
+                'kyazdani42/nvim-web-devicons',
+                opt = true,
+            }
+        }
     },
 }

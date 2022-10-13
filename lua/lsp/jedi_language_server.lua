@@ -1,7 +1,7 @@
 local jdls = {}
 local settings = require("settings")
-local default_env = settings.py3_path .. 'global'
-local path = settings.py3_path .. 'jdls/Scripts/'
+local default_env = settings.python_path .. 'global'
+local path = settings.python_path .. 'jdls/Scripts/'
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = '.venv'
 

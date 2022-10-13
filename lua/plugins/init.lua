@@ -1,23 +1,31 @@
-local M = {}
+local api, fn, uv = vim.api, vim.fn, vim.loop
+local data_dir = require("settings").data_dir
+local vim_path = require("settings").vim_path
+local modules_dir = vim_path .. "/lua/plugins"
+local packer_compiled = data_dir .. "lua/_compiled.lua"
+local bak_compiled = data_dir .. "lua/bak_compiled.lua"
+local packer = nil
+local Packer = {}
+local group = api.nvim_create_augroup('setup_plugins', {clear = true})
+Packer.__index = Packer
+require('plugins.keymaps')
 
-function M.init()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-      fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-      vim.cmd [[packadd packer.nvim]]
+
+function Packer:load_plugins()
+    self.modules = {}
+    local modules = fn.globpath(modules_dir, '*/init.lua', 0, 1)
+    for _, m in ipairs(modules) do
+        m = string.match(m, '[/\\]([^/\\]-)[/\\]init.lua')
+        self.modules[#self.modules+1] = m
     end
+end
 
-    require('plugins.keymaps')
-    local packer = require("packer")
-    local use = packer.use
-    local modules = {
-        'completion',
-        'editor',
-        'tools',
-        'ui',
-    }
 
+function Packer:load_packer()
+    if not packer then
+        vim.cmd("packadd packer.nvim")
+        packer = require("packer")
+    end
     packer.init({
         display = {
             open_fn = function()
@@ -25,65 +33,106 @@ function M.init()
                     border = 'single',
                 })
             end,
-            working_sym = 'ﰭ',
-            error_sym = '',
-            done_sym = '',
-            removed_sym = '',
-            moved_sym = 'ﰳ',
         },
         git = { clone_timeout = 120 },
+        disable_commands = true,
+        max_jobs = 30,
+        compile_path = packer_compiled,
     })
     packer.reset()
-
-    vim.api.nvim_create_augroup('setup_plugins', {
-        clear = true,
-    })
-
+    local use = packer.use
     -- manage itself
     use({
         'wbthomason/packer.nvim',
-        opt = false
+        opt = true,
     })
-    -- filetype
-    use({
-        'nathom/filetype.nvim',
-        opt = false,
-    })
-
-    for _, module in pairs(modules) do
-        module = 'plugins.' .. module
-        for _, plugin in pairs(require(module)) do
+    self:load_plugins()
+    for _, m in pairs(self.modules) do
+        m = 'plugins.' .. m
+        for _, plugin in ipairs(require(m)) do
             use(plugin)
         end
     end
 end
 
-function M.check_loaded(plugins)
-    for _, name in ipairs(plugins) do
+function Packer:init_ensure_plugins()
+    local packer_dir = data_dir .. "pack/packer/opt/packer.nvim"
+    local state = uv.fs_stat(packer_dir)
+    if not state then
+        local cmd = "!git clone git@github.com:wbthomason/packer.nvim.git " .. packer_dir
+        vim.cmd(cmd)
+        uv.fs_mkdir(data_dir .. "lua", 511, function()
+            assert(nil, "Failed to make packer compile dir. Please restart Nvim and we'll try it again!")
+        end)
+        self:load_packer()
+        packer.install()
+    end
+end
+
+local plugins = setmetatable({}, {
+    __index = function(_, key)
+        if not packer then
+            Packer:load_packer()
+        end
+        return packer[key]
+    end,
+})
+
+function plugins.back_compile()
+    if vim.fn.filereadable(packer_compiled) == 1 then
+        os.rename(packer_compiled, bak_compiled)
+    end
+    plugins.compile()
+    vim.notify("Packer Compile Success!", vim.log.levels.INFO, { title = "Success!" })
+end
+
+function plugins.load_compile()
+    if fn.filereadable(packer_compiled) == 1 then
+        require("_compiled")
+    else
+        plugins.back_compile()
+    end
+
+    local cmds = { "Compile", "Install", "Update", "Sync", "Clean", "Status" }
+    for _, cmd in ipairs(cmds) do
+        api.nvim_create_user_command("Packer" .. cmd, function()
+            require("plugins")[cmd == "Compile" and "back_compile" or string.lower(cmd)]()
+            end, { force = true })
+    end
+
+    api.nvim_create_autocmd("User", {
+        pattern = "PackerComplete",
+        callback = function()
+            require("plugins").back_compile()
+        end,
+    })
+end
+
+function plugins.check_loaded(...)
+    local p = {...}
+    for _, name in ipairs(p) do
         if packer_plugins[name] then
             if not packer_plugins[name].loaded then
-                vim.cmd(string.format([[packadd %s]], name))
+                require("packer.load")({name}, {}, packer_plugins)
             end
         else
-            print(string.format('plugin %s not found', name))
+            vim.notify(string.format('plugin %s not found', name))
         end
     end
 end
 
-function M.get_cwd()
-    local activate_clients = vim.lsp.buf_get_clients()
-    local num = #activate_clients
-    if num > 0 then
-        local root = activate_clients[num].config.root_dir
-        if root then
-            return root
-        else
-            return vim.fn.getcwd()
+function plugins.delay_load(event, pattern, delay, plugin)
+    api.nvim_create_autocmd(event, {
+        group = group,
+        pattern = pattern,
+        once = true,
+        callback = function()
+            fn.timer_start(delay, function()
+                plugins.check_loaded(plugin)
+            end)
         end
-    else
-        return vim.fn.getcwd()
-    end
+    })
 end
 
-M.init()
-return M
+
+return plugins

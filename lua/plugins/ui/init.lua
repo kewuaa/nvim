@@ -2,18 +2,13 @@ local configs = require("plugins.ui.configs")
 
 
 return {
-    -- 图标
-    {
-        'kyazdani42/nvim-web-devicons',
-        opt = true,
-    },
 
     -- 颜色主题
     {
-        'catppuccin/nvim', as = 'catppuccin',
+        'sainnhe/sonokai',
         opt = true,
-        event = {'BufReadPre *', 'BufNewFile *'},
-        config = configs.catppuccin,
+        event = 'BufRead *',
+        config = configs.sonokai,
     },
 
     -- 缩进线
@@ -26,10 +21,16 @@ return {
 
     -- statusline
     {
-        'feline-nvim/feline.nvim',
+        'nvim-lualine/lualine.nvim',
         opt = true,
-        event = 'BufRead *',
-        config = configs.feline,
+        after = 'sonokai',
+        config = configs.lualine,
+        requires = {
+            {
+                'kyazdani42/nvim-web-devicons',
+                opt = true,
+            }
+        }
     },
 
     -- 增强vim.ui
@@ -52,7 +53,7 @@ return {
     {
         'j-hui/fidget.nvim',
         opt = true,
-        event = 'BufRead *',
+        event = 'LspAttach',
         config = configs.fidget,
     },
 }

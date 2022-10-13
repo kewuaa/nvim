@@ -81,7 +81,7 @@ return {
     {
         'RRethy/vim-illuminate',
         opt = true,
-        event = 'BufRead *',
+        after = 'lspsaga.nvim',
         config = configs.vim_illuminate,
     },
 

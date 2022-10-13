@@ -88,11 +88,12 @@ configs.trouble = function()
 end
 
 configs.telescope = function()
-    require("plugins").check_loaded({
+    require("plugins").check_loaded(
         'plenary.nvim',
         'telescope-fzf-native.nvim',
-        'nvim-web-devicons',
-    })
+        'nvim-notify',
+        'nvim-web-devicons'
+    )
     local telescope = require("telescope")
 
     telescope.setup({
@@ -204,11 +205,36 @@ end
 configs.gitsigns = function()
     require('gitsigns').setup {
         signs = {
-            add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-            change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-            delete       = {hl = 'GitSignsDelete', text = '-', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-            topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-            changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+            add = {
+                hl = "GitSignsAdd",
+                text = "",
+                numhl = "GitSignsAddNr",
+                linehl = "GitSignsAddLn",
+            },
+            change = {
+                hl = "GitSignsChange",
+                text = "",
+                numhl = "GitSignsChangeNr",
+                linehl = "GitSignsChangeLn",
+            },
+            delete = {
+                hl = "GitSignsDelete",
+                text = "",
+                numhl = "GitSignsDeleteNr",
+                linehl = "GitSignsDeleteLn",
+            },
+            topdelete = {
+                hl = "GitSignsDelete",
+                text = "‾",
+                numhl = "GitSignsDeleteNr",
+                linehl = "GitSignsDeleteLn",
+            },
+            changedelete = {
+                hl = "GitSignsChange",
+                text = "~",
+                numhl = "GitSignsChangeNr",
+                linehl = "GitSignsChangeLn",
+            },
         },
         watch_gitdir = { interval = 1000, follow_files = true },
         current_line_blame = true,
@@ -260,9 +286,9 @@ configs.gitsigns = function()
 end
 
 configs.nvim_tree = function()
-    require("plugins").check_loaded({
+    require("plugins").check_loaded(
         'nvim-web-devicons'
-    })
+    )
     require("nvim-tree").setup({
         create_in_closed_folder = false,
         respect_buf_cwd = true,
@@ -440,9 +466,6 @@ configs.nvim_tree = function()
 end
 
 configs.JABS = function()
-    require("plugins").check_loaded({
-        'nvim-web-devicons'
-    })
     require('jabs').setup({
         -- Options for the main window
         position = 'center', -- center, corner. Default corner

@@ -6,7 +6,7 @@ local opts = {
 
 local function telescope(option)
     return function()
-        local cmd = string.format('Telescope %s cwd=%s', option, require('plugins').get_cwd())
+        local cmd = string.format('Telescope %s cwd=%s', option, require('utils').get_cwd())
         vim.cmd(cmd)
     end
 end
@@ -16,7 +16,7 @@ local function toggleterm(option)
         if not option then
             option = 'horizontal'
         end
-        local cmd = string.format('ToggleTerm dir=%s direction=%s', require('plugins').get_cwd(), option)
+        local cmd = string.format('ToggleTerm dir=%s direction=%s', require('utils').get_cwd(), option)
         vim.cmd(cmd)
     end
 end
