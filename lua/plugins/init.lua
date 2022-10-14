@@ -6,7 +6,6 @@ local packer_compiled = data_dir .. "lua/_compiled.lua"
 local bak_compiled = data_dir .. "lua/bak_compiled.lua"
 local packer = nil
 local Packer = {}
-local group = api.nvim_create_augroup('setup_plugins', {clear = true})
 Packer.__index = Packer
 require('plugins.keymaps')
 
@@ -108,6 +107,8 @@ function plugins.load_compile()
     })
 end
 
+plugins.group = api.nvim_create_augroup('setup_plugins', {clear = true})
+
 function plugins.check_loaded(...)
     local names = {...}
     require("packer.load")(names, {}, packer_plugins, false)
@@ -118,7 +119,7 @@ function plugins.delay_load(event, pattern, delay, plugin)
         require("packer.load")((type(plugin) == 'table' and plugin) or {plugin}, {event = event}, packer_plugins, false)
     end
     api.nvim_create_autocmd(event, {
-        group = group,
+        group = plugins.group,
         pattern = pattern,
         once = true,
         callback = function()

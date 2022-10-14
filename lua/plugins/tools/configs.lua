@@ -23,7 +23,7 @@ configs.nvim_treesitter = function()
         },
     })
     vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
-        group = 'setup_plugins',
+        group = require("plugins").group,
         callback = function()
             vim.opt.foldmethod     = 'expr'
             vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
