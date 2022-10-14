@@ -291,7 +291,7 @@ configs.nvim_tree = function()
     )
     require("nvim-tree").setup({
         create_in_closed_folder = false,
-        respect_buf_cwd = true,
+        respect_buf_cwd = false,
         auto_reload_on_write = true,
         disable_netrw = false,
         hijack_cursor = true,
@@ -302,7 +302,7 @@ configs.nvim_tree = function()
         open_on_setup_file = false,
         open_on_tab = false,
         sort_by = "name",
-        update_cwd = true,
+        sync_root_with_cwd = true,
         view = {
             adaptive_size = false,
             centralize_selection = false,
@@ -326,13 +326,7 @@ configs.nvim_tree = function()
             },
         },
         renderer = {
-            add_trailing = false,
             group_empty = true,
-            highlight_git = false,
-            full_name = false,
-            highlight_opened_files = "none",
-            special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md", "CMakeLists.txt" },
-            symlink_destination = true,
             indent_markers = {
                 enable = true,
                 icons = {
@@ -388,7 +382,7 @@ configs.nvim_tree = function()
         },
         update_focused_file = {
             enable = true,
-            update_cwd = true,
+            update_root = false,
             ignore_list = {},
         },
         ignore_ft_on_setup = {},
@@ -410,7 +404,7 @@ configs.nvim_tree = function()
                     enable = true,
                     chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
                     exclude = {
-                        filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+                        filetype = require("settings").exclude_filetypes,
                         buftype = { "nofile", "terminal", "help" },
                     },
                 },
@@ -420,7 +414,7 @@ configs.nvim_tree = function()
             },
         },
         diagnostics = {
-            enable = false,
+            enable = true,
             show_on_dirs = false,
             debounce_delay = 50,
             icons = {
@@ -447,20 +441,6 @@ configs.nvim_tree = function()
         live_filter = {
             prefix = "[FILTER]: ",
             always_show_folders = true,
-        },
-        log = {
-            enable = false,
-            truncate = false,
-            types = {
-                all = false,
-                config = false,
-                copy_paste = false,
-                dev = false,
-                diagnostics = false,
-                git = false,
-                profile = false,
-                watcher = false,
-            },
         },
     })
 end
@@ -495,19 +475,6 @@ configs.JABS = function()
             split = "WarningMsg", -- default StatusLine
             alternate = "StatusLine" -- default WarningMsg
         },
-
-        -- Default symbols
-        -- symbols = {
-        --     current = "C", -- default 
-        --     split = "S", -- default 
-        --     alternate = "A", -- default 
-        --     hidden = "H", -- default ﬘
-        --     locked = "L", -- default 
-        --     ro = "R", -- default 
-        --     edited = "E", -- default 
-        --     terminal = "T", -- default 
-        --     default_file = "D", -- Filetype icon if not present in nvim-web-devicons. Default 
-        -- },
 
         -- Keymaps
         keymap = {
