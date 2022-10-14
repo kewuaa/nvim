@@ -109,27 +109,24 @@ function plugins.load_compile()
 end
 
 function plugins.check_loaded(...)
-    local p = {...}
-    for _, name in ipairs(p) do
-        if packer_plugins[name] then
-            if not packer_plugins[name].loaded then
-                require("packer.load")({name}, {}, packer_plugins)
-            end
-        else
-            vim.notify(string.format('plugin %s not found', name))
-        end
-    end
+    local names = {...}
+    require("packer.load")(names, {}, packer_plugins, false)
 end
 
 function plugins.delay_load(event, pattern, delay, plugin)
+    local function load()
+        require("packer.load")((type(plugin) == 'table' and plugin) or {plugin}, {event = event}, packer_plugins, false)
+    end
     api.nvim_create_autocmd(event, {
         group = group,
         pattern = pattern,
         once = true,
         callback = function()
-            fn.timer_start(delay, function()
-                plugins.check_loaded(plugin)
-            end)
+            if delay > 0 then
+                fn.timer_start(delay, load)
+            else
+                load()
+            end
         end
     })
 end

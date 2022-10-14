@@ -19,7 +19,8 @@ configs.sonokai = function()
 
     local function sonokai_custom()
         local palette = fn['sonokai#get_palette'](style, vim.empty_dict())
-        fn['sonokai#highlight']('Visual', palette.none, palette.bg_blue)
+        fn['sonokai#highlight']('Visual', palette.none, palette.bg4)
+        fn['sonokai#highlight']('CurrentWord', palette.none, palette.bg1)
     end
     local group = api.nvim_create_augroup('SonokaiCustom', {clear = true})
     api.nvim_create_autocmd('ColorScheme', {

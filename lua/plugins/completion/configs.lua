@@ -85,7 +85,6 @@ configs.LuaSnip = function()
 end
 
 configs.nvim_cmp = function()
-    -- 加载依赖
     local cmp = require('cmp')
     local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -164,28 +163,14 @@ configs.nvim_cmp = function()
         ),
     })
     local function callback()
-        if vim.o.ft == 'lua' then
+        local packer = require("plugins")
+        if vim.bo.ft == 'lua' then
             require('plugins').check_loaded('cmp-nvim-lua')
         else
-            vim.api.nvim_create_autocmd('FileType', {
-                group = 'packer_load_aucmds',
-                pattern = 'lua',
-                once = true,
-                command = [[lua require('packer.load')({'cmp-nvim-lua'}, { ft = "lua" }, _G.packer_plugins)]],
-            })
+            packer.delay_load('FileType', 'lua', 0, 'cmp-nvim-lua')
         end
-        vim.api.nvim_create_autocmd('InsertEnter', {
-            group = 'packer_load_aucmds',
-            pattern = '*',
-            once = true,
-            command = [[lua require("packer.load")({'LuaSnip'}, {event = 'InsertEnter *'}, _G.packer_plugins)]],
-        })
-        vim.api.nvim_create_autocmd('CmdLineEnter', {
-            group = 'packer_load_aucmds',
-            pattern = '/,:',
-            once = true,
-            command = [[lua require('packer.load')({'cmp-cmdline'}, {event = 'CmdLineEnter /,:'}, _G.packer_plugins)]],
-        })
+        packer.delay_load('InsertEnter', '*', 0, 'LuaSnip')
+        packer.delay_load('CmdLineEnter', '/,:', 0, 'cmp-cmdline')
     end
 
     callback()

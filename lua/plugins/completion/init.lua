@@ -53,7 +53,6 @@ return {
     {
         'hrsh7th/nvim-cmp',
         opt = true,
-        -- event = {'BufReadPre *', 'BufNewFile *'},
         after = 'nvim-treesitter',
         config = configs.nvim_cmp,
         requires = {
