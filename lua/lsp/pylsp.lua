@@ -1,7 +1,7 @@
 local pylsp = {}
 local settings = require('settings')
 local default_env = settings.python_path .. 'global'
-local path = settings.python_path .. 'pylsp/Scripts/'
+local path = settings:getpy('pylsp') .. '/../'
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks + 1] = '.venv'
 
