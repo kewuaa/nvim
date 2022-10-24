@@ -1,5 +1,5 @@
 local denols = {}
-local settings = require("settings")
+local settings = require("core.settings")
 local path = settings.deno_path
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = 'deno.json'

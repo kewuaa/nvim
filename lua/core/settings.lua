@@ -6,7 +6,6 @@ local settings = setmetatable({}, {
         if key == 'rootmarks' then
             return {
                 '.git',
-                '.root',
             }
         end
         local lang = string.match(key, '(.+)_path')

@@ -1,9 +1,10 @@
 local jdls = {}
-local settings = require("settings")
+local settings = require("core.settings")
 local default_env = settings.python_path .. 'global'
 local path = settings:getpy('jdls') .. '/../'
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = '.venv'
+rootmarks[#rootmarks+1] = '.root'
 
 
 local find_env = function(start_path)

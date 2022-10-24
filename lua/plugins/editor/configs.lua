@@ -94,7 +94,7 @@ configs.vim_illuminate = function()
             "regex",
         },
         delay = 100,
-        filetypes_denylist = require("settings").exclude_filetypes,
+        filetypes_denylist = require("core.settings").exclude_filetypes,
         under_cursor = true,
     })
 end

@@ -2,11 +2,16 @@ local configs = require("plugins.tools.configs")
 
 
 return {
-    -- 启动时间
+    -- 测试启动时间
     {
         'dstein64/vim-startuptime',
         opt = true,
         cmd = 'StartupTime',
+    },
+
+    {
+        'lewis6991/impatient.nvim',
+        opt = false,
     },
 
     -- filetype speedup
@@ -21,7 +26,7 @@ return {
         opt = true,
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
         setup = function ()
-            require("plugins").delay_load('BufRead', '*', 500, 'nvim-treesitter')
+            require("plugins").delay_load('BufRead', '*', 1000, 'nvim-treesitter')
         end,
         cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
         config = configs.nvim_treesitter,
@@ -112,7 +117,7 @@ return {
         'lewis6991/gitsigns.nvim',
         opt = true,
         setup = function()
-            require('plugins').delay_load('BufRead', '*', 1500, 'gitsigns.nvim')
+            require('plugins').delay_load('BufRead', '*', 2000, 'gitsigns.nvim')
         end,
         config = configs.gitsigns,
     },

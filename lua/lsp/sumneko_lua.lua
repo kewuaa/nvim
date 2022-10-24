@@ -1,5 +1,5 @@
 local sumneko_lua = {}
-local settings = require("settings")
+local settings = require("core.settings")
 local runtime_path = vim.split(package.path, ';')
 local rootmarks = settings.rootmarks
 runtime_path[#runtime_path + 1] = "lua/?.lua"

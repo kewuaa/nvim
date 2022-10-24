@@ -33,7 +33,7 @@ end
 
 configs.hlargs = function()
     require("hlargs").setup({
-        excluded_filetypes = require("settings").exclude_filetypes,
+        excluded_filetypes = require("core.settings").exclude_filetypes,
     })
 end
 
@@ -146,7 +146,7 @@ end
 configs.asyncrun = function()
     vim.g.asyncrun_mode = 4
     vim.g.asyncrun_save = 2
-    vim.g.asyncrun_rootmarks = require("settings").rootmarks
+    vim.g.asyncrun_rootmarks = require("core.settings").rootmarks
     vim.g.asynctasks_term_pos = 'external'
     vim.g.asynctasks_term_focus = 0
     vim.g.asynctasks_template = 1
@@ -404,7 +404,7 @@ configs.nvim_tree = function()
                     enable = true,
                     chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
                     exclude = {
-                        filetype = require("settings").exclude_filetypes,
+                        filetype = require("core.settings").exclude_filetypes,
                         buftype = { "nofile", "terminal", "help" },
                     },
                 },

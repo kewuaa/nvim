@@ -23,7 +23,6 @@ return {
     {
         'nvim-lualine/lualine.nvim',
         opt = true,
-        -- after = 'sonokai',
         event = 'ColorScheme',
         config = configs.lualine,
         requires = {

@@ -38,7 +38,7 @@ configs.indent_blankline = function()
         show_end_of_line = true,
         show_current_context = true,
         show_current_context_start = true,
-        filetype_exclude = require("settings").exclude_filetypes,
+        filetype_exclude = require("core.settings").exclude_filetypes,
         buftype_exclude = { "terminal", "nofile" },
         context_patterns = {
             "class",

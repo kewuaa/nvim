@@ -1,5 +1,5 @@
 local clangd = {}
-local settings = require("settings")
+local settings = require("core.settings")
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = 'compile_commands.json'
 rootmarks[#rootmarks+1] = '.clangd'

@@ -1,13 +1,12 @@
 local api, fn, uv = vim.api, vim.fn, vim.loop
-local data_dir = require("settings").data_dir
-local vim_path = require("settings").vim_path
+local data_dir = require("core.settings").data_dir
+local vim_path = require("core.settings").vim_path
 local modules_dir = vim_path .. "/lua/plugins"
 local packer_compiled = data_dir .. "lua/_compiled.lua"
 local bak_compiled = data_dir .. "lua/bak_compiled.lua"
 local packer = nil
 local Packer = {}
 Packer.__index = Packer
-require('plugins.keymaps')
 
 
 function Packer:load_plugins()

@@ -6,7 +6,7 @@ local opts = {
 
 local function telescope(option)
     return function()
-        local cmd = string.format('Telescope %s cwd=%s', option, require('utils').get_cwd())
+        local cmd = string.format('Telescope %s cwd=%s', option, require('core.utils').get_cwd())
         vim.cmd(cmd)
     end
 end
@@ -16,10 +16,40 @@ local function toggleterm(option)
         if not option then
             option = 'horizontal'
         end
-        local cmd = string.format('ToggleTerm dir=%s direction=%s', require('utils').get_cwd(), option)
+        local cmd = string.format('ToggleTerm dir=%s direction=%s', require('core.utils').get_cwd(), option)
         vim.cmd(cmd)
     end
 end
+---------------------------------------------------------------------------------------------------
+
+vim.g.mapleader = ','
+
+map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts)
+map('n', '<leader>rr', '<cmd>source $MYVIMRC<CR>', opts)
+
+map('n', '<leader>bp', '<cmd>bp<CR>', opts)
+map('n', '<leader>bn', '<cmd>bn<CR>', opts)
+map('n', '<leader>bd', '<cmd>bdelete<CR>', opts)
+
+map('n', '<leader>tp', '<cmd>tabprevious<CR>', opts)
+map('n', '<leader>tn', '<cmd>tabnext<CR>', opts)
+map('n', '<leader>td', '<cmd>tabclose<CR>', opts)
+
+map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts)
+map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts)
+map('n', '<C-w>]', '<cmd>resize+5<CR>', opts)
+map('n', '<C-w>[', '<cmd>resize-5<CR>', opts)
+
+vim.cmd [[
+" 多行应用宏
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echom "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+]]
+
 ---------------------------------------------------------------------------------------------------
 
 map('n', '<F5>', '<cmd>AsyncTask file-run<CR>', opts)
