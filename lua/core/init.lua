@@ -48,6 +48,17 @@ local disable_distribution_plugins = function()
     vim.g.loaded_clipboard_provider = 1
 end
 
+local impatient_cache_path = require("core.settings").data_dir .. 'lua'
+_G.__luacache_config = {
+  chunks = {
+    enable = true,
+    path = impatient_cache_path .. '/luacache_chunks',
+  },
+  modpaths = {
+    enable = true,
+    path = impatient_cache_path .. '/luacache_modpaths',
+  }
+}
 local ok, impatient = pcall(require, 'impatient')
 if ok then
   impatient.enable_profile()
