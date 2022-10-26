@@ -13,13 +13,14 @@ return {
             {
                 'neovim/nvim-lspconfig',
                 opt = true,
-                after = {'lspsaga.nvim', 'cmp-nvim-lsp', 'lsp_signature.nvim'},
+                after = 'cmp-nvim-lsp',
                 config = configs.nvim_lspconfig,
             },
             -- 符号提示
             {
                 'ray-x/lsp_signature.nvim',
                 opt = true,
+                after =  'nvim-lspconfig',
             },
             -- LSP source
             {

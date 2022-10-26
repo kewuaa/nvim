@@ -118,7 +118,8 @@ function M.setup()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     for _, name in ipairs({
         -- 'pylsp',
-        'jedi_language_server',
+        -- 'jedi_language_server',
+        'pyright',
         'zls',
         'clangd',
         'sumneko_lua',

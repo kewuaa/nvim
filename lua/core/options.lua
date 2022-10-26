@@ -1,5 +1,5 @@
 
-vim.g.python3_host_prog = require('core.settings'):getpy('nvim')
+vim.g.python3_host_prog = require('core.settings'):getpy('default')
 
 local options = {
     splitright = true,
@@ -39,7 +39,7 @@ local options = {
     shortmess = 'aoOTIcF',
     pumheight = 16,
     completeopt = 'menu,menuone,noselect,noinsert',
-    foldlevelstart = 99,
+    foldlevelstart = 49,
     wildmenu = true,
     wildignorecase = true,
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
