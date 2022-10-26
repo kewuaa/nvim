@@ -123,7 +123,6 @@ function M.setup()
         'zls',
         'clangd',
         'sumneko_lua',
-        'denols',
     }) do
         local server = require("lsp." .. name)
         local server_config = {
