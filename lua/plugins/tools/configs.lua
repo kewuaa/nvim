@@ -144,13 +144,23 @@ configs.telescope = function()
 end
 
 configs.asyncrun = function()
+    local settings = require("core.settings")
+    local py_envs = settings:getpy('envs')
+    local environ = {}
+    environ.root_pyenv = settings:getpy('root')
+    for _, env_path in pairs(vim.fn.globpath(py_envs, '*/Scripts/python.exe', 0, 1)) do
+        local env_name = string.match(env_path, '[/\\]([^/\\]-)[/\\]Scripts')
+        environ[env_name .. '_pyenv'] = env_path
+    end
+
     vim.g.asyncrun_mode = 4
     vim.g.asyncrun_save = 2
-    vim.g.asyncrun_rootmarks = require("core.settings").rootmarks
+    vim.g.asyncrun_rootmarks = settings.rootmarks
     vim.g.asynctasks_term_pos = 'external'
     vim.g.asynctasks_term_focus = 0
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
+    vim.g.asynctasks_environ = environ
 end
 
 configs.toggleterm = function()

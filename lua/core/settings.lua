@@ -19,6 +19,8 @@ local settings = setmetatable({}, {
 function settings:getpy(name)
     if name == 'envs' then
         return self.python_path .. 'envs'
+    elseif name == 'root' then
+        return self.python_path .. 'python38/python.exe'
     end
     return string.format('%senvs/%s/Scripts/python.exe', self.python_path, name)
 end
