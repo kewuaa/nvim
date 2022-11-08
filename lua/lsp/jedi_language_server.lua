@@ -1,9 +1,8 @@
 local jdls = {}
 local settings = require("core.settings")
-local default_env = settings.python_path .. 'global'
-local path = settings:getpy('jdls') .. '/../'
+local default_env = settings:getpy('default') .. '/../../'
+local path = settings:getpy('lsp') .. '/../'
 local rootmarks = settings.rootmarks
-rootmarks[#rootmarks+1] = '.venv'
 rootmarks[#rootmarks+1] = '.root'
 
 
@@ -11,28 +10,36 @@ local find_env = function(start_path)
     local fnm = vim.fn.fnamemodify
     local cwd = fnm(start_path, ':p')
     local r = string.match(cwd, '^%a:[/\\]')
-    local venv = nil
+    local venv = 'default'
     while true do
-        venv = cwd .. '/.venv'
-        if os.execute('cd ' .. venv) == 0 then
+        local config_file = cwd .. '/.root'
+        if vim.fn.filereadable(config_file) == 1 then
+            for line in io.lines(config_file) do
+                local items = vim.fn.split(line, '=', 1)
+                if items[1] == 'venv' then
+                    venv = items[2]
+                end
+            end
             break
         end
         if cwd == r then
-            venv = default_env
             break
         end
         cwd = fnm(cwd, ':h')
     end
-    return venv .. '/Lib/site-packages'
+    return settings:getpy(venv)
 end
-
 
 jdls.rootmarks = rootmarks
 jdls.filetypes = {'python'}
 jdls.cmd = {path .. 'jedi-language-server.exe'}
 jdls.init_options = {
+    diagnostics = {
+        enable = false,
+    },
     workspace = {
-        extraPaths = {find_env(vim.fn.getcwd())},
+        -- extraPaths = {find_env(vim.fn.getcwd())},
+        environmentPath = find_env(vim.fn.getcwd()),
         symbols = {
             ignoreFolders = {
                 '.git',
