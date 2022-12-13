@@ -1,6 +1,6 @@
 local jdls = {}
 local settings = require("core.settings")
-local path = settings:getpy('lsp') .. '/../'
+local path = settings:getpy('default') .. '/../'
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = '.root'
 

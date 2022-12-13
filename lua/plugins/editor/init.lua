@@ -52,6 +52,19 @@ return {
         config = configs.comment,
     },
 
+    -- TODO 注释
+    {
+        'folke/todo-comments.nvim',
+        opt = true,
+        cmd = {
+            'TodoQuickFix',
+            'TodoLocList',
+            'TodoTrouble',
+            'TodoTelescope',
+        },
+        config = configs.todo_comments,
+    },
+
     -- 扩展区域
     {
         'terryma/vim-expand-region',

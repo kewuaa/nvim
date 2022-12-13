@@ -20,6 +20,13 @@ local function toggleterm(option)
         vim.cmd(cmd)
     end
 end
+
+local function todo_comments(command)
+    return function()
+        local cmd = string.format('%s cwd=%s', command, require("core.utils").get_cwd())
+        vim.cmd(cmd)
+    end
+end
 ---------------------------------------------------------------------------------------------------
 
 vim.g.mapleader = ','
@@ -80,5 +87,7 @@ map('n', '<leader>bd', '<cmd>Bdelete<CR>', opts)
 map('t', '<ESC>', [[<c-\><c-n>]], opts)
 map({'n', 't'}, '<M-=>', toggleterm(), opts)
 map({'n', 'x'}, '<M-->', '<cmd>ToggleTermSendCurrentLine<CR>', opts)
+
+map('n', '<leader>ftd', todo_comments('TodoTelescope'), opts)
 
 ---------------------------------------------------------------------------------------------------

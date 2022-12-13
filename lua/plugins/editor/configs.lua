@@ -74,6 +74,13 @@ configs.comment = function()
     ft.zig = '//%s'
 end
 
+configs.todo_comments = function ()
+    require("plugins").check_loaded(
+        'plenary.nvim'
+    )
+    require("todo-comments").setup()
+end
+
 configs.nvim_trevJ = function()
     vim.keymap.set('n', '<leader>j',
         "<cmd>lua require('trevj').format_at_cursor()<CR>",

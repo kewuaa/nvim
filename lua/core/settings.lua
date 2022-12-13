@@ -1,4 +1,5 @@
 local program_files_path = 'D:/Softwares/Program_Files/'
+local pyversion = '310'
 
 
 local settings = setmetatable({}, {
@@ -20,7 +21,7 @@ function settings:getpy(name)
     if name == 'envs' then
         return self.python_path .. 'envs'
     elseif name == 'root' then
-        return self.python_path .. 'python38/python.exe'
+        return self.python_path .. string.format('python%s/python.exe', pyversion)
     end
     return string.format('%senvs/%s/Scripts/python.exe', self.python_path, name)
 end
