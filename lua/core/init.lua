@@ -46,6 +46,7 @@ local disable_distribution_plugins = function()
     -- vim.g.loaded_remote_plugins = 1
 
     vim.g.loaded_clipboard_provider = 1
+    vim.g.loaded_remote_plugins = 1
 end
 
 local impatient_cache_path = require("core.settings").data_dir .. 'lua'

@@ -122,6 +122,7 @@ function M.setup()
         'efm',
         'clangd',
         'sumneko_lua',
+        'tsserver',
     }) do
         local server = require("lsp." .. name)
         local server_config = {
