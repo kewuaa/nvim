@@ -20,6 +20,13 @@ return {
         opt = false,
     },
 
+    -- zig filetype
+    {
+        'ziglang/zig.vim',
+        opt = false,
+        setup = [[vim.g.zig_fmt_autosave = 0]]
+    },
+
     -- 语法高亮
     {
         'nvim-treesitter/nvim-treesitter',
@@ -53,7 +60,10 @@ return {
         cmd = 'Trouble',
         config = configs.trouble,
         requires = {
-            {'kyazdani42/nvim-web-devicons', opt = true}
+            {
+                'kyazdani42/nvim-web-devicons',
+                opt = true,
+            }
         }
     },
 

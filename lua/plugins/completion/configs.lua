@@ -63,7 +63,6 @@ end
 
 configs.nvim_lspconfig = function()
     require("lsp").setup()
-    vim.cmd("LspStart")
 end
 
 configs.LuaSnip = function()

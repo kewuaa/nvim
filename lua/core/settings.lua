@@ -1,5 +1,5 @@
 local program_files_path = 'D:/Softwares/Program_Files/'
-local pyversion = '310'
+local pyversion = '39'
 
 
 local settings = setmetatable({}, {

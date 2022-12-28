@@ -6,7 +6,10 @@ rootmarks[#rootmarks+1] = '.root'
 
 
 efm.rootmarks = rootmarks
-efm.filetypes = {'python'}
+efm.filetypes = {
+    'python',
+    'javascript',
+}
 efm.cmd = {path .. 'efm-langserver.exe'}
 efm.init_options = {
     documentFormatting = true,
@@ -44,5 +47,6 @@ efm.settings = {
         }
     }
 }
+
 
 return efm

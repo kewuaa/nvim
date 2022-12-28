@@ -67,7 +67,7 @@ return {
             {
                 'lukas-reineke/cmp-under-comparator',
                 opt = true,
-                after = 'nvim-lspconfig',
+                after = 'cmp-nvim-lsp',
                 config = configs.cmp_under_comparator,
             },
             -- snippets source

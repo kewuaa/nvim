@@ -7,7 +7,7 @@ rootmarks[#rootmarks+1] = 'build.zig'
 
 zls.rootmarks = rootmarks
 zls.filetypes = {'zig', 'zir'}
-zls.cmd = {settings.zig_path .. 'zls/bin/zls.exe'}
+zls.cmd = {settings.zig_path .. 'zls/zig-out/bin/zls.exe'}
 
 
 return zls

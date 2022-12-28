@@ -62,8 +62,12 @@ class Translator:
         resp = sess.get(url)
         page = resp.text
         info = re.search(r"window\['common'\].*(\{[\s\S]+\});", page)
+        if info is None:
+            raise RuntimeError()
         info = self.__info = info.group(1)
-        self.__token = re.search(r"token:[\s\S]'([\d\w]+)'", info).group(1)
+        self.__token = re.search(r"token:[\s\S]'([\d\w]+)'", info)
+        if self.__token is not None:
+            self.__token = self.__token.group(1)
 
     def lang_detece(self, query: str) -> str:
         sess = self.__sess
@@ -98,7 +102,6 @@ class Translator:
         }
         resp = sess.post(url, params=parameters, data=data)
         result = resp.json()
-        self.__log(result)
         if result.get('error') is not None:
             raise RuntimeError(result['errmsg'])
         if 'dict_result' in result:
@@ -106,12 +109,7 @@ class Translator:
             result = '\n'.join(result)
         else:
             result = result['trans_result']['data'][0]['dst']
-        with open(
-            r"C:\Users\kewuaa\Desktop\t.txt",
-            'w',
-            encoding='utf-8',
-        ) as f:
-            f.write(str(result))
+        self.__log(result)
 
     @pynvim.command('PyTrans', nargs='*', range='')
     def translate(self, args, range) -> None:

@@ -7,7 +7,7 @@ function n(t, e) {
     }
     return t
 }
-var r = '320305.131321201'
+let r = '320305.131321201'
 main = function(t) {
     var o, i = t.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g);
     if (null === i) {
