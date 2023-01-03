@@ -65,6 +65,94 @@ configs.nvim_lspconfig = function()
     require("lsp").setup()
 end
 
+configs.vim_gutentags = function()
+    local settings = require("core.settings")
+    local rootmarks = settings.rootmarks
+    local tags_cache_path = settings.tags_path .. '.cache/tags'
+    local executable = vim.fn.executable
+
+
+    local gutentags_modules = {}
+    -- ctags.exe路径
+    local ctags_path = settings.tags_path .. 'ctags/ctags.exe'
+    if executable(ctags_path) == 1 then
+        gutentags_modules[#gutentags_modules+1] = 'ctags'
+        vim.g.gutentags_ctags_executable = ctags_path
+        -- 配置ctags的参数,老的Exuberant-ctags不能有--extra=+q，注意
+        vim.g.gutentags_ctags_extra_args = {
+            '--fields=+niazS',
+            '--extras=+q',
+            '--c++-kinds=+px',
+            '--c-kinds=+px',
+            -- 老的Exuberant-ctags不能有下面这个参数
+            '--output-format=e-ctags'
+        }
+        -- vim.g.gutentags_ctags_exclude_wildignore = 0
+        -- local wildignore = vim.fn.split(require("core.options").wildignore, ',')
+        -- wildignore[#wildignore+1] = '*.py'
+        vim.g.gutentags_ctags_exclude = {'*.py'}
+    else
+        vim.notify(string.format('%s not executable', ctags_path))
+    end
+
+    local gtags_path = settings.tags_path .. 'gtags/bin/gtags.exe'
+    local gtags_cscope_path = settings.tags_path .. 'gtags/bin/gtags-cscope.exe'
+    if executable(gtags_path) == 1 and executable(gtags_cscope_path) == 1 then
+        gutentags_modules[#gutentags_modules+1] = 'gtags_cscope'
+        -- GTAGSLABEL告诉gtags默认C/C++/Java等六种原生支持的代码直接使用gtags本地分析器，而其他语言使用pygments模块
+        vim.env.GTAGSLABEL = 'native-pygments'
+        vim.env.GTAGSCONF = settings.tags_path .. 'gtags/share/gtags/gtags.conf'
+        vim.g.gutentags_gtags_executable = gtags_path
+        vim.g.gutentags_gtags_cscope_executable = gtags_cscope_path
+        -- 禁用gutentags自动加载gtags数据库的行为
+        vim.g.gutentags_auto_add_gtags_cscope = 0
+    else
+        vim.notify(string.format('%s or %s not executable', gtags_path, gtags_cscope_path))
+    end
+    vim.g.gutentags_modules = gutentags_modules
+
+
+    rootmarks[#rootmarks+1] = '.root'
+    rootmarks[#rootmarks+1] = '.project'
+    -- gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+    vim.g.gutentags_project_root = rootmarks
+    -- 排除部分gutentags搜索工程目录的标志
+    vim.g.gutentags_exclude_project_root = {'.pyproject'}
+    -- 禁用默认
+    vim.g.gutentags_add_default_project_roots = 0
+    -- 所生成的数据文件的名称
+    vim.g.gutentags_ctags_tagfile = '.tags'
+    -- 将自动生成的tags文件全部放入指定目录中，避免污染工程目录
+    vim.g.gutentags_cache_dir = tags_cache_path
+    -- 若目录不存在则创建
+    if vim.fn.isdirectory(tags_cache_path) == 0 then
+        os.execute('mkdir -p ' .. tags_cache_path)
+    end
+    -- 排除部分文件类型
+    vim.g.gutentags_exclude_filetypes = {
+        'vim',
+        'lua',
+        'javascript',
+        'typescript',
+    }
+    -- 允许高级命令和选项
+    vim.g.gutentags_define_advanced_commands = 1
+    -- 排除.gitignore文件
+    -- It allows having :
+    --    git tracked files
+    --    git untracked files with .gitignore files/dirs excluded
+    vim.g.gutentags_file_list_command = {
+        markers = {
+            ['.git'] = 'bash -c "git ls-files; git ls-files --others --exclude-standard"',
+        },
+    }
+end
+
+configs.gutentags_plus = function()
+    vim.g.gutentags_plus_switch = 1
+    vim.g.gutentags_plus_nomap = 1
+end
+
 configs.LuaSnip = function()
     local ls = require('luasnip')
     local types = require('luasnip.util.types')
@@ -138,8 +226,9 @@ configs.nvim_cmp = function()
         }),
         sources = cmp.config.sources(
             {
-                {name = 'nvim_lsp'},
-                {name = 'luasnip'},
+                { name = 'nvim_lsp' },
+                { name = 'tags' },
+                { name = 'luasnip' },
                 {
                     name = 'path',
                     option = {
@@ -149,7 +238,7 @@ configs.nvim_cmp = function()
                 }
             },
             {
-                {name = 'nvim_lua'},
+                { name = 'nvim_lua' },
                 {
                     name = 'buffer',
                     option = {
@@ -161,18 +250,15 @@ configs.nvim_cmp = function()
             }
         ),
     })
-    local function callback()
-        local packer = require("plugins")
-        if vim.bo.ft == 'lua' then
-            require('plugins').check_loaded('cmp-nvim-lua')
-        else
-            packer.delay_load('FileType', 'lua', 0, 'cmp-nvim-lua')
-        end
-        packer.delay_load('InsertEnter', '*', 0, 'LuaSnip')
-        packer.delay_load('CmdLineEnter', '/,:', 0, 'cmp-cmdline')
-    end
 
-    callback()
+    local packer = require("plugins")
+    if vim.bo.ft == 'lua' then
+        packer.check_loaded('cmp-nvim-lua')
+    else
+        packer.delay_load('FileType', 'lua', 0, 'cmp-nvim-lua')
+    end
+    packer.delay_load('InsertEnter', '*', 0, 'LuaSnip')
+    packer.delay_load('CmdLineEnter', '/,:', 0, 'cmp-cmdline')
 end
 
 configs.cmp_luasnip = function()
@@ -235,9 +321,9 @@ configs.lspkind = function()
 
                 -- The function below will be called before any actual modifications from lspkind
                 -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-                before = function (entry, vim_item)
+                before = function(entry, vim_item)
                     -- Source 显示提示来源
-                    vim_item.menu = "["..string.upper(entry.source.name).."]"
+                    vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
                     return vim_item
                 end
             })
@@ -267,7 +353,7 @@ configs.nvim_autopairs = function()
             keys = 'qwertyuiopzxcvbnmasdfghjkl',
             check_comma = true,
             highlight = 'Search',
-            highlight_grey='Comment'
+            highlight_grey = 'Comment'
         },
     })
 
@@ -276,7 +362,7 @@ configs.nvim_autopairs = function()
         cmp_autopairs.on_confirm_done()
     )
     npairs.add_rule(Rule('<', '>'))
-    npairs.add_rule(Rule("|", "|", {'zig'}))
+    npairs.add_rule(Rule("|", "|", { 'zig' }))
 end
 
 

@@ -1,6 +1,5 @@
 local efm = {}
 local settings = require("core.settings")
-local path = settings.efm_path .. 'efm-langserver/'
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = '.root'
 
@@ -8,9 +7,8 @@ rootmarks[#rootmarks+1] = '.root'
 efm.rootmarks = rootmarks
 efm.filetypes = {
     'python',
-    'javascript',
 }
-efm.cmd = {path .. 'efm-langserver.exe'}
+efm.cmd = {settings.efm_path .. 'efm-langserver/efm-langserver.exe'}
 efm.init_options = {
     documentFormatting = true,
     -- hover = true,

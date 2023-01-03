@@ -1,4 +1,3 @@
-
 vim.g.python3_host_prog = require('core.settings'):getpy('default')
 
 local options = {
@@ -51,3 +50,5 @@ end
 for key, value in pairs(options) do
     vim.o[key] = value
 end
+
+return options

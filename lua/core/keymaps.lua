@@ -90,4 +90,15 @@ map({'n', 'x'}, '<M-->', '<cmd>ToggleTermSendCurrentLine<CR>', opts)
 
 map('n', '<leader>ftd', todo_comments('TodoTelescope'), opts)
 
+map('n','<leader>gs', ':GscopeFind s <C-R><C-W><cr>', opts)
+map('n','<leader>gg', ':GscopeFind g <C-R><C-W><cr>', opts)
+map('n', '<leader>gc', ':GscopeFind c <C-R><C-W><cr>', opts)
+map('n', '<leader>gt', ':GscopeFind t <C-R><C-W><cr>', opts)
+map('n', '<leader>ge', ':GscopeFind e <C-R><C-W><cr>', opts)
+map('n', '<leader>gf', ':GscopeFind f <C-R>=expand("<cfile>")<cr><cr>', opts)
+map('n', '<leader>gi', ':GscopeFind i <C-R>=expand("<cfile>")<cr><cr>', opts)
+map('n', '<leader>gd', ':GscopeFind d <C-R><C-W><cr>', opts)
+map('n', '<leader>ga', ':GscopeFind a <C-R><C-W><cr>', opts)
+map('n', '<leader>gz', ':GscopeFind z <C-R><C-W><cr>', opts)
+
 ---------------------------------------------------------------------------------------------------

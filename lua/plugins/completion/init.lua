@@ -31,6 +31,21 @@ return {
         },
     },
 
+    -- ctags
+    {
+        'ludovicchabant/vim-gutentags',
+        opt = true,
+        after = 'nvim-cmp',
+        setup = configs.vim_gutentags,
+        requires = {
+            {
+                'skywind3000/gutentags_plus',
+                opt = true,
+                setup = configs.gutentags_plus,
+            }
+        }
+    },
+
     -- snippets
     {
         'rafamadriz/friendly-snippets',
@@ -55,13 +70,20 @@ return {
         'hrsh7th/nvim-cmp',
         opt = true,
         after = 'nvim-treesitter',
-        config = configs.nvim_cmp,
+        config = configs.nvim_cmp, -- will delay load LuaSnip and cmp-cmdline
         requires = {
             -- ui 美化
             {
                 'onsails/lspkind.nvim',
                 opt = true,
                 config = configs.lspkind,
+            },
+            -- ctags source
+            {
+                'quangnguyen30192/cmp-nvim-tags',
+                opt = true,
+                after = 'vim-gutentags',
+                config = configs.vim_gutentags,
             },
             -- underline sort
             {

@@ -1,6 +1,6 @@
 local api, fn, uv = vim.api, vim.fn, vim.loop
 local data_dir = require("core.settings").data_dir
-local vim_path = require("core.settings").vim_path
+local vim_path = require("core.settings").nvim_path
 local modules_dir = vim_path .. "/lua/plugins"
 local packer_compiled = data_dir .. "lua/_compiled.lua"
 local bak_compiled = data_dir .. "lua/bak_compiled.lua"

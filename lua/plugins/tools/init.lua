@@ -114,6 +114,14 @@ return {
         },
     },
 
+    -- quickfix window
+    {
+        'kevinhwang91/nvim-bqf',
+        opt = true,
+        ft = 'qf',
+        config = configs.nvim_bqf,
+    },
+
     -- float terminal
     {
         'akinsho/toggleterm.nvim',

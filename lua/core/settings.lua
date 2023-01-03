@@ -3,7 +3,7 @@ local pyversion = '39'
 
 
 local settings = setmetatable({}, {
-    __index = function(_, key)
+    __index = function(table, key)
         if key == 'rootmarks' then
             return {
                 '.git',
@@ -12,7 +12,9 @@ local settings = setmetatable({}, {
         local lang = string.match(key, '(.+)_path')
         if lang then
             lang = lang:gsub("^%l", string.upper)
-            return string.format("%s%s/", program_files_path, lang)
+            local path = string.format("%s%s/", program_files_path, lang)
+            table[key] = path
+            return path
         end
     end
 })
@@ -49,7 +51,7 @@ settings.exclude_filetypes = {
     "",
 }
 settings.data_dir = string.format("%s/site/", vim.fn.stdpath("data"))
-settings.vim_path = vim.fn.stdpath("config")
+settings.nvim_path = vim.fn.stdpath("config")
 
 
 return settings

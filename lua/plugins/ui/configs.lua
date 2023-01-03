@@ -63,6 +63,25 @@ configs.lualine = function()
     require("plugins").check_loaded(
         'nvim-web-devicons'
     )
+    local function get_gutentags_status(mods)
+        local msg = ''
+        local index = vim.fn.index
+        if index(mods, 'ctags') >= 0 then
+            msg = msg .. '[CT] '
+        end
+        if index(mods, 'gtags_cscope') >= 0 then
+            msg = msg .. '[GT] '
+        end
+        return msg
+    end
+    local function gutentags()
+        local vim_gutentags = packer_plugins['vim-gutentags']
+        if vim_gutentags and vim_gutentags.loaded then
+            return vim.fn['gutentags#statusline_cb'](get_gutentags_status)
+        else
+            return ''
+        end
+    end
     local function diff_source()
         local gitsigns = vim.b.gitsigns_status_dict
         if gitsigns then
@@ -150,6 +169,7 @@ configs.lualine = function()
                 },
             },
             lualine_y = {
+                gutentags,
                 { "filetype", colored = true, icon_only = true },
                 {
                     "encoding",
