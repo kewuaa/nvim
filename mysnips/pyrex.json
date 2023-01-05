@@ -1,0 +1,457 @@
+{
+  "cdef": {
+    "prefix": "cdef",
+    "description": "define something for cython",
+    "body": [
+      "cdef"
+    ]
+  },
+  "cpdef": {
+    "prefix": "cpdef",
+    "description": "define something for cython and python",
+    "body": [
+      "cpdef"
+    ]
+  },
+  "cimport": {
+    "prefix": "cimport",
+    "description": "import a C function",
+    "body": [
+      "cimport"
+    ]
+  },
+  "ctypedef": {
+    "prefix": "ctypedef",
+    "description": "create a new c type",
+    "body": [
+      "ctypedef"
+    ]
+  },
+  "cppclass": {
+    "prefix": "cppclass",
+    "description": "cython's type for cpp classes",
+    "body": [
+      "cppclass"
+    ]
+  },
+  "nogil": {
+    "prefix": "nogil",
+    "description": "remove the global interpreter lock for a block of code",
+    "body": [
+      "nogil"
+    ]
+  },
+  "extern": {
+    "prefix": "extern",
+    "description": "extends the visibility of a C variable/function to the whole program",
+    "body": [
+      "extern"
+    ]
+  },
+  "except": {
+    "prefix": "except",
+    "description": "allow a function to except a certain return code, even if it is an error",
+    "body": [
+      "except"
+    ]
+  },
+  "namespace": {
+    "prefix": "namespace",
+    "description": "allows cython to select from a certain C++ namespace",
+    "body": [
+      "namespace"
+    ]
+  },
+  "inline": {
+    "prefix": "inline",
+    "description": "C inline modifier",
+    "body": [
+      "inline"
+    ]
+  },
+  "public": {
+    "prefix": "public",
+    "description": "create a .h file for a function that works with the cython .c file",
+    "body": [
+      "public"
+    ]
+  },
+  "api": {
+    "prefix": "api",
+    "description": "create a .h file for a function that allows it to be used in C/C++ code",
+    "body": [
+      "api"
+    ]
+  },
+  "readonly": {
+    "prefix": "readonly",
+    "description": "Allow a function to be visible, but not intractable, in python-space",
+    "body": [
+      "readonly"
+    ]
+  },
+  "const": {
+    "prefix": "const",
+    "description": "C const qualifier",
+    "body": [
+      "const"
+    ]
+  },
+  "unsigned": {
+    "prefix": "unsigned",
+    "description": "C unsigned qualifier",
+    "body": [
+      "unsigned"
+    ]
+  },
+  "signed": {
+    "prefix": "signed",
+    "description": "C signed qualifier",
+    "body": [
+      "signed"
+    ]
+  },
+  "int": {
+    "prefix": "int",
+    "description": "C int type",
+    "body": [
+      "int"
+    ]
+  },
+  "char": {
+    "prefix": "char",
+    "description": "C char type",
+    "body": [
+      "char"
+    ]
+  },
+  "short": {
+    "prefix": "short",
+    "description": "C short type",
+    "body": [
+      "short"
+    ]
+  },
+  "long": {
+    "prefix": "long",
+    "description": "C long type",
+    "body": [
+      "long"
+    ]
+  },
+  "double": {
+    "prefix": "double",
+    "description": "C double type",
+    "body": [
+      "double"
+    ]
+  },
+  "float": {
+    "prefix": "float",
+    "description": "C float type",
+    "body": [
+      "float"
+    ]
+  },
+  "long long": {
+    "prefix": "long long",
+    "description": "C long long type",
+    "body": [
+      "long long"
+    ]
+  },
+  "void": {
+    "prefix": "void",
+    "description": "C void type",
+    "body": [
+      "void"
+    ]
+  },
+  "bint": {
+    "prefix": "bint",
+    "description": "C bool type (0 for false, nonzero for true)",
+    "body": [
+      "bint"
+    ]
+  },
+  "struct": {
+    "prefix": "struct",
+    "description": "C struct type",
+    "body": [
+      "struct"
+    ]
+  },
+  "union": {
+    "prefix": "union",
+    "description": "C union type",
+    "body": [
+      "union"
+    ]
+  },
+  "enum": {
+    "prefix": "enum",
+    "description": "C enum type",
+    "body": [
+      "enum"
+    ]
+  },
+  "DEF": {
+    "prefix": "DEF",
+    "description": "C DEF directive",
+    "body": [
+      "DEF"
+    ]
+  },
+  "IF": {
+    "prefix": "IF",
+    "description": "C IF directive",
+    "body": [
+      "IF"
+    ]
+  },
+  "ELSE": {
+    "prefix": "ELSE",
+    "description": "C ELSE directive",
+    "body": [
+      "ELSE"
+    ]
+  },
+  "ELIF": {
+    "prefix": "ELIF",
+    "description": "C ELIF directive",
+    "body": [
+      "ELIF"
+    ]
+  },
+  "binding": {
+    "prefix": "binding",
+    "description": "cython compiler directive",
+    "body": [
+      "binding"
+    ]
+  },
+  "boundscheck": {
+    "prefix": "boundscheck",
+    "description": "cython compiler directive",
+    "body": [
+      "boundscheck"
+    ]
+  },
+  "wraparound": {
+    "prefix": "wraparound",
+    "description": "cython compiler directive",
+    "body": [
+      "wraparound"
+    ]
+  },
+  "initializedcheck": {
+    "prefix": "initializedcheck",
+    "description": "cython compiler directive",
+    "body": [
+      "initializedcheck"
+    ]
+  },
+  "nonecheck": {
+    "prefix": "nonecheck",
+    "description": "cython compiler directive",
+    "body": [
+      "nonecheck"
+    ]
+  },
+  "overflowcheck": {
+    "prefix": "overflowcheck",
+    "description": "cython compiler directive",
+    "body": [
+      "overflowcheck"
+    ]
+  },
+  "overflowcheck.fold": {
+    "prefix": "overflowcheck.fold",
+    "description": "cython compiler directive",
+    "body": [
+      "overflowcheck.fold"
+    ]
+  },
+  "embedsignature": {
+    "prefix": "embedsignature",
+    "description": "cython compiler directive",
+    "body": [
+      "embedsignature"
+    ]
+  },
+  "cdivision": {
+    "prefix": "cdivision",
+    "description": "cython compiler directive",
+    "body": [
+      "cdivision"
+    ]
+  },
+  "cdivision_warnings": {
+    "prefix": "cdivision_warnings",
+    "description": "cython compiler directive",
+    "body": [
+      "cdivision_warnings"
+    ]
+  },
+  "always_allow_keywords": {
+    "prefix": "always_allow_keywords",
+    "description": "cython compiler directive",
+    "body": [
+      "always_allow_keywords"
+    ]
+  },
+  "c_api_binop_methods": {
+    "prefix": "c_api_binop_methods",
+    "description": "cython compiler directive",
+    "body": [
+      "c_api_binop_methods"
+    ]
+  },
+  "profile": {
+    "prefix": "profile",
+    "description": "cython compiler directive",
+    "body": [
+      "profile"
+    ]
+  },
+  "linetrace": {
+    "prefix": "linetrace",
+    "description": "cython compiler directive",
+    "body": [
+      "linetrace"
+    ]
+  },
+  "infer_types": {
+    "prefix": "infer_types",
+    "description": "cython compiler directive",
+    "body": [
+      "infer_types"
+    ]
+  },
+  "language_level": {
+    "prefix": "language_level",
+    "description": "cython compiler directive",
+    "body": [
+      "language_level"
+    ]
+  },
+  "c_string_type": {
+    "prefix": "c_string_type",
+    "description": "cython compiler directive",
+    "body": [
+      "c_string_type"
+    ]
+  },
+  "c_string_encoding": {
+    "prefix": "c_string_encoding",
+    "description": "cython compiler directive",
+    "body": [
+      "c_string_encoding"
+    ]
+  },
+  "type_version_tag": {
+    "prefix": "type_version_tag",
+    "description": "cython compiler directive",
+    "body": [
+      "type_version_tag"
+    ]
+  },
+  "unraisable_tracebacks": {
+    "prefix": "unraisable_tracebacks",
+    "description": "cython compiler directive",
+    "body": [
+      "unraisable_tracebacks"
+    ]
+  },
+  "iterable_coroutine": {
+    "prefix": "iterable_coroutine",
+    "description": "cython compiler directive",
+    "body": [
+      "iterable_coroutine"
+    ]
+  },
+  "annotation_typing": {
+    "prefix": "annotation_typing",
+    "description": "cython compiler directive",
+    "body": [
+      "annotation_typing"
+    ]
+  },
+  "emit_code_comments": {
+    "prefix": "emit_code_comments",
+    "description": "cython compiler directive",
+    "body": [
+      "emit_code_comments"
+    ]
+  },
+  "cpp_locals": {
+    "prefix": "cpp_locals",
+    "description": "cython compiler directive",
+    "body": [
+      "cpp_locals"
+    ]
+  },
+  "optimize.use_switch": {
+    "prefix": "optimize.use_switch",
+    "description": "cython optimizational directive",
+    "body": [
+      "optimize.use_switch"
+    ]
+  },
+  "optimize.unpack_method_calls": {
+    "prefix": "optimize.unpack_method_calls",
+    "description": "cython optimizational directive",
+    "body": [
+      "optimize.unpack_method_calls"
+    ]
+  },
+  "warn.undeclared": {
+    "prefix": "warn.undeclared",
+    "description": "cython warning directive",
+    "body": [
+      "warn.undeclared"
+    ]
+  },
+  "warn.unreachable": {
+    "prefix": "warn.unreachable",
+    "description": "cython warning directive",
+    "body": [
+      "warn.unreachable"
+    ]
+  },
+  "warn.maybe_uninitialized": {
+    "prefix": "warn.maybe_uninitialized",
+    "description": "cython warning directive",
+    "body": [
+      "warn.maybe_uninitialized"
+    ]
+  },
+  "warn.unused": {
+    "prefix": "warn.unused",
+    "description": "cython warning directive",
+    "body": [
+      "warn.unused"
+    ]
+  },
+  "warn.unused_arg": {
+    "prefix": "warn.unused_arg",
+    "description": "cython warning directive",
+    "body": [
+      "warn.unused_arg"
+    ]
+  },
+  "warn.unused_result": {
+    "prefix": "warn.unused_result",
+    "description": "cython warning directive",
+    "body": [
+      "warn.unused_result"
+    ]
+  },
+  "warn.multiple_declarators": {
+    "prefix": "warn.multiple_declarators",
+    "description": "cython warning directive",
+    "body": [
+      "warn.multiple_declarators"
+    ]
+  }
+}

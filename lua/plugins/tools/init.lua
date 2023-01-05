@@ -31,7 +31,9 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         opt = true,
-        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+        run = function()
+            require('nvim-treesitter.install').update({ with_sync = true })
+        end,
         setup = function ()
             require("plugins").delay_load('BufRead', '*', 1000, 'nvim-treesitter')
         end,

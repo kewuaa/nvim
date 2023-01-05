@@ -35,8 +35,16 @@ return {
     {
         'ludovicchabant/vim-gutentags',
         opt = true,
-        after = 'nvim-cmp',
-        setup = configs.vim_gutentags,
+        setup = function()
+            -- configs.vim_gutentags()
+            require("plugins.completion.configs").vim_gutentags()
+            require("plugins").delay_load(
+                'BufRead',
+                '*.pyx,*.pxd,*.pxi,*.c,*.h',
+                1500,
+                'vim-gutentags'
+            )
+        end,
         requires = {
             {
                 'skywind3000/gutentags_plus',

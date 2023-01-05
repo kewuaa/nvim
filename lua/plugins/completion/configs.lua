@@ -91,6 +91,38 @@ configs.vim_gutentags = function()
         -- local wildignore = vim.fn.split(require("core.options").wildignore, ',')
         -- wildignore[#wildignore+1] = '*.py'
         vim.g.gutentags_ctags_exclude = {'*.py'}
+
+        local cython_tags_exist = false
+        local cython_tags_cache_path = tags_cache_path .. '/cython.tags'
+        local generate_cython_includes = function()
+            if vim.fn.filereadable(cython_tags_cache_path) == 1 then
+                cython_tags_exist = true
+                return
+            end
+            local cython_path = vim.fn.exepath('cython')
+            if cython_path ~= '' then
+                local cython_includes_path = cython_path .. '/../../Lib/site-packages/Cython/Includes'
+                local cmd = string.format(
+                    '%s -R --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
+                    ctags_path,
+                    cython_tags_cache_path,
+                    cython_includes_path
+                )
+                local ret = os.execute(cmd)
+                if ret == 0 then
+                    cython_tags_exist = true
+                end
+            end
+        end
+        generate_cython_includes()
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = 'pyrex',
+            callback = function()
+                if cython_tags_exist then
+                    vim.cmd('setlocal tags+=' .. cython_tags_cache_path)
+                end
+            end
+        })
     else
         vim.notify(string.format('%s not executable', ctags_path))
     end
@@ -132,6 +164,8 @@ configs.vim_gutentags = function()
     vim.g.gutentags_exclude_filetypes = {
         'vim',
         'lua',
+        'json',
+        'yaml',
         'javascript',
         'typescript',
     }
@@ -169,6 +203,7 @@ configs.LuaSnip = function()
         },
     })
     require("luasnip.loaders.from_vscode").lazy_load()
+    require("luasnip.loaders.from_vscode").lazy_load({paths = {require("core.settings").nvim_path .. '/mysnips'}})
 end
 
 configs.nvim_cmp = function()
