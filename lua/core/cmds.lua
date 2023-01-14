@@ -18,5 +18,5 @@ augroup setup
     au!
     au CursorMoved * ++once call s:load_later()
 augroup END
-au! filetype qf,lspsagaoutline,OverseerList,OverseerForm,notify,DressingSelect,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
+au! filetype qf,,notify,DressingSelect,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
 ]]

@@ -223,6 +223,41 @@
       "ELIF"
     ]
   },
+  "UNAME_SYSNAME": {
+    "prefix": "UNAME_SYSNAME",
+    "description": "name of OS",
+    "body": [
+        "UNAME_SYSNAME"
+    ]
+  },
+  "UNAME_RELEASE": {
+    "prefix": "UNAME_RELEASE",
+    "description": "release of OS",
+    "body": [
+        "UNAME_RELEASE"
+    ]
+  },
+  "UNAME_VERSION": {
+    "prefix": "UNAME_VERSION",
+    "description": "version of OS",
+    "body": [
+        "UNAME_VERSION"
+    ]
+  },
+  "UNAME_MACHINE": {
+    "prefix": "UNAME_MACHINE",
+    "description": "machine of OS",
+    "body": [
+        "UNAME_MACHINE"
+    ]
+  },
+  "UNAME_NODENAME": {
+    "prefix": "UNAME_NODENAME",
+    "description": "nodename of OS",
+    "body": [
+        "UNAME_NODENAME"
+    ]
+  },
   "binding": {
     "prefix": "binding",
     "description": "cython compiler directive",

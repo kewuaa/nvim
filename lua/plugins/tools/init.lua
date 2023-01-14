@@ -63,7 +63,7 @@ return {
         config = configs.trouble,
         requires = {
             {
-                'kyazdani42/nvim-web-devicons',
+                'nvim-tree/nvim-web-devicons',
                 opt = true,
             }
         }
@@ -78,7 +78,7 @@ return {
         config = configs.telescope,
         requires = {
             {
-                'kyazdani42/nvim-web-devicons',
+                'nvim-tree/nvim-web-devicons',
                 opt = true,
             },
 
@@ -144,13 +144,13 @@ return {
 
     -- 文件树
     {
-        'kyazdani42/nvim-tree.lua',
+        'nvim-tree/nvim-tree.lua',
         opt = true,
         cmd = 'NvimTreeToggle',
         config = configs.nvim_tree,
         requires = {
             {
-                'kyazdani42/nvim-web-devicons',
+                'nvim-tree/nvim-web-devicons',
                 opt = true,
             }
         }
@@ -171,7 +171,7 @@ return {
         config = configs.JABS,
         requires = {
             {
-                'kyazdani42/nvim-web-devicons',
+                'nvim-tree/nvim-web-devicons',
                 opt = true,
             }
         }

@@ -163,6 +163,7 @@ configs.asyncrun = function()
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
     vim.g.asynctasks_environ = environ
+    vim.g.asynctasks_extra_config = {settings.nvim_path .. '/mytasks.ini'}
 end
 
 configs.nvim_bqf = function ()

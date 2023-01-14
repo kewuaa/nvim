@@ -3,60 +3,110 @@ local configs = {}
 
 configs.lspsaga = function()
     local saga = require('lspsaga')
-    saga.init_lsp_saga({
-        -- "single" | "double" | "rounded" | "bold" | "plus"
-        border_style = "single",
-        finder_action_keys = {
-            open = "o",
-            vsplit = "v",
-            split = "h",
-            tabe = "t",
-            quit = "q",
+    saga.setup({
+        finder = {
+            edit = { 'o', '<CR>' },
+            vsplit = 's',
+            split = 'i',
+            tabe = 't',
+            quit = { 'q', '<ESC>' },
         },
-        definition_action_keys = {
+        definition = {
             edit = '<C-c>o',
             vsplit = '<C-c>v',
-            split = '<C-c>h',
+            split = '<C-c>i',
             tabe = '<C-c>t',
             quit = 'q',
+            close = '<Esc>',
         },
-        rename_action_quit = "<C-c>",
-        -- show symbols in winbar must nightly
-        -- in_custom mean use lspsaga api to get symbols
-        -- and set it to your custom winbar or some winbar plugins.
-        -- if in_cusomt = true you must set in_enable to false
+        code_action = {
+            num_shortcut = true,
+            keys = {
+                quit = 'q',
+                exec = '<CR>',
+            },
+        },
+        lightbulb = {
+            enable = true,
+            enable_in_insert = true,
+            sign = true,
+            sign_priority = 40,
+            virtual_text = true,
+        },
+        diagnostic = {
+            twice_into = false,
+            show_code_action = true,
+            show_source = true,
+            keys = {
+                exec_action = 'o',
+                quit = 'q',
+                go_action = 'g'
+            },
+        },
+        outline = {
+            win_position = 'right',
+            win_with = '',
+            win_width = 30,
+            show_detail = true,
+            auto_preview = true,
+            auto_refresh = true,
+            auto_close = true,
+            custom_sort = nil,
+            keys = {
+                jump = 'o',
+                expand_collapse = 'u',
+                quit = 'q',
+            },
+        },
+        callhierarchy = {
+            show_detail = false,
+            keys = {
+                edit = 'e',
+                vsplit = 's',
+                split = 'i',
+                tabe = 't',
+                jump = 'o',
+                quit = 'q',
+                expand_collapse = 'u',
+            },
+        },
         symbol_in_winbar = {
-            in_custom = false,
             enable = true,
             separator = ' ',
+            hide_keyword = true,
             show_file = true,
-            -- define how to customize filename, eg: %:., %
-            -- if not set, use default value `%:t`
-            -- more information see `vim.fn.expand` or `expand`
-            -- ## only valid after set `show_file = true`
-            file_formatter = "",
-            click_support = function(node, clicks, button, modifiers)
-                -- To see all avaiable details: vim.pretty_print(node)
-                local st = node.range.start
-                local en = node.range['end']
-                if button == "l" then
-                    if clicks == 2 then
-                        -- double left click to do nothing
-                    else -- jump to node's starting line+char
-                        vim.fn.cursor(st.line + 1, st.character + 1)
-                    end
-                elseif button == "r" then
-                    if modifiers == "s" then
-                        print "lspsaga" -- shift right click to print "lspsaga"
-                    end -- jump to node's ending line+char
-                    vim.fn.cursor(en.line + 1, en.character + 1)
-                elseif button == "m" then
-                    -- middle click to visual select node
-                    vim.fn.cursor(st.line + 1, st.character + 1)
-                    vim.cmd "normal v"
-                    vim.fn.cursor(en.line + 1, en.character + 1)
-                end
-            end
+            folder_level = 2,
+        },
+        ui = {
+            -- currently only round theme
+            theme = 'round',
+            -- border type can be single,double,rounded,solid,shadow.
+            border = 'solid',
+            winblend = 0,
+            expand = '',
+            collapse = '',
+            preview = ' ',
+            code_action = '💡',
+            diagnostic = '🐞',
+            incoming = ' ',
+            outgoing = ' ',
+            colors = {
+                --float window normal bakcground color
+                normal_bg = '#1d1536',
+                --title background color
+                title_bg = '#afd700',
+                red = '#e95678',
+                magenta = '#b33076',
+                orange = '#FF8700',
+                yellow = '#f7bb3b',
+                green = '#afd700',
+                cyan = '#36d0e0',
+                blue = '#61afef',
+                purple = '#CBA6F7',
+                white = '#d1d4cf',
+                black = '#1c1c19',
+            },
+            kind = {},
         },
     })
 end
@@ -95,10 +145,6 @@ configs.vim_gutentags = function()
         local cython_tags_exist = false
         local cython_tags_cache_path = tags_cache_path .. '/cython.tags'
         local generate_cython_includes = function()
-            if vim.fn.filereadable(cython_tags_cache_path) == 1 then
-                cython_tags_exist = true
-                return
-            end
             local cython_path = vim.fn.exepath('cython')
             if cython_path ~= '' then
                 local cython_includes_path = cython_path .. '/../../Lib/site-packages/Cython/Includes'
@@ -111,18 +157,62 @@ configs.vim_gutentags = function()
                 local ret = os.execute(cmd)
                 if ret == 0 then
                     cython_tags_exist = true
+                    vim.notify('successfully generate cython includes')
                 end
+            else
+                vim.notify('could not find cython in path')
             end
         end
-        generate_cython_includes()
+        if vim.fn.filereadable(cython_tags_cache_path) == 1 then
+            cython_tags_exist = true
+        else
+            generate_cython_includes()
+        end
         vim.api.nvim_create_autocmd('FileType', {
             pattern = 'pyrex',
             callback = function()
                 if cython_tags_exist then
                     vim.cmd('setlocal tags+=' .. cython_tags_cache_path)
+                    vim.api.nvim_buf_create_user_command(0, 'UpdateCythonIncludes', generate_cython_includes, {})
                 end
             end
         })
+
+        -- local c_tags_exist = false
+        -- local c_tags_cache_path = tags_cache_path .. '/c.tags'
+        -- local generate_c_includes = function ()
+        --     local c_path = vim.fn.exepath('gcc')
+        --     if c_path ~= '' then
+        --         local c_includes_path = c_path .. '/../../include'
+        --         local cmd = string.format(
+        --             '%s -R --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
+        --             ctags_path,
+        --             c_tags_cache_path,
+        --             c_includes_path
+        --         )
+        --         local ret = os.execute(cmd)
+        --         if ret == 0 then
+        --             c_tags_exist = true
+        --             vim.notify('successfully generate c includes')
+        --         end
+        --     else
+        --         vim.notify('could not find c in path')
+        --     end
+        -- end
+        -- if vim.fn.filereadable(c_tags_cache_path) == 1 then
+        --     c_tags_exist = true
+        -- else
+        --     generate_c_includes()
+        -- end
+        -- vim.api.nvim_create_autocmd('FileType', {
+        --     pattern = 'c,cpp',
+        --     callback = function()
+        --         if c_tags_exist then
+        --             vim.cmd('setlocal tags+=' .. c_tags_cache_path)
+        --             vim.api.nvim_buf_create_user_command(0, 'UpdateCIncludes', generate_c_includes, {})
+        --         end
+        --     end
+        -- })
     else
         vim.notify(string.format('%s not executable', ctags_path))
     end
@@ -144,8 +234,7 @@ configs.vim_gutentags = function()
     vim.g.gutentags_modules = gutentags_modules
 
 
-    rootmarks[#rootmarks+1] = '.root'
-    rootmarks[#rootmarks+1] = '.project'
+    rootmarks[#rootmarks+1] = '.tags_root'
     -- gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
     vim.g.gutentags_project_root = rootmarks
     -- 排除部分gutentags搜索工程目录的标志

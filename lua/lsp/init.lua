@@ -13,14 +13,15 @@ local on_attach = function(client, bufnr)
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
 
     -- Show line diagnostics
-    map("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
-
+    map("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
     -- Show cursor diagnostic
-    map("n", "<leader>cc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
+    map("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
+    -- Show buffer diagnostic
+    map("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", bufopts)
 
     -- Diagnsotic jump can use `<c-o>` to jump back
-    map("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
-    map("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
+    map("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
+    map("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
 
     -- Only jump to error
     map("n", "[E", function()
@@ -31,17 +32,18 @@ local on_attach = function(client, bufnr)
     end, bufopts)
 
     -- go to the definition
-    map('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    -- map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+    map("n","gd", "<cmd>Lspsaga goto_definition<CR>", bufopts)
     -- map('n', 'gd', vim.lsp.buf.definition, bufopts)
 
     -- hover doc
     -- map('n', 'K', vim.lsp.buf.hover, bufopts)
     map("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
-    map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    map('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    -- map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    -- map('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 
-    map('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+    -- map('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
 
     -- rename
     -- map('n', '<space>rn', vim.lsp.buf.rename, bufopts)
@@ -52,22 +54,25 @@ local on_attach = function(client, bufnr)
     map("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
 
     -- Outline
-    map("n","<leader>o", "<cmd>LSoutlineToggle<CR>", bufopts)
+    map("n","<leader>o", "<cmd>Lspsaga outline<CR>", bufopts)
+
+    -- Callhierarchy
+    map("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", bufopts)
+    map("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", bufopts)
 
     -- format
-    map('n', '<space>f', function() vim.lsp.buf.format{async = true} end, bufopts)
+    -- map('n', '<space>f', function() vim.lsp.buf.format{async = true} end, bufopts)
 
     -- code action
     -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
-    map("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", bufopts)
+    map({'n', 'v'}, '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
 
     -- workspace
-    map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    map('n', '<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
+    -- map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    -- map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    -- map('n', '<leader>wl', function()
+    --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    -- end, bufopts)
     require("plugins.attach").lsp(client, bufnr)
 end
 
@@ -107,8 +112,6 @@ function M.setup()
     -- map('n', '<c-p>', vim.diagnostic.goto_prev, opts)
     -- map('n', '<c-n>', vim.diagnostic.goto_next, opts)
     -- map('n', '<space>q', vim.diagnostic.setloclist, opts)
-    -- map("n", "<A-d>", "<cmd>Lspsaga open_floaterm python<CR>", opts)
-    -- map("t", "<A-d>", "<C-\\><C-n><cmd>Lspsaga close_floaterm<CR>", opts)
 
     local lsp_flags = {
       -- This is the default in Nvim 0.7+
