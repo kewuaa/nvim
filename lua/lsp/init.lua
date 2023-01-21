@@ -34,7 +34,7 @@ local on_attach = function(client, bufnr)
     -- go to the definition
     -- map('n', 'gD', vim.lsp.buf.declaration, bufopts)
     map("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
-    map("n","gd", "<cmd>Lspsaga goto_definition<CR>", bufopts)
+    map("n","gD", "<cmd>Lspsaga goto_definition<CR>", bufopts)
     -- map('n', 'gd', vim.lsp.buf.definition, bufopts)
 
     -- hover doc

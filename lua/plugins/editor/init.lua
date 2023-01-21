@@ -69,17 +69,19 @@ return {
     {
         'terryma/vim-expand-region',
         opt = true,
-        keys = {{'n', '+'}, {'v', '+'}, {'v', '-'}},
+        keys = {
+            {'n', '+'},
+            {'v', '+'},
+            {'v', '-'},
+        },
     },
 
     -- 与J相反的操作
     {
-        'AckslD/nvim-trevJ.lua',
+        'Wansmer/treesj',
         opt = true,
-        keys = {
-            {'n', vim.g.mapleader .. 'j'},
-        },
-        config = configs.nvim_trevJ,
+        cmd = 'TSJToggle',
+        config = configs.treesj,
     },
 
     -- 交换函数参数, 列表元素等

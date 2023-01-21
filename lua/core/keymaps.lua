@@ -77,6 +77,8 @@ map('n', '<leader>bb', '<cmd>JABSOpen<CR>', opts)
 
 map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>', opts)
 
+map('n', '<leader>j', '<cmd>TSJToggle<CR>', opts)
+
 map('n', '<leader>ff', telescope('find_files'), opts)
 map('n', '<leader>fg', telescope('live_grep'), opts)
 map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opts)
