@@ -144,12 +144,11 @@ configs.vim_gutentags = function()
 
         local cython_tags_exist = false
         local cython_tags_cache_path = tags_cache_path .. '/cython.tags'
+        local cython_includes_path = settings:getpy('envs') .. 'default/Lib/site-packages/Cython/Includes'
         local generate_cython_includes = function()
-            local cython_path = vim.fn.exepath('cython')
-            if cython_path ~= '' then
-                local cython_includes_path = cython_path .. '/../../Lib/site-packages/Cython/Includes'
+            if vim.fn.isdirectory(cython_includes_path) == 1 then
                 local cmd = string.format(
-                    '%s -R --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
+                    '%s -R --language-force=python --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
                     ctags_path,
                     cython_tags_cache_path,
                     cython_includes_path
@@ -178,41 +177,45 @@ configs.vim_gutentags = function()
             end
         })
 
-        -- local c_tags_exist = false
-        -- local c_tags_cache_path = tags_cache_path .. '/c.tags'
-        -- local generate_c_includes = function ()
-        --     local c_path = vim.fn.exepath('gcc')
-        --     if c_path ~= '' then
-        --         local c_includes_path = c_path .. '/../../include'
-        --         local cmd = string.format(
-        --             '%s -R --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
-        --             ctags_path,
-        --             c_tags_cache_path,
-        --             c_includes_path
-        --         )
-        --         local ret = os.execute(cmd)
-        --         if ret == 0 then
-        --             c_tags_exist = true
-        --             vim.notify('successfully generate c includes')
-        --         end
-        --     else
-        --         vim.notify('could not find c in path')
-        --     end
-        -- end
-        -- if vim.fn.filereadable(c_tags_cache_path) == 1 then
-        --     c_tags_exist = true
-        -- else
-        --     generate_c_includes()
-        -- end
-        -- vim.api.nvim_create_autocmd('FileType', {
-        --     pattern = 'c,cpp',
-        --     callback = function()
-        --         if c_tags_exist then
-        --             vim.cmd('setlocal tags+=' .. c_tags_cache_path)
-        --             vim.api.nvim_buf_create_user_command(0, 'UpdateCIncludes', generate_c_includes, {})
-        --         end
-        --     end
-        -- })
+        local c_tags_exist = false
+        local c_tags_cache_path = tags_cache_path .. '/c.tags'
+        local c_includes_path = settings.c_path .. 'TDM-GCC-64/x86_64-w64-mingw32/include'
+        local generate_c_includes = function ()
+            if vim.fn.isdirectory(c_includes_path) == 1 then
+                local cmd = string.format(
+                    '%s -I __THROW -I __attribute_pure__ -I __nonnull -I __attribute__ --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
+                    ctags_path,
+                    c_tags_cache_path,
+                    vim.fn.join({
+                        c_includes_path .. '/std*',
+                        c_includes_path .. '/string*',
+                        c_includes_path .. '/sys/time*',
+                    }, ' ')
+                    -- c_includes_path
+                )
+                local ret = os.execute(cmd)
+                if ret == 0 then
+                    c_tags_exist = true
+                    vim.notify('successfully generate c includes')
+                end
+            else
+                vim.notify('could not find c in path')
+            end
+        end
+        if vim.fn.filereadable(c_tags_cache_path) == 1 then
+            c_tags_exist = true
+        else
+            generate_c_includes()
+        end
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = 'c,cpp',
+            callback = function()
+                if c_tags_exist then
+                    vim.cmd('setlocal tags+=' .. c_tags_cache_path)
+                    vim.api.nvim_buf_create_user_command(0, 'UpdateCIncludes', generate_c_includes, {})
+                end
+            end
+        })
     else
         vim.notify(string.format('%s not executable', ctags_path))
     end
@@ -234,11 +237,11 @@ configs.vim_gutentags = function()
     vim.g.gutentags_modules = gutentags_modules
 
 
-    rootmarks[#rootmarks+1] = '.tags_root'
+    rootmarks[#rootmarks+1] = 'root'
     -- gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
     vim.g.gutentags_project_root = rootmarks
     -- 排除部分gutentags搜索工程目录的标志
-    vim.g.gutentags_exclude_project_root = {'.pyproject'}
+    -- vim.g.gutentags_exclude_project_root = {'.pyproject'}
     -- 禁用默认
     vim.g.gutentags_add_default_project_roots = 0
     -- 所生成的数据文件的名称
@@ -348,31 +351,27 @@ configs.nvim_cmp = function()
                 end
             end,
         }),
-        sources = cmp.config.sources(
+        sources = {
+            { name = 'nvim_lsp' },
+            { name = 'nvim_lua' },
+            -- { name = 'tags' },
+            { name = 'luasnip' },
             {
-                { name = 'nvim_lsp' },
-                { name = 'tags' },
-                { name = 'luasnip' },
-                {
-                    name = 'path',
-                    option = {
-                        trailing_slash = false,
-                        get_cwd = require("plugins").get_cwd,
-                    },
-                }
+                name = 'buffer',
+                option = {
+                    get_bufnrs = function()
+                        return vim.api.nvim_list_bufs()
+                    end,
+                },
             },
             {
-                { name = 'nvim_lua' },
-                {
-                    name = 'buffer',
-                    option = {
-                        get_bufnrs = function()
-                            return vim.api.nvim_list_bufs()
-                        end,
-                    },
+                name = 'path',
+                option = {
+                    trailing_slash = false,
+                    get_cwd = require("core.utils").get_cwd,
                 },
-            }
-        ),
+            },
+        },
     })
 
     local packer = require("plugins")

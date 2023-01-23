@@ -23,12 +23,16 @@ sumneko_lua.settings = {
         },
         workspace = {
             library = {
-                vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
+                -- vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
             },
             maxPreload = 100000,
             preloadFileSize = 10000,
         },
         telemetry = { enable = false },
+        -- Do not override treesitter lua highlighting with sumneko lua highlighting
+        semantic = { enable = false },
     }
 }
 

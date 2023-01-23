@@ -61,8 +61,6 @@ endfunction
 
 map('n', '<F5>', '<cmd>AsyncTask file-run<CR>', opts)
 map('n', '<F6>', '<cmd>AsyncTask file-build<CR>', opts)
-map('n', '<F7>', '<cmd>AsyncTask open-terminal<CR>', opts)
-map('n', '<F8>', '<cmd>AsyncTask python-shell<CR>', opts)
 
 map('n', '<leader><leader>w', '<cmd>HopWord<CR>', opts)
 map('n', '<leader><leader>j', '<cmd>HopLine<CR>', opts)

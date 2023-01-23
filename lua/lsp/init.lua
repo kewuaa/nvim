@@ -121,6 +121,7 @@ function M.setup()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     for _, name in ipairs({
         'jedi_language_server',
+        'clangd',
         'zls',
         'efm',
         'sumneko_lua',

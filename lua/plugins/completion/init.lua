@@ -32,27 +32,27 @@ return {
     },
 
     -- ctags
-    {
-        'ludovicchabant/vim-gutentags',
-        opt = true,
-        setup = function()
-            -- configs.vim_gutentags()
-            require("plugins.completion.configs").vim_gutentags()
-            require("plugins").delay_load(
-                'BufRead',
-                '*.pyx,*.pxd,*.pxi,*.c,*.h',
-                1500,
-                'vim-gutentags'
-            )
-        end,
-        requires = {
-            {
-                'skywind3000/gutentags_plus',
-                opt = true,
-                setup = configs.gutentags_plus,
-            }
-        }
-    },
+    -- {
+    --     'ludovicchabant/vim-gutentags',
+    --     opt = true,
+    --     setup = function()
+    --         -- configs.vim_gutentags()
+    --         require("plugins.completion.configs").vim_gutentags()
+    --         require("plugins").delay_load(
+    --             'BufRead',
+    --             '*.pyx,*.pxd,*.pxi,*.c,*.h',
+    --             1500,
+    --             'vim-gutentags'
+    --         )
+    --     end,
+    --     requires = {
+    --         {
+    --             'skywind3000/gutentags_plus',
+    --             opt = true,
+    --             setup = configs.gutentags_plus,
+    --         }
+    --     }
+    -- },
 
     -- snippets
     {
@@ -87,12 +87,11 @@ return {
                 config = configs.lspkind,
             },
             -- ctags source
-            {
-                'quangnguyen30192/cmp-nvim-tags',
-                opt = true,
-                after = 'vim-gutentags',
-                config = configs.vim_gutentags,
-            },
+            -- {
+            --     'quangnguyen30192/cmp-nvim-tags',
+            --     opt = true,
+            --     after = 'vim-gutentags',
+            -- },
             -- underline sort
             {
                 'lukas-reineke/cmp-under-comparator',

@@ -169,7 +169,7 @@ configs.lualine = function()
                 },
             },
             lualine_y = {
-                gutentags,
+                -- gutentags,
                 { "filetype", colored = true, icon_only = true },
                 {
                     "encoding",
