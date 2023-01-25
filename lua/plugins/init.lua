@@ -8,7 +8,6 @@ local packer = nil
 local Packer = {}
 Packer.__index = Packer
 
-
 function Packer:load_plugins()
     self.modules = {}
     local modules = fn.globpath(modules_dir, '*/init.lua', 0, 1)
@@ -17,7 +16,6 @@ function Packer:load_plugins()
         self.modules[#self.modules+1] = m
     end
 end
-
 
 function Packer:load_packer()
     if not packer then
@@ -106,30 +104,26 @@ function plugins.load_compile()
     })
 end
 
-plugins.group = api.nvim_create_augroup('setup_plugins', {clear = true})
-
 function plugins.check_loaded(...)
-    local names = {...}
-    require("packer.load")(names, {}, packer_plugins, false)
+    local plugin_list = {...}
+    require("packer.load")(plugin_list, {}, packer_plugins, false)
 end
 
-function plugins.delay_load(event, pattern, delay, plugin)
-    local function load()
-        require("packer.load")((type(plugin) == 'table' and plugin) or {plugin}, {event = event}, packer_plugins, false)
-    end
+function plugins:delay_load_on_event(plugin, delay, event, pattern)
     api.nvim_create_autocmd(event, {
-        group = plugins.group,
         pattern = pattern,
         once = true,
         callback = function()
             if delay > 0 then
-                fn.timer_start(delay, load)
+                vim.fn.timer_start(
+                    delay,
+                    function() self.check_loaded(plugin) end
+                )
             else
-                load()
+                self.check_loaded(plugin)
             end
         end
     })
 end
-
 
 return plugins

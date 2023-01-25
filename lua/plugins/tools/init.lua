@@ -9,6 +9,7 @@ return {
         cmd = 'StartupTime',
     },
 
+    -- 缓存配置文件
     {
         'lewis6991/impatient.nvim',
         opt = false,
@@ -20,6 +21,18 @@ return {
         opt = false,
     },
 
+    -- snippets
+    {
+        'rafamadriz/friendly-snippets',
+        opt = false,
+    },
+
+    -- icons
+    {
+        'nvim-tree/nvim-web-devicons',
+        opt = true,
+    },
+
     -- zig filetype
     {
         'ziglang/zig.vim',
@@ -27,32 +40,10 @@ return {
         setup = [[vim.g.zig_fmt_autosave = 0]]
     },
 
-    -- 语法高亮
+    -- 异步依赖
     {
-        'nvim-treesitter/nvim-treesitter',
+        'nvim-lua/plenary.nvim',
         opt = true,
-        run = function()
-            require('nvim-treesitter.install').update({ with_sync = true })
-        end,
-        setup = function ()
-            require("plugins").delay_load('BufRead', '*', 1000, 'nvim-treesitter')
-        end,
-        cmd = {'TSInstall', 'TSInstallInfo', 'TsEnable'},
-        config = configs.nvim_treesitter,
-        requires = {
-            -- 彩虹括号
-            {
-                'p00f/nvim-ts-rainbow',
-                opt = true,
-            },
-
-            -- 参数高亮
-            {
-                'm-demare/hlargs.nvim',
-                opt = true,
-                config = configs.hlargs,
-            },
-        },
     },
 
     -- 显示代码错误
@@ -61,12 +52,6 @@ return {
         opt = true,
         cmd = 'Trouble',
         config = configs.trouble,
-        requires = {
-            {
-                'nvim-tree/nvim-web-devicons',
-                opt = true,
-            }
-        }
     },
 
     -- 查找
@@ -77,22 +62,12 @@ return {
         cmd = 'Telescope',
         config = configs.telescope,
         requires = {
-            {
-                'nvim-tree/nvim-web-devicons',
-                opt = true,
-            },
-
-            -- 异步依赖
-            {
-                'nvim-lua/plenary.nvim',
-                opt = true,
-            },
-
             -- fzf支持
             {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 run = 'make',
                 opt = true,
+                config = configs.telescope_fzf_native,
             },
         }
     },
@@ -137,7 +112,12 @@ return {
         'lewis6991/gitsigns.nvim',
         opt = true,
         setup = function()
-            require('plugins').delay_load('BufRead', '*', 2000, 'gitsigns.nvim')
+            require("plugins"):delay_load_on_event(
+                'gitsigns.nvim',
+                1000,
+                'BufRead',
+                '*'
+            )
         end,
         config = configs.gitsigns,
     },
@@ -148,12 +128,6 @@ return {
         opt = true,
         cmd = 'NvimTreeToggle',
         config = configs.nvim_tree,
-        requires = {
-            {
-                'nvim-tree/nvim-web-devicons',
-                opt = true,
-            }
-        }
     },
 
     -- 缓冲区关闭时保留原有布局
@@ -169,11 +143,5 @@ return {
         opt = true,
         cmd = 'JABSOpen',
         config = configs.JABS,
-        requires = {
-            {
-                'nvim-tree/nvim-web-devicons',
-                opt = true,
-            }
-        }
     },
 }

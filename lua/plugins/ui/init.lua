@@ -3,11 +3,43 @@ local configs = require("plugins.ui.configs")
 
 return {
 
+    -- 语法高亮
+    {
+        'nvim-treesitter/nvim-treesitter',
+        opt = true,
+        run = function()
+            require('nvim-treesitter.install').update({ with_sync = true })
+        end,
+        setup = function ()
+            require("plugins"):delay_load_on_event(
+                'nvim-treesitter',
+                100,
+                'VimEnter',
+                '*'
+            )
+        end,
+        config = configs.nvim_treesitter,
+        requires = {
+            -- 彩虹括号
+            {
+                'p00f/nvim-ts-rainbow',
+                opt = true,
+            },
+
+            -- 参数高亮
+            {
+                'm-demare/hlargs.nvim',
+                opt = true,
+                config = configs.hlargs,
+            },
+        },
+    },
+
     -- 颜色主题
     {
         'sainnhe/sonokai',
         opt = true,
-        event = 'BufRead *',
+        after = 'nvim-treesitter',
         config = configs.sonokai,
     },
 
@@ -15,7 +47,7 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         opt = true,
-        after = 'nvim-treesitter',
+        after = 'lualine.nvim',
         config = configs.indent_blankline,
     },
 
@@ -23,7 +55,7 @@ return {
     {
         'nvim-lualine/lualine.nvim',
         opt = true,
-        event = 'ColorScheme',
+        after = 'sonokai',
         config = configs.lualine,
         requires = {
             {
@@ -33,20 +65,20 @@ return {
         }
     },
 
+    -- 消息提示
+    {
+        'rcarriga/nvim-notify',
+        opt = true,
+        after = 'indent-blankline.nvim',
+        config = configs.notify,
+    },
+
     -- 增强vim.ui
     {
         'stevearc/dressing.nvim',
         opt = true,
         after = 'nvim-notify',
         config = configs.dressing,
-    },
-
-    -- 消息提示
-    {
-        'rcarriga/nvim-notify',
-        opt = true,
-        after = 'nvim-treesitter',
-        config = configs.notify,
     },
 
     -- lsp progress

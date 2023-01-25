@@ -1,43 +1,10 @@
 local configs = {}
 
 
-configs.nvim_treesitter = function()
-    require('nvim-treesitter.configs').setup({
-        ensure_installed = {},
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-        },
-        indent = {
-            enable = true,
-        },
-        rainbow = {
-            enable = true,
-            -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-            extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-            max_file_lines = nil, -- Do not enable for files with more than n lines, int
-            -- colors = {}, -- table of hex strings
-            -- termcolors = {} -- table of colour name strings
-        },
-    })
-    vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
-        group = require("plugins").group,
-        callback = function()
-            vim.opt.foldmethod     = 'expr'
-            vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
-        end
-    })
-end
-
-configs.hlargs = function()
-    require("hlargs").setup({
-        excluded_filetypes = require("core.settings").exclude_filetypes,
-    })
-end
-
 configs.trouble = function()
+    require("plugins").check_loaded(
+        'nvim-web-devicons'
+    )
     require("trouble").setup({
         position = "bottom", -- position of the list can be: bottom, top, left, right
         height = 10, -- height of the trouble list when position is top or bottom
@@ -90,12 +57,10 @@ end
 configs.telescope = function()
     require("plugins").check_loaded(
         'plenary.nvim',
-        'telescope-fzf-native.nvim',
         'nvim-notify',
         'nvim-web-devicons'
     )
     local telescope = require("telescope")
-
     telescope.setup({
         defaults = {
             prompt_prefix = '🔭 ',
@@ -139,8 +104,12 @@ configs.telescope = function()
     })
     -- To get fzf loaded and working with telescope, you need to call
     -- load_extension, somewhere after setup function:
-    telescope.load_extension('fzf')
+    -- telescope.load_extension('fzf')
     telescope.load_extension("notify")
+end
+
+configs.telescope_fzf_native = function ()
+    require("telescope").load_extension('fzf')
 end
 
 configs.asyncrun = function()
@@ -507,6 +476,9 @@ configs.nvim_tree = function()
 end
 
 configs.JABS = function()
+    require("plugins").check_loaded(
+        'nvim-web-devicons'
+    )
     require('jabs').setup({
         -- Options for the main window
         position = 'center', -- center, corner. Default corner

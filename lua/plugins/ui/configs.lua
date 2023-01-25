@@ -1,6 +1,41 @@
 local configs = {}
 
 
+configs.nvim_treesitter = function()
+    require('nvim-treesitter.configs').setup({
+        ensure_installed = {},
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = false,
+        },
+        indent = {
+            enable = true,
+        },
+        rainbow = {
+            enable = true,
+            -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+            extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+            max_file_lines = nil, -- Do not enable for files with more than n lines, int
+            -- colors = {}, -- table of hex strings
+            -- termcolors = {} -- table of colour name strings
+        },
+    })
+    vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
+        callback = function()
+            vim.opt.foldmethod     = 'expr'
+            vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+        end
+    })
+end
+
+configs.hlargs = function()
+    require("hlargs").setup({
+        excluded_filetypes = require("core.settings").exclude_filetypes,
+    })
+end
+
 configs.sonokai = function()
     local style = 'atlantis'
     local api, fn = vim.api, vim.fn
@@ -28,9 +63,7 @@ configs.sonokai = function()
         pattern = 'sonokai',
         callback = sonokai_custom,
     })
-    fn.timer_start(100, function()
-        vim.cmd("colorscheme sonokai")
-    end)
+    vim.cmd[[colorscheme sonokai]]
 end
 
 configs.indent_blankline = function()
