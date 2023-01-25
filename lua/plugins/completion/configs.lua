@@ -124,6 +124,13 @@ configs.nvim_cmp = function()
             path_source,
         }
     }))
+    cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
+        sources = {
+            snip_source,
+            buffer_source,
+            path_source,
+        }
+    }))
     cmp.setup.filetype({'c', 'cpp'}, vim.tbl_deep_extend('force', config, {
         sources = {
             lsp_source,

@@ -8,7 +8,8 @@ return {
         'nvim-treesitter/nvim-treesitter',
         opt = true,
         run = function()
-            require('nvim-treesitter.install').update({ with_sync = true })
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
         end,
         setup = function ()
             require("plugins"):delay_load_on_event(
