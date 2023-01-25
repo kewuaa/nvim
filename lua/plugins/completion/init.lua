@@ -45,11 +45,17 @@ return {
                 opt = true,
                 after = 'cmp-nvim-lua',
             },
+            -- buffer line source
+            {
+                'amarakon/nvim-cmp-buffer-lines',
+                opt = true,
+                after = 'cmp-buffer',
+            },
             -- path source
             {
                 'hrsh7th/cmp-path',
                 opt = true,
-                after = 'cmp-buffer',
+                after = 'nvim-cmp-buffer-lines',
             },
             -- cmdline source
             {

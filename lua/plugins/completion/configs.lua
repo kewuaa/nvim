@@ -29,7 +29,35 @@ configs.nvim_cmp = function()
         return info
     end
 
-    cmp.setup({
+    local lsp_source = { name = 'nvim_lsp' }
+    local lua_source = { name = 'nvim_lua' }
+    -- local tag_source = { name = 'tags' }
+    local snip_source = { name = 'luasnip' }
+    local buffer_source = {
+        name = 'buffer',
+        option = {
+            get_bufnrs = function()
+                local bufs = {}
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                    local buf = vim.api.nvim_win_get_buf(win)
+                    local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+                    if byte_size < 1024 * 1024 then
+                        bufs[#bufs+1] = buf
+                    end
+                end
+                return bufs
+            end,
+        },
+    }
+    local buffer_line_source = { name = 'buffer-lines' }
+    local path_source = {
+        name = 'path',
+        option = {
+            trailing_slash = false,
+            get_cwd = require("core.utils").get_cwd,
+        },
+    }
+    local config = {
         window = {
             completion = {
                 border = border("Normal"),
@@ -79,26 +107,38 @@ configs.nvim_cmp = function()
             end,
         }),
         sources = {
-            { name = 'nvim_lsp' },
-            { name = 'nvim_lua' },
-            -- { name = 'tags' },
-            { name = 'luasnip' },
-            {
-                name = 'buffer',
-                option = {
-                    get_bufnrs = function()
-                        return vim.api.nvim_list_bufs()
-                    end,
-                },
-            },
-            {
-                name = 'path',
-                option = {
-                    trailing_slash = false,
-                    get_cwd = require("core.utils").get_cwd,
-                },
-            },
+            lsp_source,
+            -- tag_source,
+            snip_source,
+            buffer_source,
+            path_source,
         },
+    }
+    cmp.setup(config)
+    cmp.setup.filetype('lua', vim.tbl_deep_extend('force', config, {
+        sources = {
+            lsp_source,
+            lua_source,
+            snip_source,
+            buffer_source,
+            path_source,
+        }
+    }))
+    cmp.setup.filetype({'c', 'cpp'}, vim.tbl_deep_extend('force', config, {
+        sources = {
+            lsp_source,
+            snip_source,
+            buffer_line_source,
+            buffer_source,
+            path_source,
+        }
+    }))
+    cmp.setup.cmdline({'/', '?'}, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            buffer_source,
+            buffer_line_source,
+        }
     })
 end
 
@@ -133,12 +173,6 @@ end
 
 configs.cmp_cmdline = function()
     local cmp = require("cmp")
-    cmp.setup.cmdline('/', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            { name = 'buffer' }
-        }
-    })
     cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
@@ -151,17 +185,14 @@ end
 
 configs.cmp_under_comparator = function()
     local cmp = require("cmp")
+    local compare = cmp.config.compare
     cmp.setup {
         sorting = {
             comparators = {
-                cmp.config.compare.offset,
-                cmp.config.compare.exact,
-                cmp.config.compare.score,
+                compare.score,
+                compare.offset,
+                compare.locality,
                 require("cmp-under-comparator").under,
-                cmp.config.compare.kind,
-                cmp.config.compare.sort_text,
-                cmp.config.compare.length,
-                cmp.config.compare.order,
             },
         },
     }
