@@ -100,6 +100,14 @@ return {
         config = configs.vim_illuminate,
     },
 
+    -- 调暗未使用函数，变量和参数
+    {
+        'zbirenbaum/neodim',
+        opt = true,
+        event = 'LspAttach',
+        config = configs.neodim,
+    },
+
     -- 移动块
     {
         'booperlv/nvim-gomove',
