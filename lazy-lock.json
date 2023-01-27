@@ -27,6 +27,7 @@
   "lspkind.nvim": { "branch": "master", "commit": "c68b3a003483cf382428a43035079f78474cd11e" },
   "lspsaga.nvim": { "branch": "main", "commit": "842bdddcd34ddff370aa71984370b9cc6dfba6ef" },
   "lualine.nvim": { "branch": "master", "commit": "0050b308552e45f7128f399886c86afefc3eb988" },
+  "middleclass": { "branch": "master", "commit": "9fab4d5bca67262614960960ca35c4740eb2be2c" },
   "neodim": { "branch": "master", "commit": "c346344ade2ce709e6bd282f10e43778672b861e" },
   "numb.nvim": { "branch": "master", "commit": "d95b7ea62e320b02ca1aa9df3635471a88d6f3b1" },
   "nvim-autopairs": { "branch": "master", "commit": "31042a5823b55c4bfb30efcbba2fc1b5b53f90dc" },
@@ -52,5 +53,6 @@
   "vim-cool": { "branch": "master", "commit": "80c19445728d70595c2f72d0436527e28292ebd9" },
   "vim-expand-region": { "branch": "master", "commit": "966513543de0ddc2d673b5528a056269e7917276" },
   "vim-illuminate": { "branch": "master", "commit": "4e1d43cdc39e35f495c7b39a78a349b4d5badad0" },
+  "windows.nvim": { "branch": "main", "commit": "c7492552b23d0ab30325e90b56066ec51242adc8" },
   "zig.vim": { "branch": "master", "commit": "c8caa9ab97334ca5af2d69900108bb4af20933c5" }
 }

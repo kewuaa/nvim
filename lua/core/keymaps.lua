@@ -30,6 +30,10 @@ local function todo_comments(command)
     end
 end
 
+local function windows_cmd(command)
+   return table.concat({ '<Cmd>', command, '<CR>' })
+end
+
 keymaps.asynctasks = {
     {'n', '<F5>', '<cmd>AsyncTask file-run<CR>'},
     {'n', '<F6>', '<cmd>AsyncTask file-build<CR>'},
@@ -46,6 +50,13 @@ keymaps.hop = {
 
 keymaps.iswap = {
     {'n', '<leader>sw', '<cmd>ISwapWith<cr>'}
+}
+
+keymaps.windows = {
+    {'n', '<c-w>z', windows_cmd('WindowsMaximize')},
+    {'n', '<c-w>_', windows_cmd('WindowsMaximizeVertically')},
+    {'n', '<c-w>|', windows_cmd('WindowsMaximizeHorizontally')},
+    {'n', '<c-w>=', windows_cmd('WindowsEqualize')},
 }
 
 keymaps.JABS = {

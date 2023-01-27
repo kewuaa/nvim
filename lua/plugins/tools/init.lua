@@ -107,6 +107,18 @@ return {
         }
     },
 
+    -- 自动扩展窗口宽度
+    {
+        'anuvyklack/windows.nvim',
+        lazy = true,
+        init = require('core.keymaps'):load('windows'),
+        event = 'VeryLazy',
+        config = configs.windows,
+        dependencies = {
+            {"anuvyklack/middleclass"}
+        },
+    },
+
     -- 缓冲区管理
     {
         'matbme/JABS.nvim',

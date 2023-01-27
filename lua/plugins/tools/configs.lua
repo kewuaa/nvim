@@ -460,6 +460,17 @@ configs.nvim_tree = function()
     })
 end
 
+configs.windows = function ()
+    require('windows').setup({
+        ignore = {
+            filetype = require('core.settings').exclude_filetypes,
+        },
+        animation = {
+            enabled = false,
+        }
+    })
+end
+
 configs.JABS = function()
     require('jabs').setup({
         -- Options for the main window
