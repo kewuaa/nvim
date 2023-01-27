@@ -9,7 +9,7 @@ return {
     {
         'ziglang/zig.vim',
         lazy = false,
-        init = function ()
+        init = function()
             vim.g.zig_fmt_autosave = 0
         end,
     },

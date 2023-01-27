@@ -154,10 +154,10 @@ return {
     {
         'romainl/vim-cool',
         lazy = true,
-        init = function ()
+        init = function()
             vim.g.CoolTotalMatches = 1
         end,
-        event = 'CmdLineEnter /,?',
+        event = 'CmdLineEnter',
         keys = {
             {'n', mode = 'n'},
             {'N', mode = 'n'},

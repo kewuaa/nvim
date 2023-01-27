@@ -10,12 +10,12 @@ return {
         event = 'VeryLazy',
         config = configs.lualine,
         dependencies = {
-            {'nvim-tree/nvim-web-devicons'},
             -- 颜色主题
             {
                 'sainnhe/sonokai',
                 config = configs.sonokai,
             },
+            {'nvim-tree/nvim-web-devicons'},
         }
     },
 
@@ -60,4 +60,12 @@ return {
         event = 'LspAttach',
         config = true,
     },
+
+    -- colorful window seperator
+    {
+        'nvim-zh/colorful-winsep.nvim',
+        lazy = true,
+        event = 'VeryLazy',
+        config = configs.colorful_winsep,
+    }
 }

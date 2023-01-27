@@ -18,5 +18,5 @@ augroup setup
     au!
     au CursorMoved * ++once call s:load_later()
 augroup END
-au! filetype qf,help,notify,DressingSelect,startuptime nnoremap <silent><buffer> q <cmd>q<CR>
+au! filetype qf,help,notify,TelescopePrompt nnoremap <silent><buffer> q <cmd>q<CR>
 ]]
