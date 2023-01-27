@@ -2,91 +2,62 @@ local configs = require("plugins.ui.configs")
 
 
 return {
+    -- statusline
+    {
+        'nvim-lualine/lualine.nvim',
+        lazy = true,
+        -- event = {'BufRead', 'BufNewFile'},
+        event = 'VeryLazy',
+        config = configs.lualine,
+        dependencies = {
+            {'nvim-tree/nvim-web-devicons'},
+            -- 颜色主题
+            {
+                'sainnhe/sonokai',
+                config = configs.sonokai,
+            },
+        }
+    },
 
     -- 语法高亮
     {
         'nvim-treesitter/nvim-treesitter',
-        opt = true,
-        run = function()
+        lazy = true,
+        build = function()
             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
             ts_update()
         end,
-        setup = function ()
-            require("plugins"):delay_load_on_event(
-                'nvim-treesitter',
-                100,
-                'VimEnter',
-                '*'
-            )
-        end,
+        event = {'BufRead', 'BufNewFile'},
         config = configs.nvim_treesitter,
-        requires = {
+        dependencies = {
             -- 彩虹括号
-            {
-                'p00f/nvim-ts-rainbow',
-                opt = true,
-            },
-
+            {'p00f/nvim-ts-rainbow'},
             -- 参数高亮
-            {
-                'm-demare/hlargs.nvim',
-                opt = true,
-                config = configs.hlargs,
-            },
+            {'m-demare/hlargs.nvim', config = configs.hlargs},
         },
-    },
-
-    -- 颜色主题
-    {
-        'sainnhe/sonokai',
-        opt = true,
-        after = 'nvim-treesitter',
-        config = configs.sonokai,
     },
 
     -- 缩进线
     {
         'lukas-reineke/indent-blankline.nvim',
-        opt = true,
-        after = 'lualine.nvim',
+        lazy = true,
+        event = {'BufRead', 'BufNewFile'},
         config = configs.indent_blankline,
-    },
-
-    -- statusline
-    {
-        'nvim-lualine/lualine.nvim',
-        opt = true,
-        after = 'sonokai',
-        config = configs.lualine,
-        requires = {
-            {
-                'nvim-tree/nvim-web-devicons',
-                opt = true,
-            }
-        }
     },
 
     -- 消息提示
     {
         'rcarriga/nvim-notify',
-        opt = true,
-        after = 'indent-blankline.nvim',
+        lazy = true,
+        event = 'VeryLazy',
         config = configs.notify,
-    },
-
-    -- 增强vim.ui
-    {
-        'stevearc/dressing.nvim',
-        opt = true,
-        after = 'nvim-notify',
-        config = configs.dressing,
     },
 
     -- lsp progress
     {
         'j-hui/fidget.nvim',
-        opt = true,
+        lazy = true,
         event = 'LspAttach',
-        config = configs.fidget,
+        config = true,
     },
 }

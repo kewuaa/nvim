@@ -2,6 +2,7 @@ local configs = {}
 
 configs.nvim_cmp = function()
     local cmp = require('cmp')
+    local compare = cmp.config.compare
     local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
     end
@@ -57,6 +58,7 @@ configs.nvim_cmp = function()
             get_cwd = require("core.utils").get_cwd,
         },
     }
+    local cmdline_source = { name = 'cmdline' }
     local config = {
         window = {
             completion = {
@@ -67,6 +69,33 @@ configs.nvim_cmp = function()
             documentation = {
                 border = border("CmpDocBorder"),
             },
+        },
+        snippet = {
+            expand = function(args)
+                require("luasnip").lsp_expand(args.body)
+            end,
+        },
+        sorting = {
+            comparators = {
+                compare.score,
+                compare.offset,
+                compare.locality,
+                require("cmp-under-comparator").under,
+            },
+        },
+        formatting = {
+            fields = { "kind", "abbr", "menu" },
+            format = function (entry, vim_item)
+                local kind = require('lspkind').cmp_format({
+                    mode = "symbol_text",
+                    maxwidth = 50,
+                    ellipsis_char = '...',
+                })(entry, vim_item)
+                local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                kind.kind = " " .. strings[1] .. " "
+                kind.menu = "    (" .. strings[2] .. ")"
+                return kind
+            end,
         },
         mapping = cmp.mapping.preset.insert({
             ["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -147,6 +176,14 @@ configs.nvim_cmp = function()
             buffer_line_source,
         }
     })
+    cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            path_source
+        }, {
+            cmdline_source
+        })
+    })
 end
 
 configs.LuaSnip = function()
@@ -167,160 +204,6 @@ configs.LuaSnip = function()
     require("luasnip.loaders.from_vscode").lazy_load()
     require("luasnip.loaders.from_vscode").lazy_load({paths = {require("core.settings").nvim_path .. '/mysnips'}})
 end
-
-configs.cmp_luasnip = function()
-    require("cmp").setup({
-        snippet = {
-            expand = function(args)
-                require("luasnip").lsp_expand(args.body)
-            end,
-        },
-    })
-end
-
-configs.cmp_cmdline = function()
-    local cmp = require("cmp")
-    cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-            { name = 'path' }
-        }, {
-            { name = 'cmdline' }
-        })
-    })
-end
-
-configs.cmp_under_comparator = function()
-    local cmp = require("cmp")
-    local compare = cmp.config.compare
-    cmp.setup {
-        sorting = {
-            comparators = {
-                compare.score,
-                compare.offset,
-                compare.locality,
-                require("cmp-under-comparator").under,
-            },
-        },
-    }
-end
-
-configs.lspkind = function()
-    local lspkind = require("lspkind")
-    lspkind.init({
-        -- DEPRECATED (use mode instead): enables text annotations
-        --
-        -- default: true
-        -- with_text = true,
-
-        -- defines how annotations are shown
-        -- default: symbol
-        -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-        mode = 'symbol_text',
-
-        -- default symbol map
-        -- can be either 'default' (requires nerd-fonts font) or
-        -- 'codicons' for codicon preset (requires vscode-codicons font)
-        --
-        -- default: 'default'
-        preset = 'default',
-
-        -- override preset symbols
-        --
-        -- default: {}
-        symbol_map = {
-            Text = "",
-            Method = "",
-            Function = "",
-            Constructor = "",
-            Field = "ﰠ",
-            Variable = "",
-            Class = "ﴯ",
-            Interface = "",
-            Module = "",
-            Property = "ﰠ",
-            Unit = "塞",
-            Value = "",
-            Enum = "",
-            Keyword = "",
-            Snippet = "",
-            Color = "",
-            File = "",
-            Reference = "",
-            Folder = "",
-            EnumMember = "",
-            Constant = "",
-            Struct = "פּ",
-            Event = "",
-            Operator = "",
-            TypeParameter = ""
-        },
-    })
-    require("cmp").setup({
-        formatting = {
-            fields = { "kind", "abbr", "menu" },
-            format = function (entry, vim_item)
-                local kind = lspkind.cmp_format({
-                    mode = "symbol_text",
-                    maxwidth = 50,
-                    ellipsis_char = '...',
-                })(entry, vim_item)
-                local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                kind.kind = " " .. strings[1] .. " "
-                kind.menu = "    (" .. strings[2] .. ")"
-                return kind
-            end,
-        }
-    })
-end
-
-configs.nvim_autopairs = function()
-    local npairs = require("nvim-autopairs")
-    local Rule = require("nvim-autopairs.rule")
-    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-    local handlers = require("nvim-autopairs.completion.handlers")
-    local cmp = require('cmp')
-    npairs.setup({
-        map_bs = true,
-        map_c_h = false,
-        map_c_w = true,
-        check_ts = true,
-        enable_check_bracket_line = false,
-        ignored_next_char = "[%w%.]",
-        fast_wrap = {
-            map = '<M-e>',
-            chars = { '{', '[', '(', '"', "'" },
-            pattern = [=[[%'%"%)%>%]%)%}%,]]=],
-            end_key = '$',
-            keys = 'qwertyuiopzxcvbnmasdfghjkl',
-            check_comma = true,
-            highlight = 'Search',
-            highlight_grey = 'Comment'
-        },
-    })
-    cmp.event:on(
-        "confirm_done",
-        cmp_autopairs.on_confirm_done({
-            filetypes = {
-                -- "*" is an alias to all filetypes
-                ["*"] = {
-                    ["("] = {
-                        kind = {
-                            cmp.lsp.CompletionItemKind.Function,
-                            cmp.lsp.CompletionItemKind.Method,
-                        },
-                        handler = handlers["*"],
-                    },
-                },
-                -- Disable for tex
-                tex = false,
-            },
-        })
-    )
-    npairs.add_rule(Rule('<', '>'))
-    npairs.add_rule(Rule("|", "|", { 'zig' }))
-end
-
 
 configs.lspsaga = function()
     local saga = require('lspsaga')

@@ -2,9 +2,6 @@ local configs = {}
 
 
 configs.trouble = function()
-    require("plugins").check_loaded(
-        'nvim-web-devicons'
-    )
     require("trouble").setup({
         position = "bottom", -- position of the list can be: bottom, top, left, right
         height = 10, -- height of the trouble list when position is top or bottom
@@ -55,11 +52,6 @@ configs.trouble = function()
 end
 
 configs.telescope = function()
-    require("plugins").check_loaded(
-        'plenary.nvim',
-        'nvim-notify',
-        'nvim-web-devicons'
-    )
     local telescope = require("telescope")
     telescope.setup({
         defaults = {
@@ -104,15 +96,11 @@ configs.telescope = function()
     })
     -- To get fzf loaded and working with telescope, you need to call
     -- load_extension, somewhere after setup function:
-    -- telescope.load_extension('fzf')
+    telescope.load_extension('fzf')
     telescope.load_extension("notify")
 end
 
-configs.telescope_fzf_native = function ()
-    require("telescope").load_extension('fzf')
-end
-
-configs.asyncrun = function()
+configs.asynctasks = function()
     local settings = require("core.settings")
     local rootmarks = settings.rootmarks
     local py_envs = settings:getpy('envs')
@@ -132,7 +120,7 @@ configs.asyncrun = function()
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
     vim.g.asynctasks_environ = environ
-    vim.g.asynctasks_extra_config = {settings.nvim_path .. '/mytasks.ini'}
+    vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
 end
 
 configs.nvim_bqf = function ()
@@ -316,9 +304,6 @@ configs.gitsigns = function()
 end
 
 configs.nvim_tree = function()
-    require("plugins").check_loaded(
-        'nvim-web-devicons'
-    )
     require("nvim-tree").setup({
         create_in_closed_folder = false,
         respect_buf_cwd = false,
@@ -476,9 +461,6 @@ configs.nvim_tree = function()
 end
 
 configs.JABS = function()
-    require("plugins").check_loaded(
-        'nvim-web-devicons'
-    )
     require('jabs').setup({
         -- Options for the main window
         position = 'center', -- center, corner. Default corner

@@ -23,8 +23,6 @@ local settings = setmetatable(
             "DressingSelect",
             "",
         },
-        data_dir = string.format("%s/site/", vim.fn.stdpath("data")),
-        nvim_path = vim.fn.stdpath("config"),
     },
     {
         __index = function(table, key)

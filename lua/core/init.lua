@@ -49,26 +49,21 @@ local disable_distribution_plugins = function()
     vim.g.loaded_remote_plugins = 1
 end
 
-local impatient_cache_path = require("core.settings").data_dir .. 'lua'
-_G.__luacache_config = {
-  chunks = {
-    enable = true,
-    path = impatient_cache_path .. '/luacache_chunks',
-  },
-  modpaths = {
-    enable = true,
-    path = impatient_cache_path .. '/luacache_modpaths',
-  }
-}
-local ok, impatient = pcall(require, 'impatient')
-if ok then
-  impatient.enable_profile()
-else
-  vim.notify(impatient)
-end
-
 disable_distribution_plugins()
 require("core.options")
 require("core.cmds")
-require("core.keymaps")
-require("plugins").load_compile()
+require("core.keymaps").init()
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup(require('plugins'))

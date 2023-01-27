@@ -94,9 +94,6 @@ configs.indent_blankline = function()
 end
 
 configs.lualine = function()
-    require("plugins").check_loaded(
-        'nvim-web-devicons'
-    )
     local function get_gutentags_status(mods)
         local msg = ''
         local index = vim.fn.index
@@ -197,6 +194,11 @@ configs.lualine = function()
             },
             lualine_x = {
                 {
+                    require("lazy.status").updates,
+                    cond = require("lazy.status").has_updates,
+                    color = { fg = "#ff9e64" },
+                },
+                {
                     "diagnostics",
                     sources = { "nvim_diagnostic" },
                     symbols = { error = " ", warn = " ", info = " " },
@@ -246,10 +248,6 @@ configs.lualine = function()
     })
 end
 
-configs.dressing = function()
-    require("dressing").setup()
-end
-
 configs.notify = function()
     local notify = require("notify")
     notify.setup({
@@ -280,10 +278,5 @@ configs.notify = function()
     })
     vim.notify = notify
 end
-
-configs.fidget = function()
-    require("fidget").setup()
-end
-
 
 return configs

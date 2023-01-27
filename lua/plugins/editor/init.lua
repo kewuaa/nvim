@@ -5,28 +5,37 @@ return {
     -- 选中编辑
     {
         'kylechui/nvim-surround',
-        tag = '*',
-        opt = true,
+        version = '*',
+        lazy = true,
         keys = {
-            {'n', 'ys'},
-            {'n', 'yss'},
-            {'n', 'yS'},
-            {'n', 'ySS'},
-            {'n', 'ds'},
-            {'n', 'cs'},
-            {'i', '<c-g>s'},
-            {'i', '<c-g>S'},
-            {'x', 'S'},
-            {'x', 'gS'},
+            {'ys', mode = 'n'},
+            {'yss', mode = 'n'},
+            {'yS', mode = 'n'},
+            {'ySS', mode = 'n'},
+            {'ds', mode = 'n'},
+            {'cs', mode = 'n'},
+            {'<c-g>s', mode = 'i'},
+            {'<c-g>S', mode = 'i'},
+            {'S', mode = 'x'},
+            {'gS', mode = 'x'},
         },
         config = configs.nvim_surround,
+    },
+
+    -- 括号补全
+    {
+        'windwp/nvim-autopairs',
+        lazy = true,
+        event = 'InsertCharPre',
+        config = configs.nvim_autopairs,
     },
 
     -- 快速移动
     {
         'phaazon/hop.nvim',
-        opt = true,
+        lazy = true,
         branch = 'v2',
+        init = require('core.keymaps'):load('hop'),
         cmd = {
             'HopWord',
             'HopChar1',
@@ -40,14 +49,14 @@ return {
     -- 注释
     {
         'numToStr/Comment.nvim',
-        opt = true,
+        lazy = true,
         keys = {
-            {'n', 'gcc'},
-            {'n', 'gbc'},
-            {'n', 'gc'},
-            {'n', 'gb'},
-            {'x', 'gc'},
-            {'x', 'gb'},
+            {'gcc', mode = 'n'},
+            {'gbc', mode = 'n'},
+            {'gc', mode = 'n'},
+            {'gb', mode = 'n'},
+            {'gc', mode = 'x'},
+            {'gb', mode = 'x'},
         },
         config = configs.comment,
     },
@@ -55,31 +64,35 @@ return {
     -- TODO 注释
     {
         'folke/todo-comments.nvim',
-        opt = true,
+        lazy = true,
+        init = require('core.keymaps'):load('todo_comments'),
         cmd = {
             'TodoQuickFix',
             'TodoLocList',
             'TodoTrouble',
             'TodoTelescope',
         },
-        config = configs.todo_comments,
+        config = true,
+        dependencies = {
+            {'nvim-lua/plenary.nvim'},
+        }
     },
 
     -- 扩展区域
     {
         'terryma/vim-expand-region',
-        opt = true,
+        lazy = true,
         keys = {
-            {'n', '+'},
-            {'v', '+'},
-            {'v', '-'},
+            {'+', mode = {'n', 'v'}},
+            {'-', mode = 'v'},
         },
     },
 
     -- 与J相反的操作
     {
         'Wansmer/treesj',
-        opt = true,
+        lazy = true,
+        init = require('core.keymaps'):load('treesj'),
         cmd = 'TSJToggle',
         config = configs.treesj,
     },
@@ -87,7 +100,8 @@ return {
     -- 交换函数参数, 列表元素等
     {
         'mizlan/iswap.nvim',
-        opt = true,
+        lazy = true,
+        init = require('core.keymaps'):load('iswap'),
         cmd = {'ISwap', 'ISwapWith'},
         config = configs.iswap,
     },
@@ -95,15 +109,15 @@ return {
     -- 高亮相同单词
     {
         'RRethy/vim-illuminate',
-        opt = true,
-        after = 'lspsaga.nvim',
+        lazy = true,
+        event = 'VeryLazy',
         config = configs.vim_illuminate,
     },
 
     -- 调暗未使用函数，变量和参数
     {
         'zbirenbaum/neodim',
-        opt = true,
+        lazy = true,
         event = 'LspAttach',
         config = configs.neodim,
     },
@@ -111,24 +125,16 @@ return {
     -- 移动块
     {
         'booperlv/nvim-gomove',
-        opt = true,
+        lazy = true,
         keys = {
-            {'x', '<A-h>'},
-            {'x', '<A-l>'},
-            {'x', '<A-j>'},
-            {'x', '<A-k>'},
-            {'n', '<A-h>'},
-            {'n', '<A-l>'},
-            {'n', '<A-j>'},
-            {'n', '<A-k>'},
-            {'x', '<A-S-h>'},
-            {'x', '<A-S-l>'},
-            {'x', '<A-S-j>'},
-            {'x', '<A-S-k>'},
-            {'n', '<A-S-h>'},
-            {'n', '<A-S-l>'},
-            {'n', '<A-S-j>'},
-            {'n', '<A-S-k>'},
+            {'<A-h>', mode = {'n', 'x'}},
+            {'<A-l>', mode = {'n', 'x'}},
+            {'<A-j>', mode = {'n', 'x'}},
+            {'<A-k>', mode = {'n', 'x'}},
+            {'<A-S-h>', mode = {'n', 'x'}},
+            {'<A-S-l>', mode = {'n', 'x'}},
+            {'<A-S-j>', mode = {'n', 'x'}},
+            {'<A-S-k>', mode = {'n', 'x'}},
         },
         config = configs.nvim_gomove,
     },
@@ -136,28 +142,41 @@ return {
     -- jk增强
     {
         'rainbowhxch/accelerated-jk.nvim',
-        opt = true,
-        keys = {{'n', 'j'}, {'n', 'k'}},
+        lazy = true,
+        keys = {
+            {'j', mode = 'n'},
+            {'k', mode = 'n'},
+        },
         config = configs.accelerated_jk,
     },
 
     -- 搜索后自动关闭高亮
     {
         'romainl/vim-cool',
-        opt = true,
+        lazy = true,
+        init = function ()
+            vim.g.CoolTotalMatches = 1
+        end,
         event = 'CmdLineEnter /,?',
         keys = {
-            {'n', 'n'},
-            {'n', 'N'},
+            {'n', mode = 'n'},
+            {'N', mode = 'n'},
         },
-        setup = 'vim.g.CoolTotalMatches = 1',
     },
 
     --  peeks lines of the buffer in non-obtrusive way
     {
         'nacro90/numb.nvim',
-        opt = true,
+        lazy = true,
         event = 'CmdLineEnter :',
         config = configs.numb,
-    }
+    },
+
+    -- 缓冲区关闭时保留原有布局
+    {
+        'famiu/bufdelete.nvim',
+        lazy = true,
+        keys = require('core.keymaps'):load('bufdelete'),
+        cmd = 'Bdelete',
+    },
 }
