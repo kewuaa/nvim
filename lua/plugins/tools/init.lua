@@ -112,7 +112,7 @@ return {
         'anuvyklack/windows.nvim',
         lazy = true,
         init = require('core.keymaps'):load('windows'),
-        event = 'VeryLazy',
+        event = 'CmdLineEnter',
         config = configs.windows,
         dependencies = {
             {"anuvyklack/middleclass"}

@@ -282,11 +282,12 @@ end
 configs.colorful_winsep = function ()
     local colorful_winsep = require('colorful-winsep')
     local exclude_filetypes = require('core.settings').exclude_filetypes
+    local palette = vim.fn['sonokai#get_palette'](vim.g.sonokai_style, vim.empty_dict())
     colorful_winsep.setup({
         -- highlight for Window separator
         highlight = {
-            bg = "#16161E",
-            fg = "#1F3442",
+            bg = palette.bg0[1],
+            fg = palette.blue[1],
         },
         -- timer refresh rate
         interval = 30,
