@@ -145,11 +145,19 @@ return {
     {
         'romainl/vim-cool',
         opt = true,
-        event = 'CmdLineEnter /',
+        event = 'CmdLineEnter /,?',
         keys = {
             {'n', 'n'},
             {'n', 'N'},
         },
         setup = 'vim.g.CoolTotalMatches = 1',
     },
+
+    --  peeks lines of the buffer in non-obtrusive way
+    {
+        'nacro90/numb.nvim',
+        opt = true,
+        event = 'CmdLineEnter :',
+        config = configs.numb,
+    }
 }

@@ -127,7 +127,7 @@ end
 
 configs.neodim = function ()
     local palette = vim.fn['sonokai#get_palette'](vim.g.sonokai_style, vim.empty_dict())
-    local blend_color = palette.bg_dim[0]
+    local blend_color = palette.bg_dim[1]
     require('neodim').setup({
         alpha = 0.45,
         blend_color = blend_color,
@@ -170,6 +170,16 @@ configs.accelerated_jk = function()
     map('n', 'j', '<Plug>(accelerated_jk_gj)', opt)
     map('n', 'k', '<Plug>(accelerated_jk_gk)', opt)
 
+end
+
+configs.numb = function ()
+    require('numb').setup{
+        show_numbers = true, -- Enable 'number' for the window while peeking
+        show_cursorline = true, -- Enable 'cursorline' for the window while peeking
+        hide_relativenumbers = true, -- Enable turning off 'relativenumber' for the window while peeking
+        number_only = false, -- Peek only when the command is only a number instead of when it starts with a number
+        centered_peeking = true, -- Peeked line will be centered relative to window
+    }
 end
 
 

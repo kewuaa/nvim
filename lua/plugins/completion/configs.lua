@@ -263,6 +263,7 @@ configs.lspkind = function()
                 local kind = lspkind.cmp_format({
                     mode = "symbol_text",
                     maxwidth = 50,
+                    ellipsis_char = '...',
                 })(entry, vim_item)
                 local strings = vim.split(kind.kind, "%s", { trimempty = true })
                 kind.kind = " " .. strings[1] .. " "
