@@ -130,10 +130,14 @@ function keymaps.init()
     -- map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
     -- map('n', '<C-w>[', '<cmd>resize-5<CR>', opts_)
 
-    -- 多行应用宏
-    map('x', '@', function()
-        vim.api.nvim_command("'<,'>normal @" .. vim.fn.nr2char(vim.fn.getchar()))
-    end, opts_)
+    -- vim.cmd [[
+    -- " 多行应用宏
+    -- xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+    -- function! ExecuteMacroOverVisualRange()
+    -- echom "@".getcmdline()
+    -- execute ":'<,'>normal @".nr2char(getchar())
+    -- endfunction
+    -- ]]
 end
 
 function keymaps:load(name)
