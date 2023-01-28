@@ -246,6 +246,7 @@ configs.lualine = function()
                     cond = require("lazy.status").has_updates,
                     color = { fg = "#ff9e64" },
                 },
+                'g:translator_status',
                 {
                     "diagnostics",
                     sources = { "nvim_diagnostic" },
@@ -253,7 +254,6 @@ configs.lualine = function()
                 },
             },
             lualine_y = {
-                -- gutentags,
                 { "filetype", colored = true, icon_only = true },
                 {
                     "encoding",
