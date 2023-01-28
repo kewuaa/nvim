@@ -12,7 +12,10 @@ configs.nvim_treesitter = function()
             'javascript',
             'typescript',
             'zig',
+            'ini',
+            'markdown',
             'json',
+            'help',
             'yaml',
         },
         highlight = {
