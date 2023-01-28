@@ -120,19 +120,6 @@ return {
         },
     },
 
-    -- 缓冲区管理
-    {
-        'matbme/JABS.nvim',
-        lazy = true,
-        keys = {
-            {'<leader>bb', '<cmd>JABSOpen<CR>', mode = 'n'}
-        },
-        config = configs.JABS,
-        dependencies = {
-            {'nvim-tree/nvim-web-devicons'},
-        }
-    },
-
     -- 翻译
     {
         'voldikss/vim-translator',
