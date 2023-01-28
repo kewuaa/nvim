@@ -3,12 +3,59 @@ local configs = {}
 
 configs.nvim_treesitter = function()
     require('nvim-treesitter.configs').setup({
-        ensure_installed = {},
-        sync_install = false,
-        auto_install = true,
+        ensure_installed = {
+            'python',
+            'c',
+            'cpp',
+            'lua',
+            'vim',
+            'javascript',
+            'typescript',
+            'zig',
+            'json',
+            'yaml',
+        },
         highlight = {
             enable = true,
-            additional_vim_regex_highlighting = false,
+            additional_vim_regex_highlighting = { "c", "cpp" },
+            disable = function(lang, buf)
+                local max_filesize = 100 * 1024 -- 100 KB
+                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                    return true
+                end
+            end,
+        },
+        textobjects = {
+            select = {
+                enable = true,
+                keymaps = {
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
+                },
+            },
+            move = {
+                enable = true,
+                set_jumps = true, -- whether to set jumps in the jumplist
+                goto_next_start = {
+                    ["]["] = "@function.outer",
+                    ["]m"] = "@class.outer",
+                },
+                goto_next_end = {
+                    ["]]"] = "@function.outer",
+                    ["]M"] = "@class.outer",
+                },
+                goto_previous_start = {
+                    ["[["] = "@function.outer",
+                    ["[m"] = "@class.outer",
+                },
+                goto_previous_end = {
+                    ["[]"] = "@function.outer",
+                    ["[M"] = "@class.outer",
+                },
+            },
         },
         indent = {
             enable = true,
@@ -17,9 +64,7 @@ configs.nvim_treesitter = function()
             enable = true,
             -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
             extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-            max_file_lines = nil, -- Do not enable for files with more than n lines, int
-            -- colors = {}, -- table of hex strings
-            -- termcolors = {} -- table of colour name strings
+            max_file_lines = 2000, -- Do not enable for files with more than n lines, int
         },
     })
     vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
