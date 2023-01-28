@@ -11,7 +11,7 @@ return {
             -- ui 美化
             {'onsails/lspkind.nvim'},
             -- ctags source
-            -- {'quangnguyen30192/cmp-nvim-tags'},
+            {'quangnguyen30192/cmp-nvim-tags'},
             -- lua source
             {'hrsh7th/cmp-nvim-lua'},
             -- underline sort
@@ -45,7 +45,7 @@ return {
         'neovim/nvim-lspconfig',
         lazy = true,
         event = {'BufRead', 'BufNewFile'},
-        config = configs.nvim_lspconfig,
+        config = require('lsp').setup,
         dependencies = {
             -- lsp增强
             {'glepnir/lspsaga.nvim', branch = 'main', config = configs.lspsaga},
@@ -56,25 +56,16 @@ return {
         }
     },
     -- ctags
-    -- {
-    --     'ludovicchabant/vim-gutentags',
-    --     lazy = true,
-    --     setup = function()
-    --         -- configs.vim_gutentags()
-    --         require("plugins.completion.configs").vim_gutentags()
-    --         require("plugins").delay_load(
-    --             'BufRead',
-    --             '*.pyx,*.pxd,*.pxi,*.c,*.h',
-    --             1500,
-    --             'vim-gutentags'
-    --         )
-    --     end,
-    --     requires = {
-    --         {
-    --             'skywind3000/gutentags_plus',
-    --             lazy = true,
-    --             setup = configs.gutentags_plus,
-    --         }
-    --     }
-    -- },
+    {
+        'ludovicchabant/vim-gutentags',
+        lazy = true,
+        ft = 'pyrex',
+        config = configs.vim_gutentags,
+        dependencies = {
+            {
+                'skywind3000/gutentags_plus',
+                lazy = true,
+            }
+        }
+    },
 }

@@ -32,7 +32,7 @@ configs.nvim_cmp = function()
 
     local lsp_source = { name = 'nvim_lsp' }
     local lua_source = { name = 'nvim_lua' }
-    -- local tag_source = { name = 'tags' }
+    local tag_source = { name = 'tags' }
     local snip_source = { name = 'luasnip' }
     local buffer_source = {
         name = 'buffer',
@@ -155,6 +155,7 @@ configs.nvim_cmp = function()
     }))
     cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
         sources = {
+            tag_source,
             snip_source,
             buffer_source,
             path_source,
@@ -315,16 +316,15 @@ configs.lspsaga = function()
     })
 end
 
-configs.nvim_lspconfig = function()
-    require("lsp").setup()
-end
-
 configs.vim_gutentags = function()
+    -- config for gutentags_plus
+    vim.g.gutentags_plus_switch = 1
+    vim.g.gutentags_plus_nomap = 1
+------------------------------------------------------------------
     local settings = require("core.settings")
-    local rootmarks = settings.rootmarks
+    local rootmarks = {}
     local tags_cache_path = settings.tags_path .. '.cache/tags'
     local executable = vim.fn.executable
-
 
     local gutentags_modules = {}
     -- ctags.exe路径
@@ -341,9 +341,6 @@ configs.vim_gutentags = function()
             -- 老的Exuberant-ctags不能有下面这个参数
             '--output-format=e-ctags'
         }
-        -- vim.g.gutentags_ctags_exclude_wildignore = 0
-        -- local wildignore = vim.fn.split(require("core.options").wildignore, ',')
-        -- wildignore[#wildignore+1] = '*.py'
         vim.g.gutentags_ctags_exclude = {'*.py'}
 
         local cython_tags_exist = false
@@ -380,46 +377,6 @@ configs.vim_gutentags = function()
                 end
             end
         })
-
-        local c_tags_exist = false
-        local c_tags_cache_path = tags_cache_path .. '/c.tags'
-        local c_includes_path = settings.c_path .. 'TDM-GCC-64/x86_64-w64-mingw32/include'
-        local generate_c_includes = function ()
-            if vim.fn.isdirectory(c_includes_path) == 1 then
-                local cmd = string.format(
-                    '%s -I __THROW -I __attribute_pure__ -I __nonnull -I __attribute__ --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
-                    ctags_path,
-                    c_tags_cache_path,
-                    vim.fn.join({
-                        c_includes_path .. '/std*',
-                        c_includes_path .. '/string*',
-                        c_includes_path .. '/sys/time*',
-                    }, ' ')
-                    -- c_includes_path
-                )
-                local ret = os.execute(cmd)
-                if ret == 0 then
-                    c_tags_exist = true
-                    vim.notify('successfully generate c includes')
-                end
-            else
-                vim.notify('could not find c in path')
-            end
-        end
-        if vim.fn.filereadable(c_tags_cache_path) == 1 then
-            c_tags_exist = true
-        else
-            generate_c_includes()
-        end
-        vim.api.nvim_create_autocmd('FileType', {
-            pattern = 'c,cpp',
-            callback = function()
-                if c_tags_exist then
-                    vim.cmd('setlocal tags+=' .. c_tags_cache_path)
-                    vim.api.nvim_buf_create_user_command(0, 'UpdateCIncludes', generate_c_includes, {})
-                end
-            end
-        })
     else
         vim.notify(string.format('%s not executable', ctags_path))
     end
@@ -442,12 +399,12 @@ configs.vim_gutentags = function()
 
 
     rootmarks[#rootmarks+1] = 'root'
+    -- 禁用默认
+    vim.g.gutentags_add_default_project_roots = 0
     -- gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
     vim.g.gutentags_project_root = rootmarks
     -- 排除部分gutentags搜索工程目录的标志
-    -- vim.g.gutentags_exclude_project_root = {'.pyproject'}
-    -- 禁用默认
-    vim.g.gutentags_add_default_project_roots = 0
+    -- vim.g.gutentags_exclude_project_root
     -- 所生成的数据文件的名称
     vim.g.gutentags_ctags_tagfile = '.tags'
     -- 将自动生成的tags文件全部放入指定目录中，避免污染工程目录
@@ -457,16 +414,23 @@ configs.vim_gutentags = function()
         os.execute('mkdir -p ' .. tags_cache_path)
     end
     -- 排除部分文件类型
-    vim.g.gutentags_exclude_filetypes = {
-        'vim',
-        'lua',
-        'json',
-        'yaml',
-        'javascript',
-        'typescript',
-    }
+    -- vim.g.gutentags_exclude_filetypes = {
+    --     'vim',
+    --     'lua',
+    --     'json',
+    --     'yaml',
+    --     'javascript',
+    --     'typescript',
+    --     'json',
+    -- }
+    vim.cmd [[
+    let s:enabled_filetypes = ['pyx', 'pxd', 'pxi']
+    function! CustomGutentagsEnableFunc(path) abort
+        return index(s:enabled_filetypes, fnamemodify(a:path, ':e')) != -1
+    let g:gutentags_enabled_user_func = 'CustomGutentagsEnableFunc'
+    ]]
     -- 允许高级命令和选项
-    vim.g.gutentags_define_advanced_commands = 1
+    -- vim.g.gutentags_define_advanced_commands = 1
     -- 排除.gitignore文件
     -- It allows having :
     --    git tracked files
@@ -476,11 +440,6 @@ configs.vim_gutentags = function()
             ['.git'] = 'bash -c "git ls-files; git ls-files --others --exclude-standard"',
         },
     }
-end
-
-configs.gutentags_plus = function()
-    vim.g.gutentags_plus_switch = 1
-    vim.g.gutentags_plus_nomap = 1
 end
 
 return configs
