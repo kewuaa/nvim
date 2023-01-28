@@ -132,4 +132,11 @@ return {
             {'nvim-tree/nvim-web-devicons'},
         }
     },
+
+    -- vimdoc 中文文档
+    {
+        'yianwillis/vimcdoc',
+        lazy = true,
+        event = 'VeryLazy',
+    }
 }

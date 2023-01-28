@@ -55,6 +55,7 @@
   "vim-cool": { "branch": "master", "commit": "80c19445728d70595c2f72d0436527e28292ebd9" },
   "vim-expand-region": { "branch": "master", "commit": "966513543de0ddc2d673b5528a056269e7917276" },
   "vim-illuminate": { "branch": "master", "commit": "4e1d43cdc39e35f495c7b39a78a349b4d5badad0" },
+  "vimcdoc": { "branch": "master", "commit": "c0d3edb1de4bd83df08e99c5f63393069a17f066" },
   "windows.nvim": { "branch": "main", "commit": "c7492552b23d0ab30325e90b56066ec51242adc8" },
   "zig.vim": { "branch": "master", "commit": "c8caa9ab97334ca5af2d69900108bb4af20933c5" }
 }
