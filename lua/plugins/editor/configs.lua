@@ -222,6 +222,26 @@ configs.search_replace = function ()
     })
 end
 
+configs.live_command = function ()
+    require("live-command").setup {
+        defaults = {
+            enable_highlighting = true,
+            inline_highlighting = true,
+            hl_groups = {
+                insertion = "DiffAdd",
+                deletion = "DiffDelete",
+                change = "DiffChange",
+            },
+        },
+        commands = {
+            Norm = {
+                cmd = 'norm',
+            }
+        },
+        debug = false,
+    }
+end
+
 configs.numb = function ()
     require('numb').setup{
         show_numbers = true, -- Enable 'number' for the window while peeking

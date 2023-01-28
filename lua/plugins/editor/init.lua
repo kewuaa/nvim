@@ -155,6 +155,14 @@ return {
         config = configs.search_replace,
     },
 
+    -- 实时预览命令结果
+    {
+        'smjonas/live-command.nvim',
+        lazy = true,
+        cmd = 'Norm',
+        config = configs.live_command,
+    },
+
     -- 搜索后自动关闭高亮
     {
         'romainl/vim-cool',
