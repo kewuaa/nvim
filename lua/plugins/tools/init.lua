@@ -99,8 +99,9 @@ return {
     {
         'nvim-tree/nvim-tree.lua',
         lazy = true,
-        init = require('core.keymaps'):load('nvim_tree'),
-        cmd = 'NvimTreeToggle',
+        keys = {
+            {'<leader>tt', '<cmd>NvimTreeToggle<CR>', mode = 'n'}
+        },
         config = configs.nvim_tree,
         dependencies = {
             {'nvim-tree/nvim-web-devicons'},
@@ -112,7 +113,7 @@ return {
         'anuvyklack/windows.nvim',
         lazy = true,
         init = require('core.keymaps'):load('windows'),
-        event = 'CmdLineEnter',
+        event = 'WinNew',
         config = configs.windows,
         dependencies = {
             {"anuvyklack/middleclass"}
@@ -123,8 +124,9 @@ return {
     {
         'matbme/JABS.nvim',
         lazy = true,
-        init = require('core.keymaps'):load('JABS'),
-        cmd = 'JABSOpen',
+        keys = {
+            {'<leader>bb', '<cmd>JABSOpen<CR>', mode = 'n'}
+        },
         config = configs.JABS,
         dependencies = {
             {'nvim-tree/nvim-web-devicons'},

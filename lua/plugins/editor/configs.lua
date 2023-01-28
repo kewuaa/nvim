@@ -212,6 +212,16 @@ configs.accelerated_jk = function()
 
 end
 
+configs.search_replace = function ()
+    -- show the effects of a search / replace in a live preview window
+    vim.o.inccommand = "split"
+    require('search-replace').setup({
+        -- optionally override defaults
+        default_replace_single_buffer_options = "gcI",
+        default_replace_multi_buffer_options = "egcI",
+    })
+end
+
 configs.numb = function ()
     require('numb').setup{
         show_numbers = true, -- Enable 'number' for the window while peeking

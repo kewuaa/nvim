@@ -36,13 +36,7 @@ return {
         lazy = true,
         branch = 'v2',
         init = require('core.keymaps'):load('hop'),
-        cmd = {
-            'HopWord',
-            'HopChar1',
-            'HopChar2',
-            'HopLine',
-            'HopPattern',
-        },
+        event = 'CmdUndefined Hop*',
         config = configs.hop,
     },
 
@@ -92,8 +86,9 @@ return {
     {
         'Wansmer/treesj',
         lazy = true,
-        init = require('core.keymaps'):load('treesj'),
-        cmd = 'TSJToggle',
+        keys = {
+            {'<leader>j', '<cmd>TSJToggle<CR>', mode = 'n'}
+        },
         config = configs.treesj,
     },
 
@@ -101,8 +96,9 @@ return {
     {
         'mizlan/iswap.nvim',
         lazy = true,
-        init = require('core.keymaps'):load('iswap'),
-        cmd = {'ISwap', 'ISwapWith'},
+        keys = {
+            {'<leader>sw', '<cmd>ISwapWith<CR>', mode = 'n'}
+        },
         config = configs.iswap,
     },
 
@@ -150,6 +146,15 @@ return {
         config = configs.accelerated_jk,
     },
 
+    -- 搜索替换
+    {
+        'roobert/search-replace.nvim',
+        lazy = true,
+        init = require('core.keymaps'):load('search_replace'),
+        event = 'CmdUndefined SearchReplace*',
+        config = configs.search_replace,
+    },
+
     -- 搜索后自动关闭高亮
     {
         'romainl/vim-cool',
@@ -176,7 +181,8 @@ return {
     {
         'famiu/bufdelete.nvim',
         lazy = true,
-        keys = require('core.keymaps'):load('bufdelete'),
-        cmd = 'Bdelete',
+        keys = {
+            {'<leader>bd', '<cmd>Bdelete<CR>', mode = 'n'}
+        },
     },
 }

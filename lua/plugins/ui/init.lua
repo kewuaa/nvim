@@ -65,7 +65,7 @@ return {
     {
         'nvim-zh/colorful-winsep.nvim',
         lazy = true,
-        event = 'CmdLineEnter',
+        event = 'WinNew',
         config = configs.colorful_winsep,
     }
 }

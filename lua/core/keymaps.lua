@@ -1,7 +1,6 @@
 local keymaps = {}
 local map = vim.keymap.set
 local opts = {
-    noremap = true,
     silent = true,
 }
 
@@ -48,27 +47,11 @@ keymaps.hop = {
     {'n', '<leader><leader>/', '<cmd>HopPattern<CR>'},
 }
 
-keymaps.iswap = {
-    {'n', '<leader>sw', '<cmd>ISwapWith<cr>'}
-}
-
 keymaps.windows = {
     {'n', '<c-w>z', windows_cmd('WindowsMaximize')},
     {'n', '<c-w>_', windows_cmd('WindowsMaximizeVertically')},
     {'n', '<c-w>|', windows_cmd('WindowsMaximizeHorizontally')},
     {'n', '<c-w>=', windows_cmd('WindowsEqualize')},
-}
-
-keymaps.JABS = {
-    {'n', '<leader>bb', '<cmd>JABSOpen<CR>'}
-}
-
-keymaps.nvim_tree = {
-    {'n', '<leader>tt', '<cmd>NvimTreeToggle<CR>'}
-}
-
-keymaps.treesj = {
-    {'n', '<leader>j', '<cmd>TSJToggle<CR>'}
 }
 
 keymaps.telescope = {
@@ -81,10 +64,6 @@ keymaps.telescope = {
     {'n', '<leader>fc', '<cmd>Telescope commands<CR>'},
 }
 
-keymaps.bufdelete = {
-    {'n', '<leader>bd', '<cmd>Bdelete<CR>'}
-}
-
 keymaps.toggleterm = {
     {'t', '<ESC>', [[<c-\><c-n>]]},
     {{'n', 't'}, '<M-=>', toggleterm()},
@@ -93,6 +72,24 @@ keymaps.toggleterm = {
 
 keymaps.todo_comments = {
     {'n', '<leader>ftd', todo_comments('TodoTelescope')}
+}
+
+keymaps.search_replace = {
+    {"v", "<C-r>", "<CMD>SearchReplaceSingleBufferVisualSelection<CR>"},
+    {"v", "<C-s>", "<CMD>SearchReplaceWithinVisualSelection<CR>"},
+    {"v", "<C-b>", "<CMD>SearchReplaceWithinVisualSelectionCWord<CR>"},
+    {"n", "<leader>rs", "<CMD>SearchReplaceSingleBufferSelections<CR>"},
+    {"n", "<leader>ro", "<CMD>SearchReplaceSingleBufferOpen<CR>"},
+    {"n", "<leader>rw", "<CMD>SearchReplaceSingleBufferCWord<CR>"},
+    {"n", "<leader>rW", "<CMD>SearchReplaceSingleBufferCWORD<CR>"},
+    {"n", "<leader>re", "<CMD>SearchReplaceSingleBufferCExpr<CR>"},
+    {"n", "<leader>rf", "<CMD>SearchReplaceSingleBufferCFile<CR>"},
+    {"n", "<leader>rbs", "<CMD>SearchReplaceMultiBufferSelections<CR>"},
+    {"n", "<leader>rbo", "<CMD>SearchReplaceMultiBufferOpen<CR>"},
+    {"n", "<leader>rbw", "<CMD>SearchReplaceMultiBufferCWord<CR>"},
+    {"n", "<leader>rbW", "<CMD>SearchReplaceMultiBufferCWORD<CR>"},
+    {"n", "<leader>rbe", "<CMD>SearchReplaceMultiBufferCExpr<CR>"},
+    {"n", "<leader>rbf", "<CMD>SearchReplaceMultiBufferCFile<CR>"},
 }
 
 keymaps.vim_gutentags = {
@@ -111,37 +108,36 @@ keymaps.vim_gutentags = {
 ---------------------------------------------------------------------------------------------------
 
 function keymaps.init()
+    local opts_ = {
+        noremap = true,
+        silent = true,
+    }
     vim.g.mapleader = ','
 
-    map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts)
-    map('n', '<leader>rr', '<cmd>source $MYVIMRC<CR>', opts)
+    map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts_)
+    -- map('n', '<leader>rr', '<cmd>source $MYVIMRC<CR>', opts_)
 
-    map('n', '<leader>bp', '<cmd>bp<CR>', opts)
-    map('n', '<leader>bn', '<cmd>bn<CR>', opts)
-    map('n', '<leader>bd', '<cmd>bdelete<CR>', opts)
+    map('n', '<leader>bp', '<cmd>bp<CR>', opts_)
+    map('n', '<leader>bn', '<cmd>bn<CR>', opts_)
+    map('n', '<leader>bd', '<cmd>bdelete<CR>', opts_)
 
-    map('n', '<leader>tp', '<cmd>tabprevious<CR>', opts)
-    map('n', '<leader>tn', '<cmd>tabnext<CR>', opts)
-    map('n', '<leader>td', '<cmd>tabclose<CR>', opts)
+    map('n', '<leader>tp', '<cmd>tabprevious<CR>', opts_)
+    map('n', '<leader>tn', '<cmd>tabnext<CR>', opts_)
+    map('n', '<leader>td', '<cmd>tabclose<CR>', opts_)
 
-    map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts)
-    map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts)
-    map('n', '<C-w>]', '<cmd>resize+5<CR>', opts)
-    map('n', '<C-w>[', '<cmd>resize-5<CR>', opts)
+    -- map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts_)
+    -- map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts_)
+    -- map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
+    -- map('n', '<C-w>[', '<cmd>resize-5<CR>', opts_)
 
-    vim.cmd [[
-    " 多行应用宏
-    xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
-    function! ExecuteMacroOverVisualRange()
-      echom "@".getcmdline()
-      execute ":'<,'>normal @".nr2char(getchar())
-    endfunction
-    ]]
+    -- 多行应用宏
+    map('x', '@', function()
+        vim.api.nvim_command("'<,'>normal @" .. vim.fn.nr2char(vim.fn.getchar()))
+    end, opts_)
 end
 
 function keymaps:load(name)
-    return function ()
+    return function()
         local km = self[name]
         if km then
             for _, item in ipairs(km) do
