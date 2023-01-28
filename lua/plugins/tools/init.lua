@@ -133,6 +133,16 @@ return {
         }
     },
 
+    -- 翻译
+    {
+        'voldikss/vim-translator',
+        lazy = true,
+        keys = {
+            {'<leader>tw', '<cmd>TranslateW<CR>', mode = {'n', 'v'}}
+        },
+        init = configs.vim_translator,
+    },
+
     -- vimdoc 中文文档
     {
         'yianwillis/vimcdoc',

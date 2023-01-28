@@ -516,5 +516,9 @@ configs.JABS = function()
     })
 end
 
+configs.vim_translator = function ()
+    vim.g.translator_proxy_url = 'http://127.0.0.1:7890'
+end
+
 
 return configs

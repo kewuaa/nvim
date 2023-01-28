@@ -93,16 +93,16 @@ keymaps.search_replace = {
 }
 
 keymaps.vim_gutentags = {
-    {'n','<leader>gs', ':GscopeFind s <C-R><C-W><cr>'},
-    {'n','<leader>gg', ':GscopeFind g <C-R><C-W><cr>'},
-    {'n', '<leader>gc', ':GscopeFind c <C-R><C-W><cr>'},
-    {'n', '<leader>gt', ':GscopeFind t <C-R><C-W><cr>'},
-    {'n', '<leader>ge', ':GscopeFind e <C-R><C-W><cr>'},
-    {'n', '<leader>gf', ':GscopeFind f <C-R>=expand("<cfile>")<cr><cr>'},
-    {'n', '<leader>gi', ':GscopeFind i <C-R>=expand("<cfile>")<cr><cr>'},
-    {'n', '<leader>gd', ':GscopeFind d <C-R><C-W><cr>'},
-    {'n', '<leader>ga', ':GscopeFind a <C-R><C-W><cr>'},
-    {'n', '<leader>gz', ':GscopeFind z <C-R><C-W><cr>'},
+    {'n','<leader>gs', '<cmd>GscopeFind s <C-R><C-W><cr>'},
+    {'n','<leader>gg', '<cmd>GscopeFind g <C-R><C-W><cr>'},
+    {'n', '<leader>gc', '<cmd>GscopeFind c <C-R><C-W><cr>'},
+    {'n', '<leader>gt', '<cmd>GscopeFind t <C-R><C-W><cr>'},
+    {'n', '<leader>ge', '<cmd>GscopeFind e <C-R><C-W><cr>'},
+    {'n', '<leader>gf', '<cmd>GscopeFind f <C-R>=expand("<cfile>")<cr><cr>'},
+    {'n', '<leader>gi', '<cmd>GscopeFind i <C-R>=expand("<cfile>")<cr><cr>'},
+    {'n', '<leader>gd', '<cmd>GscopeFind d <C-R><C-W><cr>'},
+    {'n', '<leader>ga', '<cmd>GscopeFind a <C-R><C-W><cr>'},
+    {'n', '<leader>gz', '<cmd>GscopeFind z <C-R><C-W><cr>'},
 }
 
 ---------------------------------------------------------------------------------------------------
