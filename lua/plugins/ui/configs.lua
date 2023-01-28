@@ -146,20 +146,15 @@ configs.lualine = function()
         local msg = ''
         local index = vim.fn.index
         if index(mods, 'ctags') >= 0 then
-            msg = msg .. '[CT] '
+            msg = msg .. '[C] '
         end
         if index(mods, 'gtags_cscope') >= 0 then
-            msg = msg .. '[GT] '
+            msg = msg .. '[G] '
         end
         return msg
     end
     local function gutentags()
-        local vim_gutentags = packer_plugins['vim-gutentags']
-        if vim_gutentags and vim_gutentags.loaded then
-            return vim.fn['gutentags#statusline_cb'](get_gutentags_status)
-        else
-            return ''
-        end
+        return vim.fn['gutentags#statusline_cb'](get_gutentags_status)
     end
     local function diff_source()
         local gitsigns = vim.b.gitsigns_status_dict
@@ -245,6 +240,10 @@ configs.lualine = function()
                     require("lazy.status").updates,
                     cond = require("lazy.status").has_updates,
                     color = { fg = "#ff9e64" },
+                },
+                {
+                    gutentags,
+                    cond = function() return vim.bo.filetype == 'pyrex' end,
                 },
                 'g:translator_status',
                 {

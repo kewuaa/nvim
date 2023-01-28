@@ -34,17 +34,17 @@ local function windows_cmd(command)
 end
 
 keymaps.asynctasks = {
-    {'n', '<F5>', '<cmd>AsyncTask file-run<CR>'},
-    {'n', '<F6>', '<cmd>AsyncTask file-build<CR>'},
+    {'n', '<F5>', ':AsyncTask file-run<CR>'},
+    {'n', '<F6>', ':AsyncTask file-build<CR>'},
 }
 
 keymaps.hop = {
-    {'n', '<leader><leader>w', '<cmd>HopWord<CR>'},
-    {'n', '<leader><leader>j', '<cmd>HopLine<CR>'},
-    {'n', '<leader><leader>k', '<cmd>HopLine<CR>'},
-    {'n', '<leader><leader>f', '<cmd>HopChar1<CR>'},
-    {'n', '<leader><leader>c', '<cmd>HopChar2<CR>'},
-    {'n', '<leader><leader>/', '<cmd>HopPattern<CR>'},
+    {'n', '<leader><leader>w', ':HopWord<CR>'},
+    {'n', '<leader><leader>j', ':HopLine<CR>'},
+    {'n', '<leader><leader>k', ':HopLine<CR>'},
+    {'n', '<leader><leader>f', ':HopChar1<CR>'},
+    {'n', '<leader><leader>c', ':HopChar2<CR>'},
+    {'n', '<leader><leader>/', ':HopPattern<CR>'},
 }
 
 keymaps.windows = {
@@ -57,17 +57,17 @@ keymaps.windows = {
 keymaps.telescope = {
     {'n', '<leader>ff', telescope('find_files')},
     {'n', '<leader>fg', telescope('live_grep')},
-    {'n', '<leader>fb', '<cmd>Telescope buffers<CR>'},
-    {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'},
-    {'n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>'},
-    {'n', '<leader>fm', '<cmd>Telescope keymaps<CR>'},
-    {'n', '<leader>fc', '<cmd>Telescope commands<CR>'},
+    {'n', '<leader>fb', ':Telescope buffers<CR>'},
+    {'n', '<leader>fh', ':Telescope help_tags<CR>'},
+    {'n', '<leader>f/', ':Telescope current_buffer_fuzzy_find<CR>'},
+    {'n', '<leader>fm', ':Telescope keymaps<CR>'},
+    {'n', '<leader>fc', ':Telescope commands<CR>'},
 }
 
 keymaps.toggleterm = {
     {'t', '<ESC>', [[<c-\><c-n>]]},
     {{'n', 't'}, '<M-=>', toggleterm()},
-    {{'n', 'x'}, '<M-->', '<cmd>ToggleTermSendCurrentLine<CR>'},
+    {{'n', 'x'}, '<M-->', ':ToggleTermSendCurrentLine<CR>'},
 }
 
 keymaps.todo_comments = {
@@ -92,19 +92,6 @@ keymaps.search_replace = {
     {"n", "<leader>rbf", "<CMD>SearchReplaceMultiBufferCFile<CR>"},
 }
 
-keymaps.vim_gutentags = {
-    {'n','<leader>gs', '<cmd>GscopeFind s <C-R><C-W><cr>'},
-    {'n','<leader>gg', '<cmd>GscopeFind g <C-R><C-W><cr>'},
-    {'n', '<leader>gc', '<cmd>GscopeFind c <C-R><C-W><cr>'},
-    {'n', '<leader>gt', '<cmd>GscopeFind t <C-R><C-W><cr>'},
-    {'n', '<leader>ge', '<cmd>GscopeFind e <C-R><C-W><cr>'},
-    {'n', '<leader>gf', '<cmd>GscopeFind f <C-R>=expand("<cfile>")<cr><cr>'},
-    {'n', '<leader>gi', '<cmd>GscopeFind i <C-R>=expand("<cfile>")<cr><cr>'},
-    {'n', '<leader>gd', '<cmd>GscopeFind d <C-R><C-W><cr>'},
-    {'n', '<leader>ga', '<cmd>GscopeFind a <C-R><C-W><cr>'},
-    {'n', '<leader>gz', '<cmd>GscopeFind z <C-R><C-W><cr>'},
-}
-
 ---------------------------------------------------------------------------------------------------
 
 function keymaps.init()
@@ -114,21 +101,21 @@ function keymaps.init()
     }
     vim.g.mapleader = ','
 
-    map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts_)
-    -- map('n', '<leader>rr', '<cmd>source $MYVIMRC<CR>', opts_)
+    map('n', '<leader>rc', ':e $MYVIMRC<CR>', opts_)
+    -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts_)
 
-    map('n', '<leader>bp', '<cmd>bp<CR>', opts_)
-    map('n', '<leader>bn', '<cmd>bn<CR>', opts_)
-    map('n', '<leader>bd', '<cmd>bdelete<CR>', opts_)
+    map('n', '<leader>bp', ':bp<CR>', opts_)
+    map('n', '<leader>bn', ':bn<CR>', opts_)
+    map('n', '<leader>bd', ':bdelete<CR>', opts_)
 
-    map('n', '<leader>tp', '<cmd>tabprevious<CR>', opts_)
-    map('n', '<leader>tn', '<cmd>tabnext<CR>', opts_)
-    map('n', '<leader>td', '<cmd>tabclose<CR>', opts_)
+    map('n', '<leader>tp', ':tabprevious<CR>', opts_)
+    map('n', '<leader>tn', ':tabnext<CR>', opts_)
+    map('n', '<leader>td', ':tabclose<CR>', opts_)
 
-    -- map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts_)
-    -- map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts_)
-    -- map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
-    -- map('n', '<C-w>[', '<cmd>resize-5<CR>', opts_)
+    -- map('n', '<C-w>=', ':vertical resize+5<CR>', opts_)
+    -- map('n', '<C-w>-', ':vertical resize-5<CR>', opts_)
+    -- map('n', '<C-w>]', ':resize+5<CR>', opts_)
+    -- map('n', '<C-w>[', ':resize-5<CR>', opts_)
 
     -- vim.cmd [[
     -- " 多行应用宏

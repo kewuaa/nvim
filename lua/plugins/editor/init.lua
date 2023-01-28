@@ -190,7 +190,7 @@ return {
         'famiu/bufdelete.nvim',
         lazy = true,
         keys = {
-            {'<leader>bd', '<cmd>Bdelete<CR>', mode = 'n'}
+            {'<leader>bD', '<cmd>Bdelete<CR>', mode = 'n'}
         },
     },
 }

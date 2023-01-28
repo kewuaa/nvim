@@ -10,8 +10,6 @@ return {
         dependencies = {
             -- ui 美化
             {'onsails/lspkind.nvim'},
-            -- ctags source
-            {'quangnguyen30192/cmp-nvim-tags'},
             -- lua source
             {'hrsh7th/cmp-nvim-lua'},
             -- underline sort
@@ -59,13 +57,12 @@ return {
     {
         'ludovicchabant/vim-gutentags',
         lazy = true,
-        ft = 'pyrex',
+        event = 'BufReadPre *.pyx,*.pxd,*.pxi',
         config = configs.vim_gutentags,
         dependencies = {
-            {
-                'skywind3000/gutentags_plus',
-                lazy = true,
-            }
+            {'skywind3000/gutentags_plus'},
+            -- ctags source
+            {'quangnguyen30192/cmp-nvim-tags'},
         }
     },
 }
