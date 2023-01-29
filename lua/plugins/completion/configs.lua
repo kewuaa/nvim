@@ -89,11 +89,21 @@ configs.nvim_cmp = function()
                 local kind = require('lspkind').cmp_format({
                     mode = "symbol_text",
                     maxwidth = 50,
+                    menu = ({
+                        buffer = "[Buffer]",
+                        nvim_lsp = "[LSP]",
+                        luasnip = "[Snip]",
+                        nvim_lua = "[Lua]",
+                        tags = '[Tags]',
+                        ['buffer-lines'] = '[BufferL]',
+                        cmdline = '[Cmd]',
+                        path = '[Path]',
+                    }),
                     ellipsis_char = '...',
                 })(entry, vim_item)
                 local strings = vim.split(kind.kind, "%s", { trimempty = true })
                 kind.kind = " " .. strings[1] .. " "
-                kind.menu = "    (" .. strings[2] .. ")"
+                -- kind.menu = "    (" .. strings[2] .. ")"
                 return kind
             end,
         },
