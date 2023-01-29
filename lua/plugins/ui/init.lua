@@ -33,7 +33,7 @@ return {
             local init_group = api.nvim_create_augroup('init_treesitter', {
                 clear = true,
             })
-            api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
+            api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
                 group = init_group,
                 pattern = '*',
                 callback = function()
