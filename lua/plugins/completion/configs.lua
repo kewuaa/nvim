@@ -206,6 +206,14 @@ configs.LuaSnip = function()
     require("luasnip.loaders.from_vscode").lazy_load({paths = {require("core.settings").nvim_path .. '/mysnips'}})
 end
 
+configs.nvim_lspconfig = function ()
+    require('lsp').setup()
+    local matching_configs = require('lspconfig.util').get_config_by_ft(vim.bo.filetype)
+    for _, config in ipairs(matching_configs) do
+        config.launch()
+    end
+end
+
 configs.lspsaga = function()
     local saga = require('lspsaga')
     saga.setup({
@@ -361,30 +369,32 @@ configs.vim_gutentags = function()
                 vim.notify('could not find cython in path')
             end
         end
+        local callback = function()
+            vim.cmd([[setlocal tags+=]] .. cython_tags_cache_path)
+            local map = vim.keymap.set
+            local bufopts = {silent = true, buffer=0}
+            local km = {
+                {'n','<leader>gs', ':GscopeFind s <C-R><C-W><cr>'},
+                {'n','<leader>gg', ':GscopeFind g <C-R><C-W><cr>'},
+                {'n', '<leader>gc', ':GscopeFind c <C-R><C-W><cr>'},
+                {'n', '<leader>gt', ':GscopeFind t <C-R><C-W><cr>'},
+                {'n', '<leader>ge', ':GscopeFind e <C-R><C-W><cr>'},
+                {'n', '<leader>gf', ':GscopeFind f <C-R>=expand("<cfile>")<cr><cr>'},
+                {'n', '<leader>gi', ':GscopeFind i <C-R>=expand("<cfile>")<cr><cr>'},
+                {'n', '<leader>gd', ':GscopeFind d <C-R><C-W><cr>'},
+                {'n', '<leader>ga', ':GscopeFind a <C-R><C-W><cr>'},
+                {'n', '<leader>gz', ':GscopeFind z <C-R><C-W><cr>'},
+            }
+            for _, item in ipairs(km) do
+                map(item[1], item[2], item[3], bufopts)
+            end
+        end
         vim.api.nvim_buf_create_user_command(0, 'GenerateCythonIncludesTags', generate_cython_includes, {})
         vim.api.nvim_create_autocmd('FileType', {
             pattern = 'pyrex',
-            callback = function()
-                vim.cmd([[setlocal tags+=]] .. cython_tags_cache_path)
-                local map = vim.keymap.set
-                local bufopts = {silent = true, buffer=0}
-                local km = {
-                    {'n','<leader>gs', ':GscopeFind s <C-R><C-W><cr>'},
-                    {'n','<leader>gg', ':GscopeFind g <C-R><C-W><cr>'},
-                    {'n', '<leader>gc', ':GscopeFind c <C-R><C-W><cr>'},
-                    {'n', '<leader>gt', ':GscopeFind t <C-R><C-W><cr>'},
-                    {'n', '<leader>ge', ':GscopeFind e <C-R><C-W><cr>'},
-                    {'n', '<leader>gf', ':GscopeFind f <C-R>=expand("<cfile>")<cr><cr>'},
-                    {'n', '<leader>gi', ':GscopeFind i <C-R>=expand("<cfile>")<cr><cr>'},
-                    {'n', '<leader>gd', ':GscopeFind d <C-R><C-W><cr>'},
-                    {'n', '<leader>ga', ':GscopeFind a <C-R><C-W><cr>'},
-                    {'n', '<leader>gz', ':GscopeFind z <C-R><C-W><cr>'},
-                }
-                for _, item in ipairs(km) do
-                    map(item[1], item[2], item[3], bufopts)
-                end
-            end,
+            callback = callback,
         })
+        callback()
     else
         vim.notify(string.format('%s not executable', ctags_path))
     end

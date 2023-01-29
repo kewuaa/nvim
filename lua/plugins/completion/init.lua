@@ -42,8 +42,29 @@ return {
     {
         'neovim/nvim-lspconfig',
         lazy = true,
-        event = {'BufRead', 'BufNewFile'},
-        config = require('lsp').setup,
+        init = function()
+            local api = vim.api
+            local loaded = false
+            local init_group = api.nvim_create_augroup('init_lsp', {
+                clear = true,
+            })
+            api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
+                group = init_group,
+                pattern = '*',
+                callback = function()
+                    if loaded then
+                        api.nvim_del_augroup_by_name('init_lsp')
+                    else
+                        vim.fn.timer_start(300, function()
+                            api.nvim_command [[Lazy load nvim-lspconfig]]
+                        end)
+                        loaded = true
+                    end
+                end
+            })
+        end,
+        -- event = {'BufRead', 'BufNewFile'},
+        config = configs.nvim_lspconfig,
         dependencies = {
             -- lsp增强
             {'glepnir/lspsaga.nvim', branch = 'main', config = configs.lspsaga},
@@ -53,12 +74,26 @@ return {
             {'ray-x/lsp_signature.nvim'},
         }
     },
+
     -- ctags
     {
         'ludovicchabant/vim-gutentags',
         lazy = true,
-        event = 'BufReadPre *.pyx,*.pxd,*.pxi',
-        config = configs.vim_gutentags,
+        init = function()
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = 'pyrex',
+                once = true,
+                callback = function()
+                    vim.fn.timer_start(
+                        500,
+                        function()
+                            configs.vim_gutentags()
+                            vim.api.nvim_command [[Lazy load vim-gutentags]]
+                        end
+                    )
+                end
+            })
+        end,
         dependencies = {
             {'skywind3000/gutentags_plus'},
             -- ctags source

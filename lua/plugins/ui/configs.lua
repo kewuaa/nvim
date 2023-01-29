@@ -115,6 +115,19 @@ configs.sonokai = function()
     vim.cmd[[colorscheme sonokai]]
 end
 
+configs.vim_illuminate = function()
+    require("illuminate").configure({
+        providers = {
+            "lsp",
+            "treesitter",
+            "regex",
+        },
+        delay = 100,
+        filetypes_denylist = require("core.settings").exclude_filetypes,
+        under_cursor = true,
+    })
+end
+
 configs.indent_blankline = function()
     require('indent_blankline').setup({
         show_end_of_line = true,
@@ -324,6 +337,24 @@ configs.notify = function()
         },
     })
     vim.notify = notify
+end
+
+configs.neodim = function ()
+    local palette = vim.fn['sonokai#get_palette'](vim.g.sonokai_style, vim.empty_dict())
+    local blend_color = palette.bg_dim[1]
+    require('neodim').setup({
+        alpha = 0.45,
+        blend_color = blend_color,
+        update_in_insert = {
+            enable = true,
+            delay = 100,
+        },
+        hide = {
+            virtual_text = true,
+            signs = false,
+            underline = false,
+        },
+    })
 end
 
 configs.colorful_winsep = function ()

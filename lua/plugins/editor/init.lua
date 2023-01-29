@@ -102,22 +102,6 @@ return {
         config = configs.iswap,
     },
 
-    -- 高亮相同单词
-    {
-        'RRethy/vim-illuminate',
-        lazy = true,
-        event = 'VeryLazy',
-        config = configs.vim_illuminate,
-    },
-
-    -- 调暗未使用函数，变量和参数
-    {
-        'zbirenbaum/neodim',
-        lazy = true,
-        event = 'LspAttach',
-        config = configs.neodim,
-    },
-
     -- 移动块
     {
         'booperlv/nvim-gomove',

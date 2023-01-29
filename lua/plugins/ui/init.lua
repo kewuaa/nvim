@@ -27,22 +27,45 @@ return {
             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
             ts_update()
         end,
-        event = {'BufRead', 'BufNewFile'},
+        init = function()
+            local api = vim.api
+            local loaded = false
+            local init_group = api.nvim_create_augroup('init_treesitter', {
+                clear = true,
+            })
+            api.nvim_create_autocmd({'BufNewFile', 'BufReadPre'}, {
+                group = init_group,
+                pattern = '*',
+                callback = function()
+                    if loaded then
+                        api.nvim_del_augroup_by_name('init_treesitter')
+                    else
+                        vim.fn.timer_start(100, function()
+                            api.nvim_command [[Lazy load nvim-treesitter]]
+                        end)
+                        loaded = true
+                    end
+                end
+            })
+        end,
+        -- event = {'BufRead', 'BufNewFile'},
         config = configs.nvim_treesitter,
         dependencies = {
             -- 彩虹括号
             {'p00f/nvim-ts-rainbow'},
             -- 参数高亮
             {'m-demare/hlargs.nvim', config = configs.hlargs},
+            -- 缩进线
+            {
+                'lukas-reineke/indent-blankline.nvim',
+                config = configs.indent_blankline,
+            },
+            -- 高亮相同单词
+            {
+                'RRethy/vim-illuminate',
+                config = configs.vim_illuminate,
+            },
         },
-    },
-
-    -- 缩进线
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        lazy = true,
-        event = {'BufRead', 'BufNewFile'},
-        config = configs.indent_blankline,
     },
 
     -- 消息提示
@@ -51,6 +74,14 @@ return {
         lazy = true,
         event = 'VeryLazy',
         config = configs.notify,
+    },
+
+    -- 调暗未使用函数，变量和参数
+    {
+        'zbirenbaum/neodim',
+        lazy = true,
+        event = 'LspAttach',
+        config = configs.neodim,
     },
 
     -- lsp progress
