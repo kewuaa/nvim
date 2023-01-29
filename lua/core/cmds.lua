@@ -1,22 +1,29 @@
-vim.cmd [[
-function! s:load_clipboard()
-    unlet g:loaded_clipboard_provider
-    exe 'source ' . $VIMRUNTIME . '/autoload/provider/clipboard.vim'
-endfunction
+local api = vim.api
+local map = vim.keymap.set
+local bufopts = {
+    silent = true,
+    buffer = 0,
+}
+local function load_clipboard()
+    api.nvim_del_var('loaded_clipboard_provider')
+    api.nvim_command(string.format('source %s/autoload/provider/clipboard.vim', vim.env.VIMRUNTIME))
+end
+local function load_rplugin()
+    api.nvim_del_var('loaded_remote_plugins')
+    api.nvim_command(string.format('source %s/plugin/rplugin.vim'))
+end
 
-function! s:load_rplugin()
-    unlet g:loaded_remote_plugins
-    exe 'source ' . $VIMRUNTIME . '/plugin/rplugin.vim'
-endfunction
-
-function! s:load_later()
-    call s:load_clipboard()
-    call s:load_rplugin()
-endfunction
-
-augroup setup
-    au!
-    au CursorMoved * ++once call s:load_later()
-augroup END
-au! filetype qf,help,notify,TelescopePrompt nnoremap <silent><buffer> q <cmd>q<CR>
-]]
+api.nvim_create_autocmd('CursorMoved', {
+    once = true,
+    pattern = '*',
+    callback = function ()
+        load_clipboard()
+        load_rplugin()
+    end
+})
+api.nvim_create_autocmd('filetype', {
+    pattern = {'qf', 'help', 'notify', 'TelescopePrompt'},
+    callback = function ()
+        map('n', 'q', '<cmd>q<CR>', bufopts)
+    end
+})
