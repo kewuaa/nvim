@@ -85,34 +85,25 @@ configs.hlargs = function()
     })
 end
 
-configs.sonokai = function()
-    local style = 'atlantis'
-    local api, fn = vim.api, vim.fn
-    vim.g.sonokai_style = style
-    vim.g.sonokai_disable_italic_comment = 0
-    vim.g.sonokai_enable_italic = 1
-    vim.g.sonokai_cursor = 'yellow'
-    vim.g.sonokai_menu_selection_background = 'blue'
-    vim.g.sonokai_show_eob = 1
-    vim.g.sonokai_diagnostic_text_highlight = 0
-    vim.g.sonokai_diagnostic_line_highlight = 0
-    vim.g.sonokai_diagnostic_virtual_text = 'colored'
-    -- vim.g.sonokai_current_word = 'underline'
-    vim.g.sonokai_disable_terminal_colors = 0
-    vim.g.sonokai_better_performance = 1
-
-    local function sonokai_custom()
-        local palette = fn['sonokai#get_palette'](style, vim.empty_dict())
-        fn['sonokai#highlight']('Visual', palette.none, palette.bg4)
-        fn['sonokai#highlight']('CurrentWord', palette.none, palette.bg1)
-    end
-    local group = api.nvim_create_augroup('SonokaiCustom', {clear = true})
-    api.nvim_create_autocmd('ColorScheme', {
-        group = group,
-        pattern = 'sonokai',
-        callback = sonokai_custom,
+configs.dracula = function()
+    local dracula = require('dracula')
+    dracula.setup({
+        -- show the '~' characters after the end of buffers
+        show_end_of_buffer = true, -- default false
+        -- use transparent background
+        transparent_bg = false, -- default false
+        -- set custom lualine background color
+        lualine_bg_color = nil, -- default nil
+        -- set italic comment
+        italic_comment = true, -- default false
+        overrides = {
+            -- Examples
+            NonText = { fg = dracula.colors().white }, -- set NonText fg to white
+            NvimTreeIndentMarker = { link = "NonText" }, -- link to NonText highlight
+            -- Nothing = {} -- clear highlight of Nothing
+        },
     })
-    vim.cmd[[colorscheme sonokai]]
+    vim.cmd.colorscheme('dracula')
 end
 
 configs.vim_illuminate = function()
@@ -179,9 +170,9 @@ configs.lualine = function()
             }
         end
     end
-    local function min_window_width(width)
-        return function() return vim.fn.winwidth(0) > width end
-    end
+    -- local function min_window_width(width)
+    --     return function() return vim.fn.winwidth(0) > width end
+    -- end
     local outline = {
         sections = {
             lualine_a = {},
@@ -218,7 +209,7 @@ configs.lualine = function()
     require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = "sonokai",
+            theme = 'dracula-nvim',
             disabled_filetypes = {},
             component_separators = { left = '', right = '' },
             section_separators = { left = "", right = "" },
@@ -227,7 +218,7 @@ configs.lualine = function()
             lualine_a = {
                 {
                     "mode",
-                    cond = min_window_width(40),
+                    -- cond = min_window_width(40),
                 },
             },
             lualine_b = {
@@ -241,7 +232,11 @@ configs.lualine = function()
                 },
             },
             lualine_c = {
-                { "branch", icon = '', cond = min_window_width(120) },
+                {
+                    "branch",
+                    icon = '',
+                    -- cond = min_window_width(120),
+                },
                 {
                     "diff",
                     symbols = {added = ' ', modified = ' ', removed = ' '},
@@ -340,8 +335,8 @@ configs.notify = function()
 end
 
 configs.neodim = function ()
-    local palette = vim.fn['sonokai#get_palette'](vim.g.sonokai_style, vim.empty_dict())
-    local blend_color = palette.bg_dim[1]
+    local palette = require('dracula').colors()
+    local blend_color = palette.black
     require('neodim').setup({
         alpha = 0.45,
         blend_color = blend_color,
@@ -360,12 +355,12 @@ end
 configs.colorful_winsep = function ()
     local colorful_winsep = require('colorful-winsep')
     local exclude_filetypes = require('core.settings').exclude_filetypes
-    local palette = vim.fn['sonokai#get_palette'](vim.g.sonokai_style, vim.empty_dict())
+    local palette = require('dracula').colors()
     colorful_winsep.setup({
         -- highlight for Window separator
         highlight = {
-            bg = palette.bg0[1],
-            fg = palette.blue[1],
+            bg = palette.bg,
+            fg = palette.fg,
         },
         -- timer refresh rate
         interval = 30,

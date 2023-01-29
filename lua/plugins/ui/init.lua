@@ -12,8 +12,8 @@ return {
         dependencies = {
             -- 颜色主题
             {
-                'sainnhe/sonokai',
-                config = configs.sonokai,
+                'Mofiqul/dracula.nvim',
+                config = configs.dracula,
             },
             {'nvim-tree/nvim-web-devicons'},
         }
@@ -89,6 +89,11 @@ return {
         'j-hui/fidget.nvim',
         lazy = true,
         event = 'LspAttach',
+        opts = {
+            window = {
+                blend = 0
+            }
+        },
         config = true,
     },
 
