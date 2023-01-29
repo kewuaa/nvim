@@ -10,7 +10,7 @@ local function load_clipboard()
 end
 local function load_rplugin()
     api.nvim_del_var('loaded_remote_plugins')
-    api.nvim_command(string.format('source %s/plugin/rplugin.vim'), vim.env.VIMRUNTIME)
+    api.nvim_command(string.format('source %s/plugin/rplugin.vim', vim.env.VIMRUNTIME))
 end
 
 api.nvim_create_autocmd('CursorMoved', {
