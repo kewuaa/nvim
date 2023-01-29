@@ -211,6 +211,12 @@ configs.live_command = function ()
     }
 end
 
+configs.twilight = function ()
+    require('twilight').setup({
+        exclude = require('core.settings').exclude_filetypes, -- exclude these filetypes
+    })
+end
+
 configs.numb = function ()
     require('numb').setup{
         show_numbers = true, -- Enable 'number' for the window while peeking
