@@ -77,6 +77,14 @@ return {
         config = configs.notify,
     },
 
+    -- 增强vim UI
+    {
+        'stevearc/dressing.nvim',
+        lazy = true,
+        event = 'VeryLazy',
+        config = true,
+    },
+
     -- 调暗未使用函数，变量和参数
     {
         'zbirenbaum/neodim',
