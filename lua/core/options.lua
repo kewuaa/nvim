@@ -45,7 +45,8 @@ local options = {
     signcolumn = 'yes',
 }
 if vim.fn.exists("g:nvy") then
-    options.guifont = 'JetbrainsMono NFM:h10:Consolas'
+    -- options.guifont = 'JetbrainsMono NFM:h10:Consolas'
+    options.guifont = 'FiraCode NFM:h10:Consolas'
 end
 for key, value in pairs(options) do
     vim.o[key] = value

@@ -2,6 +2,7 @@ local configs = {}
 
 configs.nvim_cmp = function()
     local cmp = require('cmp')
+    local luasnip = require('luasnip')
     local compare = cmp.config.compare
     local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -76,7 +77,7 @@ configs.nvim_cmp = function()
         },
         snippet = {
             expand = function(args)
-                require("luasnip").lsp_expand(args.body)
+                luasnip.lsp_expand(args.body)
             end,
         },
         sorting = {
@@ -134,20 +135,20 @@ configs.nvim_cmp = function()
                     fallback()
                 end
             end, { "i", "s" }),
-            ["<C-k>"] = function(fallback)
-                if require("luasnip").jumpable(-1) then
+            ["<C-k>"] = cmp.mapping(function(fallback)
+                if luasnip.jumpable(-1) then
                     vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
                 else
                     fallback()
                 end
-            end,
-            ["<C-j>"] = function(fallback)
-                if require("luasnip").expand_or_jumpable() then
+            end, { "i", "s" }),
+            ["<C-j>"] = cmp.mapping(function(fallback)
+                if luasnip.expand_or_jumpable() then
                     vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
                 else
                     fallback()
                 end
-            end,
+            end, { "i", "s" }),
         }),
         sources = {
             lsp_source,
