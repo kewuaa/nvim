@@ -125,9 +125,9 @@ return {
         'voldikss/vim-translator',
         lazy = true,
         keys = {
-            {'<leader>tw', '<cmd>TranslateW<CR>', mode = {'n', 'v'}}
+            {'<leader>tw', '<cmd>TranslateW<CR>', mode = 'n'},
+            {'<leader>tw', "<cmd>'<,'>TranslateW<CR>", mode = 'v'},
         },
-        cmd = 'Translate',
         init = configs.vim_translator,
     },
 
