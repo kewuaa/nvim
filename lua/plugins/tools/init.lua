@@ -127,6 +127,7 @@ return {
         keys = {
             {'<leader>tw', '<cmd>TranslateW<CR>', mode = {'n', 'v'}}
         },
+        cmd = 'Translate',
         init = configs.vim_translator,
     },
 
