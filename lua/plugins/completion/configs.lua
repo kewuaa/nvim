@@ -204,21 +204,13 @@ end
 
 configs.LuaSnip = function()
     local ls = require('luasnip')
-    local types = require('luasnip.util.types')
     ls.config.set_config({
         history = true,
-        enable_autosnippets = true,
         updateevents = 'TextChanged,TextChangedI',
-        ext_opts = {
-            [types.choiceNode] = {
-                active = {
-                    virt_text = { { '<- choiceNode', 'Comment' } },
-                },
-            },
-        },
+        delete_check_events = "TextChanged,InsertLeave",
     })
     require("luasnip.loaders.from_vscode").lazy_load()
-    require("luasnip.loaders.from_vscode").lazy_load({paths = {require("core.settings").nvim_path .. '/mysnips'}})
+    require("luasnip.loaders.from_vscode").lazy_load({paths = {vim.fn.stdpath('config') .. '/mysnips'}})
 end
 
 configs.nvim_lspconfig = function ()
