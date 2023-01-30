@@ -87,7 +87,7 @@ return {
                 pattern = '*',
                 once = true,
                 callback = function()
-                    vim.fn.timer_start(500, configs.gitsigns)
+                    vim.fn.timer_start(1000, configs.gitsigns)
                 end
             })
         end,
