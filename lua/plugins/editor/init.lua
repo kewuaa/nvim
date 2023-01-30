@@ -161,14 +161,6 @@ return {
         },
     },
 
-    --
-    {
-        'folke/twilight.nvim',
-        lazy = true,
-        cmd = 'Twilight',
-        config = configs.twilight,
-    },
-
     --  peeks lines of the buffer in non-obtrusive way
     {
         'nacro90/numb.nvim',
