@@ -90,11 +90,6 @@ return {
         'j-hui/fidget.nvim',
         lazy = true,
         event = 'LspAttach',
-        opts = {
-            window = {
-                blend = 0
-            }
-        },
         config = true,
     },
 
