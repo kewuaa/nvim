@@ -12,9 +12,9 @@ return {
         dependencies = {
             -- 颜色主题
             {
-                'folke/tokyonight.nvim',
-                branch = 'main',
-                config = configs.tokyonight,
+                'catppuccin/nvim',
+                name = "catppuccin",
+                config = configs.catppuccin,
             },
             {'nvim-tree/nvim-web-devicons'},
         }

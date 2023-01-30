@@ -85,32 +85,114 @@ configs.hlargs = function()
     })
 end
 
-configs.tokyonight = function()
-    require("tokyonight").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        style = "moon", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-        light_style = "night", -- The theme is used when the background is set to light
-        transparent = false, -- Enable this to disable setting the background color
-        terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-        styles = {
-            -- Style to be applied to different syntax groups
-            -- Value is any valid attr-list value for `:help nvim_set_hl`
-            comments = { italic = true },
-            keywords = { italic = true },
-            functions = {},
-            variables = {},
-            -- Background styles. Can be "dark", "transparent" or "normal"
-            sidebars = "dark", -- style for sidebars, see below
-            floats = "dark", -- style for floating windows
+configs.catppuccin = function()
+    require('catppuccin').setup({
+        compile_path = vim.fn.stdpath "data" .. "/catppuccin",
+        flavour = "frappe", -- latte, frappe, macchiato, mocha
+        background = { -- :h background
+            light = "latte",
+            dark = "frappe",
         },
-        sidebars = { "qf", "help", "terminal" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-        day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-        hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-        dim_inactive = true, -- dims inactive windows
-        lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
+        transparent_background = false,
+        show_end_of_buffer = true, -- show the '~' characters after the end of buffers
+        term_colors = false,
+        dim_inactive = {
+            enabled = true,
+            shade = "dark",
+            percentage = 0.15,
+        },
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
+        styles = {
+            comments = { "italic" },
+            conditionals = { "italic" },
+            loops = {},
+            functions = { "italic,bold" },
+            keywords = { "bold" },
+            strings = {},
+            variables = {},
+            numbers = {},
+            booleans = {},
+            properties = {},
+            types = {},
+            operators = {},
+        },
+        color_overrides = {},
+        custom_highlights = {},
+        integrations = {
+            aerial = false,
+            barbar = false,
+            beacon = false,
+            cmp = true,
+            coc_nvim = false,
+            dashboard = false,
+            fern = false,
+            fidget = true,
+            gitgutter = false,
+            gitsigns = true,
+            harpoon = false,
+            hop = true,
+            illuminate = true,
+            leap = false,
+            lightspeed = false,
+            lsp_saga = true,
+            lsp_trouble = true,
+            markdown = false,
+            mason = false,
+            mini = false,
+            neogit = false,
+            neotest = false,
+            neotree = false,
+            noice = false,
+            notify = true,
+            nvimtree = true,
+            overseer = false,
+            pounce = false,
+            semantic_tokens = false,
+            symbols_outline = false,
+            telekasten = false,
+            telescope = true,
+            treesitter = true,
+            treesitter_context = false,
+            ts_rainbow = true,
+            vim_sneak = false,
+            vimwiki = false,
+            which_key = false,
+
+            -- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
+            barbecue = {
+                dim_dirname = false,
+            },
+            dap = {
+                enabled = false,
+                enable_ui = false,
+            },
+            indent_blankline = {
+                enabled = true,
+                colored_indent_levels = false,
+            },
+            native_lsp = {
+                enabled = true,
+                virtual_text = {
+                    errors = { "italic" },
+                    hints = { "italic" },
+                    warnings = { "italic" },
+                    information = { "italic" },
+                },
+                underlines = {
+                    errors = { "underline" },
+                    hints = { "underline" },
+                    warnings = { "underline" },
+                    information = { "underline" },
+                },
+            },
+            navic = {
+                enabled = false,
+                custom_bg = "NONE",
+            },
+        },
     })
-    vim.cmd.colorscheme('tokyonight-moon')
+    vim.cmd.colorscheme('catppuccin')
 end
 
 configs.vim_illuminate = function()
@@ -216,7 +298,7 @@ configs.lualine = function()
     require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = 'tokyonight',
+            theme = 'catppuccin',
             disabled_filetypes = {},
             component_separators = { left = '', right = '' },
             section_separators = { left = "", right = "" },
@@ -342,11 +424,9 @@ configs.notify = function()
 end
 
 configs.neodim = function ()
-    local palette = require("tokyonight.colors").setup()
-    local blend_color = palette.bg_dark
     require('neodim').setup({
         alpha = 0.45,
-        blend_color = blend_color,
+        blend_color = require("catppuccin.palettes").get_palette("frappe").crust,
         update_in_insert = {
             enable = true,
             delay = 100,
@@ -362,12 +442,12 @@ end
 configs.colorful_winsep = function ()
     local colorful_winsep = require('colorful-winsep')
     local exclude_filetypes = require('core.settings').exclude_filetypes
-    local palette = require('tokyonight.colors').setup()
+    local palette = require('catppuccin.palettes').get_palette("frappe")
     colorful_winsep.setup({
         -- highlight for Window separator
         highlight = {
-            bg = palette.bg,
-            fg = palette.fg,
+            bg = palette.base,
+            fg = palette.text,
         },
         -- timer refresh rate
         interval = 30,
