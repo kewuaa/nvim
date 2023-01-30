@@ -17,13 +17,10 @@ function M.lsp(client, bufnr)
     require("lsp_signature").on_attach({
         bind = true,
         use_lspsaga = true,
-        floating_window = true,
-        fix_pos = true,
-        hint_enable = true,
-        hi_parameter = "Search",
-        handler_opts = {
-            border = "single",
-        },
+        doc_lines = 0,
+        floating_window = false,
+        -- hint_scheme = 'LspSignatureHintVirtualText',
+        hint_prefix = ' ',
     }, bufnr)
 end
 

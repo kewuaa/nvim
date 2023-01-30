@@ -85,25 +85,32 @@ configs.hlargs = function()
     })
 end
 
-configs.dracula = function()
-    local dracula = require('dracula')
-    dracula.setup({
-        -- show the '~' characters after the end of buffers
-        show_end_of_buffer = true, -- default false
-        -- use transparent background
-        transparent_bg = false, -- default false
-        -- set custom lualine background color
-        lualine_bg_color = nil, -- default nil
-        -- set italic comment
-        italic_comment = true, -- default false
-        overrides = {
-            -- Examples
-            NonText = { fg = dracula.colors().white }, -- set NonText fg to white
-            NvimTreeIndentMarker = { link = "NonText" }, -- link to NonText highlight
-            -- Nothing = {} -- clear highlight of Nothing
+configs.tokyonight = function()
+    require("tokyonight").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        style = "moon", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+        light_style = "night", -- The theme is used when the background is set to light
+        transparent = false, -- Enable this to disable setting the background color
+        terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+        styles = {
+            -- Style to be applied to different syntax groups
+            -- Value is any valid attr-list value for `:help nvim_set_hl`
+            comments = { italic = true },
+            keywords = { italic = true },
+            functions = {},
+            variables = {},
+            -- Background styles. Can be "dark", "transparent" or "normal"
+            sidebars = "dark", -- style for sidebars, see below
+            floats = "dark", -- style for floating windows
         },
+        sidebars = { "qf", "help", "terminal" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+        day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+        hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+        dim_inactive = true, -- dims inactive windows
+        lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
     })
-    vim.cmd.colorscheme('dracula')
+    vim.cmd.colorscheme('tokyonight-moon')
 end
 
 configs.vim_illuminate = function()
@@ -209,7 +216,7 @@ configs.lualine = function()
     require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = 'dracula-nvim',
+            theme = 'tokyonight',
             disabled_filetypes = {},
             component_separators = { left = '', right = '' },
             section_separators = { left = "", right = "" },
@@ -335,8 +342,8 @@ configs.notify = function()
 end
 
 configs.neodim = function ()
-    local palette = require('dracula').colors()
-    local blend_color = palette.black
+    local palette = require("tokyonight.colors").setup()
+    local blend_color = palette.bg_dark
     require('neodim').setup({
         alpha = 0.45,
         blend_color = blend_color,
@@ -355,7 +362,7 @@ end
 configs.colorful_winsep = function ()
     local colorful_winsep = require('colorful-winsep')
     local exclude_filetypes = require('core.settings').exclude_filetypes
-    local palette = require('dracula').colors()
+    local palette = require('tokyonight.colors').setup()
     colorful_winsep.setup({
         -- highlight for Window separator
         highlight = {

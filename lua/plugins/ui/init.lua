@@ -12,8 +12,9 @@ return {
         dependencies = {
             -- 颜色主题
             {
-                'Mofiqul/dracula.nvim',
-                config = configs.dracula,
+                'folke/tokyonight.nvim',
+                branch = 'main',
+                config = configs.tokyonight,
             },
             {'nvim-tree/nvim-web-devicons'},
         }
