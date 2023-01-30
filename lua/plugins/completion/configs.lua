@@ -43,7 +43,7 @@ configs.nvim_cmp = function()
                 for _, win in ipairs(vim.api.nvim_list_wins()) do
                     local buf = vim.api.nvim_win_get_buf(win)
                     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                    if ok and stats.size < 1024 * 500 then
+                    if ok and stats and stats.size < 1024 * 500 then
                         bufs[#bufs+1] = buf
                     end
                 end
