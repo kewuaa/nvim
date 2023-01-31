@@ -5,7 +5,7 @@ return {
     {
         'hrsh7th/nvim-cmp',
         lazy = true,
-        event = 'InsertEnter',
+        event = {'InsertEnter', 'CmdlineEnter'},
         config = configs.nvim_cmp,
         dependencies = {
             -- ui 美化
