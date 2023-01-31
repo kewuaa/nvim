@@ -25,6 +25,7 @@ configs.nvim_autopairs = function()
     local handlers = require("nvim-autopairs.completion.handlers")
     local cmp = require('cmp')
     npairs.setup({
+        disabled_filetypes = require('core.settings').exclude_filetypes,
         map_bs = true,
         map_c_h = false,
         map_c_w = true,
@@ -61,7 +62,7 @@ configs.nvim_autopairs = function()
             },
         })
     )
-    npairs.add_rule(Rule('<', '>'))
+    -- npairs.add_rule(Rule('<', '>'))
     npairs.add_rule(Rule("|", "|", { 'zig' }))
 end
 

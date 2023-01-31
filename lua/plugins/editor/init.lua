@@ -26,7 +26,7 @@ return {
     {
         'windwp/nvim-autopairs',
         lazy = true,
-        event = 'InsertCharPre',
+        event = 'InsertEnter',
         config = configs.nvim_autopairs,
     },
 
