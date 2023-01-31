@@ -22,14 +22,6 @@ return {
         config = configs.nvim_surround,
     },
 
-    -- 括号补全
-    {
-        'windwp/nvim-autopairs',
-        lazy = true,
-        event = 'InsertEnter',
-        config = configs.nvim_autopairs,
-    },
-
     -- 快速移动
     {
         'phaazon/hop.nvim',

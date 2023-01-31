@@ -5,11 +5,19 @@ return {
     {
         'hrsh7th/nvim-cmp',
         lazy = true,
-        event = {'InsertEnter', 'CmdlineEnter'},
+        event = 'InsertEnter',
         config = configs.nvim_cmp,
         dependencies = {
             -- ui 美化
             {'onsails/lspkind.nvim'},
+            -- snippets
+            {
+                'L3MON4D3/LuaSnip',
+                config = configs.LuaSnip,
+                dependencies = {"rafamadriz/friendly-snippets"},
+            },
+            -- snippets source
+            {'saadparwaiz1/cmp_luasnip'},
             -- lua source
             {'hrsh7th/cmp-nvim-lua'},
             -- underline sort
@@ -22,20 +30,12 @@ return {
             {'hrsh7th/cmp-path'},
             -- cmdline source
             {'hrsh7th/cmp-cmdline'},
+            -- 括号补全
+            {
+                'windwp/nvim-autopairs',
+                config = configs.nvim_autopairs,
+            },
         }
-    },
-
-    -- snippets
-    {
-        'L3MON4D3/LuaSnip',
-        lazy = true,
-        event = 'InsertEnter',
-        config = configs.LuaSnip,
-        dependencies = {
-            {"rafamadriz/friendly-snippets"},
-            -- snippets source
-            {'saadparwaiz1/cmp_luasnip'},
-        },
     },
 
     -- lsp

@@ -4,6 +4,8 @@ configs.nvim_cmp = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
     local compare = cmp.config.compare
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    local handlers = require("nvim-autopairs.completion.handlers")
     local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
     end
@@ -200,6 +202,25 @@ configs.nvim_cmp = function()
             cmdline_source
         })
     })
+    cmp.event:on(
+        "confirm_done",
+        cmp_autopairs.on_confirm_done({
+            filetypes = {
+                -- "*" is an alias to all filetypes
+                ["*"] = {
+                    ["("] = {
+                        kind = {
+                            cmp.lsp.CompletionItemKind.Function,
+                            cmp.lsp.CompletionItemKind.Method,
+                        },
+                        handler = handlers["*"],
+                    },
+                },
+                -- Disable for tex
+                tex = false,
+            },
+        })
+    )
 end
 
 configs.LuaSnip = function()
@@ -211,6 +232,32 @@ configs.LuaSnip = function()
     })
     require("luasnip.loaders.from_vscode").lazy_load()
     require("luasnip.loaders.from_vscode").lazy_load({paths = {vim.fn.stdpath('config') .. '/mysnips'}})
+end
+
+configs.nvim_autopairs = function()
+    local npairs = require("nvim-autopairs")
+    local Rule = require("nvim-autopairs.rule")
+    npairs.setup({
+        disabled_filetypes = require('core.settings').exclude_filetypes,
+        map_bs = true,
+        map_c_h = false,
+        map_c_w = true,
+        check_ts = true,
+        enable_check_bracket_line = false,
+        ignored_next_char = "[%w%.]",
+        fast_wrap = {
+            map = '<M-e>',
+            chars = { '{', '[', '(', '"', "'" },
+            pattern = [=[[%'%"%)%>%]%)%}%,]]=],
+            end_key = '$',
+            keys = 'qwertyuiopzxcvbnmasdfghjkl',
+            check_comma = true,
+            highlight = 'Search',
+            highlight_grey = 'Comment'
+        },
+    })
+    -- npairs.add_rule(Rule('<', '>'))
+    npairs.add_rule(Rule("|", "|", { 'zig' }))
 end
 
 configs.nvim_lspconfig = function ()
