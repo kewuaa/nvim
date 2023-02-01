@@ -471,6 +471,13 @@ configs.windows = function ()
     })
 end
 
+configs.markdown_preview = function()
+    vim.api.nvim_create_autocmd('filetype', {
+        pattern = 'markdown',
+        command = [[nmap <silent><buffer> <leader>mp :MarkdownPreviewToggle<CR>]]
+    })
+end
+
 configs.vim_translator = function ()
     vim.g.translator_proxy_url = 'http://127.0.0.1:7890'
 end

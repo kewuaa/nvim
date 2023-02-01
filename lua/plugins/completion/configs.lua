@@ -53,7 +53,6 @@ configs.nvim_cmp = function()
             end,
         },
     }
-    local buffer_line_source = { name = 'buffer-lines' }
     local path_source = {
         name = 'path',
         option = {
@@ -182,7 +181,6 @@ configs.nvim_cmp = function()
         sources = {
             lsp_source,
             snip_source,
-            buffer_line_source,
             buffer_source,
             path_source,
         }
@@ -191,7 +189,6 @@ configs.nvim_cmp = function()
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
             buffer_source,
-            buffer_line_source,
         }
     })
     cmp.setup.cmdline(':', {

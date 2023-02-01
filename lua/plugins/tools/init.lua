@@ -120,6 +120,15 @@ return {
         },
     },
 
+    -- markdown preview
+    {
+        'iamcco/markdown-preview.nvim',
+        lazy = true,
+        build = function() vim.fn["mkdp#util#install"]() end,
+        ft = 'markdown',
+        init = configs.markdown_preview,
+    },
+
     -- 翻译
     {
         'voldikss/vim-translator',
