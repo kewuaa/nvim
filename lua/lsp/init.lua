@@ -126,6 +126,7 @@ function M.setup()
         'efm',
         'sumneko_lua',
         'tsserver',
+        'cmake',
         'vimls',
     }) do
         local server = require("lsp." .. name)
