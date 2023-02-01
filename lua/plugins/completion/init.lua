@@ -42,7 +42,6 @@ return {
         lazy = true,
         init = function()
             local api = vim.api
-            local loaded = false
             local init_group = api.nvim_create_augroup('init_lsp', {
                 clear = true,
             })
@@ -50,14 +49,10 @@ return {
                 group = init_group,
                 pattern = '*',
                 callback = function()
-                    if loaded then
-                        api.nvim_del_augroup_by_name('init_lsp')
-                    else
-                        vim.fn.timer_start(300, function()
-                            api.nvim_command [[Lazy load nvim-lspconfig]]
-                        end)
-                        loaded = true
-                    end
+                    vim.fn.timer_start(300, function()
+                        api.nvim_command [[Lazy load nvim-lspconfig]]
+                    end)
+                    api.nvim_del_augroup_by_name('init_lsp')
                 end
             })
         end,

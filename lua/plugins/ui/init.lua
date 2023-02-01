@@ -30,7 +30,6 @@ return {
         end,
         init = function()
             local api = vim.api
-            local loaded = false
             local init_group = api.nvim_create_augroup('init_treesitter', {
                 clear = true,
             })
@@ -38,14 +37,10 @@ return {
                 group = init_group,
                 pattern = '*',
                 callback = function()
-                    if loaded then
-                        api.nvim_del_augroup_by_name('init_treesitter')
-                    else
                         vim.fn.timer_start(100, function()
                             api.nvim_command [[Lazy load nvim-treesitter]]
                         end)
-                        loaded = true
-                    end
+                        api.nvim_del_augroup_by_name('init_treesitter')
                 end
             })
         end,
