@@ -452,6 +452,7 @@ configs.vim_gutentags = function()
     vim.g.gutentags_modules = gutentags_modules
 
 
+    rootmarks[#rootmarks+1] = '.gutctags'
     rootmarks[#rootmarks+1] = '.cyproject'
     -- 禁用默认
     vim.g.gutentags_add_default_project_roots = 0
