@@ -23,12 +23,9 @@ configs.nvim_treesitter = function()
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = { "c", "cpp" },
-            disable = function(lang, buf)
-                local max_filesize = 100 * 1024 -- 100 KB
-                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                if ok and stats and stats.size > max_filesize then
-                    return true
-                end
+            disable = function(ft, bufnr)
+                local ok, is_large_file = pcall(vim.api.nvim_buf_get_var, bufnr, "bigfile_disable_treesitter")
+                return ok and is_large_file
             end,
         },
         textobjects = {

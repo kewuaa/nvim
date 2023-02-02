@@ -145,5 +145,13 @@ return {
         'yianwillis/vimcdoc',
         lazy = true,
         event = 'VeryLazy',
-    }
+    },
+
+    -- bigfile tools
+    {
+        'LunarVim/bigfile.nvim',
+        lazy = true,
+        event = 'BufReadPre',
+        config = configs.bigfile,
+    },
 }
