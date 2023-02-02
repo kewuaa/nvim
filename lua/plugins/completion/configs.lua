@@ -61,6 +61,7 @@ configs.nvim_cmp = function()
         },
     }
     local cmdline_source = { name = 'cmdline' }
+    local dictionary_source = { name = 'dictionary' }
     local config = {
         window = {
             completion = {
@@ -156,6 +157,7 @@ configs.nvim_cmp = function()
             -- tag_source,
             snip_source,
             buffer_source,
+            dictionary_source,
             path_source,
         },
     }
@@ -166,6 +168,7 @@ configs.nvim_cmp = function()
             lua_source,
             snip_source,
             buffer_source,
+            dictionary_source,
             path_source,
         }
     }))
@@ -174,6 +177,7 @@ configs.nvim_cmp = function()
             tag_source,
             snip_source,
             buffer_source,
+            dictionary_source,
             path_source,
         }
     }))
@@ -182,6 +186,7 @@ configs.nvim_cmp = function()
             lsp_source,
             snip_source,
             buffer_source,
+            dictionary_source,
             path_source,
         }
     }))
@@ -189,6 +194,7 @@ configs.nvim_cmp = function()
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
             buffer_source,
+            dictionary_source,
         }
     })
     cmp.setup.cmdline(':', {
@@ -218,6 +224,20 @@ configs.nvim_cmp = function()
             },
         })
     )
+    require("cmp_dictionary").setup({
+        dic = {
+            ["*"] = { vim.fn.expand('~/dicts/en.dict') },
+        },
+        -- The following are default values.
+        exact = 2,
+        first_case_insensitive = false,
+        document = false,
+        document_command = "wn %s -over",
+        async = true,
+        max_items = 5,
+        capacity = 3,
+        debug = false,
+    })
 end
 
 configs.LuaSnip = function()
