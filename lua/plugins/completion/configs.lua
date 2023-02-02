@@ -4,8 +4,6 @@ configs.nvim_cmp = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
     local compare = cmp.config.compare
-    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-    local handlers = require("nvim-autopairs.completion.handlers")
     local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
     end
@@ -61,7 +59,6 @@ configs.nvim_cmp = function()
         },
     }
     local cmdline_source = { name = 'cmdline' }
-    local dictionary_source = { name = 'dictionary' }
     local config = {
         window = {
             completion = {
@@ -83,6 +80,7 @@ configs.nvim_cmp = function()
             end,
         },
         sorting = {
+            priority_weight = 2,
             comparators = {
                 compare.score,
                 compare.offset,
@@ -96,21 +94,20 @@ configs.nvim_cmp = function()
                 local kind = require('lspkind').cmp_format({
                     mode = "symbol_text",
                     maxwidth = 50,
-                    -- menu = ({
-                    --     buffer = "[Buffer]",
-                    --     nvim_lsp = "[LSP]",
-                    --     luasnip = "[Snip]",
-                    --     nvim_lua = "[Lua]",
-                    --     tags = '[Tags]',
-                    --     ['buffer-lines'] = '[BufferL]',
-                    --     cmdline = '[Cmd]',
-                    --     path = '[Path]',
-                    -- }),
+                    menu = ({
+                        buffer = "[Buffer]",
+                        nvim_lsp = "[LSP]",
+                        luasnip = "[Snip]",
+                        nvim_lua = "[Lua]",
+                        tags = '[Tags]',
+                        cmdline = '[Cmd]',
+                        path = '[Path]',
+                    }),
                     ellipsis_char = '...',
                 })(entry, vim_item)
                 local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                kind.kind = " " .. strings[1] .. " "
-                kind.menu = "    (" .. strings[2] .. ")"
+                kind.kind = string.format(' %s ', strings[1])
+                kind.menu = string.format('(%s) %s', strings[2], kind.menu)
                 return kind
             end,
         },
@@ -157,18 +154,16 @@ configs.nvim_cmp = function()
             -- tag_source,
             snip_source,
             buffer_source,
-            dictionary_source,
             path_source,
         },
     }
     cmp.setup(config)
     cmp.setup.filetype('lua', vim.tbl_deep_extend('force', config, {
         sources = {
-            lsp_source,
             lua_source,
+            lsp_source,
             snip_source,
             buffer_source,
-            dictionary_source,
             path_source,
         }
     }))
@@ -177,16 +172,6 @@ configs.nvim_cmp = function()
             tag_source,
             snip_source,
             buffer_source,
-            dictionary_source,
-            path_source,
-        }
-    }))
-    cmp.setup.filetype({'c', 'cpp'}, vim.tbl_deep_extend('force', config, {
-        sources = {
-            lsp_source,
-            snip_source,
-            buffer_source,
-            dictionary_source,
             path_source,
         }
     }))
@@ -194,7 +179,6 @@ configs.nvim_cmp = function()
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
             buffer_source,
-            dictionary_source,
         }
     })
     cmp.setup.cmdline(':', {
@@ -207,7 +191,7 @@ configs.nvim_cmp = function()
     })
     cmp.event:on(
         "confirm_done",
-        cmp_autopairs.on_confirm_done({
+        require('nvim-autopairs.completion.cmp').on_confirm_done({
             filetypes = {
                 -- "*" is an alias to all filetypes
                 ["*"] = {
@@ -216,7 +200,7 @@ configs.nvim_cmp = function()
                             cmp.lsp.CompletionItemKind.Function,
                             cmp.lsp.CompletionItemKind.Method,
                         },
-                        handler = handlers["*"],
+                        handler = require("nvim-autopairs.completion.handlers")["*"],
                     },
                 },
                 -- Disable for tex
@@ -224,20 +208,6 @@ configs.nvim_cmp = function()
             },
         })
     )
-    require("cmp_dictionary").setup({
-        dic = {
-            ["*"] = { vim.fn.expand('~/dicts/en.dict') },
-        },
-        -- The following are default values.
-        exact = 2,
-        first_case_insensitive = false,
-        document = false,
-        document_command = "wn %s -over",
-        async = true,
-        max_items = 5,
-        capacity = 3,
-        debug = false,
-    })
 end
 
 configs.LuaSnip = function()

@@ -28,8 +28,6 @@ return {
             {'hrsh7th/cmp-path'},
             -- cmdline source
             {'hrsh7th/cmp-cmdline'},
-            -- dictionary source
-            {'uga-rosa/cmp-dictionary'},
             -- 括号补全
             {
                 'windwp/nvim-autopairs',
