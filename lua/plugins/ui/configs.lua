@@ -454,6 +454,19 @@ configs.notify = function()
     vim.notify = notify
 end
 
+configs.dressing = function()
+    require("dressing").setup({
+        input = {
+            enabled = true,
+        },
+        select = {
+            enabled = true,
+            backend = "telescope",
+            trim_prompt = true,
+        },
+    })
+end
+
 configs.neodim = function ()
     require('neodim').setup({
         alpha = 0.45,

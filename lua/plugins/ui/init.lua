@@ -77,7 +77,7 @@ return {
         'stevearc/dressing.nvim',
         lazy = true,
         event = 'VeryLazy',
-        config = true,
+        config = configs.dressing,
     },
 
     -- 调暗未使用函数，变量和参数
