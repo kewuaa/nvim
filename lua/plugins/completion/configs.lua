@@ -40,11 +40,12 @@ configs.nvim_cmp = function()
         option = {
             get_bufnrs = function()
                 local bufs = {}
+                local get_bufsize = require('core.utils').get_bufsize
                 for _, win in ipairs(vim.api.nvim_list_wins()) do
-                    local buf = vim.api.nvim_win_get_buf(win)
-                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                    if ok and stats and stats.size < 1024 * 500 then
-                        bufs[#bufs+1] = buf
+                    local bufnr = vim.api.nvim_win_get_buf(win)
+                    local size = get_bufsize(bufnr)
+                    if size < 256 then
+                        bufs[#bufs+1] = bufnr
                     end
                 end
                 return bufs
@@ -208,6 +209,14 @@ configs.nvim_cmp = function()
             },
         })
     )
+    require('core.utils').bigfile_callback_register(
+        512,
+        function(_)
+            cmp.setup.buffer({ enabled = false })
+            cmp.setup.cmdline({ ':', '/', '?' }, { enabled = false })
+        end,
+        { defer = true }
+    )
 end
 
 configs.LuaSnip = function()
@@ -249,9 +258,24 @@ end
 
 configs.nvim_lspconfig = function ()
     require('lsp').setup()
-    local matching_configs = require('lspconfig.util').get_config_by_ft(vim.bo.filetype)
-    for _, config in ipairs(matching_configs) do
-        config.launch()
+    local utils = require('core.utils')
+    local threshold = 512
+    utils.bigfile_callback_register(threshold, function(bufnr)
+        vim.api.nvim_create_autocmd('LspAttach', {
+            buffer = bufnr,
+            callback = function(args)
+                vim.schedule(function()
+                    vim.lsp.buf_detach_client(bufnr, args.data.client_id)
+                end)
+            end
+        })
+    end, {do_now = false})
+    local bufnr = vim.api.nvim_get_current_buf()
+    if utils.get_bufsize(bufnr) < threshold then
+        local matching_configs = require('lspconfig.util').get_config_by_ft(vim.bo.filetype)
+        for _, config in ipairs(matching_configs) do
+            config.launch()
+        end
     end
 end
 
