@@ -145,5 +145,5 @@ return {
         'yianwillis/vimcdoc',
         lazy = true,
         event = 'VeryLazy',
-    }
+    },
 }
