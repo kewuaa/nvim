@@ -224,7 +224,9 @@ configs.catppuccin = function()
             },
         },
     })
-    vim.cmd.colorscheme('catppuccin')
+    vim.schedule(function()
+        vim.cmd.colorscheme('catppuccin')
+    end)
 end
 
 configs.vim_illuminate = function()

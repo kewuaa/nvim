@@ -2,20 +2,22 @@ local configs = require("plugins.ui.configs")
 
 
 return {
+    -- 颜色主题
+    {
+        'catppuccin/nvim',
+        name = "catppuccin",
+        lazy = true,
+        event = 'VeryLazy',
+        config = configs.catppuccin,
+    },
+
     -- statusline
     {
         'nvim-lualine/lualine.nvim',
         lazy = true,
-        -- event = {'BufRead', 'BufNewFile'},
-        event = 'VeryLazy',
+        event = 'ColorScheme',
         config = configs.lualine,
         dependencies = {
-            -- 颜色主题
-            {
-                'catppuccin/nvim',
-                name = "catppuccin",
-                config = configs.catppuccin,
-            },
             {'nvim-tree/nvim-web-devicons'},
         }
     },
