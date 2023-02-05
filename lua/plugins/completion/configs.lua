@@ -498,7 +498,8 @@ configs.vim_gutentags = function()
     vim.cmd [[
     let s:enabled_filetypes = ['pyx', 'pxd', 'pxi']
     function! CustomGutentagsEnableFunc(path) abort
-        return index(s:enabled_filetypes, fnamemodify(a:path, ':e')) >= 0
+        let index = index(s:enabled_filetypes, fnamemodify(a:path, ':e'))
+        return index >= 0
     endfunction
     let g:gutentags_init_user_func = 'CustomGutentagsEnableFunc'
     ]]
@@ -513,6 +514,9 @@ configs.vim_gutentags = function()
             ['.git'] = 'bash -c "git ls-files; git ls-files --others --exclude-standard"',
         },
     }
+    vim.schedule(function()
+        vim.fn['gutentags#setup_gutentags']()
+    end)
 end
 
 return configs
