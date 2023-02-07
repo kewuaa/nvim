@@ -6,7 +6,7 @@ rootmarks[#rootmarks+1] = '*.toml'
 
 taplo.rootmarks = rootmarks
 taplo.filetypes = {'toml'}
-taplo.cmd = {settings.toml_path .. 'taplo.exe', 'lsp', 'stdio'}
+taplo.cmd = {'taplo.exe', 'lsp', 'stdio'}
 
 
 return taplo

@@ -8,7 +8,7 @@ efm.rootmarks = rootmarks
 efm.filetypes = {
     'python',
 }
-efm.cmd = {settings.efm_path .. 'efm-langserver/efm-langserver.exe'}
+efm.cmd = {'efm-langserver.exe'}
 efm.init_options = {
     documentFormatting = true,
     -- hover = true,
