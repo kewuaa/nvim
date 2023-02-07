@@ -130,26 +130,30 @@ function M.setup()
         'vimls',
         'taplo',
     }) do
-        local server = require("lsp." .. name)
-        local server_config = {
-            name = name,
-            autostart = true,
-            single_file_support = true,
-            on_attach = on_attach,
-            capabilities = capabilities,
-            flags = lsp_flags,
-        }
-        if vim.fn.executable(server.cmd[1]) == 1 then
-            for k, v in pairs(server) do
-                if k == 'rootmarks' then
-                    server_config['root_dir'] = lsp_config.util.root_pattern(unpack(v))
-                else
-                    server_config[k] = v
+        local ok, server = pcall(require, 'lsp.' .. name)
+        if ok then
+            local server_config = {
+                name = name,
+                autostart = true,
+                single_file_support = true,
+                on_attach = on_attach,
+                capabilities = capabilities,
+                flags = lsp_flags,
+            }
+            if vim.fn.executable(server.cmd[1]) == 1 then
+                for k, v in pairs(server) do
+                    if k == 'rootmarks' then
+                        server_config['root_dir'] = lsp_config.util.root_pattern(unpack(v))
+                    else
+                        server_config[k] = v
+                    end
                 end
+                lsp_config[name].setup(server_config)
+            else
+                vim.notify(string.format('%s not executable', server.cmd[1]))
             end
-            lsp_config[name].setup(server_config)
         else
-            vim.notify(string.format('%s not executable', server.cmd[1]))
+            vim.notify(string.format('load lsp %s failed', name))
         end
     end
 end
