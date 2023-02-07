@@ -19,6 +19,7 @@ configs.nvim_treesitter = function()
             'json',
             'help',
             'yaml',
+            'toml',
         },
         highlight = {
             enable = true,
