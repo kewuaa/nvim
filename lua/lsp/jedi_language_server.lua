@@ -10,6 +10,7 @@ local find_env = function(start_path)
     local cwd = fnm(start_path, ':p')
     local r = string.match(cwd, '^%a:[/\\]')
     local venv = 'default'
+    local environ = vim.g.asynctasks_environ
     while true do
         local config_file = string.format('%s/%s', cwd, config_file_name)
         if vim.fn.filereadable(config_file) == 1 then
@@ -26,7 +27,10 @@ local find_env = function(start_path)
         end
         cwd = fnm(cwd, ':h')
     end
-    return settings:getpy(venv)
+    venv = settings:getpy(venv)
+    environ.pyenv = venv
+    vim.g.asynctasks_environ = environ
+    return venv
 end
 
 jdls.rootmarks = rootmarks

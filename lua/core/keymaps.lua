@@ -36,6 +36,7 @@ end
 keymaps.asynctasks = {
     {'n', '<F5>', ':AsyncTask file-run<CR>'},
     {'n', '<F6>', ':AsyncTask file-build<CR>'},
+    {'n', '<F7>', ':AsyncTask run-test<CR>'},
 }
 
 keymaps.hop = {

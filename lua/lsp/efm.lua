@@ -1,7 +1,7 @@
 local efm = {}
 local settings = require("core.settings")
 local rootmarks = settings.rootmarks
-rootmarks[#rootmarks+1] = '.root'
+rootmarks[#rootmarks+1] = '.pyproject'
 
 
 efm.rootmarks = rootmarks

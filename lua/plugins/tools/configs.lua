@@ -103,15 +103,7 @@ end
 configs.asynctasks = function()
     local settings = require("core.settings")
     local rootmarks = settings.rootmarks
-    local py_envs = settings:getpy('envs')
-    local environ = {}
     rootmarks[#rootmarks+1] = '.root'
-    environ.root_pyenv = settings:getpy('root')
-    for _, env_path in pairs(vim.fn.globpath(py_envs, '*/Scripts/python.exe', 0, 1)) do
-        local env_name = string.match(env_path, '[/\\]([^/\\]-)[/\\]Scripts')
-        environ[env_name .. '_pyenv'] = env_path
-    end
-
     vim.g.asyncrun_mode = 4
     vim.g.asyncrun_save = 2
     vim.g.asyncrun_rootmarks = rootmarks
@@ -119,7 +111,7 @@ configs.asynctasks = function()
     vim.g.asynctasks_term_focus = 0
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
-    vim.g.asynctasks_environ = environ
+    vim.g.asynctasks_environ = vim.empty_dict()
     vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
 end
 
