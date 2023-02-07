@@ -128,6 +128,7 @@ function M.setup()
         'tsserver',
         'cmake',
         'vimls',
+        'taplo',
     }) do
         local server = require("lsp." .. name)
         local server_config = {
