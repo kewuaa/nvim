@@ -16,6 +16,7 @@ configs.nvim_treesitter = function()
             'zig',
             'ini',
             'markdown',
+            'markdown_inline',
             'json',
             'help',
             'yaml',
