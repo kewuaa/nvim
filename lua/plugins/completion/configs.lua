@@ -150,31 +150,34 @@ configs.nvim_cmp = function()
                 end
             end, { "i", "s" }),
         }),
-        sources = {
+        sources = cmp.config.sources({
+            path_source,
+        }, {
             lsp_source,
             -- tag_source,
             snip_source,
             buffer_source,
-            path_source,
-        },
+        }),
     }
     cmp.setup(config)
     cmp.setup.filetype('lua', vim.tbl_deep_extend('force', config, {
-        sources = {
+        sources = cmp.config.sources({
+            path_source,
+        }, {
             lua_source,
             lsp_source,
             snip_source,
             buffer_source,
-            path_source,
-        }
+        })
     }))
     cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
-        sources = {
+        sources = cmp.config.sources({
+            path_source,
+        }, {
             tag_source,
             snip_source,
             buffer_source,
-            path_source,
-        }
+        })
     }))
     cmp.setup.cmdline({'/', '?'}, {
         mapping = cmp.mapping.preset.cmdline(),
