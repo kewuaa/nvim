@@ -1,6 +1,6 @@
 local clangd = {}
 local settings = require("core.settings")
-local gcc_path = settings.c_path .. 'TDM-GCC-64/bin'
+local gcc_path = settings.c_path .. 'mingw64/bin'
 local rootmarks = settings.rootmarks
 rootmarks[#rootmarks+1] = 'compile_commands.json'
 rootmarks[#rootmarks+1] = 'compile_flags.txt'
