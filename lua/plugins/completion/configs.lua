@@ -32,7 +32,6 @@ configs.nvim_cmp = function()
     end
 
     local lsp_source = { name = 'nvim_lsp' }
-    local lua_source = { name = 'nvim_lua' }
     local tag_source = { name = 'tags' }
     local snip_source = { name = 'luasnip' }
     local buffer_source = {
@@ -160,16 +159,6 @@ configs.nvim_cmp = function()
         }),
     }
     cmp.setup(config)
-    -- cmp.setup.filetype('lua', vim.tbl_deep_extend('force', config, {
-    --     sources = cmp.config.sources({
-    --         path_source,
-    --     }, {
-    --         lua_source,
-    --         lsp_source,
-    --         snip_source,
-    --         buffer_source,
-    --     })
-    -- }))
     cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
         sources = cmp.config.sources({
             path_source,

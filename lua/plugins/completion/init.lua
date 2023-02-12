@@ -18,8 +18,6 @@ return {
             },
             -- snippets source
             {'saadparwaiz1/cmp_luasnip'},
-            -- lua source
-            {'hrsh7th/cmp-nvim-lua'},
             -- underline sort
             {'lukas-reineke/cmp-under-comparator'},
             -- buffer source
