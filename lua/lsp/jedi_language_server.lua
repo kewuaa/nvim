@@ -35,13 +35,18 @@ end
 
 jdls.rootmarks = rootmarks
 jdls.filetypes = {'python'}
-jdls.cmd = {settings:getpy('default') .. '/../jedi-language-server.exe'}
+jdls.cmd = {
+    vim.fn.fnamemodify(settings:getpy('default'), ':h') .. '/jedi-language-server.exe'
+}
 jdls.init_options = {
     diagnostics = {
         enable = false,
     },
+    jediSettings = {
+        autoImportModules = { 'numpy', 'pandas', 'torch' }
+    },
     workspace = {
-        -- extraPaths = {find_env(vim.fn.getcwd())},
+        -- extraPaths = {},
         environmentPath = find_env(vim.fn.getcwd()),
         symbols = {
             ignoreFolders = {

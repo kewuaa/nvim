@@ -386,7 +386,7 @@ configs.neodev = function()
             runtime = true,
         },
         setup_jsonls = false,
-        lspconfig = false
+        lspconfig = true,
     })
 end
 

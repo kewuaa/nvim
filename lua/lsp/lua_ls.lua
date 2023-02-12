@@ -5,7 +5,7 @@ local rootmarks = settings.rootmarks
 
 sumneko_lua.rootmarks = rootmarks
 sumneko_lua.filetypes = {'lua'}
-sumneko_lua.cmd = {settings.lua_path .. 'sumneko_lua/bin/lua-language-server.exe'}
+sumneko_lua.cmd = {settings.lua_path .. 'lua-language-server/bin/lua-language-server.exe'}
 sumneko_lua.settings = {
     Lua = {
         runtime = {

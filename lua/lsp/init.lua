@@ -120,11 +120,12 @@ function M.setup()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     for _, name in ipairs({
-        'jedi_language_server',
+        -- 'jedi_language_server',
+        'pyright',
         'clangd',
         'zls',
-        'efm',
-        'sumneko_lua',
+        -- 'efm',
+        'lua_ls',
         'tsserver',
         'cmake',
         'vimls',

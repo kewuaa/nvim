@@ -16,18 +16,18 @@ efm.init_options = {
     codeAction = true,
     -- completion = true
 }
-local lsp_path = settings:getpy('default')
+local lsp_path = vim.fn.fnamemodify(settings:getpy('default'), ':h')
 efm.settings = {
     rootMarkers = rootmarks,
     languages = {
         python = {
             {
-                lintCommand = lsp_path .. "/../flake8 --extend-ignore F403,F405 --stdin-display-name ${INPUT} -",
+                lintCommand = lsp_path .. "/flake8 --extend-ignore F403,F405 --stdin-display-name ${INPUT} -",
                 lintStdin = true,
                 lintFormats = {"%f:%l:%c: %t%n%n%n %m"},
             },
             -- {
-            --     lintCommand = lsp_path .. '/../mypy --show-column-numbers',
+            --     lintCommand = lsp_path .. '/mypy --show-column-numbers',
             --     lintFormats = {
             --         "%f:%l:%c: %trror: %m",
             --         "%f:%l:%c: %tarning: %m",

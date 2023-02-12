@@ -22,7 +22,7 @@ local bigfile_callbacks = {
 
 
 M.get_cwd = function ()
-    local activate_clients = vim.lsp.buf_get_clients()
+    local activate_clients = vim.lsp.get_active_clients()
     local num = #activate_clients
     local root = nil
     if num > 0 then
