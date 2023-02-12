@@ -198,8 +198,8 @@ configs.catppuccin = function()
                 dim_dirname = false,
             },
             dap = {
-                enabled = false,
-                enable_ui = false,
+                enabled = true,
+                enable_ui = true,
             },
             indent_blankline = {
                 enabled = true,

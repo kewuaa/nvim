@@ -59,7 +59,12 @@ configs.nvim_cmp = function()
         },
     }
     local cmdline_source = { name = 'cmdline' }
+    local dap_source = { name = 'dap' }
     local config = {
+        enabled = function()
+            return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+                or require("cmp_dap").is_dap_buffer()
+        end,
         window = {
             completion = {
                 border = border("Normal"),
@@ -95,13 +100,13 @@ configs.nvim_cmp = function()
                     mode = "symbol_text",
                     maxwidth = 50,
                     menu = ({
-                        buffer = "[Buffer]",
-                        nvim_lsp = "[LSP]",
-                        luasnip = "[Snip]",
-                        nvim_lua = "[Lua]",
-                        tags = '[Tags]',
+                        buffer = "",
+                        nvim_lsp = "",
+                        luasnip = "",
+                        tags = "暈",
                         cmdline = '[Cmd]',
-                        path = '[Path]',
+                        path = "",
+                        dap = '[Dap]',
                     }),
                     ellipsis_char = '...',
                 })(entry, vim_item)
@@ -168,6 +173,13 @@ configs.nvim_cmp = function()
             buffer_source,
         })
     }))
+    cmp.setup.filetype({"dap-repl", "dapui_watches", "dapui_hover"}, vim.tbl_deep_extend(
+        'force', config, {
+            sources = {
+                dap_source
+            }
+        }
+    ))
     cmp.setup.cmdline({'/', '?'}, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -371,6 +383,7 @@ configs.neodev = function()
         library = {
             plugins = { "nvim-dap-ui" },
             types = true,
+            runtime = true,
         },
         setup_jsonls = false,
         lspconfig = false

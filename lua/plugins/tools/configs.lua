@@ -100,6 +100,145 @@ configs.telescope = function()
     telescope.load_extension("notify")
 end
 
+configs.nvim_dap = function()
+    local dap = require('dap')
+    -- config for python
+    dap.adapters.python = {
+        type = 'executable';
+        command = require('core.settings'):getpy('default');
+        args = { '-m', 'debugpy.adapter' };
+    }
+    dap.configurations.python = {
+        {
+            -- The first three options are required by nvim-dap
+            type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+            request = 'launch';
+            name = "Launch file";
+
+            -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+
+            program = "${file}"; -- This configuration will launch the current file if used.
+            pythonPath = function()
+                -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+                -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+                -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+                local pyenv = vim.g.asynctasks_environ.pyenv
+                if pyenv then
+                    return pyenv
+                else
+                    return require('core.settings'):getpy('default')
+                end
+            end;
+        },
+    }
+
+    local dapui = require('dapui')
+    local dap_icons = {
+        Breakpoint = "",
+        BreakpointCondition = "ﳁ",
+        BreakpointRejected = "",
+        LogPoint = "",
+        Pause = "",
+        Play = "",
+        RunLast = "↻",
+        StepBack = "",
+        StepInto = "",
+        StepOut = "",
+        StepOver = "",
+        Stopped = "",
+        Terminate = "ﱢ",
+    }
+    dapui.setup({
+        layouts = {
+            {
+                elements = {
+                    -- Provide as ID strings or tables with "id" and "size" keys
+                    {
+                        id = "scopes",
+                        size = 0.25, -- Can be float or integer > 1
+                    },
+                    { id = "breakpoints", size = 0.25 },
+                    { id = "stacks", size = 0.25 },
+                    { id = "watches", size = 0.25 },
+                },
+                size = 40,
+                position = "left",
+            },
+            { elements = { "repl" }, size = 10, position = "bottom" },
+        },
+        controls = {
+            enabled = true,
+            -- Display controls in this session
+            element = "repl",
+            icons = {
+                pause = dap_icons.Pause,
+                play = dap_icons.Play,
+                step_into = dap_icons.StepInto,
+                step_over = dap_icons.StepOver,
+                step_out = dap_icons.StepOut,
+                step_back = dap_icons.StepBack,
+                run_last = dap_icons.RunLast,
+                terminate = dap_icons.Terminate,
+            },
+        },
+    })
+    vim.fn.sign_define(
+        "DapBreakpoint",
+        { text = dap_icons.Breakpoint, texthl = "DapBreakpoint", linehl = "", numhl = "" }
+    )
+    vim.fn.sign_define(
+        "DapBreakpointCondition",
+        { text = dap_icons.BreakpointCondition, texthl = "DapBreakpoint", linehl = "", numhl = "" }
+    )
+    vim.fn.sign_define("DapStopped", { text = dap_icons.Stopped, texthl = "DapStopped", linehl = "", numhl = "" })
+    vim.fn.sign_define(
+        "DapBreakpointRejected",
+        { text = dap_icons.BreakpointRejected, texthl = "DapBreakpoint", linehl = "", numhl = "" }
+    )
+    vim.fn.sign_define("DapLogPoint", { text = dap_icons.LogPoint, texthl = "DapLogPoint", linehl = "", numhl = "" })
+
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+    end
+    dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+    end
+
+    local api = vim.api
+    local keymap_restore = {}
+    dap.listeners.after['event_initialized']['me'] = function()
+        for _, buf in pairs(api.nvim_list_bufs()) do
+            local keymaps = api.nvim_buf_get_keymap(buf, 'n')
+            for _, keymap in pairs(keymaps) do
+                if keymap.lhs == "K" then
+                    table.insert(keymap_restore, keymap)
+                    api.nvim_buf_del_keymap(buf, 'n', 'K')
+                end
+            end
+        end
+        api.nvim_set_keymap(
+            'n', 'K', '<Cmd>lua require("dap.ui.widgets").hover()<CR>', { silent = true })
+    end
+
+    dap.listeners.after['event_terminated']['me'] = function()
+        for _, keymap in pairs(keymap_restore) do
+            api.nvim_buf_set_keymap(
+                keymap.buffer,
+                keymap.mode,
+                keymap.lhs,
+                keymap.rhs,
+                { silent = keymap.silent == 1 }
+            )
+        end
+        keymap_restore = {}
+    end
+
+    require("nvim-dap-virtual-text").setup()
+end
+
 configs.asynctasks = function()
     local settings = require("core.settings")
     local rootmarks = settings.rootmarks

@@ -26,6 +26,8 @@ return {
             {'hrsh7th/cmp-path'},
             -- cmdline source
             {'hrsh7th/cmp-cmdline'},
+            -- dap source
+            {'rcarriga/cmp-dap'},
             -- 括号补全
             {
                 'windwp/nvim-autopairs',
@@ -61,18 +63,13 @@ return {
             {'glepnir/lspsaga.nvim', branch = 'main', config = configs.lspsaga},
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
+            -- lua增强
+            {'folke/neodev.nvim', config = configs.neodev},
             -- 符号提示
             {'ray-x/lsp_signature.nvim'},
         }
     },
 
-
-    -- lua增强
-    {
-        'folke/neodev.nvim',
-        lazy = true,
-        config = configs.neodev,
-    },
 
     -- ctags
     {

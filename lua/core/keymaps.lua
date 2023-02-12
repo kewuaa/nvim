@@ -35,8 +35,7 @@ end
 
 keymaps.asynctasks = {
     {'n', '<F5>', ':AsyncTask file-run<CR>'},
-    {'n', '<F6>', ':AsyncTask file-build<CR>'},
-    {'n', '<F7>', ':AsyncTask run-test<CR>'},
+    {'n', '<leader><F5>', ':AsyncTask file-build<CR>'},
 }
 
 keymaps.hop = {
@@ -63,6 +62,19 @@ keymaps.telescope = {
     {'n', '<leader>f/', ':Telescope current_buffer_fuzzy_find<CR>'},
     {'n', '<leader>fm', ':Telescope keymaps<CR>'},
     {'n', '<leader>fc', ':Telescope commands<CR>'},
+}
+
+keymaps.dap = {
+    {'n', '<F6>', function() require('dap').continue() end},
+    {'n', '<F7>', function() require('dap').terminate() require('dapui').close() end},
+    {'n', '<F8>', function() require('dap').toggle_breakpoint() end},
+    {'n', '<F9>', function() require("dap").step_into() end},
+    {'n', '<F10>', function() require("dap").step_out() end},
+    {'n', '<F11>', function() require("dap").step_over() end},
+    {'n', '<leader>db', function () require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end},
+    {'n', '<leader>dc', function () require('dap').run_to_cursor() end},
+    {'n', '<leader>dl', function () require('dap').run_last() end},
+    {'n', '<leader>do', function () require('dap').repl.open() end},
 }
 
 keymaps.toggleterm = {

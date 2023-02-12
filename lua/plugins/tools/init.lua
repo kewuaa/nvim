@@ -44,6 +44,29 @@ return {
         }
     },
 
+    -- debug
+    {
+        'mfussenegger/nvim-dap',
+        lazy = true,
+        init = require('core.keymaps'):load('dap'),
+        cmd = {
+            "DapSetLogLevel",
+            "DapShowLog",
+            "DapContinue",
+            "DapToggleBreakpoint",
+            "DapToggleRepl",
+            "DapStepOver",
+            "DapStepInto",
+            "DapStepOut",
+            "DapTerminate",
+        },
+        config = configs.nvim_dap,
+        dependencies = {
+            {'rcarriga/nvim-dap-ui'},
+            {'theHamsta/nvim-dap-virtual-text'},
+        }
+    },
+
     -- 运行
     {
         'skywind3000/asynctasks.vim',

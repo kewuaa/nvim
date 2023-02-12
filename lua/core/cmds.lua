@@ -22,7 +22,13 @@ api.nvim_create_autocmd('CursorMoved', {
     end
 })
 api.nvim_create_autocmd('filetype', {
-    pattern = {'qf', 'help', 'notify', 'TelescopePrompt'},
+    pattern = {
+        'qf',
+        'help',
+        'notify',
+        'TelescopePrompt',
+        'dap-float',
+    },
     callback = function ()
         map('n', 'q', '<cmd>q<CR>', bufopts)
     end
