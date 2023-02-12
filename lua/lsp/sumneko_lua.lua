@@ -9,6 +9,7 @@ runtime_path[#runtime_path + 1] = "lua/?/init.lua"
 sumneko_lua.rootmarks = rootmarks
 sumneko_lua.filetypes = {'lua'}
 sumneko_lua.cmd = {settings.lua_path .. 'sumneko_lua/bin/lua-language-server.exe'}
+sumneko_lua.before_init = require('neodev.lsp').before_init
 sumneko_lua.settings = {
     Lua = {
         runtime = {
@@ -22,11 +23,6 @@ sumneko_lua.settings = {
             }
         },
         workspace = {
-            library = {
-                -- vim.fn.fnamemodify(vim.fn.expand('$MYVIMRC'), ':h'),
-                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-            },
             maxPreload = 100000,
             preloadFileSize = 10000,
         },

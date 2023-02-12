@@ -160,16 +160,16 @@ configs.nvim_cmp = function()
         }),
     }
     cmp.setup(config)
-    cmp.setup.filetype('lua', vim.tbl_deep_extend('force', config, {
-        sources = cmp.config.sources({
-            path_source,
-        }, {
-            lua_source,
-            lsp_source,
-            snip_source,
-            buffer_source,
-        })
-    }))
+    -- cmp.setup.filetype('lua', vim.tbl_deep_extend('force', config, {
+    --     sources = cmp.config.sources({
+    --         path_source,
+    --     }, {
+    --         lua_source,
+    --         lsp_source,
+    --         snip_source,
+    --         buffer_source,
+    --     })
+    -- }))
     cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
         sources = cmp.config.sources({
             path_source,
@@ -374,6 +374,17 @@ configs.lspsaga = function()
             colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
             kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
         },
+    })
+end
+
+configs.neodev = function()
+    require('neodev').setup({
+        library = {
+            plugins = { "nvim-dap-ui" },
+            types = true,
+        },
+        setup_jsonls = false,
+        lspconfig = false
     })
 end
 

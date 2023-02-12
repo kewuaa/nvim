@@ -68,6 +68,14 @@ return {
         }
     },
 
+
+    -- lua增强
+    {
+        'folke/neodev.nvim',
+        lazy = true,
+        config = configs.neodev,
+    },
+
     -- ctags
     {
         'ludovicchabant/vim-gutentags',
