@@ -1,3 +1,17 @@
+vim.cmd [[
+py3 << EOF
+try:
+    import rtoml as toml
+except ImportError:
+    import tomli as toml
+
+
+def read_toml(file: str):
+    with open(file) as f:
+        content = toml.load(f)
+    return content
+EOF
+]]
 local M = {}
 local fn = vim.fn
 local bigfile_callbacks = {
@@ -19,6 +33,16 @@ local bigfile_callbacks = {
         true,
     }
 }
+
+
+M.read_toml = function(file)
+    if file then
+        file = vim.fn.fnamemodify(file, ':p')
+    else
+        file = vim.fn.expand('%:p')
+    end
+    return vim.fn.py3eval(string.format('read_toml("%s")', file))
+end
 
 
 M.get_cwd = function ()
