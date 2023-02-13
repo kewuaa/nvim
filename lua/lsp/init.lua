@@ -122,6 +122,7 @@ function M.setup()
     for _, name in ipairs({
         -- 'jedi_language_server',
         'pyright',
+        'ruff_lsp',
         'clangd',
         'zls',
         -- 'efm',
