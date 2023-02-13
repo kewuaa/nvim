@@ -112,6 +112,7 @@ function M.setup()
     -- map('n', '<c-p>', vim.diagnostic.goto_prev, opts)
     -- map('n', '<c-n>', vim.diagnostic.goto_next, opts)
     -- map('n', '<space>q', vim.diagnostic.setloclist, opts)
+    map({"n", "t"}, "<A-=>", "<cmd>Lspsaga term_toggle<CR>")
 
     local lsp_flags = {
       -- This is the default in Nvim 0.7+
@@ -120,12 +121,11 @@ function M.setup()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     for _, name in ipairs({
-        -- 'jedi_language_server',
-        'pyright',
+        'jedi_language_server',
         'ruff_lsp',
+        -- 'pyright',
         'clangd',
         'zls',
-        -- 'efm',
         'lua_ls',
         'tsserver',
         'cmake',
@@ -143,13 +143,11 @@ function M.setup()
                 flags = lsp_flags,
             }
             if vim.fn.executable(server.cmd[1]) == 1 then
-                for k, v in pairs(server) do
-                    if k == 'rootmarks' then
-                        server_config['root_dir'] = lsp_config.util.root_pattern(unpack(v))
-                    else
-                        server_config[k] = v
-                    end
+                if server.rootmarks then
+                    server.root_dir = lsp_config.util.root_pattern(unpack(server.rootmarks))
+                    server.rootmarks = nil
                 end
+                server_config = vim.tbl_deep_extend('force', server_config, server)
                 lsp_config[name].setup(server_config)
             else
                 vim.notify(string.format('%s not executable', server.cmd[1]))

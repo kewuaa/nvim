@@ -1,7 +1,8 @@
 local jdls = {}
 local settings = require("core.settings")
 local rootmarks = settings.rootmarks
-local config_file_name = '.pyproject'
+local config_file_name = 'pyproject.toml'
+local read_toml = require('core.utils').read_toml
 rootmarks[#rootmarks+1] = config_file_name
 
 
@@ -14,12 +15,9 @@ local find_env = function(start_path)
     while true do
         local config_file = string.format('%s/%s', cwd, config_file_name)
         if vim.fn.filereadable(config_file) == 1 then
-            for line in io.lines(config_file) do
-                local items = vim.fn.split(line, '=', 1)
-                if items[1] == 'venv' then
-                    venv = items[2]
-                end
-            end
+            local config = read_toml(config_file)
+            assert(config.tool)
+            venv = config.tool.jedi and config.tool.jedi.venv or venv
             break
         end
         if cwd == r then
