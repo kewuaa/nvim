@@ -105,7 +105,7 @@ function keymaps.init()
     map('n', '<leader>tn', ':tabnext<CR>', opts_)
     map('n', '<leader>td', ':tabclose<CR>', opts_)
 
-    map('t', '<ESC>', [[<c-\><c-n>]], opts_)
+    map('t', '<A-q>', [[<c-\><c-n>]], opts_)
 
     -- map('n', '<C-w>=', ':vertical resize+5<CR>', opts_)
     -- map('n', '<C-w>-', ':vertical resize-5<CR>', opts_)
