@@ -133,6 +133,16 @@ return {
         }
     },
 
+    -- 选择窗口
+    {
+        'https://gitlab.com/yorickpeterse/nvim-window.git',
+        lazy = true,
+        keys = {
+            { '<leader>w', function() require('nvim-window').pick() end, mode = 'n' }
+        },
+        config = configs.nvim_window,
+    },
+
     -- 自动扩展窗口宽度
     {
         'anuvyklack/windows.nvim',
