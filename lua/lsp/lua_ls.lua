@@ -1,12 +1,12 @@
-local sumneko_lua = {}
+local lua_ls = {}
 local settings = require("core.settings")
 local rootmarks = settings.rootmarks
 
 
-sumneko_lua.rootmarks = rootmarks
-sumneko_lua.filetypes = {'lua'}
-sumneko_lua.cmd = {settings.lua_path .. 'lua-language-server/bin/lua-language-server.exe'}
-sumneko_lua.settings = {
+lua_ls.rootmarks = rootmarks
+lua_ls.filetypes = {'lua'}
+lua_ls.cmd = {settings.lua_path .. 'lua-language-server/bin/lua-language-server.exe'}
+lua_ls.settings = {
     Lua = {
         runtime = {
             version = 'LuaJIT',
@@ -26,4 +26,4 @@ sumneko_lua.settings = {
     }
 }
 
-return sumneko_lua
+return lua_ls
