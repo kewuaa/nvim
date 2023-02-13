@@ -94,15 +94,6 @@ return {
         config = configs.nvim_bqf,
     },
 
-    -- float terminal
-    {
-        'akinsho/toggleterm.nvim',
-        version = '*',
-        init = require('core.keymaps'):load('toggleterm'),
-        cmd = 'ToggleTerm',
-        config = configs.toggleterm,
-    },
-
     -- git集成
     {
         'lewis6991/gitsigns.nvim',

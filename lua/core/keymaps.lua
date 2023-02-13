@@ -12,16 +12,6 @@ local function telescope(option)
     end
 end
 
-local function toggleterm(option)
-    return function()
-        if not option then
-            option = 'horizontal'
-        end
-        local cmd = string.format('ToggleTerm dir=%s direction=%s', require('core.utils').get_cwd(), option)
-        vim.cmd(cmd)
-    end
-end
-
 local function todo_comments(command)
     return function()
         local cmd = string.format('%s cwd=%s', command, require("core.utils").get_cwd())
@@ -75,12 +65,6 @@ keymaps.dap = {
     {'n', '<leader>dc', function () require('dap').run_to_cursor() end},
     {'n', '<leader>dl', function () require('dap').run_last() end},
     {'n', '<leader>do', function () require('dap').repl.open() end},
-}
-
-keymaps.toggleterm = {
-    {'t', '<ESC>', [[<c-\><c-n>]]},
-    {{'n', 't'}, '<M-=>', toggleterm()},
-    {{'n', 'x'}, '<M-->', ':ToggleTermSendCurrentLine<CR>'},
 }
 
 keymaps.todo_comments = {
