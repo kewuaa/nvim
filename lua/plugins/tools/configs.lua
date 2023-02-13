@@ -236,7 +236,7 @@ configs.nvim_dap = function()
         keymap_restore = {}
     end
 
-    require("nvim-dap-virtual-text").setup()
+    require("nvim-dap-virtual-text").setup({})
 end
 
 configs.asynctasks = function()
