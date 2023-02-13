@@ -19,10 +19,6 @@ local function todo_comments(command)
     end
 end
 
-local function windows_cmd(command)
-   return table.concat({ '<Cmd>', command, '<CR>' })
-end
-
 keymaps.asynctasks = {
     {'n', '<F5>', ':AsyncTask file-run<CR>'},
     {'n', '<leader><F5>', ':AsyncTask file-build<CR>'},
@@ -38,10 +34,10 @@ keymaps.hop = {
 }
 
 keymaps.windows = {
-    {'n', '<c-w>z', windows_cmd('WindowsMaximize')},
-    {'n', '<c-w>_', windows_cmd('WindowsMaximizeVertically')},
-    {'n', '<c-w>|', windows_cmd('WindowsMaximizeHorizontally')},
-    {'n', '<c-w>=', windows_cmd('WindowsEqualize')},
+    {'n', '<c-w>z', '<cmd>WindowsMaximize<CR>'},
+    {'n', '<c-w>_', '<cmd>WindowsMaximizeVertically<CR>'},
+    {'n', '<c-w>|', '<cmd>WindowsMaximizeHorizontally<CR>'},
+    {'n', '<c-w>=', '<cmd>WindowsEqualize<CR>'},
 }
 
 keymaps.telescope = {
