@@ -13,12 +13,12 @@ local function load_rplugin()
     api.nvim_command(string.format('source %s/plugin/rplugin.vim', vim.env.VIMRUNTIME))
 end
 
-api.nvim_create_autocmd('CursorMoved', {
+api.nvim_create_autocmd('User', {
     once = true,
-    pattern = '*',
+    pattern = 'VeryLazy',
     callback = function ()
-        load_clipboard()
         load_rplugin()
+        load_clipboard()
     end
 })
 api.nvim_create_autocmd('filetype', {
