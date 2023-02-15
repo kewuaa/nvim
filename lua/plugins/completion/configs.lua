@@ -62,8 +62,17 @@ configs.nvim_cmp = function()
     local dap_source = { name = 'dap' }
     local config = {
         enabled = function()
-            return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-                or require("cmp_dap").is_dap_buffer()
+            local buffer_type = vim.api.nvim_buf_get_option(0, 'buftype')
+            local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+            if buffer_type == 'prompt' then
+                if vim.startswith(filetype, 'dapui_') or filetype == 'dap-repl' then
+                    return true
+                else
+                    return false
+                end
+            else
+                return true
+            end
         end,
         window = {
             completion = {
