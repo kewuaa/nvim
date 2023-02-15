@@ -202,7 +202,7 @@ configs.nvim_dap = function()
     -- config for python
     dap.adapters.python = {
         type = 'executable';
-        command = require('core.settings'):getpy('default');
+        command = require('core.settings'):getpy('debugpy');
         args = { '-m', 'debugpy.adapter' };
     }
     dap.configurations.python = {
