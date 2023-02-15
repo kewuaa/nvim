@@ -24,6 +24,8 @@ return {
             {'hrsh7th/cmp-buffer'},
             -- path source
             {'hrsh7th/cmp-path'},
+            -- treesitter source
+            {'ray-x/cmp-treesitter'}
         }
     },
 
