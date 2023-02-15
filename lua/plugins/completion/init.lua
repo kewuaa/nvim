@@ -24,8 +24,6 @@ return {
             {'hrsh7th/cmp-buffer'},
             -- path source
             {'hrsh7th/cmp-path'},
-            -- dap source
-            {'rcarriga/cmp-dap'},
         }
     },
 

@@ -72,6 +72,8 @@ return {
         dependencies = {
             {'rcarriga/nvim-dap-ui'},
             {'theHamsta/nvim-dap-virtual-text'},
+            -- dap source for cmp
+            {'rcarriga/cmp-dap'},
         }
     },
 
