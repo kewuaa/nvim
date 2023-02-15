@@ -105,7 +105,8 @@ configs.nvim_cmp = function()
                         luasnip = "",
                         tags = "暈",
                         path = "",
-                        dap = '[Dap]',
+                        treesitter = "",
+                        dap = "[Dap]",
                     }),
                     ellipsis_char = '...',
                 })(entry, vim_item)
