@@ -37,6 +37,7 @@ local options = {
     ignorecase = true,
     smartcase = true,
     shortmess = 'aoOTIcF',
+    updatetime = 200,
     pumheight = 16,
     completeopt = 'menu,menuone,noselect,noinsert',
     foldlevelstart = 9,
