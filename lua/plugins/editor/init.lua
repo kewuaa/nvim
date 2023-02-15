@@ -154,7 +154,7 @@ return {
         init = function()
             vim.g.CoolTotalMatches = 1
         end,
-        event = 'CmdLineEnter',
+        event = 'CursorMoved',
         keys = {
             {'n', mode = 'n'},
             {'N', mode = 'n'},
