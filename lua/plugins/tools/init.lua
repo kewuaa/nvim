@@ -174,6 +174,14 @@ return {
         init = configs.vim_translator,
     },
 
+    -- 着色器
+    {
+        'norcalli/nvim-colorizer.lua',
+        lazy = true,
+        cmd = 'ColorizerToggle',
+        config = true,
+    },
+
     -- vimdoc 中文文档
     {
         'yianwillis/vimcdoc',
