@@ -90,6 +90,19 @@ configs.hlargs = function()
     })
 end
 
+configs.vim_illuminate = function()
+    require("illuminate").configure({
+        providers = {
+            "lsp",
+            "treesitter",
+            "regex",
+        },
+        delay = 100,
+        filetypes_denylist = require("core.settings").exclude_filetypes,
+        under_cursor = true,
+    })
+end
+
 configs.catppuccin = function()
     require('catppuccin').setup({
         compile_path = vim.fn.stdpath "data" .. "/catppuccin",
