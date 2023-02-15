@@ -109,6 +109,16 @@ return {
         -- event = 'BufRead',
         -- config = configs.gitsigns,
     },
+    {
+        'sindrets/diffview.nvim',
+        lazy = true,
+        init = require('core.keymaps'):load('diffview'),
+        event = 'CmdUndefined Diffview*',
+        config = true,
+        dependencies = {
+            {'nvim-lua/plenary.nvim'}
+        }
+    },
 
     -- 文件树
     {

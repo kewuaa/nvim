@@ -50,6 +50,12 @@ keymaps.telescope = {
     {'n', '<leader>fc', ':Telescope commands<CR>'},
 }
 
+keymaps.diffview = {
+    {'n', '<leader>gg', '<cmd>DiffviewOpen<CR>'},
+    {'n', '<leader>gc', '<cmd>DiffviewClose<CR>'},
+    {{'n', 'v'}, '<leader>gh', '<cmd>DiffviewFileHistory<CR>'},
+}
+
 keymaps.dap = {
     {'n', '<F6>', function() require('dap').continue() end},
     {'n', '<F7>', function() require('dap').terminate() require('dapui').close() end},
