@@ -231,19 +231,6 @@ configs.catppuccin = function()
     end)
 end
 
-configs.vim_illuminate = function()
-    require("illuminate").configure({
-        providers = {
-            "lsp",
-            "treesitter",
-            "regex",
-        },
-        delay = 100,
-        filetypes_denylist = require("core.settings").exclude_filetypes,
-        under_cursor = true,
-    })
-end
-
 configs.indent_blankline = function()
     require('indent_blankline').setup({
         show_end_of_line = true,
