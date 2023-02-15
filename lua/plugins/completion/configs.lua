@@ -258,7 +258,7 @@ configs.lspsaga = function()
         },
         diagnostic = {
             twice_into = false,
-            show_code_action = true,
+            show_code_action = false,
             show_source = true,
             keys = {
                 exec_action = 'o',
