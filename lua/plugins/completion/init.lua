@@ -5,7 +5,7 @@ return {
     {
         'hrsh7th/nvim-cmp',
         lazy = true,
-        event = {'InsertEnter', 'CmdlineEnter'},
+        event = 'InsertEnter',
         config = configs.nvim_cmp,
         dependencies = {
             -- ui 美化
@@ -24,8 +24,6 @@ return {
             {'hrsh7th/cmp-buffer'},
             -- path source
             {'hrsh7th/cmp-path'},
-            -- cmdline source
-            {'hrsh7th/cmp-cmdline'},
             -- dap source
             {'rcarriga/cmp-dap'},
         }

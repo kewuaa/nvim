@@ -58,7 +58,6 @@ configs.nvim_cmp = function()
             get_cwd = require("core.utils").get_cwd,
         },
     }
-    local cmdline_source = { name = 'cmdline' }
     local dap_source = { name = 'dap' }
     local config = {
         enabled = function()
@@ -104,7 +103,6 @@ configs.nvim_cmp = function()
                         nvim_lsp = "",
                         luasnip = "",
                         tags = "暈",
-                        cmdline = '[Cmd]',
                         path = "",
                         dap = '[Dap]',
                     }),
@@ -180,25 +178,10 @@ configs.nvim_cmp = function()
             }
         }
     ))
-    cmp.setup.cmdline({'/', '?'}, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-            buffer_source,
-        }
-    })
-    cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-            path_source
-        }, {
-            cmdline_source
-        })
-    })
     require('core.utils').bigfile_callback_register(
         512,
         function(_)
             cmp.setup.buffer({ enabled = false })
-            cmp.setup.cmdline({ ':', '/', '?' }, { enabled = false })
         end,
         { defer = true }
     )
