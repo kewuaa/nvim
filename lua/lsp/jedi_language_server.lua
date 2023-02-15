@@ -16,7 +16,7 @@ local find_env = function(start_path)
         local config_file = string.format('%s/%s', cwd, config_file_name)
         if vim.fn.filereadable(config_file) == 1 then
             local config = read_toml(config_file)
-            assert(config.tool)
+            assert(config and config.tool)
             venv = config.tool.jedi and config.tool.jedi.venv or venv
             break
         end
@@ -41,7 +41,11 @@ jdls.init_options = {
         enable = false,
     },
     jediSettings = {
-        autoImportModules = { 'numpy', 'pandas', 'torch' }
+        autoImportModules = {
+            'numpy',
+            -- 'pandas',
+            -- 'torch',
+        }
     },
     workspace = {
         -- extraPaths = {},
