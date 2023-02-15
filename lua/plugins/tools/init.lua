@@ -133,6 +133,16 @@ return {
         }
     },
 
+    -- 选择缓冲区
+    {
+        'matbme/JABS.nvim',
+        lazy = true,
+        keys = {
+            {'<leader>bb', '<cmd>JABSOpen<CR>', mode = 'n'}
+        },
+        config = true,
+    },
+
     -- 选择窗口
     {
         'https://gitlab.com/yorickpeterse/nvim-window.git',

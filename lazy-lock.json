@@ -1,5 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "418d3117dab2f54c4340ea73e0070dd78fc81753" },
+  "JABS.nvim": { "branch": "main", "commit": "6c020211aaa63c0b398a8d3cc6fa86679cf31490" },
   "LuaSnip": { "branch": "master", "commit": "58fbfc627a93281a77f7d161d4ff702e639677b1" },
   "accelerated-jk.nvim": { "branch": "main", "commit": "38bbbf9258aab876906588ea979901ed3ed569c6" },
   "asyncrun.vim": { "branch": "master", "commit": "bd240b2a2ac5c975216744fda57abe5ff8f39957" },
