@@ -28,11 +28,6 @@ return {
             {'hrsh7th/cmp-cmdline'},
             -- dap source
             {'rcarriga/cmp-dap'},
-            -- 括号补全
-            {
-                'windwp/nvim-autopairs',
-                config = configs.nvim_autopairs,
-            },
         }
     },
 

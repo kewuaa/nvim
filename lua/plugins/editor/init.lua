@@ -22,6 +22,14 @@ return {
         config = configs.nvim_surround,
     },
 
+    -- 括号补全
+    {
+        'm4xshen/autoclose.nvim',
+        lazy = true,
+        event = 'InsertEnter',
+        config = configs.autoclose,
+    },
+
     -- 快速移动
     {
         'phaazon/hop.nvim',
