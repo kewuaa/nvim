@@ -475,7 +475,7 @@ end
 configs.neodim = function ()
     require('neodim').setup({
         alpha = 0.45,
-        blend_color = require("catppuccin.palettes").get_palette("frappe").crust,
+        blend_color = '#232634',
         update_in_insert = {
             enable = true,
             delay = 100,
@@ -491,12 +491,11 @@ end
 configs.colorful_winsep = function ()
     local colorful_winsep = require('colorful-winsep')
     local exclude_filetypes = require('core.settings').exclude_filetypes
-    local palette = require('catppuccin.palettes').get_palette("frappe")
     colorful_winsep.setup({
         -- highlight for Window separator
         highlight = {
-            bg = palette.base,
-            fg = palette.text,
+            bg = '#303446',
+            fg = '#c6d0f5',
         },
         -- timer refresh rate
         interval = 30,
