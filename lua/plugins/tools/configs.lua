@@ -106,27 +106,43 @@ configs.wilder = function()
 
     wilder.set_option("pipeline", {
         wilder.branch(
-            wilder.cmdline_pipeline({
-                language = 'python',
-                fuzzy = 1,
-                set_pcre2_pattern = 1,
+            wilder.python_file_finder_pipeline({
+                -- to use ripgrep : {'rg', '--files'}
+                -- to use fd      : {'fd', '-tf'}
+                file_command = function(ctx, arg)
+                    if string.find(arg, '.') ~= nil then
+                        return {'fd', '-tf', '-H'}
+                    else
+                        return {'fd', '-tf'}
+                    end
+                end,
+                -- to use fd      : {'fd', '-td'}
+                dir_command = {'fd', '-td'},
+                -- use {'cpsm_filter'} for performance, requires cpsm vim plugin
+                -- found at https://github.com/nixprime/cpsm
+                filters = {'fuzzy_filter', 'difflib_sorter'},
             }),
-            wilder.python_search_pipeline({
-                pattern = 'fuzzy',
+            wilder.substitute_pipeline({
+                pipeline = wilder.python_search_pipeline({
+                    skip_cmdtype_check = 1,
+                    pattern = wilder.python_fuzzy_pattern({
+                        start_at_boundary = 0,
+                    }),
+                }),
+            }),
+            wilder.cmdline_pipeline({
+                fuzzy = 2,
+                -- set_pcre2_pattern = 1,
             }),
             {
-                wilder.check(function(_, x)
-                    return x == ""
-                end),
+                wilder.check(function(_, x) return x == "" end),
                 wilder.history(),
-                wilder.result({
-                    draw = {
-                        function(_, x)
-                            return " " .. x
-                        end,
-                    },
+            },
+            wilder.python_search_pipeline({
+                pattern = wilder.python_fuzzy_pattern({
+                    start_at_boundary = 0,
                 }),
-            }
+            })
         ),
     })
 
@@ -142,7 +158,7 @@ configs.wilder = function()
                 accent = wilder.make_hl(
                     "WilderAccent",
                     "Pmenu",
-                    { { a = 0 }, { a = 0 }, { foreground = '#949cbb' } }
+                    { { a = 0 }, { a = 0 }, { foreground = '#f4468f' } }
                 ),
             },
             empty_message = wilder.popupmenu_empty_message_with_spinner(),
