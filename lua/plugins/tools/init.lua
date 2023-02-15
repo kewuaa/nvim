@@ -44,6 +44,14 @@ return {
         }
     },
 
+    -- wilder
+    {
+        'gelguy/wilder.nvim',
+        lazy = true,
+        event = 'CmdlineEnter',
+        config = configs.wilder,
+    },
+
     -- debug
     {
         'mfussenegger/nvim-dap',
