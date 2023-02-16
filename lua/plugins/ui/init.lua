@@ -58,7 +58,11 @@ return {
                 'RRethy/vim-illuminate',
                 config = configs.vim_illuminate,
             },
-
+            -- 缩进线
+            {
+                'lukas-reineke/indent-blankline.nvim',
+                config = configs.indent_blankline,
+            },
         },
     },
 
