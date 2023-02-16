@@ -40,9 +40,9 @@ return {
             })
             api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
                 group = init_group,
-                pattern = '*',
+                pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
                 callback = function()
-                    vim.fn.timer_start(300, function()
+                    vim.fn.timer_start(600, function()
                         api.nvim_command [[Lazy load nvim-lspconfig]]
                     end)
                     api.nvim_del_augroup_by_name('init_lsp')
@@ -74,7 +74,7 @@ return {
                 once = true,
                 callback = function()
                     vim.fn.timer_start(
-                        500,
+                        600,
                         function()
                             configs.vim_gutentags()
                             vim.api.nvim_command [[Lazy load vim-gutentags]]
