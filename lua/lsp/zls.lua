@@ -1,8 +1,8 @@
 local zls = {}
 local settings = require("core.settings")
 local rootmarks = settings.rootmarks
-rootmarks[#rootmarks+1] = 'zls.json'
-rootmarks[#rootmarks+1] = 'build.zig'
+---@diagnostic disable-next-line: missing-parameter
+vim.list_extend(rootmarks, {'zls.json', 'build.zig'})
 
 
 zls.rootmarks = rootmarks

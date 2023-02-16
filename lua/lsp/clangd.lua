@@ -2,11 +2,8 @@ local clangd = {}
 local settings = require("core.settings")
 local gcc_path = settings.c_path .. 'mingw64/bin'
 local rootmarks = settings.rootmarks
-rootmarks[#rootmarks+1] = 'compile_commands.json'
-rootmarks[#rootmarks+1] = 'compile_flags.txt'
-rootmarks[#rootmarks+1] = '.clangd'
-rootmarks[#rootmarks+1] = '.clang-tidy'
-rootmarks[#rootmarks+1] = '.clang-format'
+---@diagnostic disable-next-line: missing-parameter
+vim.list_extend(rootmarks, { 'compile_commands.json', 'compile_flags.txt', '.clangd', '.clang-tidy', '.clang-format' })
 
 
 local function switch_source_header_splitcmd(bufnr, splitcmd)

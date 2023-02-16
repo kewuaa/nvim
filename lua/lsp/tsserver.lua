@@ -1,9 +1,8 @@
 local tsserver = {}
 local settings = require("core.settings")
 local rootmarks = settings.rootmarks
-rootmarks[#rootmarks+1] = 'package.json'
-rootmarks[#rootmarks+1] = 'tsconfig.json'
-rootmarks[#rootmarks+1] = 'jsconfig.json'
+---@diagnostic disable-next-line: missing-parameter
+vim.list_extend(rootmarks, { 'package,json', 'tsconfig.json', 'jsconfig.json' })
 
 
 tsserver.rootmarks = rootmarks

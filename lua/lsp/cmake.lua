@@ -1,8 +1,8 @@
 local cmake_lsp = {}
 local settings = require("core.settings")
 local rootmarks = settings.rootmarks
-rootmarks[#rootmarks+1] = 'cmake'
-rootmarks[#rootmarks+1] = 'build'
+---@diagnostic disable-next-line: missing-parameter
+vim.list_extend(rootmarks, {'cmake', 'build'})
 
 
 cmake_lsp.rootmarks = rootmarks
