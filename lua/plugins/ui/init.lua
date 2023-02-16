@@ -66,8 +66,19 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         lazy = true,
-        event = 'BufRead',
-        config = configs.indent_blankline,
+        init = function()
+            vim.api.nvim_create_autocmd('filetype', {
+                pattern = 'lua,python',
+                once = true,
+                callback = function()
+                    vim.api.nvim_create_autocmd('CursorHold', {
+                        once = true,
+                        command = [[Lazy load paint.nvim]]
+                    })
+                end
+            })
+        end,
+        config = configs.paint,
     },
 
     -- 消息提示
