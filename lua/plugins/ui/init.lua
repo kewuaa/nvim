@@ -62,9 +62,9 @@ return {
         },
     },
 
-    -- 缩进线
+    -- 注释着色
     {
-        'lukas-reineke/indent-blankline.nvim',
+        'folke/paint.nvim',
         lazy = true,
         init = function()
             vim.api.nvim_create_autocmd('filetype', {
