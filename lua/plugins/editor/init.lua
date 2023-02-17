@@ -154,12 +154,11 @@ return {
         config = configs.live_command,
     },
 
-    -- matchparen
+    -- match enhance
     {
-        'monkoose/matchparen.nvim',
+        'andymass/vim-matchup',
         lazy = true,
         event = 'CursorHold',
-        config = true,
     },
 
     -- 搜索后自动关闭高亮

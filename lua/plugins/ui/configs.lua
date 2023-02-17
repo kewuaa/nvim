@@ -93,6 +93,9 @@ configs.nvim_treesitter = function()
         indent = {
             enable = true,
         },
+        matchup = {
+            enable = true,
+        },
         rainbow = {
             enable = true,
             -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
