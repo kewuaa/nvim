@@ -25,6 +25,7 @@ local settings = setmetatable(
             "dapui_breakpoints",
             "dapui_scopes",
             "DiffviewFiles",
+            "JABSwindow",
             "",
         },
     },
