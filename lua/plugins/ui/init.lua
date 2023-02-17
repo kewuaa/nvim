@@ -47,6 +47,7 @@ return {
             })
         end,
         -- event = {'BufRead', 'BufNewFile'},
+        module = false,
         config = configs.nvim_treesitter,
         dependencies = {
             {'nvim-treesitter/nvim-treesitter-textobjects'},
