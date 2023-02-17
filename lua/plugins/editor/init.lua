@@ -147,6 +147,14 @@ return {
         config = configs.live_command,
     },
 
+    -- matchparen
+    {
+        'monkoose/matchparen.nvim',
+        lazy = true,
+        event = {'CursorHold', 'CursorMoved'},
+        config = true,
+    },
+
     -- 搜索后自动关闭高亮
     {
         'romainl/vim-cool',
