@@ -159,10 +159,6 @@ return {
             vim.g.CoolTotalMatches = 1
         end,
         event = 'CursorMoved',
-        keys = {
-            {'n', mode = 'n'},
-            {'N', mode = 'n'},
-        },
     },
 
     --  peeks lines of the buffer in non-obtrusive way
