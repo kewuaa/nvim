@@ -34,6 +34,15 @@ configs.nvim_treesitter = function()
                 end
             end,
         },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "+", -- set to `false` to disable one of the mappings
+                node_incremental = "+",
+                scope_incremental = false,
+                node_decremental = "_",
+            },
+        },
         textobjects = {
             select = {
                 enable = true,
@@ -64,6 +73,15 @@ configs.nvim_treesitter = function()
                     ["[M"] = "@class.outer",
                 },
             },
+            swap = {
+                enable = false,
+                swap_next = {
+                    ["<leader>s"] = "@parameter.inner",
+                },
+                swap_previous = {
+                    ["<leader>S"] = "@parameter.inner",
+                },
+            },
         },
         indent = {
             enable = true,
@@ -82,6 +100,22 @@ configs.nvim_treesitter = function()
             vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
         end
     })
+    local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+    local map = vim.keymap.set
+    -- Repeat movement with ; and ,
+    -- ensure ; goes forward and , goes backward regardless of the last direction
+    -- map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+    -- map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+
+    -- vim way: ; goes to the direction you were moving.
+    map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+    map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+
+    -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+    map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+    map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+    map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+    map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 end
 
 configs.hlargs = function()
@@ -99,7 +133,7 @@ configs.vim_illuminate = function()
         },
         delay = 100,
         filetypes_denylist = require("core.settings").exclude_filetypes,
-        under_cursor = true,
+        under_cursor = false,
     })
 end
 

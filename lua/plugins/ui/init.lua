@@ -49,6 +49,7 @@ return {
         -- event = {'BufRead', 'BufNewFile'},
         config = configs.nvim_treesitter,
         dependencies = {
+            {'nvim-treesitter/nvim-treesitter-textobjects'},
             -- 彩虹括号
             {'p00f/nvim-ts-rainbow'},
             -- 参数高亮
