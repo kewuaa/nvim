@@ -61,6 +61,17 @@ return {
         config = configs.comment,
     },
 
+    -- 跳出对
+    {
+        'abecodes/tabout.nvim',
+        lazy = true,
+        keys = {
+            {'<c-l>', function() require('tabout').taboutMulti() end, mode = 'i'},
+            {'<c-h>', function() require('tabout').taboutBackMulti() end, mode = 'i'}
+        },
+        config = configs.tabout,
+    },
+
     -- TODO 注释
     {
         'folke/todo-comments.nvim',

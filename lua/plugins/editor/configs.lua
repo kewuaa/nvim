@@ -110,6 +110,13 @@ configs.comment = function()
     ft.zig = '//%s'
 end
 
+configs.tabout = function()
+    require('tabout').setup({
+        tabkey = '',
+        backwards_tabkey = ''
+    })
+end
+
 configs.treesj = function ()
     local tsj = require('treesj')
     tsj.setup({
