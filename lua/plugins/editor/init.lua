@@ -22,6 +22,14 @@ return {
         config = configs.nvim_surround,
     },
 
+    -- 高亮相同单词
+    {
+        'RRethy/vim-illuminate',
+        lazy = true,
+        event = 'CursorHold',
+        config = configs.vim_illuminate,
+    },
+
     -- 括号补全
     {
         'm4xshen/autoclose.nvim',

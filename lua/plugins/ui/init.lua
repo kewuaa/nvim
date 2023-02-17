@@ -54,16 +54,6 @@ return {
             {'p00f/nvim-ts-rainbow'},
             -- 参数高亮
             {'m-demare/hlargs.nvim', config = configs.hlargs},
-            -- 高亮相同单词
-            {
-                'RRethy/vim-illuminate',
-                config = configs.vim_illuminate,
-            },
-            -- 缩进线
-            {
-                'lukas-reineke/indent-blankline.nvim',
-                config = configs.indent_blankline,
-            },
         },
     },
 
