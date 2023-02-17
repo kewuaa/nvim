@@ -102,23 +102,48 @@ end
 
 configs.wilder = function()
     local wilder = require('wilder')
-    wilder.setup({modes = {':', '/', '?'}})
+    wilder.setup({
+        modes = {':', '/', '?'},
+        before_cursor = 1
+    })
 
     wilder.set_option("pipeline", {
+        function(_, x)
+            local cmdtype = vim.fn.getcmdtype()
+            if cmdtype ~= ':' then
+                return x
+            end
+            if string.match(x, '^%d+') then
+                return false
+            else
+                return x
+            end
+        end,
         wilder.branch(
+            wilder.python_file_finder_pipeline({
+                file_command = function(ctx, arg)
+                    if string.find(arg, '.') ~= nil then
+                        return {'fd', '-tf', '-H'}
+                    else
+                        return {'fd', '-tf'}
+                    end
+                end,
+                dir_command = {'fd', '-td'},
+                path = function()
+                    local path = vim.fn.expand('%:p:h')
+                    return path
+                end,
+            }),
             wilder.substitute_pipeline({
                 pipeline = wilder.python_search_pipeline({
                     skip_cmdtype_check = 1,
+                    max_candidates = 30,
+                    sorter = wilder.python_difflib_sorter(),
                 }),
             }),
-            wilder.cmdline_pipeline({
-                fuzzy = 2,
-                -- set_pcre2_pattern = 1,
-            }),
-            wilder.python_search_pipeline(),
             {
                 wilder.check(function(_, x) return x == "" end),
-                wilder.history(),
+                wilder.history(15),
                 wilder.result({
                     draw = {
                         function(_, x)
@@ -126,14 +151,18 @@ configs.wilder = function()
                         end,
                     },
                 }),
-            }
+            },
+            wilder.cmdline_pipeline({
+                fuzzy = 2,
+                sorter = wilder.python_difflib_sorter(),
+            }),
+            wilder.python_search_pipeline({
+                max_candidates = 30,
+                sorter = wilder.python_difflib_sorter(),
+            })
         ),
     })
 
-    local highlighters = {
-        wilder.pcre2_highlighter(),
-        wilder.basic_highlighter(),
-    }
     local popupmenu_renderer = wilder.popupmenu_renderer(
         wilder.popupmenu_border_theme({
             border = "rounded",
@@ -145,8 +174,8 @@ configs.wilder = function()
                     { { a = 0 }, { a = 0 }, { foreground = '#f4468f' } }
                 ),
             },
-            empty_message = wilder.popupmenu_empty_message_with_spinner(),
-            highlighter = highlighters,
+            -- empty_message = wilder.popupmenu_empty_message_with_spinner(),
+            highlighter = wilder.basic_highlighter(),
             left = {
                 " ",
                 wilder.popupmenu_devicons(),
@@ -163,9 +192,11 @@ configs.wilder = function()
             " ",
             wilder.popupmenu_scrollbar(),
         },
+        empty_message_first_draw_delay = 0,
+        max_height = '30%',
     }))
     local wildmenu_renderer = wilder.wildmenu_renderer({
-        highlighter = highlighters,
+        highlighter = wilder.basic_highlighter(),
         apply_incsearch_fix = true,
         separator = " · ",
         left = { " ", wilder.wildmenu_spinner(), " " },

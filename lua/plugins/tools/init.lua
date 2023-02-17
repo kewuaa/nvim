@@ -48,6 +48,7 @@ return {
     {
         'gelguy/wilder.nvim',
         lazy = true,
+        build = 'UpdateRemotePlugins',
         event = 'CmdlineEnter',
         config = configs.wilder,
     },
