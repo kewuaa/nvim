@@ -102,12 +102,14 @@ return {
                 pattern = '*',
                 once = true,
                 callback = function()
-                    vim.fn.timer_start(900, configs.gitsigns)
+                    vim.fn.timer_start(900, function ()
+                        vim.api.nvim_command [[Lazy load gitsigns.nvim]]
+                    end)
                 end
             })
         end,
         -- event = 'BufRead',
-        -- config = configs.gitsigns,
+        config = configs.gitsigns,
     },
     {
         'sindrets/diffview.nvim',
