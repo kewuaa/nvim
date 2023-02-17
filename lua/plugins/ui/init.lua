@@ -58,6 +58,13 @@ return {
         },
     },
 
+    -- 缩进线
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        lazy = true,
+        event = 'BufRead',
+        config = configs.indent_blankline,
+    },
     -- 注释着色
     {
         'folke/paint.nvim',
