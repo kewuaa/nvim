@@ -55,10 +55,8 @@ return {
         keys = {
             {'gcc', mode = 'n'},
             {'gbc', mode = 'n'},
-            {'gc', mode = 'n'},
-            {'gb', mode = 'n'},
-            {'gc', mode = 'x'},
-            {'gb', mode = 'x'},
+            {'gc', mode = {'n', 'x'}},
+            {'gb', mode = {'n', 'x'}},
         },
         config = configs.comment,
     },
