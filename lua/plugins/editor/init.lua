@@ -72,16 +72,6 @@ return {
         }
     },
 
-    -- 扩展区域
-    {
-        'terryma/vim-expand-region',
-        lazy = true,
-        keys = {
-            {'+', mode = {'n', 'v'}},
-            {'-', mode = 'v'},
-        },
-    },
-
     -- 与J相反的操作
     {
         'Wansmer/treesj',
@@ -151,7 +141,7 @@ return {
     {
         'monkoose/matchparen.nvim',
         lazy = true,
-        event = {'CursorHold', 'CursorMoved'},
+        event = 'CursorHold',
         config = true,
     },
 
