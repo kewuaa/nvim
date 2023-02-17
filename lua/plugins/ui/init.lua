@@ -65,6 +65,13 @@ return {
         event = 'BufRead',
         config = configs.indent_blankline,
     },
+    {
+        'echasnovski/mini.indentscope',
+        version = false,
+        event = 'CursorMoved',
+        config = configs.mini_indentscope,
+    },
+
     -- 注释着色
     {
         'folke/paint.nvim',

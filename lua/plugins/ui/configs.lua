@@ -289,6 +289,21 @@ configs.indent_blankline = function()
     })
 end
 
+configs.mini_indentscope = function()
+    require('mini.indentscope').setup({
+        symbol = '|',
+        options = {
+            try_as_border = true,
+        }
+    })
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = require('core.settings').exclude_filetypes,
+        callback = function()
+            vim.b.miniindentscope_disable = true
+        end,
+    })
+end
+
 configs.paint = function()
     require("paint").setup({
         ---type PaintHighlight[]
