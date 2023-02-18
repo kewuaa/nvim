@@ -72,25 +72,6 @@ return {
         config = configs.mini_indentscope,
     },
 
-    -- 注释着色
-    {
-        'folke/paint.nvim',
-        lazy = true,
-        init = function()
-            vim.api.nvim_create_autocmd('filetype', {
-                pattern = 'lua,python',
-                once = true,
-                callback = function()
-                    vim.api.nvim_create_autocmd('CursorHold', {
-                        once = true,
-                        command = [[Lazy load paint.nvim]]
-                    })
-                end
-            })
-        end,
-        config = configs.paint,
-    },
-
     -- 消息提示
     {
         'rcarriga/nvim-notify',
