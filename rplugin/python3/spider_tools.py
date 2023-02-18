@@ -4,7 +4,7 @@ import pynvim
 
 
 @pynvim.plugin
-class SpiderTool:
+class SpiderTools:
     def __init__(self, nvim: pynvim.api.nvim.Nvim) -> None:
         self.__blank_pattern = compile(r'\s*')
         self.__nvim = nvim
