@@ -12,7 +12,6 @@ class SpiderTool:
     def __add_quota(self, s: str) -> str:
         def repl(m):
             return m.group(0) + "'"
-
         return self.__blank_pattern.sub(repl, s, count=1)
 
     @pynvim.command('FormatDict', nargs='*', range='')
