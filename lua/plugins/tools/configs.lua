@@ -353,7 +353,7 @@ end
 
 configs.asynctasks = function()
     local settings = require("core.settings")
-    local rootmarks = settings.rootmarks
+    local rootmarks = settings.get_rootmarks()
     rootmarks[#rootmarks+1] = '.root'
     vim.g.asyncrun_mode = 4
     vim.g.asyncrun_save = 2
