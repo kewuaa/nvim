@@ -121,9 +121,10 @@ function M.setup()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     for _, name in ipairs({
-        'jedi_language_server',
-        'ruff_lsp',
+        'pylsp',
+        -- 'jedi_language_server',
         -- 'pyright',
+        -- 'ruff_lsp',
         'clangd',
         'zls',
         'lua_ls',

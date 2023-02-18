@@ -1,12 +1,18 @@
 local vimls = {}
 local settings = require("core.settings")
-local rootmarks = settings.rootmarks
-
+local rootmarks = settings.get_rootmarks()
+---@diagnostic disable-next-line: missing-parameter
+vim.list_extend(rootmarks, {
+    "runtime",
+    "nvim",
+    "autoload",
+    "plugin",
+})
 
 vimls.rootmarks = rootmarks
 vimls.filetypes = {'vim'}
 vimls.cmd = {
-    settings.vim_path .. 'npm/node_modules/.bin/vim-language-server.cmd',
+    'vim-language-server.cmd',
     '--stdio',
 }
 vimls.init_options = {
@@ -16,7 +22,7 @@ vimls.init_options = {
     indexes = {
         count = 3,
         gap = 100,
-        projectRootPatterns = { "runtime", "nvim", ".git", "autoload", "plugin" },
+        projectRootPatterns = rootmarks,
         runtimepath = true
     },
     isNeovim = true,
@@ -28,6 +34,5 @@ vimls.init_options = {
     },
     vimruntime = ""
 }
-
 
 return vimls

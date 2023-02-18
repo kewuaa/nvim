@@ -1,10 +1,15 @@
 local clangd = {}
 local settings = require("core.settings")
-local gcc_path = settings.c_path .. 'mingw64/bin'
-local rootmarks = settings.rootmarks
+local gcc_path = vim.fn.fnamemodify(vim.fn.exepath('gcc'), ':p:h')
+local rootmarks = settings.get_rootmarks()
 ---@diagnostic disable-next-line: missing-parameter
-vim.list_extend(rootmarks, { 'compile_commands.json', 'compile_flags.txt', '.clangd', '.clang-tidy', '.clang-format' })
-
+vim.list_extend(rootmarks, {
+    'compile_commands.json',
+    'compile_flags.txt',
+    '.clangd',
+    '.clang-tidy',
+    '.clang-format',
+})
 
 local function switch_source_header_splitcmd(bufnr, splitcmd)
     local nvim_lsp = require("lspconfig")
@@ -41,7 +46,7 @@ clangd.filetypes = {
     "proto",
 }
 clangd.cmd = {
-    settings.c_path .. 'clangd/bin/clangd.exe',
+    vim.fn.fnamemodify(gcc_path, ':h:h') .. '/clangd/bin/clangd.exe',
     "--background-index",
     "--pch-storage=memory",
     -- You MUST set this arg ↓ to your c/cpp compiler location (if not included)!

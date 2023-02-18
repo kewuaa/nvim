@@ -1,6 +1,6 @@
 local taplo = {}
 local settings = require('core.settings')
-local rootmarks = settings.rootmarks
+local rootmarks = settings.get_rootmarks()
 rootmarks[#rootmarks+1] = '*.toml'
 
 
