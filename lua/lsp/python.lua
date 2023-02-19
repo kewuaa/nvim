@@ -23,8 +23,6 @@ M.parse_pyenv = function(root)
         local config = read_toml(config_file)
         if config and config.tool then
             venv = config.tool.jedi and config.tool.jedi.venv or venv
-        else
-            vim.notify('could not parse python env from ' .. config_file)
         end
     end
     venv = settings:getpy(venv)
