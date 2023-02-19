@@ -125,14 +125,18 @@ return {
 
     -- 文件树
     {
-        'nvim-tree/nvim-tree.lua',
+        'nvim-neo-tree/neo-tree.nvim',
+        branch = 'v2.x',
         lazy = true,
         keys = {
-            {'<leader>tt', '<cmd>NvimTreeToggle<CR>', mode = 'n'}
+            {'<leader>fe', '<cmd>Neotree toggle<CR>', mode = 'n'},
+            {'<leader>ge', '<cmd>Neotree float git_status<CR>', mode = 'n'},
         },
-        config = configs.nvim_tree,
+        config = configs.neotree,
         dependencies = {
-            {'nvim-tree/nvim-web-devicons'},
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-tree/nvim-web-devicons"},
+            {"MunifTanjim/nui.nvim"},
         }
     },
 

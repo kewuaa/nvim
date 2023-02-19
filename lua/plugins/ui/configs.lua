@@ -353,17 +353,17 @@ configs.lualine = function()
         },
         filetypes = { "lspsagaoutline" },
     }
-    local nvimtree = {
-        sections = {
-            lualine_a = { "bo:filetype" },
-            lualine_b = {},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = {},
-        },
-        filetypes = { "NvimTree" },
-    }
+    -- local nvimtree = {
+    --     sections = {
+    --         lualine_a = { "bo:filetype" },
+    --         lualine_b = {},
+    --         lualine_c = {},
+    --         lualine_x = {},
+    --         lualine_y = {},
+    --         lualine_z = {},
+    --     },
+    --     filetypes = { "NvimTree" },
+    -- }
     local trouble = {
         sections = {
             lualine_a = { "bo:filetype" },
@@ -465,7 +465,7 @@ configs.lualine = function()
         extensions = {
             "quickfix",
             "toggleterm",
-            nvimtree,
+            'neo-tree',
             outline,
             trouble,
         },
@@ -555,7 +555,7 @@ configs.colorful_winsep = function ()
             if win_n == 2 then
                 local win_id = vim.fn.win_getid(vim.fn.winnr('h'))
                 local filetype = vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(win_id), 'filetype')
-                if filetype == "NvimTree" then
+                if filetype == "neo-tree" then
                     colorful_winsep.NvimSeparatorDel()
                 end
             end

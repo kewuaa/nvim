@@ -13,6 +13,8 @@ settings.exclude_filetypes = {
     "netrw",
     "Outline",
     "NvimTree",
+    "neo-tree",
+    "neo-tree-pop",
     "Trouble",
     "fugitive",
     "lspsagafinder",

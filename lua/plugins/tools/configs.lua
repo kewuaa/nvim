@@ -493,160 +493,159 @@ configs.gitsigns = function()
     }
 end
 
-configs.nvim_tree = function()
-    require("nvim-tree").setup({
-        create_in_closed_folder = false,
-        respect_buf_cwd = false,
-        auto_reload_on_write = true,
-        disable_netrw = false,
-        hijack_cursor = true,
-        hijack_netrw = true,
-        hijack_unnamed_buffer_when_opening = false,
-        ignore_buffer_on_setup = false,
-        open_on_setup = false,
-        open_on_setup_file = false,
-        open_on_tab = false,
-        sort_by = "name",
-        sync_root_with_cwd = true,
-        view = {
-            adaptive_size = false,
-            centralize_selection = false,
-            width = 30,
-            side = "left",
-            preserve_window_proportions = false,
-            number = false,
-            relativenumber = false,
-            signcolumn = "yes",
-            hide_root_folder = false,
-            float = {
-                enable = false,
-                open_win_config = {
-                    relative = "editor",
-                    border = "rounded",
-                    width = 30,
-                    height = 30,
-                    row = 1,
-                    col = 1,
+configs.neotree = function()
+    vim.g.neo_tree_remove_legacy_commands = 1
+    require('neo-tree').setup({
+        default_component_configs = {
+            icon = {
+                folder_closed = "",
+                folder_open = "",
+                folder_empty = "",
+            },
+            git_status = {
+                symbols = {
+                    -- Change type
+                    added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+                    modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+                    deleted   = "✖",-- this can only be used in the git_status source
+                    renamed   = "",-- this can only be used in the git_status source
+                    -- Status type
+                    untracked = "",
+                    ignored   = "",
+                    unstaged  = "",
+                    staged    = "",
+                    conflict  = "",
+                }
+            },
+        },
+        window = {
+            mappings = {
+                ['s'] = 'none',
+                ['S'] = 'none',
+                ['<c-x>'] = 'open_split',
+                ['<c-v>'] = 'open_vsplit',
+            }
+        },
+        filesystem = {
+            filtered_items = {
+                visible = false, -- when true, they will just be displayed differently than normal items
+                hide_dotfiles = true,
+                hide_gitignored = true,
+                hide_hidden = true, -- only works on Windows for hidden files/directories
+                hide_by_name = {
+                    --"node_modules"
+                },
+                hide_by_pattern = { -- uses glob style patterns
+                    --"*.meta",
+                    --"*/src/*/tsconfig.json",
+                },
+                always_show = { -- remains visible even if other settings would normally hide it
+                    --".gitignored",
+                },
+                never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+                    --".DS_Store",
+                    --"thumbs.db"
+                },
+                never_show_by_pattern = { -- uses glob style patterns
+                    --".null-ls_*",
                 },
             },
-        },
-        renderer = {
-            group_empty = true,
-            indent_markers = {
-                enable = true,
-                icons = {
-                    corner = "└ ",
-                    edge = "│ ",
-                    item = "│ ",
-                    none = "  ",
-                },
+            window = {
+                mappings = {
+                    ['o'] = 'system_open',
+                }
             },
-            root_folder_modifier = ":e",
-            icons = {
-                webdev_colors = true,
-                git_placement = "before",
-                show = {
-                    file = true,
-                    folder = true,
-                    folder_arrow = false,
-                    git = true,
-                },
-                padding = " ",
-                symlink_arrow = "  ",
-                glyphs = {
-                    default = "", --
-                    symlink = "",
-                    bookmark = "",
-                    git = {
-                        unstaged = "",
-                        staged = "", --
-                        unmerged = "שׂ",
-                        renamed = "", --
-                        untracked = "ﲉ",
-                        deleted = "",
-                        ignored = "", --◌
-                    },
-                    folder = {
-                        -- arrow_open = "",
-                        -- arrow_closed = "",
-                        arrow_open = "",
-                        arrow_closed = "",
-                        default = "",
-                        open = "",
-                        empty = "",
-                        empty_open = "",
-                        symlink = "",
-                        symlink_open = "",
-                    },
-                },
+            commands = {
+                system_open = function(state)
+                    local node = state.tree:get_node()
+                    local path = node:get_id()
+                    vim.api.nvim_command('silent !explorer ' .. path)
+                end,
+            }
+        },
+        event_handlers = {
+            {
+                event = "neo_tree_window_after_open",
+                handler = function(args)
+                    if args.position == "left" or args.position == "right" then
+                        vim.cmd("wincmd =")
+                    end
+                end
             },
-        },
-        hijack_directories = {
-            enable = true,
-            auto_open = true,
-        },
-        update_focused_file = {
-            enable = true,
-            update_root = false,
-            ignore_list = {},
-        },
-        ignore_ft_on_setup = {},
-        filters = {
-            dotfiles = false,
-            custom = { ".DS_Store" },
-            exclude = {},
-        },
-        actions = {
-            use_system_clipboard = true,
-            change_dir = {
-                enable = true,
-                global = false,
+            {
+                event = "neo_tree_window_after_close",
+                handler = function(args)
+                    if args.position == "left" or args.position == "right" then
+                        vim.cmd("wincmd =")
+                    end
+                end
             },
-            open_file = {
-                quit_on_open = false,
-                resize_window = false,
-                window_picker = {
-                    enable = true,
-                    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-                    exclude = {
-                        filetype = require("core.settings").exclude_filetypes,
-                        buftype = { "nofile", "terminal", "help" },
-                    },
-                },
+            {
+                event = "file_renamed",
+                handler = function(args)
+                    -- fix references to file
+                    vim.notify(args.source .. " renamed to " .. args.destination)
+                end
             },
-            remove_file = {
-                close_window = true,
+            {
+                event = "file_moved",
+                handler = function(args)
+                    -- fix references to file
+                    vim.notify(args.source .. " moved to " .. args.destination)
+                end
             },
-        },
-        diagnostics = {
-            enable = true,
-            show_on_dirs = false,
-            debounce_delay = 50,
-            icons = {
-                hint = "",
-                info = "",
-                warning = "",
-                error = "",
+            {
+                event = "file_open_requested",
+                handler = function(args)
+                    local state = args.state
+                    local path = args.path
+                    local open_cmd = args.open_cmd or "edit"
+
+                    -- use last window if possible
+                    local suitable_window_found = false
+                    local nt = require("neo-tree")
+                    if nt.config.open_files_in_last_window then
+                        local prior_window = nt.get_prior_window()
+                        if prior_window > 0 then
+                            local success = pcall(vim.api.nvim_set_current_win, prior_window)
+                            if success then
+                                suitable_window_found = true
+                            end
+                        end
+                    end
+
+                    -- find a suitable window to open the file in
+                    if not suitable_window_found then
+                        if state.window.position == "right" then
+                            vim.cmd("wincmd t")
+                        else
+                            vim.cmd("wincmd w")
+                        end
+                    end
+                    local attempts = 0
+                    while attempts < 4 and vim.bo.filetype == "neo-tree" do
+                        attempts = attempts + 1
+                        vim.cmd("wincmd w")
+                    end
+                    if vim.bo.filetype == "neo-tree" then
+                        -- Neo-tree must be the only window, restore it's status as a sidebar
+                        local winid = vim.api.nvim_get_current_win()
+                        local width = require("neo-tree.utils").get_value(state, "window.width", 40)
+vim.cmd("vsplit " .. path)
+                        vim.api.nvim_win_set_width(winid, width)
+                    else
+                        vim.cmd(open_cmd .. " " .. path)
+                    end
+
+                    -- If you don't return this, it will proceed to open the file using built-in logic.
+                    return { handled = true }
+end
             },
         },
-        filesystem_watchers = {
-            enable = true,
-            debounce_delay = 50,
-        },
-        git = {
-            enable = true,
-            ignore = true,
-            show_on_dirs = true,
-            timeout = 400,
-        },
-        trash = {
-            cmd = "gio trash",
-            require_confirm = true,
-        },
-        live_filter = {
-            prefix = "[FILTER]: ",
-            always_show_folders = true,
-        },
+        source_selector = {
+            winbar = true,
+            statusline = false
+        }
     })
 end
 
