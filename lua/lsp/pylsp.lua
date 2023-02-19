@@ -14,9 +14,9 @@ pylsp.settings = {
             mccabe = {enabled = false},
             ruff = {
                 enabled = true,
-                exclude = {'.git', '**/__pycache__', '.venv'},
+                exclude = {'.git', '**/__pycache__', 'build', 'dist'},
                 ignore = {'E402'},
-                linelength = 80,
+                lineLength = 80,
             },
             jedi = {
                 auto_import_modules = {'numpy', 'pandas'}

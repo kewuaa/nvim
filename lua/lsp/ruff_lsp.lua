@@ -7,7 +7,7 @@ ruff_lsp.init_options = {
     args = {
         '--line-length=80',
         '--ignore=E402',
-        '--exclude=.git,**/__pycache__,.venv',
+        '--exclude=.git,**/__pycache__,build,dist',
     }
 }
 
