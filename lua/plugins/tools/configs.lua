@@ -129,10 +129,6 @@ configs.wilder = function()
                     end
                 end,
                 dir_command = {'fd', '-td'},
-                path = function()
-                    local path = vim.fn.expand('%:p:h')
-                    return path
-                end,
             }),
             wilder.substitute_pipeline({
                 pipeline = wilder.python_search_pipeline({
