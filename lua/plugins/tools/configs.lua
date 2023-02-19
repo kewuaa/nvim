@@ -549,6 +549,8 @@ configs.neotree = function()
                 never_show_by_pattern = { -- uses glob style patterns
                     --".null-ls_*",
                 },
+                bind_to_cwd = false,
+                follow_current_file = true,
             },
             window = {
                 mappings = {
