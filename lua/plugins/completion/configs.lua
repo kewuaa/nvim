@@ -346,13 +346,12 @@ configs.vim_gutentags = function()
     vim.g.gutentags_plus_nomap = 1
 ------------------------------------------------------------------
     local settings = require("core.settings")
-    local rootmarks = settings.rootmarks
-    local tags_cache_path = settings.tags_path .. '.cache/tags'
+    local tags_cache_path = settings.tags_path .. '/.cache/tags'
     local executable = vim.fn.executable
 
     local gutentags_modules = {}
     -- ctags.exe路径
-    local ctags_path = settings.tags_path .. 'ctags/ctags.exe'
+    local ctags_path = settings.tags_path .. '/ctags/ctags.exe'
     if executable(ctags_path) == 1 then
         gutentags_modules[#gutentags_modules+1] = 'ctags'
         vim.g.gutentags_ctags_executable = ctags_path
@@ -415,13 +414,13 @@ configs.vim_gutentags = function()
         vim.notify(string.format('%s not executable', ctags_path))
     end
 
-    local gtags_path = settings.tags_path .. 'gtags/bin/gtags.exe'
-    local gtags_cscope_path = settings.tags_path .. 'gtags/bin/gtags-cscope.exe'
+    local gtags_path = settings.tags_path .. '/gtags/bin/gtags.exe'
+    local gtags_cscope_path = settings.tags_path .. '/gtags/bin/gtags-cscope.exe'
     if executable(gtags_path) == 1 and executable(gtags_cscope_path) == 1 then
         gutentags_modules[#gutentags_modules+1] = 'gtags_cscope'
         -- GTAGSLABEL告诉gtags默认C/C++/Java等六种原生支持的代码直接使用gtags本地分析器，而其他语言使用pygments模块
         vim.env.GTAGSLABEL = 'native-pygments'
-        vim.env.GTAGSCONF = settings.tags_path .. 'gtags/share/gtags/gtags.conf'
+        vim.env.GTAGSCONF = settings.tags_path .. '/gtags/share/gtags/gtags.conf'
         vim.g.gutentags_gtags_executable = gtags_path
         vim.g.gutentags_gtags_cscope_executable = gtags_cscope_path
         -- 禁用gutentags自动加载gtags数据库的行为
@@ -432,8 +431,9 @@ configs.vim_gutentags = function()
     vim.g.gutentags_modules = gutentags_modules
 
 
-    rootmarks[#rootmarks+1] = '.gutctags'
-    rootmarks[#rootmarks+1] = '.cyproject'
+    local rootmarks = {
+        '.gutctags', '.cyproject'
+    }
     -- 禁用默认
     vim.g.gutentags_add_default_project_roots = 0
     -- gutentags搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归

@@ -4,6 +4,7 @@ settings.pyenv_path = 'D:/Softwares/Program_Files/Python/envs'
 function settings:getpy(name)
     return string.format('%s/%s/Scripts/python.exe', self.pyenv_path, name)
 end
+settings.tags_path = 'D:/Softwares/Program_Files/Tags'
 settings.exclude_filetypes = {
     "qf",
     "lazy",
