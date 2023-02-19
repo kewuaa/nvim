@@ -1,13 +1,27 @@
+from pathlib import Path
 from re import compile
 
 import pynvim
+try:
+    import rtoml as toml
+except ImportError:
+    import tomli as toml
+
+
+def _read_toml(file: str) -> dict:
+    file = Path(file)
+    if file.exists():
+        raise RuntimeError('file not exists')
+    with open(file) as f:
+        content = toml.load(f)
+    return content
 
 
 @pynvim.plugin
-class SpiderTools:
+class Utils:
     def __init__(self, nvim: pynvim.api.nvim.Nvim) -> None:
+        self._nvim = nvim
         self.__blank_pattern = compile(r'\s*')
-        self.__nvim = nvim
 
     def __add_quota(self, s: str) -> str:
         def repl(m):
@@ -16,7 +30,7 @@ class SpiderTools:
 
     @pynvim.command('FormatDict', nargs='*', range='')
     def format_dict(self, args, range) -> None:
-        nvim = self.__nvim
+        nvim = self._nvim
         buffer = nvim.current.buffer
         start, end = range
         start -= 1
