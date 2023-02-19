@@ -32,7 +32,7 @@ M.read_toml = function(file)
 end
 
 
-M.find_root = function(rootmarks)
+M.find_root_by = function(rootmarks)
     local fnm = vim.fn.fnamemodify
     local globpath = vim.fn.globpath
     local match = string.match
@@ -61,6 +61,7 @@ M.find_root = function(rootmarks)
 end
 
 
+local find_root = M.find_root_by(require('core.settings').get_rootmarks())
 M.get_cwd = function ()
     local activate_clients = vim.lsp.get_active_clients({
         bufnr = 0
@@ -71,7 +72,8 @@ M.get_cwd = function ()
         root = activate_clients[num].config.root_dir
     end
     if not root then
-        root = fn.expand('%:p:h')
+        local startpath = fn.expand('%:p:h')
+        root = find_root(startpath)
     end
     return root
 end
