@@ -41,3 +41,17 @@ class Utils:
                 k, v = item
                 buffer[i + start] = \
                     f"{self.__add_quota(k)}': '{v.lstrip().rstrip(',')}',"
+
+    @pynvim.autocmd('BufNewFile', '*.pyx')
+    def add_pyxfilehead(self) -> None:
+        nvim = self._nvim
+        buffer = nvim.current.buffer
+        first, *lines = (
+            'language_level=3',
+            'boundscheck=False',
+            'wraparound=False',
+            'cdivision=True',
+        )
+        buffer[0] = f'# cython: {first}'
+        for line in lines:
+            buffer.append(f'# cython: {line}')
