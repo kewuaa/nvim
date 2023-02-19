@@ -1,9 +1,10 @@
 local M = {}
 local settings = require('core.settings')
-local read_toml = require('core.utils').read_toml
+local utils = require('core.utils')
+local read_toml = utils.read_toml
 ---@diagnostic disable-next-line: missing-parameter
 local rootmarks = vim.list_extend(settings.get_rootmarks(), {'pyproject.toml'})
-local find_root = require('lspconfig').util.root_pattern(unpack(rootmarks))
+local find_root = utils.find_root(rootmarks)
 local filetypes = {'python'}
 
 M.base_settings = {
@@ -14,9 +15,6 @@ M.parse_pyenv = function(root)
     if not root then
         local startpath = vim.fn.expand('%:p:h')
         root = find_root(startpath)
-    end
-    if not root then
-        print('not detect root')
     end
     local venv = 'default'
     local environ = vim.g.asynctasks_environ

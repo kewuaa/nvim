@@ -1,17 +1,3 @@
-vim.cmd [[
-py3 << EOF
-try:
-    import rtoml as toml
-except ImportError:
-    import tomli as toml
-
-
-def read_toml(file: str):
-    with open(file) as f:
-        content = toml.load(f)
-    return content
-EOF
-]]
 local M = {}
 local fn = vim.fn
 local bigfile_callbacks = {
@@ -41,7 +27,37 @@ M.read_toml = function(file)
     else
         file = vim.fn.expand('%:p')
     end
-    return vim.fn.py3eval(string.format('read_toml("%s")', file))
+    vim.cmd [[py3 from pyutils import pyread_toml]]
+    return vim.fn.py3eval(string.format('pyread_toml("%s")', file))
+end
+
+
+M.find_root = function(rootmarks)
+    local fnm = vim.fn.fnamemodify
+    local globpath = vim.fn.globpath
+    local match = string.match
+    return function(startpath)
+        startpath = fnm(startpath, ':p')
+        local root = startpath
+        while true do
+            local if_find = false
+            for _, mark in ipairs(rootmarks) do
+                ---@diagnostic disable-next-line: param-type-mismatch
+                local match_path = globpath(startpath, mark, true, true)
+                if #match_path > 0 then
+                    root = startpath
+                    if_find = true
+                    break
+                end
+            end
+            if if_find or match(startpath, '%a:[/\\]$') then
+                break
+            else
+                startpath = fnm(startpath, ':h')
+            end
+        end
+        return root
+    end
 end
 
 

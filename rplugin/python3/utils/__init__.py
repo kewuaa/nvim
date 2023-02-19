@@ -1,20 +1,6 @@
-from pathlib import Path
 from re import compile
 
 import pynvim
-try:
-    import rtoml as toml
-except ImportError:
-    import tomli as toml
-
-
-def _read_toml(file: str) -> dict:
-    file = Path(file)
-    if file.exists():
-        raise RuntimeError('file not exists')
-    with open(file) as f:
-        content = toml.load(f)
-    return content
 
 
 @pynvim.plugin
