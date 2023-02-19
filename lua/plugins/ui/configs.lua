@@ -342,6 +342,16 @@ configs.lualine = function()
     -- local function min_window_width(width)
     --     return function() return vim.fn.winwidth(0) > width end
     -- end
+    local attached_lsp = function()
+        local clients = vim.lsp.get_active_clients({
+            bufnr = 0
+        })
+        if #clients > 0 then
+            local client = clients[1]
+            return string.format('[LSP->%s]', string.upper(client.name))
+        end
+        return ''
+    end
     local outline = {
         sections = {
             lualine_a = {},
@@ -414,6 +424,10 @@ configs.lualine = function()
             },
             lualine_x = {
                 {
+                    attached_lsp,
+                    color = { fg = "#ff9e64" }
+                },
+                {
                     require("lazy.status").updates,
                     cond = require("lazy.status").has_updates,
                     color = { fg = "#ff9e64" },
@@ -422,7 +436,10 @@ configs.lualine = function()
                     gutentags,
                     cond = function() return vim.bo.filetype == 'pyrex' end,
                 },
-                'g:translator_status',
+                {
+                    'g:translator_status',
+                    color = { fg = "#ff9e64" }
+                },
                 {
                     "diagnostics",
                     sources = { "nvim_diagnostic" },
