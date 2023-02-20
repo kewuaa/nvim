@@ -135,6 +135,7 @@ function M.setup()
         if ok then
             local server_config = {
                 name = name,
+                loglevel = vim.lsp.protocol.MessageType.Error,
                 autostart = true,
                 single_file_support = true,
                 on_attach = on_attach,
