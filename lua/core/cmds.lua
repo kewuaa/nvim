@@ -36,6 +36,14 @@ api.nvim_create_autocmd('filetype', {
 require('core.utils').init_bigfile_cmd()
 
 local cc = vim.api.nvim_create_user_command
-
-cc('GitCommit', 'AsyncTask git-commit', {})
-cc('GitPush', 'AsyncTask git-push', {})
+local commands = {
+    {'OpenCmd', 'AsyncTask terminal'},
+    {'GitCommit', 'AsyncTask git-commit'},
+    {'GitPush', 'AsyncTask git-push'},
+    {'GitCheckout', 'AsyncTask git-checkout'},
+    {'GitReset', 'AsyncTask git-reset'},
+    {'GitLog', 'AsyncTask git-log'},
+}
+for _, command in ipairs(commands) do
+    cc(command[1], command[2], command[3] or {})
+end
