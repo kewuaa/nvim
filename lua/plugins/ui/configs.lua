@@ -349,8 +349,11 @@ configs.lualine = function()
             bufnr = 0
         })
         if #clients > 0 then
-            local client = clients[1]
-            return string.format('[LSP->%s]', string.upper(client.name))
+            local names = {}
+            for _, client in ipairs(clients) do
+                names[#names+1] = string.upper(client.name)
+            end
+            return string.format('[LSP->%s]', vim.fn.join(names, ','))
         end
         return ''
     end
