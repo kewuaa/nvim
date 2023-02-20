@@ -16,6 +16,10 @@ return {
                 config = configs.LuaSnip,
                 dependencies = {"rafamadriz/friendly-snippets"},
             },
+            -- LSP source
+            {'hrsh7th/cmp-nvim-lsp'},
+            -- ctags source
+            {'quangnguyen30192/cmp-nvim-tags'},
             -- snippets source
             {'saadparwaiz1/cmp_luasnip'},
             -- underline sort
@@ -54,8 +58,6 @@ return {
         dependencies = {
             -- lsp增强
             {'glepnir/lspsaga.nvim', branch = 'main', config = configs.lspsaga},
-            -- LSP source
-            {'hrsh7th/cmp-nvim-lsp'},
             -- lua增强
             {'folke/neodev.nvim', config = configs.neodev},
             -- 符号提示
@@ -85,8 +87,6 @@ return {
         end,
         dependencies = {
             {'skywind3000/gutentags_plus'},
-            -- ctags source
-            {'quangnguyen30192/cmp-nvim-tags'},
         }
     },
 }
