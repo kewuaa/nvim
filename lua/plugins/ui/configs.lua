@@ -25,6 +25,7 @@ configs.nvim_treesitter = function()
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = { "c", "cpp" },
+            ---@diagnostic disable-next-line: unused-local
             disable = function(lang, bufnr)
                 local size = require('core.utils').get_bufsize(bufnr)
                 if size > 512 then
@@ -218,10 +219,10 @@ configs.catppuccin = function()
             mini = false,
             neogit = false,
             neotest = false,
-            neotree = false,
+            neotree = true,
             noice = false,
             notify = true,
-            nvimtree = true,
+            nvimtree = false,
             overseer = false,
             pounce = false,
             semantic_tokens = false,
@@ -330,6 +331,7 @@ configs.lualine = function()
         return vim.fn['gutentags#statusline_cb'](get_gutentags_status)
     end
     local function diff_source()
+        ---@diagnostic disable-next-line: undefined-field
         local gitsigns = vim.b.gitsigns_status_dict
         if gitsigns then
             return {
@@ -425,7 +427,7 @@ configs.lualine = function()
             lualine_x = {
                 {
                     attached_lsp,
-                    color = { fg = "#ff9e64" }
+                    color = { fg = "#99D1DB" }
                 },
                 {
                     require("lazy.status").updates,
@@ -435,10 +437,11 @@ configs.lualine = function()
                 {
                     gutentags,
                     cond = function() return vim.bo.filetype == 'pyrex' end,
+                    color = { fg = '#F4B8E4'}
                 },
                 {
                     'g:translator_status',
-                    color = { fg = "#ff9e64" }
+                    color = { fg = "#E5C890" }
                 },
                 {
                     "diagnostics",
