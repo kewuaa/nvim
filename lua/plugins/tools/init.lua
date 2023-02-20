@@ -2,18 +2,6 @@ local configs = require("plugins.tools.configs")
 
 
 return {
-    -- filetype speedup
-    { 'nathom/filetype.nvim' },
-
-    -- zig filetype
-    {
-        'ziglang/zig.vim',
-        lazy = false,
-        init = function()
-            vim.g.zig_fmt_autosave = 0
-        end,
-    },
-
     -- 显示代码错误
     {
         'folke/trouble.nvim',
