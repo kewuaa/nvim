@@ -18,7 +18,7 @@ function M.lsp(client, bufnr)
         bind = true,
         use_lspsaga = true,
         doc_lines = 0,
-        floating_window = false,
+        floating_window = true,
         -- hint_scheme = 'LspSignatureHintVirtualText',
         hint_prefix = ' ',
     }, bufnr)

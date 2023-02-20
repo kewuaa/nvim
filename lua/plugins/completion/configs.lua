@@ -238,56 +238,26 @@ configs.lspsaga = function()
     saga.setup({
         finder = {
             edit = { 'o', '<CR>' },
-            vsplit = 's',
-            split = 'i',
-            tabe = 't',
+            vsplit = '<c-v>',
+            split = '<c-x>',
+            tabe = '<c-t>',
             quit = { 'q', '<ESC>' },
         },
         definition = {
             edit = '<C-c>o',
             vsplit = '<C-c>v',
-            split = '<C-c>i',
+            split = '<C-c>x',
             tabe = '<C-c>t',
             quit = 'q',
             close = '<Esc>',
         },
-        code_action = {
-            num_shortcut = true,
-            keys = {
-                quit = 'q',
-                exec = '<CR>',
-            },
-        },
-        lightbulb = {
-            enable = true,
-            enable_in_insert = true,
-            sign = true,
-            sign_priority = 40,
-            virtual_text = true,
-        },
         diagnostic = {
-            twice_into = false,
+            on_insert = false,
             show_code_action = false,
-            show_source = true,
             keys = {
                 exec_action = 'o',
                 quit = 'q',
                 go_action = 'g'
-            },
-        },
-        outline = {
-            win_position = 'right',
-            win_with = '',
-            win_width = 30,
-            show_detail = true,
-            auto_preview = true,
-            auto_refresh = true,
-            auto_close = true,
-            custom_sort = nil,
-            keys = {
-                jump = 'o',
-                expand_collapse = 'u',
-                quit = 'q',
             },
         },
         callhierarchy = {
@@ -302,26 +272,8 @@ configs.lspsaga = function()
                 expand_collapse = 'u',
             },
         },
-        symbol_in_winbar = {
-            enable = true,
-            separator = ' ',
-            hide_keyword = true,
-            show_file = true,
-            folder_level = 2,
-        },
         ui = {
-            -- currently only round theme
-            theme = 'round',
-            -- border type can be single,double,rounded,solid,shadow.
-            border = 'solid',
-            winblend = 0,
-            expand = '',
-            collapse = '',
-            preview = ' ',
-            code_action = '💡',
-            diagnostic = '🐞',
-            incoming = ' ',
-            outgoing = ' ',
+            border = 'double',
             colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
             kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
         },
