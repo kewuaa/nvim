@@ -140,12 +140,17 @@ return {
 
     -- 选择窗口
     {
-        'https://gitlab.com/yorickpeterse/nvim-window.git',
-        lazy = true,
+        's1n7ax/nvim-window-picker',
+        version = 'v1.*',
         keys = {
-            { '<leader>w', function() require('nvim-window').pick() end, mode = 'n' }
+            { '<leader>w', function()
+                local picked_window_id = require('window-picker').pick_window()
+                if picked_window_id then
+                    vim.api.nvim_set_current_win(picked_window_id)
+                end
+            end, mode = 'n' }
         },
-        config = configs.nvim_window,
+        config = configs.nvim_window_picker,
     },
 
     -- 自动扩展窗口宽度
