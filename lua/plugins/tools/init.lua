@@ -135,13 +135,7 @@ return {
         keys = {
             {'<leader>bb', '<cmd>JABSOpen<CR>', mode = 'n'}
         },
-        opts = {
-            keymap = {
-                h_split = '<C-x>',
-                v_split = '<C-v>'
-            }
-        },
-        config = true,
+        config = configs.JABS,
     },
 
     -- 选择窗口
@@ -197,6 +191,6 @@ return {
     {
         'yianwillis/vimcdoc',
         lazy = true,
-        event = 'VeryLazy',
+        event = 'CmdlineChanged',
     },
 }

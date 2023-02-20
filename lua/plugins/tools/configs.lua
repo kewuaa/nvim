@@ -549,7 +549,7 @@ configs.neotree = function()
                 never_show_by_pattern = { -- uses glob style patterns
                     --".null-ls_*",
                 },
-                bind_to_cwd = false,
+                bind_to_cwd = true,
                 follow_current_file = true,
             },
             window = {
@@ -647,6 +647,15 @@ end
         source_selector = {
             winbar = true,
             statusline = false
+        }
+    })
+end
+
+configs.JABS = function()
+    require('JABS').setup({
+        keymap = {
+            h_split = '<C-x>',
+            v_split = '<C-v>'
         }
     })
 end
