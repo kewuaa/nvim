@@ -16,12 +16,20 @@ function M.lsp(client, bufnr)
 
     require("lsp_signature").on_attach({
         bind = true,
-        use_lspsaga = true,
         doc_lines = 0,
         floating_window = true,
         -- hint_scheme = 'LspSignatureHintVirtualText',
+        hint_enable = false,
         hint_prefix = ' ',
+        handler_opts = {
+            border = "rounded",
+        },
+        -- toggle_key = '<M-x>'
+        select_signature_key = '<S-M-n>',
     }, bufnr)
+    map({'n', 'i'}, '<S-M-k>', function()
+        require('lsp_signature').toggle_float_win()
+    end, bufopt)
 end
 
 return M
