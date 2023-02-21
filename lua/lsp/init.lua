@@ -141,6 +141,7 @@ function M.setup()
                 on_attach = on_attach,
                 capabilities = capabilities,
                 flags = lsp_flags,
+                root_dir = lsp_config.util.find_git_ancestor,
             }
             if vim.fn.executable(server.cmd[1]) == 1 then
                 if server.rootmarks then
