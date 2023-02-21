@@ -605,7 +605,7 @@ configs.neotree = function()
 end
 
 configs.JABS = function()
-    require('JABS').setup({
+    require('jabs').setup({
         keymap = {
             h_split = '<C-x>',
             v_split = '<C-v>'
