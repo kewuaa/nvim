@@ -130,6 +130,7 @@ function M.setup()
         'tsserver',
         'vimls',
         'taplo',
+        'jsonls',
     }) do
         local ok, server = pcall(require, 'lsp.' .. name)
         if ok then
