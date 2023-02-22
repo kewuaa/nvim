@@ -48,7 +48,7 @@ return {
         dependencies = {
             {'nvim-treesitter/nvim-treesitter-textobjects'},
             -- 彩虹括号
-            {'p00f/nvim-ts-rainbow'},
+            {'mrjones2014/nvim-ts-rainbow'},
             -- 参数高亮
             {'m-demare/hlargs.nvim', config = configs.hlargs},
         },
