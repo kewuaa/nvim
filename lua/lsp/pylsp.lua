@@ -19,6 +19,8 @@ pylsp.settings = {
                 lineLength = 80,
             },
             jedi = {
+                -- environment = '',
+                -- extra_paths = {},
                 auto_import_modules = {'numpy', 'pandas'}
             },
             jedi_completion = {
@@ -36,8 +38,21 @@ pylsp.settings = {
 }
 pylsp.on_new_config = function(new_config, new_root)
     local venv = python.parse_pyenv(new_root)
+    venv = vim.fn.fnamemodify(venv, ':h:h')
     new_config.settings.pylsp.plugins.jedi.environment = venv
-    new_config.settings.pylsp.plugins.jedi.extra_paths = {new_root}
+    local client = vim.lsp.get_active_clients()[1]
+    if client then
+        local ok = client.notify('workspace/didChangeWorkspaceFolders', {
+            added = {
+                uri = vim.uri_from_fname(new_root),
+                name = string.format('%s', new_root),
+            }
+        })
+        if not ok then
+            vim.notify('"workspace/didChangeWorkspaceFolders" notify failed')
+        end
+        -- client.workspace_did_change_configuration(new_config.settings)
+    end
     return new_config
 end
 
