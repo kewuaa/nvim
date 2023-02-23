@@ -33,7 +33,6 @@ api.nvim_create_autocmd('filetype', {
         map('n', 'q', '<cmd>q<CR>', bufopts)
     end
 })
-require('core.utils').init_bigfile_cmd()
 
 local cc = vim.api.nvim_create_user_command
 local commands = {

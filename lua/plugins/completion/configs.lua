@@ -190,7 +190,7 @@ configs.nvim_cmp = function()
             }
         }
     ))
-    require('core.utils').bigfile_callback_register(
+    require('core.utils.bigfile').register(
         512,
         function(_)
             cmp.setup.buffer({ enabled = false })
@@ -214,7 +214,7 @@ configs.nvim_lspconfig = function ()
     require('lsp').setup()
     local utils = require('core.utils')
     local threshold = 512
-    utils.bigfile_callback_register(threshold, function(bufnr)
+    require('core.utils.bigfile').register(threshold, function(bufnr)
         vim.api.nvim_create_autocmd('LspAttach', {
             buffer = bufnr,
             callback = function(args)

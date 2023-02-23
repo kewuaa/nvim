@@ -52,6 +52,7 @@ end
 disable_distribution_plugins()
 require("core.options")
 require("core.cmds")
+require('core.utils.bigfile').init()
 require("core.keymaps").init()
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
