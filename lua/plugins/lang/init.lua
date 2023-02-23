@@ -53,5 +53,4 @@ return {
             {'m-demare/hlargs.nvim', config = configs.hlargs},
         },
     },
-
 }
