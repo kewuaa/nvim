@@ -2,7 +2,9 @@ local settings = {}
 
 settings.pyenv_path = 'D:/Softwares/Program_Files/Python/envs'
 function settings:getpy(name)
-    return string.format('%s/%s/Scripts/python.exe', self.pyenv_path, name)
+    local venv = string.format('%s/%s/Scripts/python.exe', self.pyenv_path, name)
+    assert(vim.fn.filereadable(venv) == 1)
+    return venv
 end
 settings.tags_path = 'D:/Softwares/Program_Files/Tags'
 settings.exclude_filetypes = {

@@ -225,6 +225,15 @@ configs.lualine = function()
         end
         return ''
     end
+    local pyenv = function()
+        if vim.bo.filetype == 'python' then
+            local env = require('core.utils.python').get_current_env()
+            if env then
+                return ' ' .. env.name
+            end
+        end
+        return ''
+    end
     local outline = {
         sections = {
             lualine_a = {},
@@ -282,6 +291,10 @@ configs.lualine = function()
                         readonly = '🔒',
                     }
                 },
+                {
+                    pyenv,
+                    color = { fg = '#ffbc03' }
+                }
             },
             lualine_c = {
                 {

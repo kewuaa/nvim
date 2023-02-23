@@ -64,4 +64,9 @@ M.get_bufsize = function(bufnr)
     return 0
 end
 
+M.init = function()
+    require('core.utils.bigfile').init()
+    require('core.utils.python').init()
+end
+
 return M
