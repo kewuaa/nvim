@@ -368,7 +368,7 @@ configs.lualine = function()
         tabline = {},
         extensions = {
             "quickfix",
-            "toggleterm",
+            -- "toggleterm",
             'neo-tree',
             outline,
             trouble,
