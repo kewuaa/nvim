@@ -58,7 +58,6 @@ configs.nvim_cmp = function()
             get_cwd = require("core.utils").get_cwd,
         },
     }
-    local treesitter_source = { name = 'treesitter' }
     local dap_source = { name = 'dap' }
     local config = {
         enabled = function()
@@ -169,7 +168,6 @@ configs.nvim_cmp = function()
             lsp_source,
             -- tag_source,
             snip_source,
-            treesitter_source,
             buffer_source,
         }),
     }
