@@ -193,6 +193,9 @@ configs.mini_indentscope = function()
             try_as_border = true,
         }
     })
+    vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', {
+        fg = 'pink'
+    })
     vim.api.nvim_create_autocmd("FileType", {
         pattern = require('core.settings').exclude_filetypes,
         callback = function()
