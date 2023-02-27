@@ -1,7 +1,6 @@
 local M = {}
 local settings = require('core.settings')
 local utils = require('core.utils')
-local read_toml = utils.read_toml
 ---@diagnostic disable-next-line: missing-parameter
 local rootmarks = vim.list_extend(settings.get_rootmarks(), {'pyproject.toml'})
 local find_root = utils.find_root_by(rootmarks)
