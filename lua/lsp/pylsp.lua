@@ -34,7 +34,6 @@ pylsp.settings = {
             }
         },
     },
-
 }
 pylsp.on_new_config = function(new_config, new_root)
     local venv = python.parse_pyenv(new_root)
