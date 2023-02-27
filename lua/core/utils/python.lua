@@ -4,7 +4,12 @@ local current_env = nil
 function M.parse_pyenv(root)
     local venv = 'default'
     local environ = vim.g.asynctasks_environ
-    local config_file = root .. '/pyproject.toml'
+    local config_file = string.format(
+        '%s%s%s',
+        root,
+        string.match(root, '[\\/]$') and '' or '/',
+        'pyproject.toml'
+    )
     if vim.fn.filereadable(config_file) == 1 then
         local config = require('core.utils').read_toml(config_file)
         if config and config.tool then
