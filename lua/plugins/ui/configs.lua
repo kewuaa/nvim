@@ -1,6 +1,24 @@
 local configs = {}
 
 
+configs.sonokai = function()
+    vim.g.sonokai_style = 'atlantis'
+    vim.g.sonokai_disable_italic_comment = 0
+    vim.g.sonokai_enable_italic = 1
+    vim.g.sonokai_cursor = 'yellow'
+    vim.g.sonokai_transparent_background = 0
+    vim.g.sonokai_dim_inactive_windows = 1
+    vim.g.sonokai_menu_selection_background = 'blue'
+    vim.g.sonokai_spell_foreground = 'colored'
+    vim.g.sonokai_show_eob = 1
+    vim.g.sonokai_diagnostic_text_highlight = 1
+    vim.g.sonokai_diagnostic_line_highlight = 1
+    vim.g.sonokai_diagnostic_virtual_text = 'colored'
+    vim.g.sonokai_current_word = 'grey background'
+    vim.g.sonokai_disable_terminal_colors = 0
+    vim.g.sonokai_better_performance = 1
+    vim.schedule(function() vim.cmd.colorscheme('sonokai') end)
+end
 configs.catppuccin = function()
     require('catppuccin').setup({
         compile_path = vim.fn.stdpath "data" .. "/catppuccin",
@@ -270,7 +288,7 @@ configs.lualine = function()
     require("lualine").setup({
         options = {
             icons_enabled = true,
-            theme = 'catppuccin',
+            theme = 'sonokai',
             disabled_filetypes = {},
             component_separators = { left = '', right = '' },
             section_separators = { left = "", right = "" },

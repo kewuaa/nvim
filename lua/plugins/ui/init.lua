@@ -4,12 +4,18 @@ local configs = require("plugins.ui.configs")
 return {
     -- 颜色主题
     {
-        'catppuccin/nvim',
-        name = "catppuccin",
+        'sainnhe/sonokai',
         lazy = true,
         event = 'VeryLazy',
-        config = configs.catppuccin,
+        config = configs.sonokai,
     },
+    -- {
+    --     'catppuccin/nvim',
+    --     name = "catppuccin",
+    --     lazy = true,
+    --     event = 'VeryLazy',
+    --     config = configs.catppuccin,
+    -- },
 
     -- statusline
     {
