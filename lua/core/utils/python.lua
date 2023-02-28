@@ -2,21 +2,32 @@ local M = {}
 local current_env = nil
 
 function M.parse_pyenv(root)
-    local venv = 'default'
+    local venv = nil
     local environ = vim.g.asynctasks_environ
-    local config_file = string.format(
+    local local_venv = string.format(
         '%s%s%s',
         root,
         string.match(root, '[\\/]$') and '' or '/',
-        'pyproject.toml'
+        '.venv/Scripts/python.exe'
     )
-    if vim.fn.filereadable(config_file) == 1 then
-        local config = require('core.utils').read_toml(config_file)
-        if config and config.tool then
-            venv = config.tool.jedi and config.tool.jedi.venv or venv
+    if vim.loop.fs_stat(local_venv) then
+        venv = local_venv
+    else
+        venv = 'default'
+        local config_file = string.format(
+            '%s%s%s',
+            root,
+            string.match(root, '[\\/]$') and '' or '/',
+            'pyproject.toml'
+        )
+        if vim.loop.fs_stat(config_file) then
+            local config = require('core.utils').read_toml(config_file)
+            if config and config.tool then
+                venv = config.tool.jedi and config.tool.jedi.venv or venv
+            end
         end
+        venv = require('core.settings'):getpy(venv)
     end
-    venv = require('core.settings'):getpy(venv)
     environ.pyenv = venv
     vim.g.asynctasks_environ = environ
     local env = vim.fn.fnamemodify(venv, ':h:h')
