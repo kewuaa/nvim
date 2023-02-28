@@ -39,6 +39,12 @@ pylsp.on_new_config = function(new_config, new_root)
     local venv = python.parse_pyenv(new_root)
     venv = vim.fn.fnamemodify(venv, ':h:h')
     new_config.settings.pylsp.plugins.jedi.environment = venv
+    local src = new_root .. '/src'
+    if vim.loop.fs_stat(src) then
+        new_config.settings.pylsp.plugins.jedi.extra_paths = {src}
+    else
+        new_config.settings.pylsp.plugins.jedi.extra_paths = {}
+    end
     local client = vim.lsp.get_active_clients()[1]
     if client then
         local ok = client.notify('workspace/didChangeWorkspaceFolders', {
