@@ -359,7 +359,7 @@ configs.asynctasks = function()
     vim.g.asynctasks_term_focus = 0
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
-    vim.g.asynctasks_environ = vim.empty_dict()
+    -- vim.g.asynctasks_environ = vim.empty_dict()
     vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
 end
 

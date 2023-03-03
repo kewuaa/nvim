@@ -3,7 +3,7 @@ local current_env = nil
 
 function M.parse_pyenv(root)
     local venv = nil
-    local environ = vim.g.asynctasks_environ
+    local environ = vim.g.asynctasks_environ or {}
     local local_venv = string.format(
         '%s%s%s',
         root,

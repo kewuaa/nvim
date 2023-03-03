@@ -59,16 +59,14 @@ return {
     {
         'skywind3000/asynctasks.vim',
         lazy = true,
-        init = function()
-            require('core.keymaps'):load('asynctasks')()
-            configs.asynctasks()
-        end,
+        init = require("core.keymaps"):load('asynctasks'),
         cmd = {
             'AsyncTask',
             'AsyncTaskList',
             'AsyncTaskMacro',
             'AsyncTaskEdit',
         },
+        config = configs.asynctasks,
         dependencies = {
             {'skywind3000/asyncrun.vim'},
         },
