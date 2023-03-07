@@ -156,9 +156,10 @@ return {
 
     -- match enhance
     {
-        'andymass/vim-matchup',
+        'monkoose/matchparen.nvim',
         lazy = true,
-        event = {'BufRead', 'BufNewFile'},
+        event = 'CursorHold',
+        config = true,
     },
 
     -- 搜索后自动关闭高亮
