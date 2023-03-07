@@ -32,7 +32,7 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         lazy = true,
-        event = 'BufRead',
+        event = {'BufRead', 'BufNewFile'},
         config = configs.indent_blankline,
     },
     {
