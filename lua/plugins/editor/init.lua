@@ -158,7 +158,7 @@ return {
     {
         'andymass/vim-matchup',
         lazy = true,
-        event = 'CursorHold',
+        event = {'BufRead', 'BufNewFile'},
     },
 
     -- 搜索后自动关闭高亮
