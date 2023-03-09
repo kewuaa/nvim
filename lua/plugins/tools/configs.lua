@@ -206,6 +206,20 @@ configs.wilder = function()
             substitute = wildmenu_renderer,
         })
     )
+
+    require('core.utils.bigfile').register(
+        512,
+        function()
+            wilder.disable()
+            vim.notify('wilder has been disabled for the file size is too big, you could use "ToggleWilder" to toggle it')
+            vim.api.nvim_create_user_command(
+                'ToggleWilder',
+                function() wilder.toggle() end,
+                {}
+            )
+        end,
+        {}
+    )
 end
 
 configs.nvim_dap = function()
