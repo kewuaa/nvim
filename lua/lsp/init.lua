@@ -120,42 +120,43 @@ function M.setup()
     }
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-    for _, name in ipairs({
-        'pylsp',
-        -- 'jedi_language_server', 'ruff_lsp',
-        -- 'pyright',
-        'clangd', 'cmake',
-        'zls',
-        'lua_ls',
-        'tsserver',
-        'vimls',
-        'taplo',
-        'jsonls',
+    local base_config = {
+        loglevel = vim.lsp.protocol.MessageType.Error,
+        autostart = true,
+        single_file_support = true,
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = lsp_flags,
+        root_dir = lsp_config.util.find_git_ancestor,
+    }
+    for _, lang in ipairs({
+        'python',
+        'c_cpp',
+        'zig',
+        'lua',
+        'verilog',
+        'js_ts',
+        'vim',
+        'toml',
+        'json',
     }) do
-        local ok, server = pcall(require, 'lsp.' .. name)
+        local ok, config = pcall(require, 'lsp.' .. lang)
         if ok then
-            local server_config = {
-                name = name,
-                loglevel = vim.lsp.protocol.MessageType.Error,
-                autostart = true,
-                single_file_support = true,
-                on_attach = on_attach,
-                capabilities = capabilities,
-                flags = lsp_flags,
-                root_dir = lsp_config.util.find_git_ancestor,
-            }
-            if vim.fn.executable(server.cmd[1]) == 1 then
-                if server.rootmarks then
-                    server.root_dir = lsp_config.util.root_pattern(unpack(server.rootmarks))
-                    server.rootmarks = nil
+            for name, server in pairs(config) do
+                if vim.fn.executable(server.cmd[1]) == 1 then
+                    if server.rootmarks then
+                        server.root_dir = lsp_config.util.root_pattern(unpack(server.rootmarks))
+                        server.rootmarks = nil
+                    end
+                    lsp_config[name].setup(
+                        vim.tbl_extend('force', base_config, server)
+                    )
+                else
+                    vim.notify(string.format('%s not executable', server.cmd[1]))
                 end
-                server_config = vim.tbl_deep_extend('force', server_config, server)
-                lsp_config[name].setup(server_config)
-            else
-                vim.notify(string.format('%s not executable', server.cmd[1]))
             end
         else
-            vim.notify(string.format('load lsp %s failed', name))
+            vim.notify(string.format('load lsp of %s failed', lang))
         end
     end
 end
