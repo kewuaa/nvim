@@ -24,7 +24,7 @@ M.clangd = {
         "proto",
     },
     cmd = {
-        vim.fn.fnamemodify(gcc_path, ':h:h') .. '/clangd/bin/clangd.exe',
+        'clangd.exe',
         "--background-index",
         "--pch-storage=memory",
         -- You MUST set this arg ↓ to your c/cpp compiler location (if not included)!

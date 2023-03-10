@@ -1,9 +1,8 @@
 local M = {}
-local lua_path = vim.fn.fnamemodify(vim.fn.exepath('lua'), ':p:h')
 
 M.lua_ls = {
     filetypes = {'lua'},
-    cmd = {vim.fn.fnamemodify(lua_path, ':h:h') .. '/lua-language-server/bin/lua-language-server.exe'},
+    cmd = {'lua-language-server.exe'},
     settings = {
         Lua = {
             runtime = {
