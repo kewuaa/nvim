@@ -211,12 +211,15 @@ configs.wilder = function()
         512,
         function()
             wilder.disable()
-            vim.notify('wilder has been disabled for the file size is too big, you could use "ToggleWilder" to toggle it')
-            vim.api.nvim_create_user_command(
-                'ToggleWilder',
-                function() wilder.toggle() end,
-                {}
-            )
+            if vim.fn.exists('b:wilder_disable') == 0 then
+                vim.notify('wilder has been disabled for the file size is too big, you could use "ToggleWilder" to toggle it')
+                vim.api.nvim_create_user_command(
+                    'ToggleWilder',
+                    function() wilder.toggle() end,
+                    {}
+                )
+                vim.b.wilder_disable = 1
+            end
         end,
         {}
     )
