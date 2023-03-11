@@ -30,6 +30,7 @@ configs.nvim_treesitter = function()
             'markdown_inline',
             'json',
             'help',
+            'gitignore',
             'yaml',
             'toml',
         },
