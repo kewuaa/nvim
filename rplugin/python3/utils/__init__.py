@@ -32,12 +32,12 @@ class Utils:
     def add_pyxfilehead(self) -> None:
         nvim = self._nvim
         buffer = nvim.current.buffer
-        first, *lines = (
+        lines = (
             'language_level=3',
             'boundscheck=False',
             'wraparound=False',
             'cdivision=True',
         )
-        buffer[0] = f'# cython: {first}'
+        buffer[0] = '# distutils: language=c++'
         for line in lines:
             buffer.append(f'# cython: {line}')
