@@ -270,6 +270,9 @@ configs.lspsaga = function()
                 expand_collapse = 'u',
             },
         },
+        outline = {
+            auto_preview = false,
+        },
         ui = {
             border = 'double',
             -- colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
