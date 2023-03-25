@@ -49,6 +49,14 @@ local options = {
 if vim.fn.exists("g:nvy") then
     -- options.guifont = 'JetbrainsMono NFM:h10:Consolas'
     options.guifont = 'FiraCode NFM:h10:Consolas'
+else if vim.fn.exists("g:neovide") then
+        -- Put anything you want to happen only in Neovide here
+        options.guifont = 'FiraCode NFM,Consolas:h10'
+        vim.g.neovide_hide_mouse_when_typing = true
+        vim.keymap.set('n', '<M-ENTER>', function()
+            vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
+        end)
+    end
 end
 for key, value in pairs(options) do
     vim.o[key] = value
