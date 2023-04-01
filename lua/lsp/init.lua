@@ -134,7 +134,6 @@ function M.setup()
         'c_cpp',
         'zig',
         'lua',
-        'verilog',
         'js_ts',
         'vim',
         'toml',
