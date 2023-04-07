@@ -368,7 +368,8 @@ end
 configs.asynctasks = function()
     local settings = require("core.settings")
     local rootmarks = settings.get_rootmarks()
-    rootmarks[#rootmarks+1] = '.root'
+    ---@diagnostic disable-next-line: missing-parameter
+    vim.list_extend(rootmarks, {'pyproject.toml', 'xmake.lua', 'build.zig'})
     vim.g.asyncrun_mode = 4
     vim.g.asyncrun_save = 2
     vim.g.asyncrun_rootmarks = rootmarks
