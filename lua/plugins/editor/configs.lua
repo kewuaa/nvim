@@ -207,6 +207,17 @@ configs.live_command = function ()
     }
 end
 
+configs.sentiment = function()
+    require('sentiment').setup({
+        pairs = {
+            { "(", ")" },
+            { "{", "}" },
+            { "[", "]" },
+            { "<", ">" },
+        },
+    })
+end
+
 configs.numb = function ()
     require('numb').setup{
         show_numbers = true, -- Enable 'number' for the window while peeking

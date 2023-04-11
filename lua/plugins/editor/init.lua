@@ -156,10 +156,11 @@ return {
 
     -- match enhance
     {
-        'monkoose/matchparen.nvim',
+        'utilyre/sentiment.nvim',
+        version = '*',
         lazy = true,
         event = 'CursorHold',
-        config = true,
+        config = configs.sentiment,
     },
 
     -- 搜索后自动关闭高亮
