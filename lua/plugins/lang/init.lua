@@ -53,4 +53,25 @@ return {
             {'m-demare/hlargs.nvim', config = configs.hlargs},
         },
     },
+
+    -- lint system
+    {
+        'mfussenegger/nvim-lint',
+        lazy = true,
+        init = function()
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = 'pyrex',
+                once = true,
+                callback = function()
+                    vim.fn.timer_start(
+                        600,
+                        function()
+                            vim.api.nvim_command [[Lazy load nvim-lint]]
+                        end
+                    )
+                end
+            })
+        end,
+        config = configs.nvim_lint,
+    },
 }
