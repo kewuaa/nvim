@@ -37,14 +37,14 @@ M.clangd = {
         "--header-insertion=iwyu",
     }
 }
-M.cmake = {
-    ---@diagnostic disable-next-line: missing-parameter
-    rootmarks = vim.list_extend(settings.get_rootmarks(), {'cmake', 'build'}),
-    filetypes = {'cmake'},
-    cmd = {'cmake-language-server.exe'},
-    init_options = {
-        buildDirectory = 'build'
-    }
-}
+-- M.cmake = {
+--     ---@diagnostic disable-next-line: missing-parameter
+--     rootmarks = vim.list_extend(settings.get_rootmarks(), {'cmake', 'build'}),
+--     filetypes = {'cmake'},
+--     cmd = {'cmake-language-server.exe'},
+--     init_options = {
+--         buildDirectory = 'build'
+--     }
+-- }
 
 return M
