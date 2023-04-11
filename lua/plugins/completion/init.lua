@@ -19,7 +19,7 @@ return {
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
             -- ctags source
-            {'quangnguyen30192/cmp-nvim-tags'},
+            -- {'quangnguyen30192/cmp-nvim-tags'},
             -- snippets source
             {'saadparwaiz1/cmp_luasnip'},
             -- underline sort
@@ -65,26 +65,26 @@ return {
 
 
     -- ctags
-    {
-        'ludovicchabant/vim-gutentags',
-        lazy = true,
-        init = function()
-            vim.api.nvim_create_autocmd('FileType', {
-                pattern = 'pyrex',
-                once = true,
-                callback = function()
-                    vim.fn.timer_start(
-                        600,
-                        function()
-                            configs.vim_gutentags()
-                            vim.api.nvim_command [[Lazy load vim-gutentags]]
-                        end
-                    )
-                end
-            })
-        end,
-        dependencies = {
-            {'skywind3000/gutentags_plus'},
-        }
-    },
+    -- {
+    --     'ludovicchabant/vim-gutentags',
+    --     lazy = true,
+    --     init = function()
+    --         vim.api.nvim_create_autocmd('FileType', {
+    --             pattern = 'pyrex',
+    --             once = true,
+    --             callback = function()
+    --                 vim.fn.timer_start(
+    --                     600,
+    --                     function()
+    --                         configs.vim_gutentags()
+    --                         vim.api.nvim_command [[Lazy load vim-gutentags]]
+    --                     end
+    --                 )
+    --             end
+    --         })
+    --     end,
+    --     dependencies = {
+    --         {'skywind3000/gutentags_plus'},
+    --     }
+    -- },
 }
