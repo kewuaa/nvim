@@ -205,20 +205,20 @@ configs.mini_indentscope = function()
 end
 
 configs.lualine = function()
-    local function get_gutentags_status(mods)
-        local msg = ''
-        local index = vim.fn.index
-        if index(mods, 'ctags') >= 0 then
-            msg = msg .. '[C] '
-        end
-        if index(mods, 'gtags_cscope') >= 0 then
-            msg = msg .. '[G] '
-        end
-        return msg
-    end
-    local function gutentags()
-        return vim.fn['gutentags#statusline_cb'](get_gutentags_status)
-    end
+    -- local function get_gutentags_status(mods)
+    --     local msg = ''
+    --     local index = vim.fn.index
+    --     if index(mods, 'ctags') >= 0 then
+    --         msg = msg .. '[C] '
+    --     end
+    --     if index(mods, 'gtags_cscope') >= 0 then
+    --         msg = msg .. '[G] '
+    --     end
+    --     return msg
+    -- end
+    -- local function gutentags()
+    --     return vim.fn['gutentags#statusline_cb'](get_gutentags_status)
+    -- end
     local function diff_source()
         ---@diagnostic disable-next-line: undefined-field
         local gitsigns = vim.b.gitsigns_status_dict
@@ -339,11 +339,11 @@ configs.lualine = function()
                     cond = require("lazy.status").has_updates,
                     color = { fg = "#ff9e64" },
                 },
-                {
-                    gutentags,
-                    cond = function() return vim.bo.filetype == 'pyrex' end,
-                    color = { fg = '#F4B8E4'}
-                },
+                -- {
+                --     gutentags,
+                --     cond = function() return vim.bo.filetype == 'pyrex' end,
+                --     color = { fg = '#F4B8E4'}
+                -- },
                 {
                     'g:translator_status',
                     color = { fg = "#E5C890" }
