@@ -136,7 +136,9 @@ configs.nvim_treesitter = function()
     map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
     map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
     map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+end
 
+configs.hlargs = function()
     require("hlargs").setup({
         excluded_filetypes = require("core.settings").exclude_filetypes,
     })
