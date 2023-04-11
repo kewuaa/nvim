@@ -113,13 +113,13 @@ configs.nvim_treesitter = function()
             max_file_lines = 2000, -- Do not enable for files with more than n lines, int
         },
     })
-    vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
-        group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
-        callback = function()
-            vim.opt.foldmethod     = 'expr'
-            vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
-        end
-    })
+    -- vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
+    --     group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
+    --     callback = function()
+    --         vim.opt.foldmethod     = 'expr'
+    --         vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+    --     end
+    -- })
     local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
     local map = vim.keymap.set
     -- Repeat movement with ; and ,
