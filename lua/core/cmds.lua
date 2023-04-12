@@ -33,6 +33,12 @@ api.nvim_create_autocmd('filetype', {
         map('n', 'q', '<cmd>q<CR>', bufopts)
     end
 })
+api.nvim_create_autocmd('filetype', {
+    pattern = 'cython',
+    callback = function()
+        vim.cmd[[nmap <buffer> gd /\<\(def\\|cdef\\|cpdef\)\>\s[^=]*\<<C-R><C-W>\><CR>]]
+    end
+})
 
 local cc = vim.api.nvim_create_user_command
 local commands = {
