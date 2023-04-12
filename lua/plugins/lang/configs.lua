@@ -7,6 +7,9 @@ configs.filetype = function()
             extensions = {
                 zig = 'zig',
                 zir = 'zig',
+                pyx = 'cython',
+                pxd = 'cython',
+                pxi = 'cython',
             }
         }
     })
@@ -164,7 +167,7 @@ configs.nvim_lint = function()
         }),
     }
     lint.linters_by_ft = {
-        pyrex = {'cython_lint'},
+        cython = {'cython_lint'},
     }
     vim.api.nvim_create_autocmd({"BufRead", "BufWritePost"}, {
         callback = function()
