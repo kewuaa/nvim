@@ -32,7 +32,7 @@ configs.nvim_cmp = function()
     end
 
     local lsp_source = { name = 'nvim_lsp' }
-    local tag_source = { name = 'tags' }
+    -- local tag_source = { name = 'tags' }
     local snip_source = { name = 'luasnip' }
     local buffer_source = {
         name = 'buffer',
@@ -172,15 +172,15 @@ configs.nvim_cmp = function()
         }),
     }
     cmp.setup(config)
-    cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
-        sources = cmp.config.sources({
-            path_source,
-        }, {
-            tag_source,
-            snip_source,
-            buffer_source,
-        })
-    }))
+    -- cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
+    --     sources = cmp.config.sources({
+    --         path_source,
+    --     }, {
+    --         tag_source,
+    --         snip_source,
+    --         buffer_source,
+    --     })
+    -- }))
     cmp.setup.filetype({"dap-repl", "dapui_watches", "dapui_hover"}, vim.tbl_deep_extend(
         'force', config, {
             sources = {
