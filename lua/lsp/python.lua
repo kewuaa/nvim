@@ -100,6 +100,7 @@ M.pylsp = vim.tbl_extend('error', base_settings, {
                 },
                 jedi_completion = {
                     include_params = true,
+                    resolve_at_most = 15,
                     fuzzy = true,
                     cache_for = {'numpy', 'matplotlib', 'pandas', 'torch'},
                 },
