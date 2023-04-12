@@ -121,19 +121,19 @@ M.pylsp = vim.tbl_extend('error', base_settings, {
         else
             new_config.settings.pylsp.plugins.jedi.extra_paths = {}
         end
-        local client = vim.lsp.get_active_clients()[1]
-        if client then
-            local ok = client.notify('workspace/didChangeWorkspaceFolders', {
-                added = {
-                    uri = vim.uri_from_fname(new_root),
-                    name = string.format('%s', new_root),
-                }
-            })
-            if not ok then
-                vim.notify('"workspace/didChangeWorkspaceFolders" notify failed')
-            end
-            -- client.workspace_did_change_configuration(new_config.settings)
-        end
+        -- local client = vim.lsp.get_active_clients()[1]
+        -- if client then
+        --     local ok = client.notify('workspace/didChangeWorkspaceFolders', {
+        --         added = {
+        --             uri = vim.uri_from_fname(new_root),
+        --             name = string.format('%s', new_root),
+        --         }
+        --     })
+        --     if not ok then
+        --         vim.notify('"workspace/didChangeWorkspaceFolders" notify failed')
+        --     end
+        --     -- client.workspace_did_change_configuration(new_config.settings)
+        -- end
         return new_config
     end
 })
