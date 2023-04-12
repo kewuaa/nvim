@@ -10,6 +10,8 @@ configs.filetype = function()
                 pyx = 'cython',
                 pxd = 'cython',
                 pxi = 'cython',
+                h = 'c',
+                c = 'c,'
             }
         }
     })
