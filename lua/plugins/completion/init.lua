@@ -14,7 +14,10 @@ return {
             {
                 'L3MON4D3/LuaSnip',
                 config = configs.LuaSnip,
-                dependencies = {"rafamadriz/friendly-snippets"},
+                dependencies = {
+                    {"rafamadriz/friendly-snippets"},
+                    {"NullptrExceptions/cython-snips"},
+                },
             },
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
