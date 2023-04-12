@@ -2,18 +2,6 @@ local configs = require("plugins.lang.configs")
 
 
 return {
-    -- filetype speedup
-    {
-        'nathom/filetype.nvim',
-        enabled = function()
-            local version = vim.version()
-            ---@diagnostic disable-next-line: need-check-nil
-            return version.major == 0 and version.minor < 9
-        end,
-        lazy = false,
-        config = configs.filetype,
-    },
-
     -- zig filetype
     -- {
     --     'ziglang/zig.vim',

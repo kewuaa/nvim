@@ -1,20 +1,6 @@
 local configs = {}
 
 
-configs.filetype = function()
-    require('filetype').setup({
-        overrides = {
-            extensions = {
-                zig = 'zig',
-                zir = 'zig',
-                pyx = 'cython',
-                pxd = 'cython',
-                pxi = 'cython',
-            }
-        }
-    })
-end
-
 configs.nvim_treesitter = function()
     require('nvim-treesitter.configs').setup({
         ensure_installed = {
