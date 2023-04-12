@@ -36,7 +36,7 @@ api.nvim_create_autocmd('filetype', {
 api.nvim_create_autocmd('filetype', {
     pattern = 'cython',
     callback = function()
-        vim.cmd[[nmap <buffer> gd /\<\(def\\|cdef\\|cpdef\)\>\s[^=]*\<<C-R><C-W>\><CR>]]
+        vim.cmd[[nmap <buffer> gd /\<\(def\\|cdef\\|cpdef\\|class\)\>\s[^=]*\<<C-R><C-W>\><CR>]]
     end
 })
 
