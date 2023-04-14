@@ -107,7 +107,8 @@ configs.comment = function()
         post_hook = nil,
     })
     local ft = require("Comment.ft")
-    ft.zig = '//%s'
+    ft({'cython'}, ft.get('python'))
+    ft({'zig'}, ft.get('c'))
 end
 
 configs.tabout = function()
