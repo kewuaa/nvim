@@ -20,8 +20,10 @@ local function todo_comments(command)
 end
 
 keymaps.asynctasks = {
-    {'n', '<F5>', ':AsyncTask file-run<CR>'},
-    {'n', '<leader><F5>', ':AsyncTask file-build<CR>'},
+    {'n', '<A-q>', ':AsyncTask file-run<CR>'},
+    {'n', '<leader><A-q>', ':AsyncTask file-build<CR>'},
+    {'n', '<F5>', ':AsyncTask project-run<CR>'},
+    {'n', '<leader><F5>', ':AsyncTask project-build<CR>'},
 }
 
 keymaps.hop = {
