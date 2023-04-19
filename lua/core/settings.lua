@@ -1,8 +1,8 @@
 local settings = {}
 
-settings.pyenv_path = os.getenv('PYHOME') .. '/envs'
+settings.pyvenv_path = os.getenv('PYVENV')
 function settings:getpy(name)
-    local venv = string.format('%s/%s/Scripts/python.exe', self.pyenv_path, name)
+    local venv = string.format('%s/%s/Scripts/python.exe', self.pyvenv_path, name)
     assert(vim.fn.filereadable(venv) == 1)
     return venv
 end
