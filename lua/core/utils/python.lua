@@ -62,7 +62,7 @@ end
 
 local function get_envs()
     ---@diagnostic disable-next-line: param-type-mismatch
-    local envs = vim.fn.globpath(require('core.settings').pyenv_path, '*', true, true)
+    local envs = vim.fn.globpath(require('core.settings').pyvenv_path, '*', true, true)
     ---@diagnostic disable-next-line: param-type-mismatch
     for i, env in ipairs(envs) do
         envs[i] = {
