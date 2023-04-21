@@ -29,6 +29,8 @@ return {
             {'lukas-reineke/cmp-under-comparator'},
             -- buffer source
             {'hrsh7th/cmp-buffer'},
+            -- buffer lines source
+            {'amarakon/nvim-cmp-buffer-lines'},
             -- path source
             {'hrsh7th/cmp-path'},
         }

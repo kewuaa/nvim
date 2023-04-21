@@ -51,6 +51,7 @@ configs.nvim_cmp = function()
             end,
         },
     }
+    local buffer_lines_source = { name = 'buffer-lines' }
     local path_source = {
         name = 'path',
         option = {
@@ -172,6 +173,16 @@ configs.nvim_cmp = function()
         }),
     }
     cmp.setup(config)
+    cmp.setup.filetype({'c', 'cpp'}, vim.tbl_deep_extend("force", config, {
+        sources = cmp.config.sources({
+            path_source,
+        }, {
+                lsp_source,
+                snip_source,
+                buffer_source,
+                buffer_lines_source,
+            })
+    }))
     -- cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
     --     sources = cmp.config.sources({
     --         path_source,
