@@ -11,18 +11,18 @@ configs.nvim_cmp = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
     end
-    local border = function(hl)
-        return {
-            { "╭", hl },
-            { "─", hl },
-            { "╮", hl },
-            { "│", hl },
-            { "╯", hl },
-            { "─", hl },
-            { "╰", hl },
-            { "│", hl },
-        }
-    end
+    -- local border = function(hl)
+    --     return {
+    --         { "╭", hl },
+    --         { "─", hl },
+    --         { "╮", hl },
+    --         { "│", hl },
+    --         { "╯", hl },
+    --         { "─", hl },
+    --         { "╰", hl },
+    --         { "│", hl },
+    --     }
+    -- end
     local cmp_window = require("cmp.utils.window")
     cmp_window.info_ = cmp_window.info
     cmp_window.info = function(self)
@@ -73,20 +73,20 @@ configs.nvim_cmp = function()
                 return true
             end
         end,
-        window = {
-            completion = {
-                border = border("Normal"),
-                max_width = 80,
-                max_height = 20,
-                winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-                col_offset = -3,
-                side_padding = 0,
-            },
-            documentation = {
-                border = border("CmpDocBorder"),
-                winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None"
-            },
-        },
+        -- window = {
+        --     completion = {
+        --         border = border("Normal"),
+        --         max_width = 80,
+        --         max_height = 20,
+        --         winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        --         col_offset = -3,
+        --         side_padding = 0,
+        --     },
+        --     documentation = {
+        --         border = border("CmpDocBorder"),
+        --         winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None"
+        --     },
+        -- },
         snippet = {
             expand = function(args)
                 luasnip.lsp_expand(args.body)
@@ -273,7 +273,7 @@ configs.lspsaga = function()
             auto_preview = false,
         },
         ui = {
-            border = 'double',
+            border = 'single',
             -- colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
             -- kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
         },
