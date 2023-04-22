@@ -65,6 +65,7 @@ return {
             {'folke/neodev.nvim', config = configs.neodev},
             -- 符号提示
             {'ray-x/lsp_signature.nvim'},
+            {'williamboman/mason-lspconfig.nvim', config = configs.mason_lspconfig},
         }
     },
 

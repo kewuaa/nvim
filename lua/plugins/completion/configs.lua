@@ -303,6 +303,18 @@ configs.neodev = function()
     })
 end
 
+configs.mason_lspconfig = function()
+    require('mason-lspconfig').setup({
+        automatic_installation = {
+            exclude = {
+                'pylsp',
+                'zls',
+                'taplo',
+            },
+        },
+    })
+end
+
 configs.vim_gutentags = function()
     -- config for gutentags_plus
     vim.g.gutentags_plus_switch = 1
