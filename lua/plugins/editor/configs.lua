@@ -49,7 +49,7 @@ configs.autoclose = function()
         },
         options = {
             disabled_filetypes = nil,
-            disable_when_touch = false,
+            disable_when_touch = true,
         },
     })
 end
