@@ -20,7 +20,7 @@ M.tsserver = {
         'typescript.tsx',
     },
     cmd = {
-        'typescript-language-server.cmd',
+        'typescript-language-server',
         '--stdio',
     },
     init_options = {

@@ -13,7 +13,7 @@ M.vimls = {
     rootmarks = rootmarks,
     filetypes = {'vim'},
     cmd = {
-        'vim-language-server.cmd',
+        'vim-language-server',
         '--stdio',
     },
     init_options = {

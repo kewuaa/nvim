@@ -5,7 +5,7 @@ M.lua_ls = {
     ---@diagnostic disable-next-line: missing-parameter
     rootmarks = vim.list_extend(settings.get_rootmarks(), {'xmake.lua'}),
     filetypes = {'lua'},
-    cmd = {'lua-language-server.exe'},
+    cmd = {'lua-language-server'},
     settings = {
         Lua = {
             runtime = {

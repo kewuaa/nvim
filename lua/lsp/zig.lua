@@ -10,7 +10,7 @@ vim.list_extend(rootmarks, {
 M.zls = {
     rootmarks = rootmarks,
     filetypes = {'zig', 'zir'},
-    cmd = {'zls.exe'}
+    cmd = {'zls'}
 }
 
 return M

@@ -76,7 +76,7 @@ end
 --     }
 -- })
 M.pylsp = vim.tbl_extend('error', base_settings, {
-    cmd = {'pylsp.exe'},
+    cmd = {'pylsp'},
     settings = {
         pylsp = {
             configurationSources = {},

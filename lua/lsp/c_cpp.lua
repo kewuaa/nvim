@@ -25,7 +25,7 @@ M.clangd = {
         "proto",
     },
     cmd = {
-        'clangd.exe',
+        'clangd',
         "--background-index",
         "--pch-storage=memory",
         -- You MUST set this arg ↓ to your c/cpp compiler location (if not included)!
