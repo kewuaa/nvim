@@ -67,6 +67,7 @@ end
 M.init = function()
     require('core.utils.bigfile').init()
     require('core.utils.python').init()
+    require('core.utils.im').init()
 end
 
 return M
