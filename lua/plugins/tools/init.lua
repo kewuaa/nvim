@@ -2,6 +2,14 @@ local configs = require("plugins.tools.configs")
 
 
 return {
+    -- 包管理工具
+    {
+        'williamboman/mason.nvim',
+        lazy = true,
+        build = ':MasonUpdate',
+        config = configs.mason,
+    },
+
     -- 显示代码错误
     {
         'folke/trouble.nvim',
@@ -33,13 +41,13 @@ return {
     },
 
     -- wilder
-    {
-        'gelguy/wilder.nvim',
-        lazy = true,
-        build = 'UpdateRemotePlugins',
-        event = 'CmdlineEnter',
-        config = configs.wilder,
-    },
+    -- {
+    --     'gelguy/wilder.nvim',
+    --     lazy = true,
+    --     build = 'UpdateRemotePlugins',
+    --     event = 'CmdlineEnter',
+    --     config = configs.wilder,
+    -- },
 
     -- debug
     {

@@ -24,6 +24,7 @@ settings.exclude_filetypes = {
     "TelescopePrompt",
     "toggleterm",
     "notify",
+    "mason",
     "dap-repl",
     "dap-float",
     "dapui_watches",

@@ -1,5 +1,18 @@
 local configs = {}
 
+configs.mason = function()
+    require("mason").setup({
+        PATH = "prepend",
+        max_concurrent_installers = 4,
+        ui = {
+            icons = {
+                package_installed = "✓",
+                package_pending = "➜",
+                package_uninstalled = "✗"
+            }
+        }
+    })
+end
 
 configs.trouble = function()
     require("trouble").setup({
