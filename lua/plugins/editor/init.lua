@@ -94,9 +94,15 @@ return {
         'Wansmer/treesj',
         lazy = true,
         keys = {
-            {'<leader>j', '<cmd>TSJToggle<CR>', mode = 'n'}
+            {'<leader>j', mode = 'n'}
         },
         config = configs.treesj,
+    },
+    {
+        'echasnovski/mini.splitjoin',
+        version = false,
+        lazy = true,
+        config = configs.mini_splitjoin,
     },
 
     -- 交换函数参数, 列表元素等

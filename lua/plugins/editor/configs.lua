@@ -120,6 +120,7 @@ end
 
 configs.treesj = function ()
     local tsj = require('treesj')
+    local langs = require('treesj.langs')['presets']
     tsj.setup({
         -- Use default keymaps
         -- (<space>m - toggle, <space>j - join, <space>s - split)
@@ -140,6 +141,39 @@ configs.treesj = function ()
 
         -- Notify about possible problems or not
         notify = true,
+    })
+
+    local bufopts = { buffer = true }
+    local callback = function()
+        if langs[vim.bo.filetype] then
+            vim.keymap.set(
+                'n',
+                vim.g.mapleader .. 'j',
+                '<CMD>TSJToggle<CR>',
+                bufopts
+            )
+        else
+            vim.keymap.set(
+                'n',
+                vim.g.mapleader .. 'j',
+                function() require('mini.splitjoin').toggle() end,
+                bufopts
+            )
+        end
+    end
+    vim.api.nvim_create_autocmd({ 'FileType' }, {
+        callback = callback,
+    })
+    callback()
+end
+
+configs.mini_splitjoin = function()
+    require('mini.splitjoin').setup({
+        mappings = {
+            toggler = '',
+            split = '',
+            join = '',
+        }
     })
 end
 
