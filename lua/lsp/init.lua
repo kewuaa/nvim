@@ -135,6 +135,7 @@ function M.setup()
         'zig',
         'lua',
         'js_ts',
+        'markdown',
         'vim',
         'toml',
         'json',
