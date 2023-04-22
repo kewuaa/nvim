@@ -73,21 +73,21 @@ return {
     },
 
     -- TODO 注释
-    {
-        'folke/todo-comments.nvim',
-        lazy = true,
-        init = require('core.keymaps'):load('todo_comments'),
-        cmd = {
-            'TodoQuickFix',
-            'TodoLocList',
-            'TodoTrouble',
-            'TodoTelescope',
-        },
-        config = true,
-        dependencies = {
-            {'nvim-lua/plenary.nvim'},
-        }
-    },
+    -- {
+    --     'folke/todo-comments.nvim',
+    --     lazy = true,
+    --     init = require('core.keymaps'):load('todo_comments'),
+    --     cmd = {
+    --         'TodoQuickFix',
+    --         'TodoLocList',
+    --         'TodoTrouble',
+    --         'TodoTelescope',
+    --     },
+    --     config = true,
+    --     dependencies = {
+    --         {'nvim-lua/plenary.nvim'},
+    --     }
+    -- },
 
     -- 与J相反的操作
     {
@@ -110,21 +110,21 @@ return {
     },
 
     -- 移动块
-    {
-        'booperlv/nvim-gomove',
-        lazy = true,
-        keys = {
-            {'<A-h>', mode = {'n', 'x'}},
-            {'<A-l>', mode = {'n', 'x'}},
-            {'<A-j>', mode = {'n', 'x'}},
-            {'<A-k>', mode = {'n', 'x'}},
-            {'<A-S-h>', mode = {'n', 'x'}},
-            {'<A-S-l>', mode = {'n', 'x'}},
-            {'<A-S-j>', mode = {'n', 'x'}},
-            {'<A-S-k>', mode = {'n', 'x'}},
-        },
-        config = configs.nvim_gomove,
-    },
+    -- {
+    --     'booperlv/nvim-gomove',
+    --     lazy = true,
+    --     keys = {
+    --         {'<A-h>', mode = {'n', 'x'}},
+    --         {'<A-l>', mode = {'n', 'x'}},
+    --         {'<A-j>', mode = {'n', 'x'}},
+    --         {'<A-k>', mode = {'n', 'x'}},
+    --         {'<A-S-h>', mode = {'n', 'x'}},
+    --         {'<A-S-l>', mode = {'n', 'x'}},
+    --         {'<A-S-j>', mode = {'n', 'x'}},
+    --         {'<A-S-k>', mode = {'n', 'x'}},
+    --     },
+    --     config = configs.nvim_gomove,
+    -- },
 
     -- jk增强
     {
@@ -138,19 +138,19 @@ return {
     },
 
     -- 搜索替换
-    {
-        'roobert/search-replace.nvim',
-        lazy = true,
-        init = require('core.keymaps'):load('search_replace'),
-        event = 'CmdUndefined SearchReplace*',
-        config = configs.search_replace,
-    },
+    -- {
+    --     'roobert/search-replace.nvim',
+    --     lazy = true,
+    --     init = require('core.keymaps'):load('search_replace'),
+    --     event = 'CmdUndefined SearchReplace*',
+    --     config = configs.search_replace,
+    -- },
 
     -- 实时预览命令结果
     {
         'smjonas/live-command.nvim',
         lazy = true,
-        cmd = 'Norm',
+        event = 'CmdLineEnter :',
         config = configs.live_command,
     },
 

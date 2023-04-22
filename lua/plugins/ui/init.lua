@@ -75,10 +75,10 @@ return {
     },
 
     -- colorful window seperator
-    {
-        'nvim-zh/colorful-winsep.nvim',
-        lazy = true,
-        event = 'WinNew',
-        config = configs.colorful_winsep,
-    }
+    -- {
+    --     'nvim-zh/colorful-winsep.nvim',
+    --     lazy = true,
+    --     event = 'WinNew',
+    --     config = configs.colorful_winsep,
+    -- }
 }
