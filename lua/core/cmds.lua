@@ -33,12 +33,21 @@ api.nvim_create_autocmd('filetype', {
         map('n', 'q', '<cmd>q<CR>', bufopts)
     end
 })
-api.nvim_create_autocmd({'Bufread', 'BufNewFile'}, {
-    pattern = '*.pyx,*.pxd,*.pxi',
-    command = [[
-    set filetype=cython
-    nmap <buffer> gd /\<\(def\\|cdef\\|cpdef\\|class\)\>\s[^=]*\<<C-R><C-W>\><CR>
-    ]]
+local cython_ft_callback = function(path, bufnr)
+    vim.keymap.set(
+        'n',
+        'gd',
+        [[/\<\(def\|cdef\|cpdef\|class\)\>\s[^=]*\<<C-R><C-W>\><CR>]],
+        {buffer = bufnr}
+    )
+    return 'cython'
+end
+vim.filetype.add({
+    extension = {
+        pyx = cython_ft_callback,
+        pxd = cython_ft_callback,
+        pxi = cython_ft_callback,
+    }
 })
 
 local cc = vim.api.nvim_create_user_command
