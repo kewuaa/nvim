@@ -173,9 +173,6 @@ return {
     {
         'romainl/vim-cool',
         lazy = true,
-        init = function()
-            vim.g.CoolTotalMatches = 1
-        end,
         event = 'CursorMoved',
     },
 
