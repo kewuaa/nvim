@@ -52,6 +52,7 @@ configs.nvim_cmp = function()
         },
     }
     local buffer_lines_source = { name = 'buffer-lines' }
+    local latex_symbol_source = { name = 'latex_symbols' }
     local path_source = {
         name = 'path',
         option = {
@@ -115,6 +116,7 @@ configs.nvim_cmp = function()
                         tags = "暈",
                         path = "",
                         treesitter = "",
+                        latex_symbols = '暈',
                         dap = "[Dap]",
                     }),
                     ellipsis_char = '...',
@@ -169,6 +171,7 @@ configs.nvim_cmp = function()
             lsp_source,
             -- tag_source,
             snip_source,
+            latex_symbol_source,
             buffer_source,
         }),
     }

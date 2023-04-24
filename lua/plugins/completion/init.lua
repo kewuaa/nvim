@@ -31,6 +31,8 @@ return {
             {'hrsh7th/cmp-buffer'},
             -- buffer lines source
             {'amarakon/nvim-cmp-buffer-lines'},
+            -- latex symbol source
+            {'kdheepak/cmp-latex-symbols'},
             -- path source
             {'hrsh7th/cmp-path'},
         }
