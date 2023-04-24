@@ -125,7 +125,7 @@ configs.nvim_cmp = function()
                         path = "",
                         -- pandoc_references = '[Pandoc]',
                         cmp_pandoc = '[Pandoc]',
-                        latex_symbols = '暈',
+                        latex_symbols = 'ﭨ',
                         dap = "[Dap]",
                     }),
                     ellipsis_char = '...',
