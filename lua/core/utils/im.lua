@@ -9,7 +9,7 @@ local toggle_imtoggle = function()
         vim.api.nvim_create_autocmd('InsertEnter', {
             group = 'IM',
             callback = function()
-                vim.fn.system(exepath)
+                vim.fn.system(exepath .. ' 1')
             end
         })
         vim.api.nvim_create_autocmd('InsertLeave', {
