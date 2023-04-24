@@ -51,7 +51,12 @@ configs.nvim_cmp = function()
             end,
         },
     }
-    local buffer_lines_source = { name = 'buffer-lines' }
+    local buffer_lines_source = {
+        name = 'buffer-lines',
+        option = {
+            max_indents = 1,
+        }
+    }
     local latex_symbol_source = { name = 'latex_symbols' }
     -- local bibliography_source = { name = 'pandoc_references' }
     local bibliography_source = { name = 'cmp_pandoc' }
@@ -113,6 +118,7 @@ configs.nvim_cmp = function()
                     maxwidth = 50,
                     menu = ({
                         buffer = "",
+                        ['buffer-lines'] = '',
                         nvim_lsp = "",
                         luasnip = "",
                         tags = "暈",
