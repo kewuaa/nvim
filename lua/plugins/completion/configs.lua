@@ -196,7 +196,7 @@ configs.nvim_cmp = function()
                 buffer_lines_source,
             })
     }))
-    -- cmp.setup.filetype('pyrex', vim.tbl_deep_extend('force', config, {
+    -- cmp.setup.filetype('cython', vim.tbl_deep_extend('force', config, {
     --     sources = cmp.config.sources({
     --         path_source,
     --     }, {
@@ -352,15 +352,13 @@ configs.vim_gutentags = function()
     vim.g.gutentags_plus_nomap = 1
 ------------------------------------------------------------------
     local settings = require("core.settings")
-    local tags_cache_path = settings.tags_path .. '/.cache/tags'
     local executable = vim.fn.executable
 
+    local tags_cache_path = os.getenv('CACHE_DIR') .. '/tags_cache'
     local gutentags_modules = {}
-    -- ctags.exe路径
-    local ctags_path = settings.tags_path .. '/ctags/ctags.exe'
-    if executable(ctags_path) == 1 then
+    if executable('ctags') == 1 then
         gutentags_modules[#gutentags_modules+1] = 'ctags'
-        vim.g.gutentags_ctags_executable = ctags_path
+        -- vim.g.gutentags_ctags_executable
         -- 配置ctags的参数,老的Exuberant-ctags不能有--extra=+q，注意
         vim.g.gutentags_ctags_extra_args = {
             '--fields=+niazS',
@@ -374,11 +372,10 @@ configs.vim_gutentags = function()
 
         local cython_tags_cache_path = tags_cache_path .. '/cython.tags'
         local generate_cython_includes = function()
-            local cython_includes_path = settings:getpy('envs') .. 'default/Lib/site-packages/Cython/Includes'
+            local cython_includes_path = settings.pyvenv_path .. '/default/Lib/site-packages/Cython/Includes'
             if vim.fn.isdirectory(cython_includes_path) == 1 then
                 local cmd = string.format(
-                    '%s -R --language-force=python --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
-                    ctags_path,
+                    'ctags -R --fields=+niazS --extras=+q --output-format=e-ctags -f %s %s',
                     cython_tags_cache_path,
                     cython_includes_path
                 )
@@ -392,53 +389,34 @@ configs.vim_gutentags = function()
         end
         local callback = function()
             vim.cmd([[setlocal tags+=]] .. cython_tags_cache_path)
-            local map = vim.keymap.set
-            local bufopts = {silent = true, buffer=0}
-            local km = {
-                -- {'n','<leader>gs', ':GscopeFind s <C-R><C-W><cr>'},
-                -- {'n','<leader>gg', ':GscopeFind g <C-R><C-W><cr>'},
-                -- {'n', '<leader>gc', ':GscopeFind c <C-R><C-W><cr>'},
-                -- {'n', '<leader>gt', ':GscopeFind t <C-R><C-W><cr>'},
-                -- {'n', '<leader>ge', ':GscopeFind e <C-R><C-W><cr>'},
-                -- {'n', '<leader>gf', ':GscopeFind f <C-R>=expand("<cfile>")<cr><cr>'},
-                -- {'n', '<leader>gi', ':GscopeFind i <C-R>=expand("<cfile>")<cr><cr>'},
-                -- {'n', '<leader>gd', ':GscopeFind d <C-R><C-W><cr>'},
-                -- {'n', '<leader>ga', ':GscopeFind a <C-R><C-W><cr>'},
-                {'n', '<leader>gz', ':GscopeFind z <C-R><C-W><cr>'},
-            }
-            for _, item in ipairs(km) do
-                map(item[1], item[2], item[3], bufopts)
-            end
         end
         vim.api.nvim_buf_create_user_command(0, 'GenerateCythonIncludesTags', generate_cython_includes, {})
         vim.api.nvim_create_autocmd('FileType', {
-            pattern = 'pyrex',
+            pattern = 'cython',
             callback = callback,
         })
         callback()
     else
-        vim.notify(string.format('%s not executable', ctags_path))
+        vim.notify('ctags not executable')
     end
 
-    local gtags_path = settings.tags_path .. '/gtags/bin/gtags.exe'
-    local gtags_cscope_path = settings.tags_path .. '/gtags/bin/gtags-cscope.exe'
-    if executable(gtags_path) == 1 and executable(gtags_cscope_path) == 1 then
+    if executable('gtags') == 1 and executable('gtags-cscope') == 1 then
         gutentags_modules[#gutentags_modules+1] = 'gtags_cscope'
         -- GTAGSLABEL告诉gtags默认C/C++/Java等六种原生支持的代码直接使用gtags本地分析器，而其他语言使用pygments模块
         vim.env.GTAGSLABEL = 'native-pygments'
-        vim.env.GTAGSCONF = settings.tags_path .. '/gtags/share/gtags/gtags.conf'
-        vim.g.gutentags_gtags_executable = gtags_path
-        vim.g.gutentags_gtags_cscope_executable = gtags_cscope_path
+        vim.env.GTAGSCONF = vim.fn.exepath('gtags') .. '/../../share/gtags/gtags.conf'
+        -- vim.g.gutentags_gtags_executable
+        -- vim.g.gutentags_gtags_cscope_executable
         -- 禁用gutentags自动加载gtags数据库的行为
         vim.g.gutentags_auto_add_gtags_cscope = 0
     else
-        vim.notify(string.format('%s or %s not executable', gtags_path, gtags_cscope_path))
+        vim.notify('gtags or gtags-cscope not executable')
     end
     vim.g.gutentags_modules = gutentags_modules
 
 
     local rootmarks = {
-        '.gutctags', '.cyproject'
+        '.gutctags'
     }
     -- 禁用默认
     vim.g.gutentags_add_default_project_roots = 0
@@ -450,23 +428,8 @@ configs.vim_gutentags = function()
     vim.g.gutentags_ctags_tagfile = '.tags'
     -- 将自动生成的tags文件全部放入指定目录中，避免污染工程目录
     vim.g.gutentags_cache_dir = tags_cache_path
-    -- 若目录不存在则创建
-    -- if vim.fn.isdirectory(tags_cache_path) == 0 then
-    --     os.execute('mkdir -p ' .. tags_cache_path)
-    -- end
     -- 排除部分文件类型
-    -- vim.g.gutentags_exclude_filetypes = {
-    --     'c',
-    --     'cpp',
-    --     'vim',
-    --     'lua',
-    --     'json',
-    --     'yaml',
-    --     'javascript',
-    --     'typescript',
-    --     'json',
-    --     'ini',
-    -- }
+    -- vim.g.gutentags_exclude_filetypes
     vim.cmd [[
     let s:enabled_filetypes = ['pyx', 'pxd', 'pxi']
     function! CustomGutentagsEnableFunc(path) abort

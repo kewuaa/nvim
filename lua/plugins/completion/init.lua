@@ -87,7 +87,7 @@ return {
     --     lazy = true,
     --     init = function()
     --         vim.api.nvim_create_autocmd('FileType', {
-    --             pattern = 'pyrex',
+    --             pattern = 'cython',
     --             once = true,
     --             callback = function()
     --                 vim.fn.timer_start(
