@@ -53,6 +53,8 @@ configs.nvim_cmp = function()
     }
     local buffer_lines_source = { name = 'buffer-lines' }
     local latex_symbol_source = { name = 'latex_symbols' }
+    -- local bibliography_source = { name = 'pandoc_references' }
+    local bibliography_source = { name = 'cmp_pandoc' }
     local path_source = {
         name = 'path',
         option = {
@@ -115,7 +117,8 @@ configs.nvim_cmp = function()
                         luasnip = "",
                         tags = "暈",
                         path = "",
-                        treesitter = "",
+                        -- pandoc_references = '[Pandoc]',
+                        cmp_pandoc = '[Pandoc]',
                         latex_symbols = '暈',
                         dap = "[Dap]",
                     }),
@@ -169,6 +172,7 @@ configs.nvim_cmp = function()
             path_source,
         }, {
             lsp_source,
+            bibliography_source,
             -- tag_source,
             snip_source,
             latex_symbol_source,
@@ -209,6 +213,24 @@ configs.nvim_cmp = function()
         end,
         { defer = true }
     )
+end
+
+configs.cmp_pandoc = function()
+    local fts = {'markdown', 'pandoc', 'rmd'}
+    local function setup_cmp_pandoc()
+        require('cmp_pandoc').setup({
+            filetypes = fts,
+        })
+    end
+    if vim.fn.index(fts, vim.bo.filetype) < 0 then
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = table.concat(fts, ','),
+            once = true,
+            callback = setup_cmp_pandoc
+        })
+    else
+        setup_cmp_pandoc()
+    end
 end
 
 configs.LuaSnip = function()

@@ -33,6 +33,15 @@ return {
             {'amarakon/nvim-cmp-buffer-lines'},
             -- latex symbol source
             {'kdheepak/cmp-latex-symbols'},
+            -- bibliography cite source
+            -- {'jc-doyle/cmp-pandoc-references'},
+            {
+                'aspeddro/cmp-pandoc.nvim',
+                config = configs.cmp_pandoc,
+                dependencies = {
+                    {'nvim-lua/plenary.nvim'},
+                },
+            },
             -- path source
             {'hrsh7th/cmp-path'},
         }
