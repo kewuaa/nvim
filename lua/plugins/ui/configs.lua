@@ -266,28 +266,6 @@ configs.lualine = function()
         },
         filetypes = { "lspsagaoutline" },
     }
-    -- local nvimtree = {
-    --     sections = {
-    --         lualine_a = { "bo:filetype" },
-    --         lualine_b = {},
-    --         lualine_c = {},
-    --         lualine_x = {},
-    --         lualine_y = {},
-    --         lualine_z = {},
-    --     },
-    --     filetypes = { "NvimTree" },
-    -- }
-    local trouble = {
-        sections = {
-            lualine_a = { "bo:filetype" },
-            lualine_b = {},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = {},
-        },
-        filetypes = { "Trouble" },
-    }
     require("lualine").setup({
         options = {
             icons_enabled = true,
@@ -376,7 +354,7 @@ configs.lualine = function()
                     end
                 },
             },
-            lualine_z = { "progress", "location" },
+            lualine_z = { "searchcount", "filesize", "progress", "location" },
         },
         inactive_sections = {
             lualine_a = {},
@@ -392,7 +370,9 @@ configs.lualine = function()
             -- "toggleterm",
             'neo-tree',
             outline,
-            trouble,
+            'lazy',
+            'trouble',
+            'nvim-dap-ui',
         },
     })
 end
