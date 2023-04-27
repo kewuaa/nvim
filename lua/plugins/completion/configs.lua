@@ -340,7 +340,6 @@ configs.mason_lspconfig = function()
             exclude = {
                 'pylsp',
                 'zls',
-                'taplo',
             },
         },
     })
