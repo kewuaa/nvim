@@ -89,9 +89,20 @@ M.pylsp = vim.tbl_extend('error', base_settings, {
                 mccabe = {enabled = false},
                 ruff = {
                     enabled = true,
-                    exclude = {'.git', '**/__pycache__', 'build', 'dist'},
+                    exclude = {
+                        '.git',
+                        '**/__pycache__',
+                        'build',
+                        'dist',
+                        '.venv',
+                        '.pytest_cache',
+                        '.mypy_cache'
+                    },
                     ignore = {'E402'},
                     lineLength = 80,
+                },
+                pylsp_mypy = {
+                    enabled = false,
                 },
                 jedi = {
                     -- environment = '',
