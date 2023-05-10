@@ -29,8 +29,6 @@ return {
             {'lukas-reineke/cmp-under-comparator'},
             -- buffer source
             {'hrsh7th/cmp-buffer'},
-            -- buffer lines source
-            {'amarakon/nvim-cmp-buffer-lines'},
             -- latex symbol source
             {'kdheepak/cmp-latex-symbols'},
             -- bibliography cite source

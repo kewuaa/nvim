@@ -51,12 +51,6 @@ configs.nvim_cmp = function()
             end,
         },
     }
-    local buffer_lines_source = {
-        name = 'buffer-lines',
-        option = {
-            max_indents = 1,
-        }
-    }
     local latex_symbol_source = { name = 'latex_symbols' }
     -- local bibliography_source = { name = 'pandoc_references' }
     local bibliography_source = { name = 'cmp_pandoc' }
@@ -118,7 +112,6 @@ configs.nvim_cmp = function()
                     maxwidth = 50,
                     menu = ({
                         buffer = "",
-                        ['buffer-lines'] = '',
                         nvim_lsp = "",
                         luasnip = "",
                         tags = "",
@@ -178,22 +171,21 @@ configs.nvim_cmp = function()
             path_source,
         }, {
             lsp_source,
-            bibliography_source,
             -- tag_source,
-            snip_source,
-            latex_symbol_source,
             buffer_source,
+            snip_source,
         }),
     }
     cmp.setup(config)
-    cmp.setup.filetype({'c', 'cpp'}, vim.tbl_deep_extend("force", config, {
+    cmp.setup.filetype({'markdown'}, vim.tbl_deep_extend("force", config, {
         sources = cmp.config.sources({
             path_source,
         }, {
                 lsp_source,
-                snip_source,
                 buffer_source,
-                buffer_lines_source,
+                bibliography_source,
+                latex_symbol_source,
+                snip_source,
             })
     }))
     -- cmp.setup.filetype('cython', vim.tbl_deep_extend('force', config, {
