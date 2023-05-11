@@ -5,7 +5,7 @@ local utils = require('core.utils')
 local rootmarks = vim.list_extend(settings.get_rootmarks(), {'pyproject.toml'})
 local find_root = utils.find_root_by(rootmarks)
 local _parse_pyenv = require('core.utils.python').parse_pyenv
-local filetypes = {'python'}
+local filetypes = {'python', 'cython'}
 
 local base_settings = {
     rootmarks = rootmarks,
@@ -64,17 +64,18 @@ end
 --         }
 --     }
 -- })
--- M.ruff_lsp = vim.tbl_extend('error', base_settings, {
---     cmd = {'ruff-lsp.exe'},
---     on_attach = function() end,
---     init_options = {
---         args = {
---             '--line-length=80',
---             '--ignore=E402',
---             '--exclude=.git,**/__pycache__,build,dist',
---         }
---     }
--- })
+M.ruff_lsp = vim.tbl_extend('force', base_settings, {
+    filetypes = {'python'},
+    cmd = {'ruff-lsp'},
+    on_attach = function() end,
+    init_options = {
+        args = {
+            '--line-length=80',
+            '--ignore=E402',
+            '--exclude=.git,**/__pycache__,build,dist',
+        }
+    }
+})
 M.pylsp = vim.tbl_extend('error', base_settings, {
     cmd = {'pylsp'},
     settings = {
@@ -88,7 +89,7 @@ M.pylsp = vim.tbl_extend('error', base_settings, {
                 flake8 = {enabled = false},
                 mccabe = {enabled = false},
                 ruff = {
-                    enabled = true,
+                    enabled = false,
                     exclude = {
                         '.git',
                         '**/__pycache__',
