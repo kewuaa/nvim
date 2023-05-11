@@ -110,7 +110,7 @@ M.pylsp = vim.tbl_extend('error', base_settings, {
                     auto_import_modules = {'numpy', 'pandas'}
                 },
                 jedi_completion = {
-                    include_params = true,
+                    include_params = false,
                     resolve_at_most = 15,
                     fuzzy = true,
                     cache_for = {'numpy', 'matplotlib', 'pandas', 'torch'},
