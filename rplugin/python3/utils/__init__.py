@@ -33,11 +33,11 @@ class Utils:
         nvim = self._nvim
         buffer = nvim.current.buffer
         lines = (
-            'language_level=3',
-            'boundscheck=False',
-            'wraparound=False',
-            'cdivision=True',
+            '# cython: language_level=3',
+            '# cython: boundscheck=False',
+            '# cython: wraparound=False',
+            '# cython: cdivision=True',
+            '# distutils: language=c++'
         )
-        buffer[0] = '# distutils: language=c++'
-        for line in lines:
-            buffer.append(f'# cython: {line}')
+        buffer.append(lines)
+        del buffer[0]
