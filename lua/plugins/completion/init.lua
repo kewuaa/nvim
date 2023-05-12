@@ -56,7 +56,7 @@ return {
             })
             api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
                 group = init_group,
-                pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
+                -- pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
                 callback = function()
                     vim.fn.timer_start(600, function()
                         api.nvim_command [[Lazy load nvim-lspconfig]]
