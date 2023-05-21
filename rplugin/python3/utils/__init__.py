@@ -55,8 +55,8 @@ class Utils:
         self._add_pyxfilehead()
 
     @pynvim.function('PyReadToml', sync=True)
-    def read_toml(self, file: str) -> dict:
-        file = Path(file)
+    def read_toml(self, file: list[str]) -> dict:
+        file = Path(file[0])
         if not file.exists():
             raise RuntimeError(f'{file} not exists')
         with open(file, 'rb') as f:

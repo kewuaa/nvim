@@ -8,8 +8,6 @@ M.read_toml = function(file)
         file = fn.expand('%:p')
     end
     return vim.fn.eval(string.format('PyReadToml("%s")', file))
-    -- vim.cmd [[py3 from pyutils import pyread_toml]]
-    -- return fn.py3eval(string.format('pyread_toml("%s")', file))
 end
 
 M.find_root_by = function(rootmarks)
