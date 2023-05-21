@@ -33,8 +33,7 @@ class Utils:
                 buffer[i + start] = \
                     f"{self._add_quota(k)}': '{v.lstrip().rstrip(',')}',"
 
-    @pynvim.autocmd('BufNewFile', '*.pyx')
-    def add_pyxfilehead(self) -> None:
+    def _add_pyxfilehead(self) -> None:
         nvim = self._nvim
         buffer = nvim.current.buffer
         lines = (
@@ -46,6 +45,14 @@ class Utils:
         )
         buffer.append(lines)
         del buffer[0]
+
+    @pynvim.autocmd('BufNewFile', '*.pyx')
+    def pyxfilehead_autocmd(self) -> None:
+        self._add_pyxfilehead()
+
+    @pynvim.command('AddPYXFileHead', nargs='*')
+    def pyxfilehead_command(self, *args) -> None:
+        self._add_pyxfilehead()
 
     @pynvim.function('PyReadToml', sync=True)
     def read_toml(self, file: str) -> dict:
