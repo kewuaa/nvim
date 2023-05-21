@@ -9,7 +9,7 @@ class Utils:
         self._nvim = nvim
         self.__blank_pattern = compile(r'\s*')
 
-    def __add_quota(self, s: str) -> str:
+    def _add_quota(self, s: str) -> str:
         def repl(m):
             return m.group(0) + "'"
         return self.__blank_pattern.sub(repl, s, count=1)
@@ -26,7 +26,7 @@ class Utils:
             if len(item) > 1:
                 k, v = item
                 buffer[i + start] = \
-                    f"{self.__add_quota(k)}': '{v.lstrip().rstrip(',')}',"
+                    f"{self._add_quota(k)}': '{v.lstrip().rstrip(',')}',"
 
     @pynvim.autocmd('BufNewFile', '*.pyx')
     def add_pyxfilehead(self) -> None:
