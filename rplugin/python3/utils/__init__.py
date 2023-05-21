@@ -1,6 +1,11 @@
 from re import compile
+from pathlib import Path
 
 import pynvim
+try:
+    import tomllib as toml
+except ImportError:
+    import tomli as toml
 
 
 @pynvim.plugin
@@ -41,3 +46,12 @@ class Utils:
         )
         buffer.append(lines)
         del buffer[0]
+
+    @pynvim.function('PyReadToml', sync=True)
+    def read_toml(self, file: str) -> dict:
+        file = Path(file)
+        if not file.exists():
+            raise RuntimeError(f'{file} not exists')
+        with open(file, 'rb') as f:
+            content = toml.load(f)
+        return content
