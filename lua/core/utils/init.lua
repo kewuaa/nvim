@@ -1,15 +1,6 @@
 local M = {}
 local fn = vim.fn
 
-M.read_toml = function(file)
-    if file then
-        file = fn.fnamemodify(file, ':p')
-    else
-        file = fn.expand('%:p')
-    end
-    return vim.fn.eval(string.format('PyReadToml("%s")', file))
-end
-
 M.find_root_by = function(rootmarks)
     local fnm = fn.fnamemodify
     local globpath = fn.globpath

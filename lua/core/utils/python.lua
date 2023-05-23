@@ -15,15 +15,24 @@ function M.parse_pyenv(root)
     else
         venv = 'default'
         local config_file = string.format(
-            '%s%s%s',
-            root,
+            '%s%s%s', root,
             string.match(root, '[\\/]$') and '' or '/',
             'pyproject.toml'
         )
         if vim.loop.fs_stat(config_file) then
-            local config = require('core.utils').read_toml(config_file)
-            if config and config.tool then
-                venv = config.tool.jedi and config.tool.jedi.venv or venv
+            local lines = vim.fn.readfile(config_file)
+            local find = false
+            for _, line in ipairs(lines) do
+                if not find then
+                    if string.match(line, '[tool.jedi]') then
+                        find = true
+                    end
+                else
+                    venv = string.match(line, 'venv%s*=%s*[\'\"](.*)[\'\"]')
+                    if venv or string.match(line, '[.*]') then
+                        break
+                    end
+                end
             end
         end
         venv = require('core.settings'):getpy(venv)
