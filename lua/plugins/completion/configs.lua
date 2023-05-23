@@ -58,7 +58,7 @@ configs.nvim_cmp = function()
         name = 'path',
         option = {
             trailing_slash = false,
-            get_cwd = require("core.utils").get_cwd,
+            -- get_cwd = require("core.utils").get_cwd,
         },
     }
     local dap_source = { name = 'dap' }
