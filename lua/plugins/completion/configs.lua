@@ -99,8 +99,8 @@ configs.nvim_cmp = function()
             priority_weight = 2,
             comparators = {
                 compare.score,
-                compare.offset,
-                compare.locality,
+                -- compare.offset, -- Items closer to cursor will have lower priority
+                compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
                 require("cmp-under-comparator").under,
             },
         },
