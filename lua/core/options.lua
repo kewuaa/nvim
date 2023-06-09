@@ -1,5 +1,6 @@
 vim.g.python3_host_prog = require('core.settings'):getpy('default')
 vim.g.c_syntax_for_h = 1
+vim.g.zig_fmt_autosave = 0
 
 local options = {
     splitright = true,
