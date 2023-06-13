@@ -44,6 +44,11 @@ return {
             {'hrsh7th/cmp-path'},
         }
     },
+    -- extended textDocument/definition handler for omnisharp
+    {
+        'Hoffs/omnisharp-extended-lsp.nvim',
+        lazy = true,
+    },
 
     -- lsp
     {
