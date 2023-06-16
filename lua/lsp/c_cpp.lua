@@ -33,8 +33,8 @@ M.clangd = {
         "--clang-tidy",
         "--all-scopes-completion",
         "--completion-style=detailed",
-        "--header-insertion-decorators",
-        "--header-insertion=iwyu",
+        "--header-insertion=never",
+        "--fallback-style=google",
     }
 }
 -- M.cmake = {
