@@ -218,6 +218,7 @@ function M.setup()
         'vim',
         'toml',
         'json',
+        'yaml',
     }) do
         local ok, config = pcall(require, 'lsp.' .. lang)
         if ok then
