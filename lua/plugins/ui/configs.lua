@@ -6,7 +6,7 @@ configs.sonokai = function()
     vim.g.sonokai_disable_italic_comment = 0
     vim.g.sonokai_enable_italic = 1
     vim.g.sonokai_cursor = 'yellow'
-    vim.g.sonokai_transparent_background = vim.fn.exists('g:nvy') == 1 and 0 or 1
+    vim.g.sonokai_transparent_background = 0
     vim.g.sonokai_dim_inactive_windows = 0
     vim.g.sonokai_menu_selection_background = 'blue'
     vim.g.sonokai_spell_foreground = 'colored'
@@ -391,7 +391,7 @@ configs.notify = function()
         -- Render function for notifications. See notify-render()
         render = "default",
         ---@usage highlight behind the window for stages that change opacity
-        background_colour = vim.fn.exists('g:nvy') == 1 and "Normal" or "#000000",
+        background_colour = "Normal",
         ---@usage minimum width for notification windows
         minimum_width = 30,
         ---@usage notifications with level lower than this would be ignored. [ERROR > WARN > INFO > DEBUG > TRACE]
