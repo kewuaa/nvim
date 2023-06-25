@@ -109,6 +109,7 @@ configs.comment = function()
     local ft = require("Comment.ft")
     ft({'cython'}, ft.get('python'))
     ft({'zig'}, ft.get('c'))
+    ft.pascal = {'{%s}', '{*%s*}'}
 end
 
 configs.tabout = function()

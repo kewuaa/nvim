@@ -211,6 +211,7 @@ function M.setup()
         'python',
         'c_cpp',
         'zig',
+        'pascal',
         'csharp',
         'lua',
         'js_ts',
