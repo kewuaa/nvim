@@ -11,7 +11,7 @@ class Utils:
 
     def _add_quota(self, s: str) -> str:
         def repl(m):
-            return m.group(0) + "'"
+            return m.group(0) + '"'
         return self.__blank_pattern.sub(repl, s, count=1)
 
     @pynvim.command('FormatDict', nargs='*', range='')
@@ -26,7 +26,7 @@ class Utils:
             if len(item) > 1:
                 k, v = item
                 buffer[i + start] = \
-                    f"{self._add_quota(k)}': '{v.lstrip().rstrip(',')}',"
+                    f'{self._add_quota(k)}": "{v.lstrip().rstrip(",")}",'
 
     def _add_pyxfilehead(self) -> None:
         nvim = self._nvim
