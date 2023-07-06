@@ -1,0 +1,24 @@
+$if clink
+
+set completion-prefix-display-length 20
+set completion-query-items 50
+set mark-symlinked-directories on
+set print-completions-horizontally on
+set colored-stats                 on
+set colored-completion-prefix     on
+set menu-complete-wraparound      on
+set history-point-at-end-of-anchored-search on
+set search-ignore-case            on
+set completion-auto-query-items   on
+
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-cmd-mode-string 
+set vi-ins-mode-string 
+# Add your keybindings here...
+# "\t":               old-menu-complete               # Tab
+# "\e[Z":             old-menu-complete-backward      # Shift-Tab
+# "\e[27;5;32~":      clink-select-complete           # Ctrl-Space
+"\t": clink-select-complete
+
+$endif
