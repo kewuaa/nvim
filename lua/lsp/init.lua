@@ -51,7 +51,7 @@ local on_attach = function(client, bufnr)
 
     -- find references
     -- map('n', 'gr', vim.lsp.buf.references, bufopts)
-    map("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+    map("n", "gr", "<cmd>Lspsaga finder<CR>", bufopts)
 
     -- Outline
     map("n","<leader>o", "<cmd>Lspsaga outline<CR>", bufopts)
