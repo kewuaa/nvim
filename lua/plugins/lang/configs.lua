@@ -134,34 +134,4 @@ configs.hlargs = function()
     })
 end
 
-configs.nvim_lint = function()
-    local lint = require('lint')
-    local pattern = '[^:]+:(%d+):(%d+):(.+)'
-    local groups = {'lnum', 'col', 'message'}
-    lint.linters.cython_lint = {
-        cmd = 'cython-lint',
-        stdin = true,
-        args = {
-            '--max-line-length=80',
-            function()
-                local name = vim.api.nvim_buf_get_name(0)
-                return name
-            end,
-        },
-        ignore_exitcode = true,
-        parser = require('lint.parser').from_pattern(pattern, groups, nil, {
-            source = 'cython-lint'
-        }),
-    }
-    lint.linters_by_ft = {
-        cython = {'cython_lint'},
-    }
-    vim.api.nvim_create_autocmd({"BufRead", "BufWritePost"}, {
-        callback = function()
-            lint.try_lint()
-        end,
-    })
-    lint.try_lint()
-end
-
 return configs
