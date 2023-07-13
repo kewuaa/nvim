@@ -102,7 +102,7 @@ configs.nvim_treesitter = function()
             max_file_lines = 2000, -- Do not enable for files with more than n lines, int
         },
     })
-    require('nvim-treesitter.install').compilers = { "cl", "zig", "gcc" }
+    require('nvim-treesitter.install').compilers = { "zig", "gcc" }
     -- vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
     --     group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
     --     callback = function()
