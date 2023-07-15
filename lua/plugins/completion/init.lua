@@ -82,29 +82,4 @@ return {
             {'williamboman/mason-lspconfig.nvim', config = configs.mason_lspconfig},
         }
     },
-
-
-    -- ctags
-    -- {
-    --     'ludovicchabant/vim-gutentags',
-    --     lazy = true,
-    --     init = function()
-    --         vim.api.nvim_create_autocmd('FileType', {
-    --             pattern = 'cython',
-    --             once = true,
-    --             callback = function()
-    --                 vim.fn.timer_start(
-    --                     600,
-    --                     function()
-    --                         configs.vim_gutentags()
-    --                         vim.api.nvim_command [[Lazy load vim-gutentags]]
-    --                     end
-    --                 )
-    --             end
-    --         })
-    --     end,
-    --     dependencies = {
-    --         {'skywind3000/gutentags_plus'},
-    --     }
-    -- },
 }
