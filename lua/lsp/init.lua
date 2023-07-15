@@ -133,7 +133,6 @@ function M.setup()
         'python',
         'c_cpp',
         'zig',
-        'pascal',
         'lua',
         'js_ts',
         'markdown',
