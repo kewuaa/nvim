@@ -1,2 +1,2 @@
-[tool.jedi]
+[tool.pyright]
 venv = "nvim"

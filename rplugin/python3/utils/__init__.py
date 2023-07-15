@@ -5,7 +5,7 @@ import pynvim
 
 @pynvim.plugin
 class Utils:
-    def __init__(self, nvim: pynvim.api.nvim.Nvim) -> None:
+    def __init__(self, nvim: pynvim.Nvim) -> None:
         self._nvim = nvim
         self.__blank_pattern = compile(r'\s*')
 

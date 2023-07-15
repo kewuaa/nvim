@@ -25,7 +25,7 @@ function M.parse_pyenv(root)
             local find = false
             for _, line in ipairs(lines) do
                 if not find then
-                    if string.match(line, '[tool.jedi]') then
+                    if string.match(line, '[tool.pyright]') then
                         find = true
                     end
                 else
@@ -54,6 +54,7 @@ end
 function M.init()
     vim.api.nvim_create_autocmd('filetype', {
         pattern = 'cython,python',
+        once = true,
         callback = function()
             local start_path = vim.api.nvim_buf_get_name(0)
             local root = find_root(start_path)
