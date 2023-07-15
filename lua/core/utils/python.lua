@@ -30,7 +30,7 @@ function M.parse_pyenv(root)
                     end
                 else
                     venv = string.match(line, 'venv%s*=%s*[\'\"](.*)[\'\"]')
-                    if venv or string.match(line, '[.*]') then
+                    if venv or string.match(line, '^[.*]') then
                         break
                     end
                 end
