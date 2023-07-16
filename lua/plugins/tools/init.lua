@@ -120,7 +120,7 @@ return {
     -- 文件树
     {
         'nvim-neo-tree/neo-tree.nvim',
-        branch = 'v2.x',
+        branch = 'v3.x',
         lazy = true,
         keys = {
             {'<leader>fe', '<cmd>Neotree toggle<CR>', mode = 'n'},
