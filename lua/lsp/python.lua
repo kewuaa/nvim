@@ -22,6 +22,7 @@ M.pyright = {
                 -- typeCheckingMode = 'off',
             },
             venvPath = settings.pyvenv_path,
+            venv = "default",
         }
     }
 }
