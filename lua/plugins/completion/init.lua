@@ -21,8 +21,6 @@ return {
             },
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
-            -- ctags source
-            -- {'quangnguyen30192/cmp-nvim-tags'},
             -- snippets source
             {'saadparwaiz1/cmp_luasnip'},
             -- underline sort
@@ -43,11 +41,6 @@ return {
             -- path source
             {'hrsh7th/cmp-path'},
         }
-    },
-    -- extended textDocument/definition handler for omnisharp
-    {
-        'Hoffs/omnisharp-extended-lsp.nvim',
-        lazy = true,
     },
 
     -- lsp
