@@ -46,7 +46,7 @@ vim.filetype.add({
     extension = {
         pyx = cython_ft_callback,
         pxd = cython_ft_callback,
-        pxi = cython_ft_callback,
+        pxi = "cython"
     }
 })
 
