@@ -158,6 +158,7 @@ function M.setup()
         'python',
         'c_cpp',
         'zig',
+        'haskell',
         'lua',
         'js_ts',
         'markdown',

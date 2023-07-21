@@ -331,6 +331,7 @@ configs.mason_lspconfig = function()
         automatic_installation = {
             exclude = {
                 'zls',
+                'hls',
             },
         },
     })

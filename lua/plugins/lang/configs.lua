@@ -7,6 +7,8 @@ configs.nvim_treesitter = function()
             'python',
             'c',
             'cpp',
+            'haskell',
+            'haskell_persistent',
             'make',
             'cmake',
             'zig',
