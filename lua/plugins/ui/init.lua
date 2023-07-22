@@ -9,13 +9,6 @@ return {
         event = 'VeryLazy',
         config = configs.sonokai,
     },
-    -- {
-    --     'catppuccin/nvim',
-    --     name = "catppuccin",
-    --     lazy = true,
-    --     event = 'VeryLazy',
-    --     config = configs.catppuccin,
-    -- },
 
     -- statusline
     {

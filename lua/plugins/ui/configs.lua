@@ -19,146 +19,6 @@ configs.sonokai = function()
     vim.g.sonokai_better_performance = 1
     vim.schedule(function() vim.cmd.colorscheme('sonokai') end)
 end
-configs.catppuccin = function()
-    require('catppuccin').setup({
-        compile_path = vim.fn.stdpath "data" .. "/catppuccin",
-        flavour = "frappe", -- latte, frappe, macchiato, mocha
-        background = { -- :h background
-            light = "latte",
-            dark = "frappe",
-        },
-        transparent_background = false,
-        show_end_of_buffer = true, -- show the '~' characters after the end of buffers
-        term_colors = false,
-        dim_inactive = {
-            enabled = true,
-            shade = "dark",
-            percentage = 0.15,
-        },
-        no_italic = false, -- Force no italic
-        no_bold = false, -- Force no bold
-        styles = {
-            comments = { "italic" },
-            conditionals = { "italic" },
-            loops = {},
-            functions = { "italic,bold" },
-            keywords = { "bold" },
-            strings = {},
-            variables = {},
-            numbers = {},
-            booleans = {},
-            properties = {},
-            types = {},
-            operators = {},
-        },
-        color_overrides = {},
-        custom_highlights = function(C)
-            return {
-                CmpItemKindSnippet = { fg = C.base, bg = C.mauve },
-                CmpItemKindKeyword = { fg = C.base, bg = C.red },
-                CmpItemKindText = { fg = C.base, bg = C.teal },
-                CmpItemKindMethod = { fg = C.base, bg = C.blue },
-                CmpItemKindConstructor = { fg = C.base, bg = C.blue },
-                CmpItemKindFunction = { fg = C.base, bg = C.blue },
-                CmpItemKindFolder = { fg = C.base, bg = C.blue },
-                CmpItemKindModule = { fg = C.base, bg = C.blue },
-                CmpItemKindConstant = { fg = C.base, bg = C.peach },
-                CmpItemKindField = { fg = C.base, bg = C.green },
-                CmpItemKindProperty = { fg = C.base, bg = C.green },
-                CmpItemKindEnum = { fg = C.base, bg = C.green },
-                CmpItemKindUnit = { fg = C.base, bg = C.green },
-                CmpItemKindClass = { fg = C.base, bg = C.yellow },
-                CmpItemKindVariable = { fg = C.base, bg = C.flamingo },
-                CmpItemKindFile = { fg = C.base, bg = C.blue },
-                CmpItemKindInterface = { fg = C.base, bg = C.yellow },
-                CmpItemKindColor = { fg = C.base, bg = C.red },
-                CmpItemKindReference = { fg = C.base, bg = C.red },
-                CmpItemKindEnumMember = { fg = C.base, bg = C.red },
-                CmpItemKindStruct = { fg = C.base, bg = C.blue },
-                CmpItemKindValue = { fg = C.base, bg = C.peach },
-                CmpItemKindEvent = { fg = C.base, bg = C.blue },
-                CmpItemKindOperator = { fg = C.base, bg = C.blue },
-                CmpItemKindTypeParameter = { fg = C.base, bg = C.blue },
-                CmpItemKindCopilot = { fg = C.base, bg = C.teal },
-            }
-        end,
-        integrations = {
-            aerial = false,
-            barbar = false,
-            beacon = false,
-            cmp = true,
-            coc_nvim = false,
-            dashboard = false,
-            fern = false,
-            fidget = true,
-            gitgutter = false,
-            gitsigns = true,
-            harpoon = false,
-            hop = true,
-            illuminate = true,
-            leap = false,
-            lightspeed = false,
-            lsp_saga = true,
-            lsp_trouble = true,
-            markdown = false,
-            mason = false,
-            mini = false,
-            neogit = false,
-            neotest = false,
-            neotree = true,
-            noice = false,
-            notify = true,
-            nvimtree = false,
-            overseer = false,
-            pounce = false,
-            semantic_tokens = false,
-            symbols_outline = false,
-            telekasten = false,
-            telescope = true,
-            treesitter = true,
-            treesitter_context = false,
-            ts_rainbow = true,
-            vim_sneak = false,
-            vimwiki = false,
-            which_key = false,
-
-            -- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
-            barbecue = {
-                dim_dirname = false,
-            },
-            dap = {
-                enabled = true,
-                enable_ui = true,
-            },
-            indent_blankline = {
-                enabled = true,
-                colored_indent_levels = false,
-            },
-            native_lsp = {
-                enabled = true,
-                virtual_text = {
-                    errors = { "italic" },
-                    hints = { "italic" },
-                    warnings = { "italic" },
-                    information = { "italic" },
-                },
-                underlines = {
-                    errors = { "underline" },
-                    hints = { "underline" },
-                    warnings = { "underline" },
-                    information = { "underline" },
-                },
-            },
-            navic = {
-                enabled = false,
-                custom_bg = "NONE",
-            },
-        },
-    })
-    vim.schedule(function()
-        vim.cmd.colorscheme('catppuccin')
-    end)
-end
 
 configs.indent_blankline = function()
     require('indent_blankline').setup({
@@ -205,20 +65,6 @@ configs.mini_indentscope = function()
 end
 
 configs.lualine = function()
-    -- local function get_gutentags_status(mods)
-    --     local msg = ''
-    --     local index = vim.fn.index
-    --     if index(mods, 'ctags') >= 0 then
-    --         msg = msg .. '[C] '
-    --     end
-    --     if index(mods, 'gtags_cscope') >= 0 then
-    --         msg = msg .. '[G] '
-    --     end
-    --     return msg
-    -- end
-    -- local function gutentags()
-    --     return vim.fn['gutentags#statusline_cb'](get_gutentags_status)
-    -- end
     local function diff_source()
         ---@diagnostic disable-next-line: undefined-field
         local gitsigns = vim.b.gitsigns_status_dict
@@ -317,11 +163,6 @@ configs.lualine = function()
                     cond = require("lazy.status").has_updates,
                     color = { fg = "#ff9e64" },
                 },
-                -- {
-                --     gutentags,
-                --     cond = function() return vim.bo.filetype == 'pyrex' end,
-                --     color = { fg = '#F4B8E4'}
-                -- },
                 {
                     'g:translator_status',
                     color = { fg = "#E5C890" }
@@ -367,7 +208,6 @@ configs.lualine = function()
         tabline = {},
         extensions = {
             "quickfix",
-            -- "toggleterm",
             'neo-tree',
             outline,
             'lazy',
