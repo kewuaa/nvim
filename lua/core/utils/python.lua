@@ -14,7 +14,7 @@ function M.parse_pyenv(root)
     if vim.loop.fs_stat(local_venv) then
         venv = local_venv
     else
-        venv = 'default'
+        venv = nil
         local config_file = string.format(
             '%s%s%s', root,
             string.match(root, '[\\/]$') and '' or '/',
@@ -36,7 +36,15 @@ function M.parse_pyenv(root)
                 end
             end
         end
-        venv = require('core.settings'):getpy(venv)
+        if venv then
+            venv = require('core.settings'):getpy(venv)
+        else
+            if os.getenv("VIRTUAL_ENV") then
+                venv = os.getenv("VIRTUAL_ENV") .. "/Scripts/python.exe"
+            else
+                venv = require("core.settings"):getpy("default")
+            end
+        end
     end
     environ.pyenv = venv
     vim.g.asynctasks_environ = environ
