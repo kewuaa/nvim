@@ -47,23 +47,23 @@ return {
     {
         'neovim/nvim-lspconfig',
         lazy = true,
-        -- init = function()
-        --     local api = vim.api
-        --     local init_group = api.nvim_create_augroup('init_lsp', {
-        --         clear = true,
-        --     })
-        --     api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-        --         group = init_group,
-        --         -- pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
-        --         callback = function()
-        --             vim.fn.timer_start(600, function()
-        --                 api.nvim_command [[Lazy load nvim-lspconfig]]
-        --             end)
-        --             api.nvim_del_augroup_by_name('init_lsp')
-        --         end
-        --     })
-        -- end,
-        event = {'BufRead', 'BufNewFile'},
+        init = function()
+            local api = vim.api
+            local init_group = api.nvim_create_augroup('init_lsp', {
+                clear = true,
+            })
+            api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+                group = init_group,
+                -- pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
+                callback = function()
+                    vim.fn.timer_start(100, function()
+                        api.nvim_command [[Lazy load nvim-lspconfig]]
+                    end)
+                    api.nvim_del_augroup_by_name('init_lsp')
+                end
+            })
+        end,
+        -- event = {'BufRead', 'BufNewFile'},
         config = configs.nvim_lspconfig,
         dependencies = {
             -- lsp增强

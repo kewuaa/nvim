@@ -19,7 +19,7 @@ return {
                 group = init_group,
                 pattern = '*',
                 callback = function()
-                        vim.fn.timer_start(300, function()
+                        vim.fn.timer_start(400, function()
                             api.nvim_command [[Lazy load nvim-treesitter]]
                         end)
                         api.nvim_del_augroup_by_name('init_treesitter')
