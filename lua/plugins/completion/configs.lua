@@ -115,6 +115,7 @@ configs.nvim_cmp = function()
                         luasnip = "",
                         tags = "",
                         path = "",
+                        cmdline = "[Cmd]",
                         -- pandoc_references = '[Pandoc]',
                         cmp_pandoc = '[Pandoc]',
                         latex_symbols = 'ﭨ',
