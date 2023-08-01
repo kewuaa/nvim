@@ -20,19 +20,19 @@ local function todo_comments(command)
 end
 
 keymaps.asynctasks = {
-    {'n', '<A-q>', ':AsyncTask file-run<CR>'},
-    {'n', '<leader><A-q>', ':AsyncTask file-build<CR>'},
-    {'n', '<F5>', ':AsyncTask project-run<CR>'},
-    {'n', '<leader><F5>', ':AsyncTask project-build<CR>'},
+    {'n', '<A-q>', '<cmd>AsyncTask file-run<CR>'},
+    {'n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>'},
+    {'n', '<F5>', '<cmd>AsyncTask project-run<CR>'},
+    {'n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>'},
 }
 
 keymaps.hop = {
-    {'n', '<leader><leader>w', ':HopWord<CR>'},
-    {'n', '<leader><leader>j', ':HopLine<CR>'},
-    {'n', '<leader><leader>k', ':HopLine<CR>'},
-    {'n', '<leader><leader>f', ':HopChar1<CR>'},
-    {'n', '<leader><leader>c', ':HopChar2<CR>'},
-    {'n', '<leader><leader>/', ':HopPattern<CR>'},
+    {'n', '<leader><leader>w', '<cmd>HopWord<CR>'},
+    {'n', '<leader><leader>j', '<cmd>HopLine<CR>'},
+    {'n', '<leader><leader>k', '<cmd>HopLine<CR>'},
+    {'n', '<leader><leader>f', '<cmd>HopChar1<CR>'},
+    {'n', '<leader><leader>c', '<cmd>HopChar2<CR>'},
+    {'n', '<leader><leader>/', '<cmd>HopPattern<CR>'},
 }
 
 keymaps.windows = {
@@ -45,11 +45,11 @@ keymaps.windows = {
 keymaps.telescope = {
     {'n', '<leader>ff', telescope('find_files')},
     {'n', '<leader>fg', telescope('live_grep')},
-    {'n', '<leader>fb', ':Telescope buffers<CR>'},
-    {'n', '<leader>fh', ':Telescope help_tags<CR>'},
-    {'n', '<leader>f/', ':Telescope current_buffer_fuzzy_find<CR>'},
-    {'n', '<leader>fm', ':Telescope keymaps<CR>'},
-    {'n', '<leader>fc', ':Telescope commands<CR>'},
+    {'n', '<leader>fb', '<cmd>Telescope buffers<CR>'},
+    {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'},
+    {'n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>'},
+    {'n', '<leader>fm', '<cmd>Telescope keymaps<CR>'},
+    {'n', '<leader>fc', '<cmd>Telescope commands<CR>'},
 }
 
 keymaps.diffview = {
@@ -102,23 +102,23 @@ function keymaps.init()
     }
     vim.g.mapleader = ','
 
-    map('n', '<leader>rc', ':e $MYVIMRC<CR>', opts_)
+    map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts_)
     -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts_)
 
-    map('n', '<leader>bp', ':bp<CR>', opts_)
-    map('n', '<leader>bn', ':bn<CR>', opts_)
-    map('n', '<leader>bd', ':bdelete<CR>', opts_)
+    map('n', '<leader>bp', '<cmd>bp<CR>', opts_)
+    map('n', '<leader>bn', '<cmd>bn<CR>', opts_)
+    map('n', '<leader>bd', '<cmd>bdelete<CR>', opts_)
 
-    map('n', '<leader>tp', ':tabprevious<CR>', opts_)
-    map('n', '<leader>tn', ':tabnext<CR>', opts_)
-    map('n', '<leader>td', ':tabclose<CR>', opts_)
+    map('n', '<leader>tp', '<cmd>tabprevious<CR>', opts_)
+    map('n', '<leader>tn', '<cmd>tabnext<CR>', opts_)
+    map('n', '<leader>td', '<cmd>tabclose<CR>', opts_)
 
     map('t', '<A-q>', [[<c-\><c-n>]], opts_)
 
-    -- map('n', '<C-w>=', ':vertical resize+5<CR>', opts_)
-    -- map('n', '<C-w>-', ':vertical resize-5<CR>', opts_)
-    -- map('n', '<C-w>]', ':resize+5<CR>', opts_)
-    -- map('n', '<C-w>[', ':resize-5<CR>', opts_)
+    -- map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts_)
+    -- map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts_)
+    -- map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
+    -- map('n', '<C-w>[', '<cmd>resize-5<CR>', opts_)
 
     -- vim.cmd [[
     -- " 多行应用宏
