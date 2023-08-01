@@ -32,7 +32,6 @@ configs.nvim_cmp = function()
     end
 
     local lsp_source = { name = 'nvim_lsp' }
-    -- local tag_source = { name = 'tags' }
     local snip_source = { name = 'luasnip' }
     local buffer_source = {
         name = 'buffer',
@@ -167,43 +166,60 @@ configs.nvim_cmp = function()
                 end
             end, { "i", "s" }),
         }),
-        sources = cmp.config.sources({
-            path_source,
-        }, {
-            lsp_source,
-            -- tag_source,
-            buffer_source,
-            snip_source,
-        }),
+        sources = cmp.config.sources(
+            { path_source },
+            {
+                lsp_source,
+                -- tag_source,
+                buffer_source,
+                snip_source,
+            }
+        ),
     }
     cmp.setup(config)
-    cmp.setup.filetype({'markdown'}, vim.tbl_deep_extend("force", config, {
-        sources = cmp.config.sources({
-            path_source,
-        }, {
-                lsp_source,
-                buffer_source,
-                bibliography_source,
-                latex_symbol_source,
-                snip_source,
-            })
-    }))
-    -- cmp.setup.filetype('cython', vim.tbl_deep_extend('force', config, {
-    --     sources = cmp.config.sources({
-    --         path_source,
-    --     }, {
-    --         tag_source,
-    --         snip_source,
-    --         buffer_source,
-    --     })
-    -- }))
-    cmp.setup.filetype({"dap-repl", "dapui_watches", "dapui_hover"}, vim.tbl_deep_extend(
-        'force', config, {
-            sources = {
-                dap_source
-            }
+    -- `/` cmdline setup.
+    cmp.setup.cmdline({'/', '?'}, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            { name = 'buffer' }
         }
-    ))
+    })
+    -- `:` cmdline setup.
+    cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            { name = 'path' }
+        }, {
+                {
+                    name = 'cmdline',
+                    option = {
+                        ignore_cmds = { 'Man', '!' }
+                    }
+                }
+            })
+    })
+    cmp.setup.filetype(
+        {'markdown'},
+        vim.tbl_deep_extend(
+            "force",
+            config,
+            {
+                sources = cmp.config.sources(
+                    { path_source },
+                    {
+                        lsp_source,
+                        buffer_source,
+                        bibliography_source,
+                        latex_symbol_source,
+                        snip_source,
+                    }
+                )
+            })
+    )
+    cmp.setup.filetype(
+        { "dap-repl", "dapui_watches", "dapui_hover" },
+        vim.tbl_deep_extend('force', config, { sources = { dap_source } })
+    )
     require('core.utils.bigfile').register(
         512,
         function(_)
