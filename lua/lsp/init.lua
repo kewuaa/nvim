@@ -159,6 +159,7 @@ function M.setup()
         'c_cpp',
         'zig',
         'haskell',
+        'rust',
         'lua',
         'js_ts',
         'markdown',

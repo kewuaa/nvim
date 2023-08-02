@@ -9,6 +9,7 @@ configs.nvim_treesitter = function()
             'cpp',
             'haskell',
             'haskell_persistent',
+            'rust',
             'make',
             'cmake',
             'zig',
