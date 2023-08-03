@@ -4,7 +4,7 @@ local rootmarks = vim.list_extend(settings.get_rootmarks(), {'pyproject.toml'})
 
 M.pyright = {
     rootmarks = rootmarks,
-    filetypes = {"python", "cython"},
+    filetypes = {"python"},
     cmd = {
         'pyright-langserver',
         '--stdio',
