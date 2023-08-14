@@ -73,72 +73,72 @@ M.ruff_lsp = {
         }
     }
 }
-M.pylsp = {
-    rootmarks = rootmarks,
-    filetypes = {"python", "cython"},
-    cmd = {'pylsp'},
-    settings = {
-        pylsp = {
-            configurationSources = {},
-            plugins = {
-                pyflakes = {enabled = false},
-                pycodestyle = {enabled = false},
-                autopep8 = {enabled = false},
-                yapf = {enabled = false},
-                flake8 = {enabled = false},
-                mccabe = {enabled = false},
-                ruff = {
-                    enabled = false,
-                    exclude = {
-                        '.git',
-                        '**/__pycache__',
-                        'build',
-                        'dist',
-                        '.venv',
-                        '.pytest_cache',
-                        '.mypy_cache'
-                    },
-                    ignore = {'E402'},
-                    lineLength = 80,
-                },
-                pylsp_mypy = {
-                    enabled = true,
-                },
-                jedi = {
-                    -- environment = '',
-                    -- extra_paths = {},
-                    auto_import_modules = {'numpy', 'pandas'}
-                },
-                jedi_completion = {
-                    include_params = false,
-                    resolve_at_most = 15,
-                    fuzzy = true,
-                    cache_for = {
-                        'numpy',
-                        'matplotlib',
-                        'pandas',
-                        'torch',
-                    },
-                },
-                preload = {
-                    enabled = true,
-                    modules = {},
-                }
-            },
-        },
-    },
-    on_new_config = function(new_config, new_root)
-        local venv = require("core.utils.python").get_current_env().path
-        venv = vim.fn.fnamemodify(venv, ':h:h')
-        new_config.settings.pylsp.plugins.jedi.environment = venv
-        -- local src = new_root .. '/src'
-        -- if vim.loop.fs_stat(src) then
-        --     new_config.settings.pylsp.plugins.jedi.extra_paths = {src}
-        -- else
-        --     new_config.settings.pylsp.plugins.jedi.extra_paths = {}
-        -- end
-        return new_config
-    end
-}
+-- M.pylsp = {
+--     rootmarks = rootmarks,
+--     filetypes = {"python"},
+--     cmd = {'pylsp'},
+--     settings = {
+--         pylsp = {
+--             configurationSources = {},
+--             plugins = {
+--                 pyflakes = {enabled = false},
+--                 pycodestyle = {enabled = false},
+--                 autopep8 = {enabled = false},
+--                 yapf = {enabled = false},
+--                 flake8 = {enabled = false},
+--                 mccabe = {enabled = false},
+--                 ruff = {
+--                     enabled = false,
+--                     exclude = {
+--                         '.git',
+--                         '**/__pycache__',
+--                         'build',
+--                         'dist',
+--                         '.venv',
+--                         '.pytest_cache',
+--                         '.mypy_cache'
+--                     },
+--                     ignore = {'E402'},
+--                     lineLength = 80,
+--                 },
+--                 pylsp_mypy = {
+--                     enabled = true,
+--                 },
+--                 jedi = {
+--                     -- environment = '',
+--                     -- extra_paths = {},
+--                     auto_import_modules = {'numpy', 'pandas'}
+--                 },
+--                 jedi_completion = {
+--                     include_params = false,
+--                     resolve_at_most = 15,
+--                     fuzzy = true,
+--                     cache_for = {
+--                         'numpy',
+--                         'matplotlib',
+--                         'pandas',
+--                         'torch',
+--                     },
+--                 },
+--                 preload = {
+--                     enabled = true,
+--                     modules = {},
+--                 }
+--             },
+--         },
+--     },
+--     on_new_config = function(new_config, new_root)
+--         local venv = require("core.utils.python").get_current_env().path
+--         venv = vim.fn.fnamemodify(venv, ':h:h')
+--         new_config.settings.pylsp.plugins.jedi.environment = venv
+--         -- local src = new_root .. '/src'
+--         -- if vim.loop.fs_stat(src) then
+--         --     new_config.settings.pylsp.plugins.jedi.extra_paths = {src}
+--         -- else
+--         --     new_config.settings.pylsp.plugins.jedi.extra_paths = {}
+--         -- end
+--         return new_config
+--     end
+-- }
 
 return M

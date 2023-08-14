@@ -5,33 +5,33 @@ local map = vim.keymap.set
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    if vim.bo.ft == "python" then
-        if client.name == "pylsp" then
-            client.server_capabilities.codeActionProvider = false
-            client.server_capabilities.completionProvider = false
-            client.server_capabilities.resolveProvider = false
-            client.server_capabilities.definitionProvider = true
+    -- if vim.bo.ft == "python" then
+    --     if client.name == "pylsp" then
+    --         client.server_capabilities.codeActionProvider = false
+    --         client.server_capabilities.completionProvider = false
+    --         client.server_capabilities.resolveProvider = false
+    --         client.server_capabilities.definitionProvider = true
 
-            client.server_capabilities.documentHighlightProvider = false
+    --         client.server_capabilities.documentHighlightProvider = false
 
-            client.server_capabilities.documentSymbolProvider = false
-            client.server_capabilities.executeCommandProvider = false
-            client.server_capabilities.hoverProvider = false
-            client.server_capabilities.referencesProvider = false
-            client.server_capabilities.renameProvider = false
-            client.server_capabilities.signatureHelpProvider = false
+    --         client.server_capabilities.documentSymbolProvider = false
+    --         client.server_capabilities.executeCommandProvider = false
+    --         client.server_capabilities.hoverProvider = false
+    --         client.server_capabilities.referencesProvider = false
+    --         client.server_capabilities.renameProvider = false
+    --         client.server_capabilities.signatureHelpProvider = false
 
-            -- client.server_capabilities.textDocumentSync = false
+    --         -- client.server_capabilities.textDocumentSync = false
 
-            client.server_capabilities.typeDefinitionProvider = true
-            client.server_capabilities.workspace = false
-            client.server_capabilities.workspaceProvider = false
-            client.server_capabilities.workspaceSymbolProvider = false
-        elseif client.name == "pyright" then
-            client.server_capabilities.definitionProvider = false
-            client.server_capabilities.typeDefinitionProvider = false
-        end
-    end
+    --         client.server_capabilities.typeDefinitionProvider = true
+    --         client.server_capabilities.workspace = false
+    --         client.server_capabilities.workspaceProvider = false
+    --         client.server_capabilities.workspaceSymbolProvider = false
+    --     elseif client.name == "pyright" then
+    --         client.server_capabilities.definitionProvider = false
+    --         client.server_capabilities.typeDefinitionProvider = false
+    --     end
+    -- end
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
