@@ -93,7 +93,8 @@ configs.lualine = function()
         return ''
     end
     local pyenv = function()
-        if vim.bo.filetype == 'python' then
+        local ft = vim.bo.filetype
+        if ft == 'python' or ft == "cython" then
             local env = require('core.utils.python').get_current_env()
             if env then
                 return ' ' .. env.name
