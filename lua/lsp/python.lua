@@ -26,6 +26,10 @@ M.pyright = {
         }
     }
 }
+M.cyright = vim.tbl_deep_extend("force", M.pyright, {
+    filetypes = {"cython"},
+    cmd = {"cyright", "--stdio"},
+})
 -- M.jedi_language_server = {
 --     rootmarks = rootmarks,
 --     filetypes = {"python", "cython"},

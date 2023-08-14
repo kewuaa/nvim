@@ -259,6 +259,17 @@ configs.LuaSnip = function()
 end
 
 configs.nvim_lspconfig = function ()
+    require("lspconfig.configs").cyright = {
+        default_config = {
+            cmd = {"cyright", "--stdio"},
+            filetypes = {"cython"},
+            root_dir = function(fname)
+                return require("lspconfig").util.find_git_ancestor(fname)
+            end,
+            settings = {},
+        }
+    }
+
     require('lsp').setup()
     local utils = require('core.utils')
     local threshold = 512
