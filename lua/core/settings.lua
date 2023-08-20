@@ -3,7 +3,9 @@ local settings = {}
 settings.pyvenv_path = os.getenv('PYVENV')
 function settings:getpy(name)
     local venv = string.format('%s/%s/Scripts/python.exe', self.pyvenv_path, name)
-    assert(vim.fn.filereadable(venv) == 1)
+    if vim.fn.filereadable(venv) == 0 then
+        vim.notify(string.format('python venv "%s" not found, "%s" not exist', name, venv))
+    end
     return venv
 end
 settings.exclude_filetypes = {
