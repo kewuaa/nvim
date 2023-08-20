@@ -6,7 +6,6 @@ function settings:getpy(name)
     assert(vim.fn.filereadable(venv) == 1)
     return venv
 end
-settings.tags_path = 'D:/Softwares/Program_Files/Tags'
 settings.exclude_filetypes = {
     "qf",
     "lazy",
