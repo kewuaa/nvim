@@ -1,6 +1,25 @@
 local M = {}
 local map = vim.keymap.set
-
+local languages = {
+    'python',
+    'c_cpp',
+    'zig',
+    'rust',
+    'lua',
+    'js_ts',
+    'markdown',
+    'vim',
+    'toml',
+    'json',
+}
+if vim.loop.os_uname() == "Linux" or vim.fn.has("wsl") == 1 then
+    vim.list_extend(
+        languages,
+        {
+            "haskell",
+        }
+    )
+end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -156,19 +175,7 @@ function M.setup()
         flags = lsp_flags,
         root_dir = lsp_config.util.find_git_ancestor,
     }
-    for _, lang in ipairs({
-        'python',
-        'c_cpp',
-        'zig',
-        'haskell',
-        'rust',
-        'lua',
-        'js_ts',
-        'markdown',
-        'vim',
-        'toml',
-        'json',
-    }) do
+    for _, lang in ipairs(languages) do
         local ok, config = pcall(require, 'lsp.' .. lang)
         if ok then
             for name, server in pairs(config) do
