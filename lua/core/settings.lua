@@ -1,10 +1,13 @@
 local settings = {}
 
 settings.pyvenv_path = os.getenv('PYVENV')
-local is_Linux = vim.loop.os_uname().sysname == "Linux" or vim.fn.has("wsl")
-local venv_path_format = is_Linux and "%s/%s/bin/python" or "%s/%s/Scripts/python.exe"
+settings.is_Linux = vim.loop.os_uname().sysname == "Linux" or vim.fn.has("wsl")
 function settings:getpy(name)
-    local venv = string.format(venv_path_format, self.pyvenv_path, name)
+    local venv = string.format(
+        self.is_Linux and "%s/%s/bin/python" or "%s/%s/Scripts/python.exe",
+        self.pyvenv_path,
+        name
+    )
     if vim.fn.filereadable(venv) == 0 then
         vim.notify(string.format('python venv "%s" not found, "%s" not exist', name, venv))
     end
