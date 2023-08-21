@@ -1,4 +1,5 @@
 local M = {}
+local settings = require("core.settings")
 local map = vim.keymap.set
 local languages = {
     'python',
@@ -12,7 +13,7 @@ local languages = {
     'toml',
     'json',
 }
-if vim.loop.os_uname() == "Linux" or vim.fn.has("wsl") == 1 then
+if settings.is_Linux then
     vim.list_extend(
         languages,
         {
