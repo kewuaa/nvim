@@ -50,8 +50,8 @@ local disable_distribution_plugins = function()
 end
 
 disable_distribution_plugins()
-require("core.options")
-require("core.cmds")
+require("core.options").init()
+require("core.cmds").init()
 require('core.utils').init()
 require("core.keymaps").init()
 

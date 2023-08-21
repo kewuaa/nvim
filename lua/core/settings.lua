@@ -1,10 +1,21 @@
-local settings = {}
+local os_name = vim.loop.os_uname().sysname
+local settings = {
+    pyvenv_path = os.getenv('PYVENV'),
+    is_mac = os_name == "Darwin",
+    is_Linux = os_name == "Linux",
+    is_Windows = os_name == "Windows_NT",
+    is_wsl = vim.fn.has("wsl") == 1,
 
-settings.pyvenv_path = os.getenv('PYVENV')
-settings.is_Linux = vim.loop.os_uname().sysname == "Linux" or vim.fn.has("wsl")
+    get_rootmarks = function()
+        return {
+            '.git'
+        }
+    end
+}
+
 function settings:getpy(name)
     local venv = string.format(
-        self.is_Linux and "%s/%s/bin/python" or "%s/%s/Scripts/python.exe",
+        (self.is_Linux or self.is_wsl) and "%s/%s/bin/python" or "%s/%s/Scripts/python.exe",
         self.pyvenv_path,
         name
     )
@@ -44,10 +55,5 @@ settings.exclude_filetypes = {
     "JABSwindow",
     "",
 }
-settings.get_rootmarks = function()
-    return {
-        '.git'
-    }
-end
 
 return settings

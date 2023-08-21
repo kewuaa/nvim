@@ -1,7 +1,5 @@
-vim.g.python3_host_prog = require('core.settings'):getpy('nvim')
-vim.g.c_syntax_for_h = 1
-vim.g.zig_fmt_autosave = 0
-
+local M = {}
+local settings = require("core.settings")
 local options = {
     splitright = true,
     splitbelow = true,
@@ -51,8 +49,45 @@ if vim.fn.exists("g:nvy") == 1 then
     -- options.guifont = 'JetbrainsMono NFM:h10:Consolas'
     options.guifont = 'FiraCode NFM:h10:Consolas'
 end
-for key, value in pairs(options) do
-    vim.o[key] = value
+
+M.init = function()
+    vim.filetype.add({
+        extension = {
+            pyx = "cython",
+            pxd = "cython",
+            pxi = "cython"
+        }
+    })
+
+    vim.g.python3_host_prog = require('core.settings'):getpy('nvim')
+    vim.g.c_syntax_for_h = 1
+    vim.g.zig_fmt_autosave = 0
+    if settings.is_wsl then
+        vim.g.clipboard = {
+            name = "win32yank-wsl",
+            copy = {
+                ["+"] = "win32yank.exe -i --crlf",
+                ["*"] = "win32yank.exe -i --crlf",
+            },
+            paste = {
+                ["+"] = "win32yank.exe -o --lf",
+                ["*"] = "win32yank.exe -o --lf",
+            },
+            cache_enabled = 0,
+        }
+    elseif settings.is_mac then
+        vim.g.clipboard = {
+            name = "macOS-clipboard",
+            copy = { ["+"] = "pbcopy", ["*"] = "pbcopy" },
+            paste = { ["+"] = "pbpaste", ["*"] = "pbpaste" },
+            cache_enabled = 0,
+        }
+    end
+
+    for key, value in pairs(options) do
+        vim.o[key] = value
+    end
 end
 
-return options
+
+return M

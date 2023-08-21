@@ -13,7 +13,7 @@ local languages = {
     'toml',
     'json',
 }
-if settings.is_Linux then
+if settings.is_Linux or settings.is_wsl then
     vim.list_extend(
         languages,
         {
