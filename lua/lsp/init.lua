@@ -5,19 +5,20 @@ local languages = {
     'python',
     'c_cpp',
     'zig',
-    'rust',
     'lua',
-    'js_ts',
     'markdown',
-    'vim',
     'toml',
     'json',
+    -- 'rust',
+    -- 'js_ts',
+    -- 'vim',
 }
 if settings.is_Linux or settings.is_wsl then
     vim.list_extend(
         languages,
         {
-            "haskell",
+            "ocaml",
+            -- "haskell",
         }
     )
 end
