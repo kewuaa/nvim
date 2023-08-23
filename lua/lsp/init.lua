@@ -14,13 +14,7 @@ local languages = {
     -- 'vim',
 }
 if settings.is_Linux or settings.is_wsl then
-    vim.list_extend(
-        languages,
-        {
-            "ocaml",
-            -- "haskell",
-        }
-    )
+    languages[#languages+1] = "haskell"
 end
 
 -- Use an on_attach function to only map the following keys
