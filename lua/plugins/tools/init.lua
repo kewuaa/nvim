@@ -69,6 +69,7 @@ return {
         lazy = true,
         init = require("core.keymaps"):load('asynctasks'),
         cmd = {
+            'AsyncRun',
             'AsyncTask',
             'AsyncTaskList',
             'AsyncTaskMacro',
