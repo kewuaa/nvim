@@ -32,7 +32,7 @@ return {
         dependencies = {
             {'nvim-treesitter/nvim-treesitter-textobjects'},
             -- 彩虹括号
-            {'mrjones2014/nvim-ts-rainbow'},
+            {'HiPhish/rainbow-delimiters.nvim', config = configs.rainbow_delimiters},
             -- 参数高亮
             {'m-demare/hlargs.nvim', config = configs.hlargs},
         },

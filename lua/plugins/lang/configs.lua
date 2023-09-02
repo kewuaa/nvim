@@ -131,6 +131,29 @@ configs.nvim_treesitter = function()
     map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 end
 
+configs.rainbow_delimiters = function()
+    local rainbow_delimiters = require("rainbow-delimiters")
+    require("rainbow-delimiters.setup")({
+        strategy = {
+            [''] = rainbow_delimiters.strategy['global'],
+            vim = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+            [''] = 'rainbow-delimiters',
+            lua = 'rainbow-blocks',
+        },
+        highlight = {
+            'RainbowDelimiterYellow',
+            'RainbowDelimiterBlue',
+            'RainbowDelimiterOrange',
+            'RainbowDelimiterGreen',
+            'RainbowDelimiterViolet',
+            'RainbowDelimiterCyan',
+            'RainbowDelimiterRed',
+        },
+    })
+end
+
 configs.hlargs = function()
     require("hlargs").setup({
         excluded_filetypes = require("core.settings").exclude_filetypes,
