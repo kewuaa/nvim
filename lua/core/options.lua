@@ -8,14 +8,18 @@ local options = {
     termguicolors = true,
     background = 'dark',
     encoding = 'utf-8',
-    fileformat = 'dos',
+    fileformats = 'unix,mac,dos',
     showmode = true,
     number = true,
-    -- relativenumber = true,
+    relativenumber = true,
     ruler = true,
-    noundofile = true,
-    nobackup = true,
-    noswapfile = true,
+    undofile = true,
+    swapfile = false,
+    backup = false,
+    backupskip = "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim",
+    writebackup = false,
+    wrap = false,
+    wrapscan = true,
     autochdir = true,
     autoread = true,
     showcmd = true,
@@ -28,10 +32,9 @@ local options = {
     showmatch = true,
     scrolloff = 6,
     sidescrolloff = 16,
-    nowrap = true,
     laststatus = 3,
     list = true,
-    listchars = 'tab:--,trail:·,eol:↴',
+    listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←,eol:↴",
     incsearch = true,
     ignorecase = true,
     smartcase = true,
@@ -39,12 +42,20 @@ local options = {
     updatetime = 200,
     pumheight = 16,
     completeopt = 'menu,menuone,noselect,noinsert',
-    foldlevelstart = 9,
+    concealcursor = "niv",
+    foldenable = true,
+    foldlevelstart = 99,
     wildmenu = true,
     wildignorecase = true,
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
     signcolumn = 'yes',
+    cursorline = true,
 }
+if vim.fn.executable('rg') == 1 then
+  options.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+  options.grepprg = 'rg --vimgrep --no-heading --smart-case'
+end
+
 if vim.fn.exists("g:nvy") == 1 then
     -- options.guifont = 'JetbrainsMono NFM:h10:Consolas'
     options.guifont = 'FiraCode NFM:h10:Consolas'
