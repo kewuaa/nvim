@@ -183,12 +183,18 @@ return {
 
     -- 翻译
     {
-        'voldikss/vim-translator',
+        'potamides/pantran.nvim',
         lazy = true,
+        cmd = "Pantran",
         keys = {
-            {'<leader>tw', ':TranslateW<CR>', mode = {'n', 'v'}},
+            {
+                "<leader>tr",
+                function() return require("pantran").motion_translate({target = "zh-CN"}) end,
+                mode = {"n", "x"},
+                expr = true,
+            },
         },
-        init = configs.vim_translator,
+        config = configs.pantran,
     },
 
     -- 着色器
