@@ -6,11 +6,11 @@ local languages = {
     'c_cpp',
     'zig',
     'lua',
+    'js_ts',
     'markdown',
     'toml',
     'json',
     -- 'rust',
-    -- 'js_ts',
     -- 'vim',
 }
 if settings.is_Linux or settings.is_wsl then
