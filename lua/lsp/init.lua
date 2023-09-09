@@ -14,7 +14,7 @@ local languages = {
     -- 'vim',
 }
 if settings.is_Linux or settings.is_wsl then
-    languages[#languages+1] = "haskell"
+    languages[#languages+1] = "ocaml"
 end
 
 -- Use an on_attach function to only map the following keys
