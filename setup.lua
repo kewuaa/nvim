@@ -37,7 +37,9 @@ local function write_clink_config()
 end
 
 local function setup()
-    write_alacritty_config()
+    if not settings.is_wsl then
+        write_alacritty_config()
+    end
     if settings.is_Windows then
         write_clink_config()
     end
