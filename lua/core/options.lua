@@ -71,7 +71,7 @@ M.init = function()
     })
 
     vim.g.python3_host_prog = require('core.settings'):getpy('nvim')
-    vim.g.c_syntax_for_h = 1
+    -- vim.g.c_syntax_for_h = 1
     vim.g.zig_fmt_autosave = 0
     if settings.is_wsl then
         vim.g.clipboard = {
