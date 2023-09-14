@@ -727,4 +727,40 @@ configs.pantran = function()
     }
 end
 
+configs.nvim_silicon = function()
+    local settings = require("core.settings")
+    local config = {
+        font = "FiraCode NF",
+        -- "1337",
+        -- "Coldark-Cold",
+        -- "Coldark-Dark",
+        -- "DarkNeon",
+        -- "Dracula",
+        -- "GitHub",
+        -- "Monokai Extended",
+        -- "Monokai Extended Bright",
+        -- "Monokai Extended Light",
+        -- "Monokai Extended Origin",
+        -- "Nord",
+        -- "OneHalfDark",
+        -- "OneHalfLight",
+        -- "Solarized (dark)",
+        -- "Solarized (light)",
+        -- "Sublime Snazzy",
+        -- "TwoDark",
+        -- "Visual Studio Dark+",
+        -- "ansi",
+        -- "base16",
+        -- "base16-256"
+        theme = "Monokai Extended Bright",
+        to_clipboard = settings.is_Linux and true or false
+    }
+    if settings.is_wsl then
+        config.ouput = function()
+            return "D:/Softwares/data/code_snapshots/wsl_" .. os.date("!%Y-%m-%dT%H-%M-%S") .. "_code.png"
+        end
+    end
+    require("silicon").setup(config)
+end
+
 return configs

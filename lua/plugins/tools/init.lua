@@ -197,6 +197,14 @@ return {
         config = configs.pantran,
     },
 
+    -- code snapshot
+    {
+        "michaelrommel/nvim-silicon",
+        lazy = true,
+        cmd = "Silicon",
+        config = configs.nvim_silicon,
+    },
+
     -- 着色器
     {
         'norcalli/nvim-colorizer.lua',
