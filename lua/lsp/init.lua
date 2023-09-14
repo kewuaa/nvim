@@ -7,6 +7,7 @@ local languages = {
     'zig',
     'lua',
     'js_ts',
+    'cmake',
     'markdown',
     'toml',
     'json',
