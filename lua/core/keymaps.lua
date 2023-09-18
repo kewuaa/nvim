@@ -75,24 +75,6 @@ keymaps.todo_comments = {
     {'n', '<leader>ftd', todo_comments('TodoTelescope')}
 }
 
-keymaps.search_replace = {
-    {"v", "<C-r>", "<CMD>SearchReplaceSingleBufferVisualSelection<CR>"},
-    {"v", "<C-s>", "<CMD>SearchReplaceWithinVisualSelection<CR>"},
-    {"v", "<C-b>", "<CMD>SearchReplaceWithinVisualSelectionCWord<CR>"},
-    {"n", "<leader>rs", "<CMD>SearchReplaceSingleBufferSelections<CR>"},
-    {"n", "<leader>ro", "<CMD>SearchReplaceSingleBufferOpen<CR>"},
-    {"n", "<leader>rw", "<CMD>SearchReplaceSingleBufferCWord<CR>"},
-    {"n", "<leader>rW", "<CMD>SearchReplaceSingleBufferCWORD<CR>"},
-    {"n", "<leader>re", "<CMD>SearchReplaceSingleBufferCExpr<CR>"},
-    {"n", "<leader>rf", "<CMD>SearchReplaceSingleBufferCFile<CR>"},
-    {"n", "<leader>rbs", "<CMD>SearchReplaceMultiBufferSelections<CR>"},
-    {"n", "<leader>rbo", "<CMD>SearchReplaceMultiBufferOpen<CR>"},
-    {"n", "<leader>rbw", "<CMD>SearchReplaceMultiBufferCWord<CR>"},
-    {"n", "<leader>rbW", "<CMD>SearchReplaceMultiBufferCWORD<CR>"},
-    {"n", "<leader>rbe", "<CMD>SearchReplaceMultiBufferCExpr<CR>"},
-    {"n", "<leader>rbf", "<CMD>SearchReplaceMultiBufferCFile<CR>"},
-}
-
 ---------------------------------------------------------------------------------------------------
 
 function keymaps.init()

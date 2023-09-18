@@ -40,15 +40,6 @@ return {
         }
     },
 
-    -- wilder
-    -- {
-    --     'gelguy/wilder.nvim',
-    --     lazy = true,
-    --     build = 'UpdateRemotePlugins',
-    --     event = 'CmdlineEnter',
-    --     config = configs.wilder,
-    -- },
-
     -- debug
     {
         'mfussenegger/nvim-dap',

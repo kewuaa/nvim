@@ -184,19 +184,6 @@ configs.iswap = function()
     })
 end
 
-configs.nvim_gomove = function()
-    require("gomove").setup {
-        -- whether or not to map default key bindings, (true/false)
-        map_defaults = true,
-        -- whether or not to reindent lines moved vertically (true/false)
-        reindent = true,
-        -- whether or not to undojoin same direction moves (true/false)
-        undojoin = true,
-        -- whether to not to move past end column when moving blocks horizontally, (true/false)
-        move_past_end_col = false,
-    }
-end
-
 configs.accelerated_jk = function()
     -- conservative deceleration 
     vim.g.accelerated_jk_enable_deceleration = 1
@@ -211,16 +198,6 @@ configs.accelerated_jk = function()
     map('n', 'j', '<Plug>(accelerated_jk_gj)', opt)
     map('n', 'k', '<Plug>(accelerated_jk_gk)', opt)
 
-end
-
-configs.search_replace = function ()
-    -- show the effects of a search / replace in a live preview window
-    vim.o.inccommand = "split"
-    require('search-replace').setup({
-        -- optionally override defaults
-        default_replace_single_buffer_options = "gcI",
-        default_replace_multi_buffer_options = "egcI",
-    })
 end
 
 configs.live_command = function ()

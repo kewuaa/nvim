@@ -115,23 +115,6 @@ return {
         config = configs.iswap,
     },
 
-    -- 移动块
-    -- {
-    --     'booperlv/nvim-gomove',
-    --     lazy = true,
-    --     keys = {
-    --         {'<A-h>', mode = {'n', 'x'}},
-    --         {'<A-l>', mode = {'n', 'x'}},
-    --         {'<A-j>', mode = {'n', 'x'}},
-    --         {'<A-k>', mode = {'n', 'x'}},
-    --         {'<A-S-h>', mode = {'n', 'x'}},
-    --         {'<A-S-l>', mode = {'n', 'x'}},
-    --         {'<A-S-j>', mode = {'n', 'x'}},
-    --         {'<A-S-k>', mode = {'n', 'x'}},
-    --     },
-    --     config = configs.nvim_gomove,
-    -- },
-
     -- jk增强
     {
         'rainbowhxch/accelerated-jk.nvim',
