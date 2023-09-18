@@ -73,21 +73,21 @@ return {
     },
 
     -- TODO 注释
-    -- {
-    --     'folke/todo-comments.nvim',
-    --     lazy = true,
-    --     init = require('core.keymaps'):load('todo_comments'),
-    --     cmd = {
-    --         'TodoQuickFix',
-    --         'TodoLocList',
-    --         'TodoTrouble',
-    --         'TodoTelescope',
-    --     },
-    --     config = true,
-    --     dependencies = {
-    --         {'nvim-lua/plenary.nvim'},
-    --     }
-    -- },
+    {
+        'folke/todo-comments.nvim',
+        lazy = true,
+        init = require('core.keymaps'):load('todo_comments'),
+        cmd = {
+            'TodoQuickFix',
+            'TodoLocList',
+            'TodoTrouble',
+            'TodoTelescope',
+        },
+        config = true,
+        dependencies = {
+            {'nvim-lua/plenary.nvim'},
+        }
+    },
 
     -- 与J相反的操作
     {
