@@ -110,7 +110,7 @@ return {
         'mizlan/iswap.nvim',
         lazy = true,
         keys = {
-            {'<leader>sw', '<cmd>ISwapWith<CR>', mode = 'n'}
+            {'<leader>sp', '<cmd>ISwapWith<CR>', mode = 'n'}
         },
         config = configs.iswap,
     },
