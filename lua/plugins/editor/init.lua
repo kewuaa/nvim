@@ -143,15 +143,6 @@ return {
         config = configs.accelerated_jk,
     },
 
-    -- 搜索替换
-    -- {
-    --     'roobert/search-replace.nvim',
-    --     lazy = true,
-    --     init = require('core.keymaps'):load('search_replace'),
-    --     event = 'CmdUndefined SearchReplace*',
-    --     config = configs.search_replace,
-    -- },
-
     -- 实时预览命令结果
     {
         'smjonas/live-command.nvim',
