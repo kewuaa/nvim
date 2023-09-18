@@ -38,16 +38,6 @@ return {
         config = configs.autoclose,
     },
 
-    -- 快速移动
-    {
-        'phaazon/hop.nvim',
-        lazy = true,
-        branch = 'v2',
-        init = require('core.keymaps'):load('hop'),
-        event = 'CmdUndefined Hop*',
-        config = configs.hop,
-    },
-
     -- 注释
     {
         'numToStr/Comment.nvim',

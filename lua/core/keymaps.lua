@@ -26,15 +26,6 @@ keymaps.asynctasks = {
     {'n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>'},
 }
 
-keymaps.hop = {
-    {'n', '<leader><leader>w', '<cmd>HopWord<CR>'},
-    {'n', '<leader><leader>j', '<cmd>HopLine<CR>'},
-    {'n', '<leader><leader>k', '<cmd>HopLine<CR>'},
-    {'n', '<leader><leader>f', '<cmd>HopChar1<CR>'},
-    {'n', '<leader><leader>c', '<cmd>HopChar2<CR>'},
-    {'n', '<leader><leader>/', '<cmd>HopPattern<CR>'},
-}
-
 keymaps.windows = {
     {'n', '<c-w>z', '<cmd>WindowsMaximize<CR>'},
     {'n', '<c-w>_', '<cmd>WindowsMaximizeVertically<CR>'},

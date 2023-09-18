@@ -54,12 +54,6 @@ configs.autoclose = function()
     })
 end
 
-configs.hop = function()
-    require('hop').setup({
-        keys = 'etovxqpdygfblzhckisuran'
-    })
-end
-
 configs.comment = function()
     require('Comment').setup({
         ---Add a space b/w comment and the line
