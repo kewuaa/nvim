@@ -77,4 +77,15 @@ return {
             {'williamboman/mason-lspconfig.nvim', config = configs.mason_lspconfig},
         }
     },
+    -- csharp extended
+    {
+        "Decodetalkers/csharpls-extended-lsp.nvim",
+        enabled = function() return require("lsp.csharp").csharp_ls ~= nil end,
+        lazy = true
+    },
+    {
+        "Hoffs/omnisharp-extended-lsp.nvim",
+        enabled = function() return require("lsp.csharp").omnisharp ~= nil end,
+        lazy = true,
+    },
 }
