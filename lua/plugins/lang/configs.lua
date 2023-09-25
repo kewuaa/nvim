@@ -105,37 +105,8 @@ configs.nvim_treesitter = function()
         indent = {
             enable = true,
         },
-        rainbow = {
-            enable = true,
-            -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-            extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-            max_file_lines = 2000, -- Do not enable for files with more than n lines, int
-        },
     })
     require('nvim-treesitter.install').compilers = { "zig", "gcc" }
-    -- vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
-    --     group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
-    --     callback = function()
-    --         vim.opt.foldmethod     = 'expr'
-    --         vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
-    --     end
-    -- })
-    local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
-    local map = vim.keymap.set
-    -- Repeat movement with ; and ,
-    -- ensure ; goes forward and , goes backward regardless of the last direction
-    -- map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-    -- map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
-
-    -- vim way: ; goes to the direction you were moving.
-    map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-    map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
-
-    -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-    map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-    map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-    map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-    map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 end
 
 configs.rainbow_delimiters = function()
