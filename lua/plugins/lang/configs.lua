@@ -2,7 +2,6 @@ local configs = {}
 
 
 configs.nvim_treesitter = function()
-    local settings = require("core.settings")
     local ensure_installed = {
         'python',
         'c',
@@ -25,12 +24,6 @@ configs.nvim_treesitter = function()
         'yaml',
         'toml',
     }
-    if settings.is_wsl or settings.is_Linux  then
-        vim.list_extend(ensure_installed, {
-            'ocaml',
-            'ocaml_interface',
-        })
-    end
     require('nvim-treesitter.configs').setup({
         ensure_installed = ensure_installed,
         highlight = {
