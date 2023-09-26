@@ -106,13 +106,6 @@ configs.comment = function()
     ft.pascal = {'//%s', '{%s}'}
 end
 
-configs.tabout = function()
-    require('tabout').setup({
-        tabkey = '',
-        backwards_tabkey = ''
-    })
-end
-
 configs.treesj = function ()
     local tsj = require('treesj')
     local langs = require('treesj.langs')['presets']
@@ -199,26 +192,6 @@ configs.eyeliner = function()
         highlight_on_key = true, -- show highlights only after keypress
         dim = true              -- dim all other characters if set to true (recommended!)
     })
-end
-
-configs.live_command = function ()
-    require("live-command").setup {
-        defaults = {
-            enable_highlighting = true,
-            inline_highlighting = true,
-            hl_groups = {
-                insertion = "DiffAdd",
-                deletion = "DiffDelete",
-                change = "DiffChange",
-            },
-        },
-        commands = {
-            Norm = {
-                cmd = 'norm',
-            }
-        },
-        debug = false,
-    }
 end
 
 configs.sentiment = function()
