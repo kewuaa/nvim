@@ -115,6 +115,8 @@ end
 
 configs.nvim_dap = function()
     local dap = require('dap')
+    local is_Windows = require("core.settings").is_Windows
+    local data_path = vim.fn.stdpath("data")
     -- config for python
     dap.adapters.python = {
         type = 'executable';
@@ -146,6 +148,76 @@ configs.nvim_dap = function()
         },
     }
 
+    -- config for c/c++/rust
+    dap.adapters.codelldb = {
+        type = 'server',
+        port = "${port}",
+        executable = {
+            -- command = vim.fn.exepath("codelldb"), -- Find codelldb on $PATH
+            command = ("%s/mason/packages/codelldb/extension/adapter/codelldb"):format(data_path),
+            args = { "--port", "${port}" },
+            detached = is_Windows and false or true,
+        },
+    }
+    dap.configurations.c = {
+        {
+            name = "Debug",
+            type = "codelldb",
+            request = "launch",
+            program = function()
+                 return vim.fn.input('Path to executable (default to "a.exe"): ', vim.fn.expand("%:p:h") .. "/a.exe", "file")
+            end,
+            cwd = "${workspaceFolder}",
+            stopOnEntry = true,
+            terminal = "integrated",
+        },
+        {
+            name = "Debug (with args)",
+            type = "codelldb",
+            request = "launch",
+            program = function()
+                 return vim.fn.input('Path to executable (default to "a.exe"): ', vim.fn.expand("%:p:h") .. "/a.exe")
+            end,
+            args = function()
+                local argument_string = vim.fn.input("Program arg(s) (enter nothing to leave it null): ")
+                return vim.fn.split(argument_string, " ", true)
+            end,
+            cwd = "${workspaceFolder}",
+            stopOnEntry = false,
+            terminal = "integrated",
+        },
+        {
+            name = "Attach to a running process",
+            type = "codelldb",
+            request = "attach",
+            program = function()
+                 return vim.fn.input('Path to executable (default to "a.exe"): ', vim.fn.expand("%:p:h") .. "/a.exe")
+            end,
+            stopOnEntry = false,
+            waitFor = true,
+        },
+    }
+    dap.configurations.cpp = dap.configurations.c
+    dap.configurations.rust = dap.configurations.c
+
+    -- config for dotnet
+    dap.adapters.coreclr = {
+        type = "executable",
+        command = ("%s/mason/packages/netcoredbg/netcoredbg/netcoredbg"):format(data_path),
+        args = {'--interpreter=vscode'}
+    }
+    dap.configurations.cs = {
+        {
+            name = "netcoredbg",
+            type = "coreclr",
+            request = "launch",
+            program = function()
+                return vim.fn.input('Path to dll:', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+            end,
+        },
+    }
+
+    -- config for ui
     local dapui = require('dapui')
     local dap_icons = {
         Breakpoint = "",
