@@ -6,6 +6,7 @@ local languages = {
     'zig',
     'lua',
     'csharp',
+    'fsharp',
     'js_ts',
     'cmake',
     'markdown',
