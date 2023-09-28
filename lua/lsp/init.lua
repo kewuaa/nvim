@@ -1,5 +1,4 @@
 local M = {}
-local settings = require("core.settings")
 local map = vim.keymap.set
 local languages = {
     'python',
@@ -15,9 +14,6 @@ local languages = {
     -- 'rust',
     -- 'vim',
 }
-if settings.is_Linux or settings.is_wsl then
-    languages[#languages+1] = "ocaml"
-end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
