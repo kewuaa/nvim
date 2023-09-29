@@ -5,6 +5,7 @@ M.clangd = {
     rootmarks = vim.list_extend(
         settings.get_rootmarks(),
         {
+            'build.zig',
             '.xmake.lua',
             'compile_commands.json',
             'compile_flags.txt',
