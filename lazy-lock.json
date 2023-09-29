@@ -56,6 +56,7 @@
   "nvim-silicon": { "branch": "main", "commit": "e3bb5d36b33952cdb3b45faaf0f2853f72ca0c01" },
   "nvim-treesitter": { "branch": "master", "commit": "cc2f94ed1dfa008c23e16bbd17f56b967ceb6740" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "bd103502252027434ec42f628d2dbf54821d4ce6" },
+  "nvim-ts-context-commentstring": { "branch": "main", "commit": "95e9ba9de4289d221666b66fd930d157c7ca08c6" },
   "nvim-web-devicons": { "branch": "master", "commit": "45d0237c427baba8cd05e0ab26d30e2ee58c2c82" },
   "nvim-window-picker": { "branch": "main", "commit": "5902827d0e338890a22849e2f18dc80d1cc1a8db" },
   "pantran.nvim": { "branch": "main", "commit": "461799624948bfb66f73b20b6fffa7e4c8ca6d08" },

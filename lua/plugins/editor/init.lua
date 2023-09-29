@@ -43,6 +43,9 @@ return {
             {'gc', mode = {'n', 'x'}},
         },
         config = configs.mini_comment,
+        dependencies = {
+            {'JoosepAlviste/nvim-ts-context-commentstring'}
+        }
     },
 
     -- TODO 注释

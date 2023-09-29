@@ -63,7 +63,8 @@ configs.mini_comment = function()
                 if vim.bo.ft == "cython" then
                     return "# %s"
                 end
-                return vim.bo.commentstring
+                return require("ts_context_commentstring.internal").calculate_commentstring()
+                    or vim.bo.commentstring
             end,
         },
     })
