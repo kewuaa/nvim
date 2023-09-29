@@ -1,20 +1,19 @@
 local configs = {}
 
 
-configs.nvim_surround = function()
-    require("nvim-surround").setup({
-        keymaps = {
-            insert = "<C-g>s",
-            insert_line = "<C-g>S",
-            normal = "ys",
-            normal_cur = "yss",
-            normal_line = "yS",
-            normal_cur_line = "ySS",
-            visual = "S",
-            visual_line = "gS",
-            delete = "ds",
-            change = "cs",
-        },
+configs.mini_surround = function()
+    require("mini.surround").setup({
+        mappings = {
+            add = "<leader>as",
+            delete = "<leader>ds",
+            find = "<leader>fs",
+            find_left = "<leader>Fs",
+            replace = "<leader>cs",
+            highlight = "<leader>sh",
+            update_n_lines = "",
+            suffix_last = '', -- Suffix to search with "prev" method
+            suffix_next = '',
+        }
     })
 end
 

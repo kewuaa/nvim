@@ -4,22 +4,18 @@ local configs = require("plugins.editor.configs")
 return {
     -- 选中编辑
     {
-        'kylechui/nvim-surround',
-        version = '*',
+        'echasnovski/mini.surround',
+        version = false,
         lazy = true,
         keys = {
-            {'ys', mode = 'n'},
-            {'yss', mode = 'n'},
-            {'yS', mode = 'n'},
-            {'ySS', mode = 'n'},
-            {'ds', mode = 'n'},
-            {'cs', mode = 'n'},
-            {'<c-g>s', mode = 'i'},
-            {'<c-g>S', mode = 'i'},
-            {'S', mode = 'x'},
-            {'gS', mode = 'x'},
+            {'<leader>as', mode = {'n', 'x'}},
+            {'<leader>ds', mode = 'n'},
+            {'<leader>cs', mode = 'n'},
+            {'<leader>fs', mode = {'n', 'o'}},
+            {'<leader>Fs', mode = {'n', 'o'}},
+            {'<leader>sh', mode = 'n'},
         },
-        config = configs.nvim_surround,
+        config = configs.mini_surround,
     },
 
     -- 高亮相同单词
