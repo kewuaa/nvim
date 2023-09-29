@@ -1,9 +1,7 @@
 local M = {}
 local settings = require("core.settings")
----@diagnostic disable-next-line: missing-parameter
 
 M.clangd = {
-    ---@diagnostic disable-next-line: missing-parameter
     rootmarks = vim.list_extend(
         settings.get_rootmarks(),
         {
@@ -47,14 +45,5 @@ M.clangd = {
         "-j=8", -- 同时开启的任务数量
     }
 }
--- M.cmake = {
---     ---@diagnostic disable-next-line: missing-parameter
---     rootmarks = vim.list_extend(settings.get_rootmarks(), {'cmake', 'build'}),
---     filetypes = {'cmake'},
---     cmd = {'cmake-language-server.exe'},
---     init_options = {
---         buildDirectory = 'build'
---     }
--- }
 
 return M
