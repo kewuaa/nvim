@@ -165,10 +165,11 @@ return {
 
     -- 缓冲区关闭时保留原有布局
     {
-        'famiu/bufdelete.nvim',
+        'echasnovski/mini.bufremove',
         lazy = true,
         keys = {
-            {'<leader>bD', '<cmd>Bdelete<CR>', mode = 'n'}
+            { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+            { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
         },
     },
 }
