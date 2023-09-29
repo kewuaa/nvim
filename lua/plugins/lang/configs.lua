@@ -46,46 +46,6 @@ configs.nvim_treesitter = function()
                 node_decremental = "_",
             },
         },
-        textobjects = {
-            select = {
-                enable = true,
-                keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
-                },
-            },
-            move = {
-                enable = true,
-                set_jumps = true, -- whether to set jumps in the jumplist
-                goto_next_start = {
-                    ["]["] = "@function.outer",
-                    ["]m"] = "@class.outer",
-                },
-                goto_next_end = {
-                    ["]]"] = "@function.outer",
-                    ["]M"] = "@class.outer",
-                },
-                goto_previous_start = {
-                    ["[["] = "@function.outer",
-                    ["[m"] = "@class.outer",
-                },
-                goto_previous_end = {
-                    ["[]"] = "@function.outer",
-                    ["[M"] = "@class.outer",
-                },
-            },
-            swap = {
-                enable = false,
-                swap_next = {
-                    ["<leader>s"] = "@parameter.inner",
-                },
-                swap_previous = {
-                    ["<leader>S"] = "@parameter.inner",
-                },
-            },
-        },
     })
     require('nvim-treesitter.install').compilers = { "zig", "gcc" }
 end

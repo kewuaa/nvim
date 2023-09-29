@@ -30,7 +30,6 @@ return {
         module = false,
         config = configs.nvim_treesitter,
         dependencies = {
-            {'nvim-treesitter/nvim-treesitter-textobjects'},
             -- 彩虹括号
             {'HiPhish/rainbow-delimiters.nvim', config = configs.rainbow_delimiters},
             -- 参数高亮
