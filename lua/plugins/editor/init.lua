@@ -40,15 +40,13 @@ return {
 
     -- 注释
     {
-        'numToStr/Comment.nvim',
+        'echasnovski/mini.comment',
         lazy = true,
         keys = {
             {'gcc', mode = 'n'},
-            {'gbc', mode = 'n'},
             {'gc', mode = {'n', 'x'}},
-            {'gb', mode = {'n', 'x'}},
         },
-        config = configs.comment,
+        config = configs.mini_comment,
     },
 
     -- TODO 注释
