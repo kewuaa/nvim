@@ -8,10 +8,10 @@ local languages = {
     'csharp',
     'fsharp',
     'js_ts',
-    'cmake',
-    'markdown',
     'toml',
     'json',
+    -- 'cmake',
+    -- 'markdown',
     -- 'rust',
     -- 'vim',
 }
