@@ -61,10 +61,13 @@ configs.autoclose = function()
             ['"'] = { escape = true, close = true, pair = '""'},
             ["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = {"rust"}},
             ["`"] = { escape = true, close = true, pair = "``"},
+            ["|"] = { escape = true, close = true, pair = "||", enabled_filetypes = {"zig"}},
+            ["$"] = { escape = true, close = true, pair = "$$", enabled_filetypes = {"markdown"}},
         },
         options = {
             disabled_filetypes = nil,
             disable_when_touch = true,
+            pair_spaces = true,
         },
     })
 end
