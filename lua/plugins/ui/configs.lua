@@ -41,12 +41,6 @@ configs.mini_indentscope = function()
     vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', {
         fg = 'pink'
     })
-    vim.api.nvim_create_autocmd("FileType", {
-        pattern = require('core.settings').exclude_filetypes,
-        callback = function()
-            vim.b.miniindentscope_disable = true
-        end,
-    })
 end
 
 configs.lualine = function()

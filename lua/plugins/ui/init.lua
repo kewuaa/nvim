@@ -33,6 +33,14 @@ return {
         'echasnovski/mini.indentscope',
         version = false,
         event = 'CursorMoved',
+        init = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = require('core.settings').exclude_filetypes,
+                callback = function()
+                    vim.b.miniindentscope_disable = true
+                end,
+            })
+        end,
         config = configs.mini_indentscope,
     },
 
