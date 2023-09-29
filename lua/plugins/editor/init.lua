@@ -126,19 +126,6 @@ return {
         config = configs.accelerated_jk,
     },
 
-    -- f, F, t, T 增强
-    {
-        'jinh0/eyeliner.nvim',
-        lazy = true,
-        keys = {
-            {'f', mode = {'n', 'x', 'o'}},
-            {'F', mode = {'n', 'x', 'o'}},
-            {'t', mode = {'n', 'x', 'o'}},
-            {'T', mode = {'n', 'x', 'o'}},
-        },
-        config = configs.eyeliner,
-    },
-
     -- match enhance
     {
         'utilyre/sentiment.nvim',
