@@ -29,6 +29,12 @@ configs.indent_blankline = function()
             bufters = { "terminal", "nofile", "quickfix", "prompt" },
         }
     })
+    require("core.utils.bigfile").register(
+        512,
+        function(_)
+            require("ibl").update({enabled = false})
+        end, {}
+    )
 end
 
 configs.mini_indentscope = function()
@@ -41,6 +47,12 @@ configs.mini_indentscope = function()
     vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', {
         fg = 'pink'
     })
+    require("core.utils.bigfile").register(
+        512,
+        function(_)
+            vim.b.miniindentscope_disable = true
+        end, {}
+    )
 end
 
 configs.lualine = function()

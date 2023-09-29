@@ -33,15 +33,6 @@ configs.nvim_treesitter = function()
             disable = function(lang, bufnr)
                 local size = require('core.utils').get_bufsize(bufnr)
                 if size > 512 then
-                    local ok1, illuminate = pcall(require, 'illuminate.engine')
-                    if ok1 then
-                        illuminate.stop_buf(bufnr)
-                    end
-                    local ok2, indent_blankline = pcall(require, 'indent_blankline.commands')
-                    if ok2 then
-                        indent_blankline.disable()
-                    end
-                    vim.b.miniindentscope_disable = true
                     return true
                 end
             end,
