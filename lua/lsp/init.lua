@@ -147,17 +147,13 @@ function M.setup()
         local ok, config = pcall(require, 'lsp.' .. lang)
         if ok then
             for name, server in pairs(config) do
-                if vim.fn.executable(server.cmd[1]) == 1 then
-                    if server.rootmarks then
-                        server.root_dir = lsp_config.util.root_pattern(unpack(server.rootmarks))
-                        server.rootmarks = nil
-                    end
-                    lsp_config[name].setup(
-                        vim.tbl_extend('force', base_config, server)
-                    )
-                else
-                    vim.notify(string.format('%s not executable', server.cmd[1]))
+                if server.rootmarks then
+                    server.root_dir = lsp_config.util.root_pattern(unpack(server.rootmarks))
+                    server.rootmarks = nil
                 end
+                lsp_config[name].setup(
+                vim.tbl_extend('force', base_config, server)
+                )
             end
         else
             vim.notify(string.format('load lsp of %s failed', lang))
