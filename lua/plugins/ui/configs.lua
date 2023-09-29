@@ -21,28 +21,13 @@ configs.sonokai = function()
 end
 
 configs.indent_blankline = function()
-    require('indent_blankline').setup({
-        show_end_of_line = true,
-        show_current_context = false,
-        show_current_context_start = false,
-        filetype_exclude = require("core.settings").exclude_filetypes,
-        buftype_exclude = { "terminal", "nofile" },
-        context_patterns = {
-            "class",
-            "function",
-            "method",
-            "block",
-            "list_literal",
-            "selector",
-            "^if",
-            "^table",
-            "if_statement",
-            "while",
-            "for",
-            "type",
-            "var",
-            "import",
-        },
+    require("ibl").setup({
+        indent = { char = "│" },
+        scope = { enabled = false },
+        exclude = {
+            filetypes = require("core.settings").exclude_filetypes,
+            bufters = { "terminal", "nofile", "quickfix", "prompt" },
+        }
     })
 end
 

@@ -95,9 +95,6 @@ configs.nvim_treesitter = function()
                 },
             },
         },
-        indent = {
-            enable = true,
-        },
     })
     require('nvim-treesitter.install').compilers = { "zig", "gcc" }
 end
