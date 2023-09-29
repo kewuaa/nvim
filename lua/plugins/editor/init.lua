@@ -65,7 +65,10 @@ return {
         },
         config = configs.mini_comment,
         dependencies = {
-            {'JoosepAlviste/nvim-ts-context-commentstring'}
+            {
+                'JoosepAlviste/nvim-ts-context-commentstring',
+                opts = {enable_autocmd = false}
+            }
         }
     },
 
