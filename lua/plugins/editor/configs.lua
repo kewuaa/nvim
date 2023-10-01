@@ -79,8 +79,11 @@ configs.mini_comment = function()
         options = {
             -- Function to compute custom 'commentstring' (optional)
             custom_commentstring = function()
-                if vim.bo.ft == "cython" then
-                    return "# %s"
+                local ft = vim.bo.ft
+                if ft == "cython" then
+                    return "#%s"
+                elseif vim.fn.index({"cpp", "c", "fsharp"}, ft) > -1 then
+                    return "//%s"
                 end
                 return require("ts_context_commentstring.internal").calculate_commentstring()
                     or vim.bo.commentstring
