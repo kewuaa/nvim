@@ -82,7 +82,7 @@ configs.mini_comment = function()
                 local ft = vim.bo.ft
                 if ft == "cython" then
                     return "#%s"
-                elseif vim.fn.index({"cpp", "c", "fsharp"}, ft) > -1 then
+                elseif vim.fn.index({"cpp", "c", "cs", "fsharp"}, ft) > -1 then
                     return "//%s"
                 end
                 return require("ts_context_commentstring.internal").calculate_commentstring()
