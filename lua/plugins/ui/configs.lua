@@ -26,7 +26,7 @@ configs.indent_blankline = function()
         scope = { enabled = false },
         exclude = {
             filetypes = require("core.settings").exclude_filetypes,
-            bufters = { "terminal", "nofile", "quickfix", "prompt" },
+            buftypes = { "terminal", "nofile", "quickfix", "prompt" },
         }
     })
     require("core.utils.bigfile").register(
