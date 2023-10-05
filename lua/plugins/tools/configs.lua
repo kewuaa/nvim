@@ -54,11 +54,11 @@ configs.trouble = function()
         auto_jump = {"lsp_definitions"}, -- for the given modes, automatically jump if there is only a single result
         signs = {
             -- icons / text used for a diagnostic
-            error = "",
-            warning = "",
-            hint = "",
+            error = "󰅚",
+            warning = "󰀪",
+            hint = "󰌶",
             information = "",
-            other = "﫠"
+            other = ""
         },
         use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
     })
@@ -220,17 +220,17 @@ configs.nvim_dap = function()
     -- config for ui
     local dapui = require('dapui')
     local dap_icons = {
-        Breakpoint = "",
-        BreakpointCondition = "ﳁ",
+        Breakpoint = "󰝥",
+        BreakpointCondition = "󰟃",
         BreakpointRejected = "",
         LogPoint = "",
         Pause = "",
         Play = "",
         RunLast = "↻",
         StepBack = "",
-        StepInto = "",
-        StepOut = "",
-        StepOver = "",
+        StepInto = "󰆹",
+        StepOut = "󰆸",
+        StepOver = "󰆷",
         Stopped = "",
         Terminate = "ﱢ",
     }
@@ -487,7 +487,7 @@ configs.neotree = function()
                     added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
                     modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
                     deleted   = "✖",-- this can only be used in the git_status source
-                    renamed   = "",-- this can only be used in the git_status source
+                    renamed   = "",-- this can only be used in the git_status source
                     -- Status type
                     untracked = "",
                     ignored   = "",
