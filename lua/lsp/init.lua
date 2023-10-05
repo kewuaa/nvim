@@ -93,10 +93,10 @@ end
 local function setup_ui()
     -- Set icons for sidebar.
     local diagnostic_icons = {
-        Error = " ",
-        Warn = " ",
-        Info = " ",
-        Hint = " ",
+        Error = "󰅚",
+        Warn = "󰀪",
+        Info = "",
+        Hint = "󰌶",
     }
     for type, icon in pairs(diagnostic_icons) do
         local hl = "DiagnosticSign" .. type
