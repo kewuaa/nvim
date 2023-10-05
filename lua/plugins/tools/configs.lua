@@ -677,7 +677,7 @@ end
 configs.nvim_silicon = function()
     local settings = require("core.settings")
     local config = {
-        font = "FiraCode NF",
+        font = "FiraCode Nerd Font Mono",
         -- "1337",
         -- "Coldark-Cold",
         -- "Coldark-Dark",
