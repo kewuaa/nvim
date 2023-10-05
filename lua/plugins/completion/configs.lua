@@ -345,7 +345,7 @@ end
 configs.neodev = function()
     require('neodev').setup({
         library = {
-            plugins = { "nvim-dap-ui" },
+            plugins = {},
             types = true,
             runtime = true,
         },
