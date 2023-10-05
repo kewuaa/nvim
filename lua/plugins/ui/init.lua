@@ -74,6 +74,10 @@ return {
         version = 'legacy',
         lazy = true,
         event = 'LspAttach',
-        config = true,
+        opts = {
+            window = {
+                blend = 0,
+            },
+        },
     },
 }
