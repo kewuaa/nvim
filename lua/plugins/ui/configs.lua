@@ -136,7 +136,7 @@ configs.lualine = function()
             lualine_c = {
                 {
                     "branch",
-                    icon = '',
+                    icon = '',
                     -- cond = min_window_width(120),
                 },
                 {

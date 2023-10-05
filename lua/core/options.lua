@@ -57,8 +57,7 @@ if vim.fn.executable('rg') == 1 then
 end
 
 if vim.fn.exists("g:nvy") == 1 then
-    -- options.guifont = 'JetbrainsMono NFM:h10:Consolas'
-    options.guifont = 'FiraCode NFM:h10:Consolas'
+    options.guifont = 'FiraCode Nerd Font Mono:h10:Consolas'
 end
 
 M.init = function()
