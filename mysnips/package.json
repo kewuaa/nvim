@@ -23,7 +23,7 @@
             },
             {
                 "language": "cs",
-                "path": "./snippets/cs.json"
+                "path": "./snippets/csharp.json"
             }
         ]
     }
