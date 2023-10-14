@@ -16,7 +16,7 @@ class Utils:
             return m.group(0) + '"'
         return self.__blank_pattern.sub(repl, s, count=1)
 
-    @pynvim.command('FormatDict', nargs='*', range='')
+    @pynvim.command('FormatDict', nargs='*', range='') # pyright: ignore
     def format_dict(self, args, range) -> None:
         nvim = self._nvim
         buffer = nvim.current.buffer
@@ -47,7 +47,7 @@ class Utils:
     def pyxfilehead_autocmd(self) -> None:
         self._add_pyxfilehead()
 
-    @pynvim.command('AddPYXFileHead', nargs='*')
+    @pynvim.command('AddPYXFileHead', nargs='*') # pyright: ignore
     def pyxfilehead_command(self, *args) -> None:
         self._add_pyxfilehead()
 
