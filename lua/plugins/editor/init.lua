@@ -137,9 +137,10 @@ return {
 
     -- 搜索后自动关闭高亮
     {
-        'romainl/vim-cool',
+        'nvimdev/hlsearch.nvim',
         lazy = true,
         event = 'CursorMoved',
+        config = true,
     },
 
     --  peeks lines of the buffer in non-obtrusive way
