@@ -2,7 +2,7 @@ from re import compile
 
 import pynvim
 
-from . import imtoggle
+from . import imtoggle # pyright: ignore
 
 
 @pynvim.plugin
