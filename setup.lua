@@ -9,31 +9,36 @@ $include %s
 ]], path .. "/clink_inputrc")
 
 local function write_alacritty_config()
-    local dest_path = nil
+    local dest_dir = nil
     if settings.is_Windows then
-        dest_path = vim.fn.getenv("APPDATA") .. "/alacritty"
+        dest_dir = vim.fn.getenv("APPDATA") .. "/alacritty"
     else
-        dest_path = vim.fn.getenv("HOME") .. "/.config/alacritty"
+        dest_dir = vim.fn.getenv("HOME") .. "/.config/alacritty"
     end
     assert(vim.fn.exists("*mkdir") == 1)
-    if not vim.fn.isdirectory(dest_path) then
-        vim.fn.mkdir(dest_path, "pR")
+    if not vim.fn.isdirectory(dest_dir) then
+        vim.fn.mkdir(dest_dir, "pR")
+        vim.print(("directory `%s` not exists, create it"):format(dest_dir))
     end
-    local file = io.open(dest_path .. "/alacritty.yml", "w")
+    local dest_path = dest_dir .. "/alacritty.yml"
+    local file = io.open(dest_path)
     assert(file ~= nil)
     io.output(file)
     io.write(alacritty_config)
     io.close(file)
+    vim.print(("alacritty config successfully write to `%s`"):format(dest_path))
 end
 
 local function write_clink_config()
-    local dest_path = vim.fn.getenv("HOME")
-    assert(dest_path ~= nil)
-    local file = io.open(dest_path .. "/.inputrc", "w")
+    local home_dir = vim.fn.getenv("HOME")
+    assert(home_dir ~= nil)
+    local dest_path = home_dir .. '/.inputrc'
+    local file = io.open(dest_path)
     assert(file ~= nil)
     io.output(file)
     io.write(clink_config)
     io.close(file)
+    vim.print(("clink config successfully write to `%s`"):format(dest_path))
 end
 
 local function setup()
