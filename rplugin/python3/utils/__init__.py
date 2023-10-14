@@ -40,8 +40,7 @@ class Utils:
             '# cython: cdivision=True',
             '# distutils: language=c++'
         )
-        buffer.append(lines)
-        del buffer[0]
+        buffer.append(lines, index=0)
 
     @pynvim.autocmd('BufNewFile', '*.pyx')
     def pyxfilehead_autocmd(self) -> None:
