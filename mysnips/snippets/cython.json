@@ -1,0 +1,29 @@
+{
+    "cdef extern": {
+        "prefix": "cdefextern",
+        "body": [
+            "cdef extern from \"${1:headfile}\" nogil:",
+            "\t${2:pass}",
+            "#endextern"
+        ],
+        "description": "Code snippet for the cdef extern statement."
+    },
+    "cfunction": {
+        "prefix": "cdef",
+        "body": [
+            "cdef ${1:name}:",
+            "\t${2:pass}",
+            "#endcdef"
+        ],
+        "description": "Code snippet for the cdef statement."
+    },
+    "cclass": {
+        "prefix": "cdefclass",
+        "body": [
+            "cdef class ${1:name}:",
+            "\t${2:pass}",
+            "#endclass"
+        ],
+        "description": "Code snippet for the cdef class statement."
+    }
+}

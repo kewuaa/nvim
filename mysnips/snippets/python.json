@@ -1,0 +1,74 @@
+{
+    "if": {
+        "prefix": "if",
+        "body": [
+            "if ${1:condition}:",
+            "\t${2:pass}$0\n#endif"
+        ],
+        "description": "Code snippet for the if statement."
+    },
+    "if/else": {
+        "prefix": "if/else",
+        "body": [
+            "if ${1:condition}:",
+            "\t${2:pass}",
+            "else:",
+            "\t${3:pass}",
+            "#endif"
+        ],
+        "description": "Code snippet for the if statement with else."
+    },
+    "elif": {
+        "prefix": "elif",
+        "body": [
+            "elif ${1:condition}:",
+            "\t${2:pass}"
+        ],
+        "description": "Code snippet for the elif statement."
+    },
+    "for": {
+        "prefix": "for",
+        "body": [
+            "for ${1:i} in ${2:iterator}:",
+            "\t${3:pass}",
+            "#endfor"
+        ],
+        "description": "Code snippet for the for statement."
+    },
+    "while": {
+        "prefix": "while",
+        "body": [
+            "while ${1:condition}:",
+            "\t${2:pass}",
+            "#endwhile"
+        ],
+        "description": "Code snippet for the while statement."
+    },
+    "with": {
+        "prefix": "with",
+        "body": [
+            "with ${1:object}:",
+            "\t${2:pass}",
+            "#endwith"
+        ],
+        "description": "Code snippet for the with statement."
+    },
+    "function": {
+        "prefix": "def",
+        "body": [
+            "def ${1:name}:",
+            "\t${2:pass}",
+            "#enddef"
+        ],
+        "description": "Code snippet for the def statement."
+    },
+    "class": {
+        "prefix": "class",
+        "body": [
+            "class ${1:name}:",
+            "\t{2:pass}",
+            "#endclass"
+        ],
+        "description": "Code snippet for the class statement."
+    }
+}
