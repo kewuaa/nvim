@@ -12,6 +12,18 @@
             {
                 "language": "cython",
                 "path": "./snippets/cython.json"
+            },
+            {
+                "language": ["c", "cpp", "cs"],
+                "path": "./snippets/c.json"
+            },
+            {
+                "language": "cpp",
+                "path": "./snippets/cpp.json"
+            },
+            {
+                "language": "cs",
+                "path": "./snippets/cs.json"
             }
         ]
     }

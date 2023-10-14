@@ -29,11 +29,20 @@
     "for": {
         "prefix": "for",
         "body": [
-            "for ${1:i} in ${2:iterator}:",
+            "for ${1:value} in ${2:iterator}:",
             "\t${3:pass}",
             "#endfor"
         ],
         "description": "Code snippet for the for statement."
+    },
+    "fori": {
+        "prefix": "fori",
+        "body": [
+            "for ${1:index}, ${2:value} in enumerate(${3:iterator}):",
+            "\t${4:pass}",
+            "#endfor"
+        ],
+        "description": "Code snippet for the fori statement."
     },
     "while": {
         "prefix": "while",

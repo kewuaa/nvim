@@ -1,0 +1,38 @@
+{
+    "if": {
+        "prefix": "if",
+        "body": [
+            "if (${1:condition}) {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the if statement."
+    },
+    "for": {
+        "prefix": "for",
+        "body": [
+            "for (${1:init}; ${2:condition}; ${3:step}) {",
+            "\t$4",
+            "}"
+        ],
+        "description": "Code snippet for the for statement."
+    },
+    "while": {
+        "prefix": "while",
+        "body": [
+            "while (${1:condition}) {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the while statement."
+    },
+    "do": {
+        "prefix": "do",
+        "body": [
+            "do {",
+            "\t$1",
+            "} while (${2:condition})"
+        ],
+        "description": "Code snippet for the do statement."
+    }
+}

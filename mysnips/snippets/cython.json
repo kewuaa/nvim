@@ -1,5 +1,9 @@
 {
-    "cdef extern": {
+    "cvariable": {
+        "prefix": "cdef",
+        "body": "cdef ${1:type} ${2:variable}"
+    },
+    "extern": {
         "prefix": "cdefextern",
         "body": [
             "cdef extern from \"${1:headfile}\" nogil:",
