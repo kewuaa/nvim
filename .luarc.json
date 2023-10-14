@@ -2,7 +2,6 @@
     "workspace.library": [
         "C:\\Users\\kewuaa\\AppData\\Local\\nvim-data\\lazy\\neodev.nvim\\types\\stable",
         "D:\\Softwares\\Program_Files\\Neovim\\share\\nvim\\runtime\\lua",
-        "C:\\Users\\kewuaa\\AppData\\Local\\nvim-data\\lazy\\nvim-dap-ui\\lua",
         "C:\\Users\\kewuaa\\AppData\\Local\\nvim/lua",
         "${3rd}/luv/library"
     ]
