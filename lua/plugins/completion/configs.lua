@@ -110,15 +110,14 @@ configs.nvim_cmp = function()
                     mode = "symbol_text",
                     maxwidth = 50,
                     menu = ({
-                        buffer = "",
-                        nvim_lsp = "",
-                        luasnip = "",
-                        tags = "",
-                        path = "",
+                        buffer = "[BUF]",
+                        luasnip = "[SNIP]",
+                        nvim_lsp = "[LSP]",
+                        path = "[PATH]",
                         cmdline = "[Cmd]",
                         -- pandoc_references = '[Pandoc]',
                         cmp_pandoc = '[Pandoc]',
-                        latex_symbols = 'ﭨ',
+                        latex_symbols = '[LATEX]',
                         dap = "[Dap]",
                     }),
                     ellipsis_char = '...',
@@ -170,10 +169,9 @@ configs.nvim_cmp = function()
         sources = cmp.config.sources(
             { path_source },
             {
-                lsp_source,
-                -- tag_source,
-                buffer_source,
                 snip_source,
+                lsp_source,
+                buffer_source,
             }
         ),
     }
@@ -208,11 +206,11 @@ configs.nvim_cmp = function()
                 sources = cmp.config.sources(
                     { path_source },
                     {
+                        snip_source,
                         lsp_source,
                         buffer_source,
                         bibliography_source,
                         latex_symbol_source,
-                        snip_source,
                     }
                 )
             })
@@ -255,7 +253,7 @@ configs.LuaSnip = function()
         updateevents = 'TextChanged,TextChangedI',
         delete_check_events = "TextChanged,InsertLeave",
     })
-    require("luasnip.loaders.from_vscode").lazy_load()
+    require("luasnip.loaders.from_vscode").lazy_load({paths = ("%s/mysnips"):format(vim.fn.stdpath("config"))})
 end
 
 configs.nvim_lspconfig = function ()
