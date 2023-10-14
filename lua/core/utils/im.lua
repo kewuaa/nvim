@@ -1,5 +1,4 @@
 local M = {}
-local exepath = vim.fn.stdpath('config') .. '/bin/imtoggle'
 local imtoggle_enabled = false
 
 local toggle_imtoggle = function()
@@ -8,15 +7,11 @@ local toggle_imtoggle = function()
         vim.api.nvim_create_augroup('IM', {clear = true})
         vim.api.nvim_create_autocmd('InsertEnter', {
             group = 'IM',
-            callback = function()
-                vim.fn.system(exepath .. ' 1')
-            end
+            callback = vim.fn.IMSwitchToZH
         })
         vim.api.nvim_create_autocmd('InsertLeave', {
             group = 'IM',
-            callback = function()
-                vim.fn.system(exepath .. ' 0')
-            end
+            callback = vim.fn.IMSwitchToEN
         })
         imtoggle_enabled = true
     else
@@ -27,11 +22,7 @@ local toggle_imtoggle = function()
 end
 
 M.init = function()
-    if vim.fn.executable(exepath) then
-        vim.keymap.set({'n', 'i'}, '<M-;>', toggle_imtoggle)
-    else
-        vim.notify('imtoggle not build')
-    end
+    vim.keymap.set({'n', 'i'}, '<M-;>', toggle_imtoggle)
 end
 
 return M

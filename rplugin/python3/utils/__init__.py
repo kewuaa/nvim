@@ -2,6 +2,8 @@ from re import compile
 
 import pynvim
 
+from . import imtoggle
+
 
 @pynvim.plugin
 class Utils:
@@ -48,3 +50,15 @@ class Utils:
     @pynvim.command('AddPYXFileHead', nargs='*')
     def pyxfilehead_command(self, *args) -> None:
         self._add_pyxfilehead()
+
+    @pynvim.function("IMToggle", sync=True)
+    def toggle_ime(self, args) -> None:
+        imtoggle.toggle() # pyright: ignore
+
+    @pynvim.function("IMSwitchToEN", sync=True)
+    def imswitch_to_zh(self, args) -> None:
+        imtoggle.switch_to_en() # pyright: ignore
+
+    @pynvim.function("IMSwitchToZH", sync=True)
+    def imswitch_to_en(self, args) -> None:
+        imtoggle.switch_to_zh() # pyright: ignore

@@ -43,6 +43,8 @@ local function setup()
     if settings.is_Windows then
         write_clink_config()
     end
+    local output = vim.fn.system("python setup.py build_ext -i")
+    vim.print(output)
 end
 
 setup()
