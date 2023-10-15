@@ -2,7 +2,7 @@ from re import compile
 
 import pynvim
 
-from . import imtoggle # pyright: ignore
+from . import imtoggle  # pyright: ignore
 
 
 @pynvim.plugin
@@ -10,11 +10,14 @@ class Utils:
     def __init__(self, nvim: pynvim.Nvim) -> None:
         self._nvim = nvim
         self.__blank_pattern = compile(r'\s*')
+    #enddef
 
     def _add_quota(self, s: str) -> str:
         def repl(m):
             return m.group(0) + '"'
+        #enddef
         return self.__blank_pattern.sub(repl, s, count=1)
+    #enddef
 
     @pynvim.command('FormatDict', nargs='*', range='') # pyright: ignore
     def format_dict(self, args, range) -> None:
@@ -29,6 +32,9 @@ class Utils:
                 k, v = item
                 buffer[i + start] = \
                     f'{self._add_quota(k)}": "{v.lstrip().rstrip(",")}",'
+            #endif
+        #endfor
+    #enddef
 
     def _add_pyxfilehead(self) -> None:
         nvim = self._nvim
@@ -41,23 +47,29 @@ class Utils:
             '# distutils: language=c++'
         )
         buffer.append(lines, index=0)
+    #enddef
 
     @pynvim.autocmd('BufNewFile', '*.pyx')
     def pyxfilehead_autocmd(self) -> None:
         self._add_pyxfilehead()
+    #enddef
 
     @pynvim.command('AddPYXFileHead', nargs='*') # pyright: ignore
     def pyxfilehead_command(self, *args) -> None:
         self._add_pyxfilehead()
+    #enddef
 
     @pynvim.function("IMToggle", sync=True)
     def toggle_ime(self, args) -> None:
         imtoggle.toggle() # pyright: ignore
+    #enddef
 
     @pynvim.function("IMSwitchToEN", sync=True)
     def imswitch_to_zh(self, args) -> None:
         imtoggle.switch_to_en() # pyright: ignore
+    #enddef
 
     @pynvim.function("IMSwitchToZH", sync=True)
     def imswitch_to_en(self, args) -> None:
         imtoggle.switch_to_zh() # pyright: ignore
+    #enddef
