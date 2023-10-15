@@ -1,7 +1,7 @@
 import sys
 from distutils.unixccompiler import UnixCCompiler
 
-from setuptools import setup, Extension
+from setuptools import Extension, setup
 from setuptools.command.build_ext import build_ext as _build_ext
 
 
@@ -16,13 +16,18 @@ class build_ext(_build_ext):
                 )
                 for ext in self.extensions:
                     ext.undef_macros.append("_DEBUG")
+                #endfor
+            #endif
+        #endif
         return super().build_extensions()
+    #enddef
 
 
 use_cython = False
 if "--cycompile" in sys.argv:
     use_cython = True
     sys.argv.remove("--cycompile")
+#endif
 suffix = "pyx" if use_cython else "cpp"
 exts = [
     Extension(
@@ -40,6 +45,7 @@ exts = [
 if use_cython:
     from Cython.Build import cythonize
     exts = cythonize(exts)
+#endif
 setup(
     ext_modules=exts,
     cmdclass={"build_ext": build_ext}
