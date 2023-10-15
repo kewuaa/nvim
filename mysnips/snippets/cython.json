@@ -1,9 +1,9 @@
 {
-    "cvariable": {
+    "cdef/variable": {
         "prefix": "cdef",
         "body": "cdef ${1:type} ${2:variable}"
     },
-    "extern": {
+    "cdef/extern": {
         "prefix": "cdefextern",
         "body": [
             "cdef extern from \"${1:headfile}\" nogil:",
@@ -12,8 +12,8 @@
         ],
         "description": "Code snippet for the cdef extern statement."
     },
-    "cfunction": {
-        "prefix": "cdef",
+    "cdef/function": {
+        "prefix": "cdeff",
         "body": [
             "cdef ${1:name}:",
             "\t${2:pass}",
@@ -21,8 +21,8 @@
         ],
         "description": "Code snippet for the cdef statement."
     },
-    "cclass": {
-        "prefix": "cdefclass",
+    "cdef/class": {
+        "prefix": "cdefc",
         "body": [
             "cdef class ${1:name}:",
             "\t${2:pass}",
