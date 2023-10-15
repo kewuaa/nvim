@@ -11,8 +11,8 @@
     "cdef/function": {
         "prefix": "cdeff",
         "body": [
-            "cdef ${1:name}:",
-            "\t${2:pass}",
+            "cdef ${1:name}(${2:params}):",
+            "\t${3:pass}",
             "#endcdef"
         ],
         "description": "Code snippet for the cdef statement."
@@ -22,8 +22,17 @@
         "body": [
             "cdef class ${1:name}:",
             "\t${2:pass}",
-            "#endclass"
+            "#endcclass"
         ],
-        "description": "Code snippet for the cdef class statement."
+        "description": "Code snippet for the cclass statement."
+    },
+    "cdef/cppclass": {
+        "prefix": "cdefcpp",
+        "body": [
+            "cdef cppclass ${1:name}:",
+            "\t${2:pass}",
+            "#endcppclass"
+        ],
+        "description": "Code snippet for the cppclass statement."
     }
 }

@@ -65,8 +65,8 @@
     "function": {
         "prefix": "def",
         "body": [
-            "def ${1:name}:",
-            "\t${2:pass}",
+            "def ${1:name}(${2:params}):",
+            "\t${3:pass}",
             "#enddef"
         ],
         "description": "Code snippet for the def statement."
