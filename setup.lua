@@ -1,9 +1,8 @@
 local path = vim.fn.stdpath("config")
 local settings = require("core.settings")
 local alacritty_config = string.format([[
-import:
- - %s
-]], path .. "/alacritty.yml")
+import = [%s]
+]], path .. "/alacritty.toml")
 local clink_config = string.format([[
 $include %s
 ]], path .. "/clink_inputrc")
@@ -20,7 +19,7 @@ local function write_alacritty_config()
         vim.fn.mkdir(dest_dir, "pR")
         vim.print(("directory `%s` not exists, create it"):format(dest_dir))
     end
-    local dest_path = dest_dir .. "/alacritty.yml"
+    local dest_path = dest_dir .. "/alacritty.toml"
     local file = io.open(dest_path)
     assert(file ~= nil)
     io.output(file)

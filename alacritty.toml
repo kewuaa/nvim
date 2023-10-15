@@ -1,0 +1,89 @@
+working_directory = "D:/Code"
+live_config_reload = true
+
+[window]
+# Window decorations
+#
+# *Full*
+# Borders and title bar
+# *None*
+# Neither borders nor title bar
+# *Transparent* _(macOS only)_
+# Title bar, transparent background and title bar buttons
+# *Buttonless* _(macOS only)_
+# Title bar, transparent background and no title bar buttons
+#
+# Default: _"Full"_
+decorations = "none"
+# Background opacity as a floating point number from _0.0_ to _1.0_. The value
+# \_0.0_ is completely transparent and _1.0_ is opaque.
+#
+# Default: _1.0_
+opacity = 1.0
+# startup_mode "Windowed" | "Maximized" | "Fullscreen" | "SimpleFullscreen"
+# Startup mode (changes require restart)
+#
+# Default: _"Windowed"_
+startup_mode = "Windowed"
+# decorations_theme_variant "Dark" | "Light" | "None"
+#
+# Override the variant of the System theme/GTK theme/Wayland client side
+# decorations. Set this to _"None"_ to use the system's default theme variant.
+#
+# Default: _"None"_
+decorations_theme_variant = "None"
+
+[window.dimensions]
+columns = 100
+lines = 30
+
+[colors]
+draw_bold_text_with_bright_colors = true
+transparent_background_colors = true
+
+[colors.primary]
+background = "0x2a2f38"
+foreground = "0xe1e3e4"
+
+[colors.bright]
+black = "0x828a9a"
+blue = "0x72cce8"
+cyan = "0xf69c5e"
+green = "0x9dd274"
+magenta = "0xba9cf3"
+red = "0xff6578"
+white = "0xe1e3e4"
+yellow = "0xeacb64"
+
+[colors.normal]
+black = "0x181a1c"
+blue = "0x72cce8"
+cyan = "0xf69c5e"
+green = "0x9dd274"
+magenta = "0xba9cf3"
+red = "0xff6578"
+white = "0xe1e3e4"
+yellow = "0xeacb64"
+
+[font]
+builtin_box_drawing = false
+size = 10.0
+
+[font.bold]
+family = "FiraCode Nerd Font Propo"
+
+[font.bold_italic]
+family = "FiraCode Nerd Font Propo"
+
+[font.italic]
+family = "FiraCode Nerd Font Propo"
+
+[font.normal]
+family = "FiraCode Nerd Font Propo"
+
+[mouse]
+hide_when_typing = true
+
+[shell]
+args = ["/k clink inject"]
+program = "cmd"
