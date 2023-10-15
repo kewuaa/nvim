@@ -1,8 +1,4 @@
 {
-    "cdef/variable": {
-        "prefix": "cdef",
-        "body": "cdef ${1:type} ${2:variable}"
-    },
     "cdef/extern": {
         "prefix": "cdefextern",
         "body": [
