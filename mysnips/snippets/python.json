@@ -79,5 +79,19 @@
             "#endclass"
         ],
         "description": "Code snippet for the class statement."
+    },
+    "ifmain": {
+        "prefix": "ifmain",
+        "body": [
+            "if __name__ == \"__main__\":",
+            "\t${1:pass}",
+            "#endif"
+        ],
+        "description": "Code snippet for the main statement."
+    },
+    "pprint": {
+        "prefix": "pprint",
+        "body": "__import__(\"pprint\").pprint(\"$1\")",
+        "description": "Code snippet for the pprint statement."
     }
 }
