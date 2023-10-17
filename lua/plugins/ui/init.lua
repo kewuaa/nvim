@@ -31,6 +31,7 @@ return {
     },
     {
         'echasnovski/mini.indentscope',
+        lazy = true,
         version = false,
         event = 'CursorMoved',
         init = function()
