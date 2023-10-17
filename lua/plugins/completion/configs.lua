@@ -343,7 +343,7 @@ end
 configs.neodev = function()
     require('neodev').setup({
         library = {
-            plugins = {},
+            plugins = {"lazy.nvim"},
             types = true,
             runtime = true,
         },
