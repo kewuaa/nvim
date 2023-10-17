@@ -55,7 +55,7 @@ return {
                 -- pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
                 callback = function()
                     vim.fn.timer_start(100, function()
-                        api.nvim_command [[Lazy load nvim-lspconfig]]
+                        require("lazy").load({plugins = {"nvim-lspconfig"}})
                     end)
                     api.nvim_del_augroup_by_name('init_lsp')
                 end

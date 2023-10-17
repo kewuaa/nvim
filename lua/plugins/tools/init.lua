@@ -89,8 +89,8 @@ return {
                 pattern = '*',
                 once = true,
                 callback = function()
-                    vim.fn.timer_start(900, function ()
-                        vim.api.nvim_command [[Lazy load gitsigns.nvim]]
+                    vim.fn.timer_start(1000, function ()
+                        require("lazy").load({plugins = {"gitsigns.nvim"}})
                     end)
                 end
             })
