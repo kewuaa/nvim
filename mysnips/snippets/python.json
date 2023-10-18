@@ -91,7 +91,7 @@
     },
     "pprint": {
         "prefix": "pprint",
-        "body": "__import__(\"pprint\").pprint(\"$1\")",
+        "body": "__import__(\"pprint\").pprint($1)",
         "description": "Code snippet for the pprint statement."
     }
 }
