@@ -75,7 +75,7 @@
         "prefix": "class",
         "body": [
             "class ${1:name}:",
-            "\t{2:pass}",
+            "\t${2:pass}",
             "#endclass"
         ],
         "description": "Code snippet for the class statement."
