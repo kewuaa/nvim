@@ -62,6 +62,26 @@
         ],
         "description": "Code snippet for the with statement."
     },
+    "match": {
+        "prefix": "match",
+        "body": [
+            "match ${1:term}:",
+            "\tcase ${2:pattern}:",
+            "\t\t${3:pass}",
+            "\t#endcase",
+            "#endmatch"
+        ],
+        "description": "Code snippet match the if statement."
+    },
+    "case": {
+        "prefix": "case",
+        "body": [
+            "case ${1:pattern}:",
+            "\t${2:pass}",
+            "#endcase"
+        ],
+        "description": "Code snippet for the case statement."
+    },
     "function": {
         "prefix": "def",
         "body": [
