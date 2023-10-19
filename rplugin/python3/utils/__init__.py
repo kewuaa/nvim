@@ -28,7 +28,7 @@ class Utils:
         start -= 1
         lines = buffer[start: end]
         if ft == "cs":
-            format_str = 'new KeyValuePair<string, string>({k}", "{v}")'
+            format_str = 'new KeyValuePair<string, string>({k}", "{v}"),'
         elif ft == "python":
             format_str = '{k}": "{v}",'
         else:
