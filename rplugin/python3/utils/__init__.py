@@ -23,15 +23,23 @@ class Utils:
     def format_dict(self, args, range) -> None:
         nvim = self._nvim
         buffer = nvim.current.buffer
+        ft = nvim.eval("&filetype")
         start, end = range
         start -= 1
         lines = buffer[start: end]
+        if ft == "cs":
+            format_str = 'new KeyValuePair<string, string>({k}", "{v}")'
+        elif ft == "python":
+            format_str = '{k}": "{v}",'
+        else:
+            nvim.command(f'echom "FormatDict command not support filetype \\"{ft}\\""')
+            return
+        #endif
         for i, line in enumerate(lines):
             item = line.split(':', 1)
             if len(item) > 1:
                 k, v = item
-                buffer[i + start] = \
-                    f'{self._add_quota(k)}": "{v.lstrip().rstrip(",")}",'
+                buffer[i + start] = format_str.format(k=self._add_quota(k), v=v.lstrip().rstrip(","))
             #endif
         #endfor
     #enddef
