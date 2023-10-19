@@ -86,7 +86,8 @@
         "prefix": "def",
         "body": [
             "def ${1:name}($2) -> ${3:type}:",
-            "\t${4:pass}",
+            "\t\"\"\" ${4:doc.}\"\"\"\n",
+            "\t${5:pass}",
             "#enddef"
         ],
         "description": "Code snippet for the def statement."
@@ -95,7 +96,8 @@
         "prefix": "class",
         "body": [
             "class ${1:name}:",
-            "\t${2:pass}",
+            "\t\"\"\" ${2:doc.}\"\"\"\n",
+            "\t${3:pass}",
             "#endclass"
         ],
         "description": "Code snippet for the class statement."
