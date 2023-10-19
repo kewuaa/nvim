@@ -26,6 +26,14 @@
         ],
         "description": "Code snippet for the elif statement."
     },
+    "else": {
+        "prefix": "else",
+        "body": [
+            "else:",
+            "\t${1:pass}"
+        ],
+        "description": "Code snippet for the else statement."
+    },
     "for": {
         "prefix": "for",
         "body": [
