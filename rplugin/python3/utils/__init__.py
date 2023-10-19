@@ -12,11 +12,18 @@ class Utils:
         self.__blank_pattern = compile(r'\s*')
     #enddef
 
-    def _add_quota(self, s: str) -> str:
+    def _format_dict_cs(self, key: str, value: str) -> str:
+        def repl(m):
+            return m.group(0) + "new KeyValuePair<string, string>(\""
+        #enddef
+        return f'{self.__blank_pattern.sub(repl, key, count=1)}", "{value.lstrip().rstrip(",")}"),'
+    #enddef
+
+    def _format_dict_python(self, key: str, value: str) -> str:
         def repl(m):
             return m.group(0) + '"'
         #enddef
-        return self.__blank_pattern.sub(repl, s, count=1)
+        return f'{self.__blank_pattern.sub(repl, key, count=1)}": "{value.lstrip().rstrip(",")}",'
     #enddef
 
     @pynvim.command('FormatDict', nargs='*', range='') # pyright: ignore
@@ -28,9 +35,9 @@ class Utils:
         start -= 1
         lines = buffer[start: end]
         if ft == "cs":
-            format_str = 'new KeyValuePair<string, string>({k}", "{v}"),'
+            parse = self._format_dict_cs
         elif ft == "python":
-            format_str = '{k}": "{v}",'
+            parse = self._format_dict_python
         else:
             nvim.command(f'echom "FormatDict command not support filetype \\"{ft}\\""')
             return
@@ -39,7 +46,7 @@ class Utils:
             item = line.split(':', 1)
             if len(item) > 1:
                 k, v = item
-                buffer[i + start] = format_str.format(k=self._add_quota(k), v=v.lstrip().rstrip(","))
+                buffer[i + start] = parse(k, v)
             #endif
         #endfor
     #enddef
