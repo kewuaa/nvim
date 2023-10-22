@@ -1,6 +1,6 @@
 {
     "cdef/extern": {
-        "prefix": "cdefextern",
+        "prefix": "sextern",
         "body": [
             "cdef extern from \"${1:headfile}\" nogil:",
             "\t${2:pass}",
@@ -9,7 +9,7 @@
         "description": "Code snippet for the cdef extern statement."
     },
     "cdef/function": {
-        "prefix": "cdeffunc",
+        "prefix": "scfunc",
         "body": [
             "cdef ${1:type} ${2:name}($3):",
             "\t${4:pass}",
@@ -18,7 +18,7 @@
         "description": "Code snippet for the cdef statement."
     },
     "cpdef": {
-        "prefix": "cpdef",
+        "prefix": "scpfunc",
         "body": [
             "cpdef ${1:type} ${2:name}($3):",
             "\t${4:pass}",
@@ -27,7 +27,7 @@
         "description": "Code snippet for the cpdef statement."
     },
     "cdef/class": {
-        "prefix": "cdefcclass",
+        "prefix": "scclass",
         "body": [
             "cdef class ${1:name}:",
             "\t${2:pass}",
@@ -36,7 +36,7 @@
         "description": "Code snippet for the cclass statement."
     },
     "cdef/struct": {
-        "prefix": "cdefstruct",
+        "prefix": "sstruct",
         "body": [
             "cdef struct ${1:name}:",
             "\t${2:pass}",
@@ -45,7 +45,7 @@
         "description": "Code snippet for the cdef struct statement."
     },
     "cdef/cppclass": {
-        "prefix": "cdefcppclass",
+        "prefix": "scppclass",
         "body": [
             "cdef cppclass ${1:name}:",
             "\t${2:pass}",
@@ -59,7 +59,7 @@
         "description": "Code snippet for the ctypedef statement."
     },
     "ctypedef/struct": {
-        "prefix": "ctypedefstruct",
+        "prefix": "sstruct",
         "body": [
             "ctypedef struct ${1:name}:",
             "\t${2:pass}",
@@ -68,7 +68,7 @@
         "description": "Code snippet for the ctypedef struct statement."
     },
     "ctypedef/fixed": {
-        "prefix": "ctypedeffixed",
+        "prefix": "sfixed",
         "body": [
             "ctypedef fixed ${1:name}:",
             "\t${2:pass}",

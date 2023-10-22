@@ -1,6 +1,6 @@
 {
     "namespace": {
-        "prefix": "namespace",
+        "prefix": "snamespace",
         "body": [
             "namespace ${1:name} {",
             "\t$2",
@@ -9,7 +9,7 @@
         "description": "Code snippet for the namespace statement."
     },
     "class": {
-        "prefix": "class",
+        "prefix": "sclass",
         "body": [
             "class ${1:name} {",
             "\t$2",
@@ -18,7 +18,7 @@
         "description": "Code snippet for the class statement."
     },
     "foreach": {
-        "prefix": "foreach",
+        "prefix": "sforeach",
         "body": [
             "for (${1:value} : ${2:iterator}) {",
             "\t$3",
