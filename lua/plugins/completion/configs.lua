@@ -169,8 +169,8 @@ configs.nvim_cmp = function()
         sources = cmp.config.sources(
             { path_source },
             {
-                snip_source,
                 lsp_source,
+                snip_source,
                 buffer_source,
             }
         ),
@@ -206,8 +206,8 @@ configs.nvim_cmp = function()
                 sources = cmp.config.sources(
                     { path_source },
                     {
-                        snip_source,
                         lsp_source,
+                        snip_source,
                         buffer_source,
                         bibliography_source,
                         latex_symbol_source,
