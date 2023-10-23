@@ -130,7 +130,7 @@
             "\t${1:pass}"
         ],
         "description": "Code snippet for the finally statement."
-    }
+    },
     "match": {
         "prefix": "match",
         "body": [
