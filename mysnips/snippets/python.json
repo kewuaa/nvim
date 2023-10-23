@@ -114,7 +114,7 @@
         "prefix": "adef",
         "body": [
             "async def ${1:name}($2) -> ${3:type}:",
-            "\t\"\"\" ${4:doc.}\"\"\"\n",
+            "\t\"\"\" ${4:doc}.\"\"\"\n",
             "\t${5:pass}",
             "#endadef"
         ],
@@ -124,7 +124,7 @@
         "prefix": "class",
         "body": [
             "class ${1:name}:",
-            "\t\"\"\" ${2:doc.}\"\"\"\n",
+            "\t\"\"\" ${2:doc}.\"\"\"\n",
             "\t${3:pass}",
             "#endclass"
         ],
