@@ -1,4 +1,39 @@
 {
+    "try/catch": {
+        "prefix": "try",
+        "body": [
+            "try {",
+            "\t$1",
+            "} catch (${2:Exception} ${3:e}) {",
+            "\t$4",
+            "}"
+        ],
+        "description": "Code snippet for the try/catch statement."
+    },
+    "try/finally": {
+        "prefix": "try",
+        "body": [
+            "try {",
+            "\t$1",
+            "} finally {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the try/finally statement."
+    },
+    "try/catch/finally": {
+        "prefix": "try",
+        "body": [
+            "try {",
+            "\t$1",
+            "} catch (${2:Exception} ${3:e}) {",
+            "\t$4",
+            "} finally {",
+            "\t$5",
+            "}"
+        ],
+        "description": "Code snippet for the try/catch/finally statement."
+    },
     "namespace": {
         "prefix": "namespace",
         "body": "namespace ${1:name};",

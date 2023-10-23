@@ -9,7 +9,7 @@
         "description": "Code snippet for the if statement."
     },
     "if/else": {
-        "prefix": "ifelse",
+        "prefix": "if",
         "body": [
             "if ${1:condition}:",
             "\t${2:pass}",
@@ -17,7 +17,7 @@
             "\t${3:pass}",
             "#endif"
         ],
-        "description": "Code snippet for the if statement with else."
+        "description": "Code snippet for the if/else statement."
     },
     "elif": {
         "prefix": "elif",
@@ -80,6 +80,57 @@
         ],
         "description": "Code snippet for the async with statement."
     },
+    "try/except": {
+        "prefix": "try",
+        "body": [
+            "try:",
+            "\t${1:pass}",
+            "except ${2:Exception}:",
+            "\t${3:pass}",
+            "#endtry"
+        ],
+        "description": "Code snippet for the try/except statement."
+    },
+    "try/finally": {
+        "prefix": "try",
+        "body": [
+            "try:",
+            "\t${1:pass}",
+            "finally:",
+            "\t${4:pass}",
+            "#endtry"
+        ],
+        "description": "Code snippet for the try/finally statement."
+    },
+    "try/except/finally": {
+        "prefix": "try",
+        "body": [
+            "try:",
+            "\t${1:pass}",
+            "except ${2:Exception}:",
+            "\t${3:pass}",
+            "finally:",
+            "\t${4:pass}",
+            "#endtry"
+        ],
+        "description": "Code snippet for the try/except/finally statement."
+    },
+    "except": {
+        "prefix": "except",
+        "body": [
+            "except ${1:Exception}:",
+            "\t${2:pass}"
+        ],
+        "description": "Code snippet for the except statement.",
+    },
+    "finally": {
+        "prefix": "finally",
+        "body": [
+            "finally:",
+            "\t${1:pass}"
+        ],
+        "description": "Code snippet for the finally statement."
+    }
     "match": {
         "prefix": "match",
         "body": [
