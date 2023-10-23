@@ -89,7 +89,7 @@
             "\t#endcase",
             "#endmatch"
         ],
-        "description": "Code snippet match the if statement."
+        "description": "Code snippet for the match statement."
     },
     "case": {
         "prefix": "case",
