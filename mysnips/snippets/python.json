@@ -121,7 +121,7 @@
             "except ${1:Exception}:",
             "\t${2:pass}"
         ],
-        "description": "Code snippet for the except statement.",
+        "description": "Code snippet for the except statement."
     },
     "finally": {
         "prefix": "finally",
