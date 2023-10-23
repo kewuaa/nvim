@@ -1,6 +1,6 @@
 {
     "if": {
-        "prefix": "sif",
+        "prefix": "if",
         "body": [
             "if (${1:condition}) {",
             "\t$2",
@@ -9,7 +9,7 @@
         "description": "Code snippet for the if statement."
     },
     "for": {
-        "prefix": "sfor",
+        "prefix": "for",
         "body": [
             "for (${1:init}; ${2:condition}; ${3:step}) {",
             "\t$4",
@@ -18,7 +18,7 @@
         "description": "Code snippet for the for statement."
     },
     "while": {
-        "prefix": "swhile",
+        "prefix": "while",
         "body": [
             "while (${1:condition}) {",
             "\t$2",
@@ -27,7 +27,7 @@
         "description": "Code snippet for the while statement."
     },
     "do": {
-        "prefix": "sdo",
+        "prefix": "do",
         "body": [
             "do {",
             "\t$1",

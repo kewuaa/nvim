@@ -1,6 +1,6 @@
 {
     "if": {
-        "prefix": "sif",
+        "prefix": "if",
         "body": [
             "if ${1:condition}:",
             "\t${2:pass}",
@@ -9,7 +9,7 @@
         "description": "Code snippet for the if statement."
     },
     "if/else": {
-        "prefix": "sifelse",
+        "prefix": "ifelse",
         "body": [
             "if ${1:condition}:",
             "\t${2:pass}",
@@ -20,7 +20,7 @@
         "description": "Code snippet for the if statement with else."
     },
     "elif": {
-        "prefix": "selif",
+        "prefix": "elif",
         "body": [
             "elif ${1:condition}:",
             "\t${2:pass}"
@@ -28,7 +28,7 @@
         "description": "Code snippet for the elif statement."
     },
     "else": {
-        "prefix": "selse",
+        "prefix": "else",
         "body": [
             "else:",
             "\t${1:pass}"
@@ -36,7 +36,7 @@
         "description": "Code snippet for the else statement."
     },
     "for": {
-        "prefix": "sfor",
+        "prefix": "for",
         "body": [
             "for ${1:value} in ${2:iterator}:",
             "\t${3:pass}",
@@ -45,7 +45,7 @@
         "description": "Code snippet for the for statement."
     },
     "fori": {
-        "prefix": "sfori",
+        "prefix": "fori",
         "body": [
             "for ${1:index}, ${2:value} in enumerate(${3:iterator}):",
             "\t${4:pass}",
@@ -54,7 +54,7 @@
         "description": "Code snippet for the fori statement."
     },
     "while": {
-        "prefix": "swhile",
+        "prefix": "while",
         "body": [
             "while ${1:condition}:",
             "\t${2:pass}",
@@ -63,7 +63,7 @@
         "description": "Code snippet for the while statement."
     },
     "with": {
-        "prefix": "swith",
+        "prefix": "with",
         "body": [
             "with ${1:object}:",
             "\t${2:pass}",
@@ -72,7 +72,7 @@
         "description": "Code snippet for the with statement."
     },
     "async/with": {
-        "prefix": "sawith",
+        "prefix": "awith",
         "body": [
             "async with ${1:object}:",
             "\t${2:pass}",
@@ -81,7 +81,7 @@
         "description": "Code snippet for the async with statement."
     },
     "match": {
-        "prefix": "smatch",
+        "prefix": "match",
         "body": [
             "match ${1:term}:",
             "\tcase ${2:pattern}:",
@@ -92,7 +92,7 @@
         "description": "Code snippet match the if statement."
     },
     "case": {
-        "prefix": "scase",
+        "prefix": "case",
         "body": [
             "case ${1:pattern}:",
             "\t${2:pass}",
@@ -101,7 +101,7 @@
         "description": "Code snippet for the case statement."
     },
     "def": {
-        "prefix": "sdef",
+        "prefix": "def",
         "body": [
             "def ${1:name}($2) -> ${3:type}:",
             "\t\"\"\" ${4:doc.}\"\"\"\n",
@@ -111,7 +111,7 @@
         "description": "Code snippet for the def statement."
     },
     "async/def": {
-        "prefix": "sadef",
+        "prefix": "adef",
         "body": [
             "async def ${1:name}($2) -> ${3:type}:",
             "\t\"\"\" ${4:doc.}\"\"\"\n",
@@ -121,7 +121,7 @@
         "description": "Code snippet for the async def statement."
     },
     "class": {
-        "prefix": "sclass",
+        "prefix": "class",
         "body": [
             "class ${1:name}:",
             "\t\"\"\" ${2:doc.}\"\"\"\n",
@@ -131,7 +131,7 @@
         "description": "Code snippet for the class statement."
     },
     "ifmain": {
-        "prefix": "sifmain",
+        "prefix": "ifmain",
         "body": [
             "if __name__ == \"__main__\":",
             "\t${1:pass}",
@@ -140,8 +140,13 @@
         "description": "Code snippet for the main statement."
     },
     "pprint": {
-        "prefix": "spprint",
+        "prefix": "pprint",
         "body": "__import__(\"pprint\").pprint($1)",
         "description": "Code snippet for the pprint statement."
+    },
+    "pyright/ignore": {
+        "prefix": "pyignore",
+        "body": "# pyright: ignore",
+        "description": "Code snippet for the pyright ignore statement."
     }
 }

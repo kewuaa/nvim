@@ -97,9 +97,12 @@ configs.nvim_cmp = function()
         sorting = {
             priority_weight = 2,
             comparators = {
+                compare.offset, -- Items closer to cursor will have lower priority
+                compare.exact,
                 compare.score,
-                -- compare.offset, -- Items closer to cursor will have lower priority
-                compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
+                compare.recently_used,
+                -- compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
+                compare.length,
                 require("cmp-under-comparator").under,
             },
         },
@@ -169,8 +172,8 @@ configs.nvim_cmp = function()
         sources = cmp.config.sources(
             { path_source },
             {
-                lsp_source,
                 snip_source,
+                lsp_source,
                 buffer_source,
             }
         ),
@@ -206,8 +209,8 @@ configs.nvim_cmp = function()
                 sources = cmp.config.sources(
                     { path_source },
                     {
-                        lsp_source,
                         snip_source,
+                        lsp_source,
                         buffer_source,
                         bibliography_source,
                         latex_symbol_source,
