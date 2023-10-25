@@ -60,6 +60,20 @@ if vim.fn.exists("g:nvy") == 1 then
     options.guifont = 'FiraCode Nerd Font Mono:h10:Consolas'
 end
 
+if vim.fn.exists("g:neovide") == 1 then
+    options.guifont = 'FiraCode Nerd Font Mono,Consolas:h10'
+    vim.g.neovide_hide_mouse_when_typing = true
+    vim.g.neovide_theme = 'auto'
+    vim.g.neovide_refresh_rate = 60
+    vim.g.neovide_profiler = false
+    vim.keymap.set(
+        "n",
+        "<a-Enter>",
+        function() vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen end,
+        {silent = true}
+    )
+end
+
 M.init = function()
     vim.filetype.add({
         extension = {
