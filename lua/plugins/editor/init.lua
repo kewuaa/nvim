@@ -142,6 +142,18 @@ return {
         event = "cursorMoved",
     },
 
+    -- 对齐
+    {
+        'echasnovski/mini.align',
+        version = false,
+        lazy = true,
+        keys = {
+            {'ga', mode = 'n'},
+            {'gA', mode = 'n'},
+        },
+        config = true,
+    },
+
     --  peeks lines of the buffer in non-obtrusive way
     {
         'nacro90/numb.nvim',
