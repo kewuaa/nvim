@@ -126,7 +126,19 @@ function M.setup()
     -- map('n', '<c-p>', vim.diagnostic.goto_prev, opts)
     -- map('n', '<c-n>', vim.diagnostic.goto_next, opts)
     -- map('n', '<space>q', vim.diagnostic.setloclist, opts)
-    map({"n", "t"}, "<A-=>", "<cmd>Lspsaga term_toggle<CR>")
+    map(
+        {"n", "t"},
+        "<A-=>",
+        function()
+            local cmd
+            if require("core.settings").is_Windows then
+                cmd = vim.fn.executable("clink") == 1 and "cmd.exe /k clink inject" or "cmd.exe"
+            else
+                cmd = os.getenv("SHELL")
+            end
+            require('lspsaga.floaterm'):open_float_terminal({cmd})
+        end
+    )
 
     local lsp_flags = {
       -- This is the default in Nvim 0.7+
