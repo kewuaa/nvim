@@ -54,5 +54,25 @@
             "} while (${2:condition})"
         ],
         "description": "Code snippet for the do statement."
+    },
+    "switch": {
+        "prefix": "switch",
+        "body": [
+            "switch ($1) {",
+            "\tcase ${2:pattern}:",
+            "\t\t$3",
+            "\t\tbreak;",
+            "}"
+        ],
+        "description": "Code snippet for the switch statement."
+    },
+    "case": {
+        "prefix": "case",
+        "body": [
+            "case ${1:pattern}:",
+            "\t$2",
+            "\tbreak;"
+        ],
+        "description": "Code snippet for the case statement."
     }
 }
