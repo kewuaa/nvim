@@ -79,7 +79,9 @@ M.init = function()
         extension = {
             pyx = "cython",
             pxd = "cython",
-            pxi = "cython"
+            pxi = "cython",
+            pyxdep = "python",
+            pyxbld = "python",
         }
     })
 
