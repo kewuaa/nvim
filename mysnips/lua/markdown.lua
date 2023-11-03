@@ -20,7 +20,7 @@ local trim = vim.fn.trim
 return {
     s(
         {
-            trig = "([^$]+)/([^$]+)",
+            trig = "([^$%s]+)/([^$%s]+)",
             regTrig = true,
             hidden = true,
         },
