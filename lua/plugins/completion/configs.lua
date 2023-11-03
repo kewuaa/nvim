@@ -253,12 +253,14 @@ end
 
 configs.LuaSnip = function()
     local ls = require('luasnip')
+    local config_path = vim.fn.stdpath("config")
     ls.config.set_config({
         history = true,
         updateevents = 'TextChanged,TextChangedI',
         delete_check_events = "TextChanged,InsertLeave",
     })
-    require("luasnip.loaders.from_vscode").lazy_load({paths = ("%s/mysnips"):format(vim.fn.stdpath("config"))})
+    require("luasnip.loaders.from_vscode").lazy_load({paths = ("%s/mysnips/vscode"):format(config_path)})
+    require("luasnip.loaders.from_lua").lazy_load({paths = ("%s/mysnips/lua"):format(config_path)})
 end
 
 configs.nvim_lspconfig = function ()

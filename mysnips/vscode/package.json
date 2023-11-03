@@ -24,6 +24,10 @@
             {
                 "language": "cs",
                 "path": "./snippets/csharp.json"
+            },
+            {
+                "language": "markdown",
+                "path": "./snippets/markdown.json"
             }
         ]
     }

@@ -71,15 +71,6 @@
         ],
         "description": "Code snippet for the with statement."
     },
-    "async/with": {
-        "prefix": "awith",
-        "body": [
-            "async with ${1:object}:",
-            "\t${2:pass}",
-            "#endawirh"
-        ],
-        "description": "Code snippet for the async with statement."
-    },
     "try/except": {
         "prefix": "try",
         "body": [
@@ -151,26 +142,6 @@
         ],
         "description": "Code snippet for the case statement."
     },
-    "def": {
-        "prefix": "def",
-        "body": [
-            "def ${1:name}($2) -> ${3:type}:",
-            "\t\"\"\" ${4:doc}.\"\"\"\n",
-            "\t${5:pass}",
-            "#enddef"
-        ],
-        "description": "Code snippet for the def statement."
-    },
-    "async/def": {
-        "prefix": "adef",
-        "body": [
-            "async def ${1:name}($2) -> ${3:type}:",
-            "\t\"\"\" ${4:doc}.\"\"\"\n",
-            "\t${5:pass}",
-            "#endadef"
-        ],
-        "description": "Code snippet for the async def statement."
-    },
     "class": {
         "prefix": "class",
         "body": [
@@ -181,7 +152,7 @@
         ],
         "description": "Code snippet for the class statement."
     },
-    "ifmain": {
+    "if/main": {
         "prefix": "ifmain",
         "body": [
             "if __name__ == \"__main__\":",
