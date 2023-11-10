@@ -33,6 +33,9 @@ return {
             t("def "), i(1, "name"), t"(", i(2), t(") -> "), i(3, "type"), t(":"),
             d(4, function(args)
                 local params = split(args[1][1], ",")
+                if params[1] == "self" then
+                    params = vim.list_slice(params, 2)
+                end
                 local nodes = {t({"", '\t"""'})}
                 if #params > 0 then
                     nodes[#nodes+1] = t({"", "\t"})
