@@ -54,13 +54,13 @@ class Utils:
     def _add_pyxfilehead(self) -> None:
         nvim = self._nvim
         buffer = nvim.current.buffer
-        lines = (
+        lines = [
             '# cython: language_level=3',
             '# cython: boundscheck=False',
             '# cython: wraparound=False',
             '# cython: cdivision=True',
             '# distutils: language=c++'
-        )
+        ]
         buffer.append(lines, index=0)
     #enddef
 
