@@ -28,6 +28,10 @@
             {
                 "language": "markdown",
                 "path": "./snippets/markdown.json"
+            },
+            {
+                "language": "xml",
+                "path": "./snippets/xml.json"
             }
         ]
     }

@@ -1,0 +1,10 @@
+{
+    "true": {
+        "prefix": "true",
+        "body": "true"
+    },
+    "false": {
+        "prefix": "false",
+        "body": "false"
+    }
+}
