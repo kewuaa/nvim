@@ -26,11 +26,10 @@ keymaps.asynctasks = {
     {'n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>'},
 }
 
-keymaps.windows = {
-    {'n', '<c-w>z', '<cmd>WindowsMaximize<CR>'},
-    {'n', '<c-w>_', '<cmd>WindowsMaximizeVertically<CR>'},
-    {'n', '<c-w>|', '<cmd>WindowsMaximizeHorizontally<CR>'},
-    {'n', '<c-w>=', '<cmd>WindowsEqualize<CR>'},
+keymaps.focus = {
+    {'n', '<c-w>z', '<cmd>FocusMaximise<CR>'},
+    {'n', '<c-w>r', '<cmd>FocusAutoresize<CR>'},
+    {'n', '<c-w>=', '<cmd>FocusEqualise<CR>'},
 }
 
 keymaps.telescope = {

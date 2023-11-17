@@ -153,14 +153,12 @@ return {
 
     -- 自动扩展窗口宽度
     {
-        'anuvyklack/windows.nvim',
+        'nvim-focus/focus.nvim',
+        version = false,
         lazy = true,
-        init = require('core.keymaps'):load('windows'),
+        init = require('core.keymaps'):load('focus'),
         event = 'WinNew',
-        config = configs.windows,
-        dependencies = {
-            {"anuvyklack/middleclass"}
-        },
+        config = configs.focus,
     },
 
     -- markdown preview
