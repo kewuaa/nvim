@@ -72,7 +72,6 @@ return {
     -- lsp progress
     {
         'j-hui/fidget.nvim',
-        version = 'legacy',
         lazy = true,
         event = 'LspAttach',
         opts = {
