@@ -82,6 +82,7 @@ M.init = function()
             pxi = "cython",
             pyxdep = "python",
             pyxbld = "python",
+            resx = "xml",
         }
     })
 
