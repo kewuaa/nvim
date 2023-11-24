@@ -21,6 +21,14 @@ return {
         }
     },
 
+    -- 显示引用数
+    {
+        'VidocqH/lsp-lens.nvim',
+        lazy = true,
+        event = "LspAttach",
+        config = configs.lsp_lens,
+    },
+
     -- 缩进线
     {
         'lukas-reineke/indent-blankline.nvim',

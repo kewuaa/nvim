@@ -20,6 +20,18 @@ configs.sonokai = function()
     vim.schedule(function() vim.cmd.colorscheme('sonokai') end)
 end
 
+configs.lsp_lens = function()
+    require("lsp-lens").setup({
+        hide_zero_counts = false,
+        sections = {                      -- Enable / Disable specific request, formatter example looks 'Format Requests'
+            definition = false,
+            references = true,
+            implements = true,
+            git_authors = true,
+        },
+    })
+end
+
 configs.indent_blankline = function()
     require("ibl").setup({
         indent = { char = "│" },
