@@ -48,6 +48,14 @@ configs.nvim_treesitter = function()
         },
     })
     require('nvim-treesitter.install').compilers = { "zig", "gcc" }
+    -- set python indent
+    local sw = vim.fn.shiftwidth()
+    vim.g.python_indent = {
+        open_paren = sw,
+        nested_paren = sw,
+        continue = sw,
+        closed_paren_align_last_line = false
+    }
 end
 
 configs.rainbow_delimiters = function()
