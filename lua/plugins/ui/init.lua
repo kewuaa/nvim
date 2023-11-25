@@ -4,10 +4,11 @@ local configs = require("plugins.ui.configs")
 return {
     -- 颜色主题
     {
-        'sainnhe/sonokai',
+    --     'sainnhe/sonokai',
+        'folke/tokyonight.nvim',
         lazy = true,
         event = 'VeryLazy',
-        config = configs.sonokai,
+        config = configs.color_scheme("tokyonight"),
     },
 
     -- statusline
