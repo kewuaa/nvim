@@ -13,7 +13,8 @@ configs.mini_surround = function()
             update_n_lines = "",
             suffix_last = '', -- Suffix to search with "prev" method
             suffix_next = '',
-        }
+        },
+        n_lines = 500
     })
 end
 
