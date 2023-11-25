@@ -47,27 +47,10 @@ configs.vim_illuminate = function()
     })
 end
 
-configs.autoclose = function()
-    require('autoclose').setup({
-        keys = {
-            ["("] = { escape = false, close = true, pair = "()"},
-            ["["] = { escape = false, close = true, pair = "[]"},
-            ["{"] = { escape = false, close = true, pair = "{}"},
-
-            [">"] = { escape = true, close = false, pair = "<>"},
-            [")"] = { escape = true, close = false, pair = "()"},
-            ["]"] = { escape = true, close = false, pair = "[]"},
-            ["}"] = { escape = true, close = false, pair = "{}"},
-
-            ['"'] = { escape = true, close = true, pair = '""'},
-            ["'"] = { escape = true, close = true, pair = "''", disabled_filetypes = {"rust"}},
-            ["`"] = { escape = true, close = true, pair = "``"},
-        },
-        options = {
-            disabled_filetypes = nil,
-            disable_when_touch = true,
-            pair_spaces = true,
-        },
+configs.mini_pairs = function()
+    require("mini.pairs").setup({
+        -- In which modes mappings from this `config` should be created
+        modes = { insert = true, command = true, terminal = true },
     })
 end
 

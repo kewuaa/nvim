@@ -49,10 +49,10 @@ return {
 
     -- 括号补全
     {
-        'm4xshen/autoclose.nvim',
+        'echasnovski/mini.pairs',
         lazy = true,
         event = 'InsertEnter',
-        config = configs.autoclose,
+        config = configs.mini_pairs,
     },
 
     -- 注释
