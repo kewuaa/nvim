@@ -36,11 +36,4 @@ return {
             {'m-demare/hlargs.nvim', config = configs.hlargs},
         },
     },
-
-    -- fsharp
-    {
-        'adelarsq/neofsharp.vim',
-        lazy = true,
-        ft = 'fsharp',
-    }
 }
