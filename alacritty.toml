@@ -42,28 +42,36 @@ draw_bold_text_with_bright_colors = true
 transparent_background_colors = true
 
 [colors.primary]
-background = "0x2a2f38"
-foreground = "0xe1e3e4"
+background = "0x222436"
+foreground = "0xc8d3f5"
 
 [colors.bright]
-black = "0x828a9a"
-blue = "0x72cce8"
-cyan = "0xf69c5e"
-green = "0x9dd274"
-magenta = "0xba9cf3"
-red = "0xff6578"
-white = "0xe1e3e4"
-yellow = "0xeacb64"
+black = '0x444a73'
+red = '0xff757f'
+green = '0xc3e88d'
+yellow = '0xffc777'
+blue = '0x82aaff'
+magenta = '0xc099ff'
+cyan = '0x86e1fc'
+white = '0xc8d3f5'
 
 [colors.normal]
-black = "0x181a1c"
-blue = "0x72cce8"
-cyan = "0xf69c5e"
-green = "0x9dd274"
-magenta = "0xba9cf3"
-red = "0xff6578"
-white = "0xe1e3e4"
-yellow = "0xeacb64"
+black = '0x1b1d2b'
+red = '0xff757f'
+green = '0xc3e88d'
+yellow = '0xffc777'
+blue = '0x82aaff'
+magenta = '0xc099ff'
+cyan = '0x86e1fc'
+white = '0x828bb8'
+
+[[colors.indexed_colors]]
+index = 16
+color = '0xff966c'
+
+[[colors.indexed_colors]]
+index = 17
+color = '0xc53b53'
 
 [font]
 builtin_box_drawing = false
