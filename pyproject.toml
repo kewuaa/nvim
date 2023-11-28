@@ -12,4 +12,4 @@ where = ["./rplugin/python3/utils"]
 "" = "./rplugin/python3/utils"
 
 [tool.pyright]
-venv = "nvim"
+venv = "default"
