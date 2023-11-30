@@ -46,6 +46,8 @@ local function setup()
     end
     if settings.is_Windows then
         write_clink_config()
+        vim.print("installscripts for clink")
+        vim.fn.system(("clink installscripts %s/%s"):format(path, "clink"))
     end
     local output = vim.fn.system("python setup.py build_ext -i")
     vim.print(output)
