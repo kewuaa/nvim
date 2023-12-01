@@ -76,4 +76,13 @@ return {
             {"Hoffs/omnisharp-extended-lsp.nvim"},
         }
     },
+
+    -- copilot support
+    {
+        'zbirenbaum/copilot.lua',
+        cmd = "Copilot",
+        build = ":Copilot auth",
+        event = "InsertEnter",
+        config = configs.copilot,
+    }
 }
