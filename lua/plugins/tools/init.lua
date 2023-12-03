@@ -174,7 +174,6 @@ return {
     {
         'potamides/pantran.nvim',
         lazy = true,
-        cmd = "Pantran",
         keys = {
             {
                 "<leader>tr",
@@ -182,6 +181,24 @@ return {
                 mode = {"n", "x"},
                 expr = true,
             },
+            {
+                "<leader>trp",
+                function()
+                    require("pantran.command").parse(1, 0, "")
+                    local im = require("core.utils.im")
+                    im.toggle_imtoggle({silent = true, enabled = true})
+                    vim.keymap.set(
+                        "n",
+                        "q",
+                        function()
+                            im.toggle_imtoggle({silent = true, enabled = false})
+                            vim.cmd("q")
+                        end,
+                        { silent = true, buffer = 0 }
+                    )
+                end,
+                mode = "n"
+            }
         },
         config = configs.pantran,
     },
