@@ -752,4 +752,14 @@ configs.nvim_silicon = function()
     require("silicon").setup(config)
 end
 
+configs.nvim_ghost = function()
+    local ghost_group = vim.api.nvim_create_augroup("nvim_ghost", { clear = true })
+    vim.g.nvim_ghost_autostart = 0
+    vim.api.nvim_create_autocmd("User", {
+        group = ghost_group,
+        pattern = "*github.com",
+        command = [[setfiletype markdown]]
+    })
+end
+
 return configs

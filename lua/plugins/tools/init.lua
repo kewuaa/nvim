@@ -213,10 +213,11 @@ return {
 
     -- 着色器
     {
-        'norcalli/nvim-colorizer.lua',
+        'subnut/nvim-ghost.nvim',
         lazy = true,
-        cmd = 'ColorizerToggle',
-        config = true,
+        enabled = false,
+        cmd = "GhostTextStart",
+        init = configs.nvim_ghost,
     },
 
     -- vimdoc 中文文档
