@@ -13,7 +13,7 @@
         "body": [
             "class ${1:name} {",
             "\t$2",
-            "}"
+            "};"
         ],
         "description": "Code snippet for the class statement."
     },
