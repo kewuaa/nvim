@@ -215,7 +215,7 @@ return {
     {
         'subnut/nvim-ghost.nvim',
         lazy = true,
-        enabled = false,
+        -- enabled = false,
         cmd = "GhostTextStart",
         init = configs.nvim_ghost,
     },
