@@ -211,15 +211,6 @@ return {
         config = configs.nvim_silicon,
     },
 
-    -- 着色器
-    {
-        'subnut/nvim-ghost.nvim',
-        lazy = true,
-        -- enabled = false,
-        cmd = "GhostTextStart",
-        init = configs.nvim_ghost,
-    },
-
     -- vimdoc 中文文档
     {
         'yianwillis/vimcdoc',
