@@ -25,13 +25,6 @@ return {
         lazy = true,
         event = "VeryLazy",
         config = configs.mini_ai,
-        dependencies = {
-        }
-    },
-    {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        lazy = true,
-        config = configs.nvim_treesitter_textobjects,
     },
 
     -- 高亮相同单词

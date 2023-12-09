@@ -34,6 +34,7 @@ return {
             {'HiPhish/rainbow-delimiters.nvim', config = configs.rainbow_delimiters},
             -- 参数高亮
             {'m-demare/hlargs.nvim', config = configs.hlargs},
+            {'nvim-treesitter/nvim-treesitter-textobjects', config = configs.nvim_treesitter_textobjects},
         },
     },
 }
