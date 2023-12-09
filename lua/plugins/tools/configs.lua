@@ -752,8 +752,4 @@ configs.nvim_silicon = function()
     require("silicon").setup(config)
 end
 
-configs.nvim_ghost = function()
-    vim.g.nvim_ghost_autostart = 0
-end
-
 return configs
