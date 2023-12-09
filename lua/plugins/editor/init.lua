@@ -142,14 +142,6 @@ return {
         config = true,
     },
 
-    --  peeks lines of the buffer in non-obtrusive way
-    {
-        'nacro90/numb.nvim',
-        lazy = true,
-        event = 'CmdLineEnter :',
-        config = configs.numb,
-    },
-
     -- 缓冲区关闭时保留原有布局
     {
         'echasnovski/mini.bufremove',

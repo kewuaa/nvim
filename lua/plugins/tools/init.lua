@@ -210,11 +210,4 @@ return {
         cmd = "Silicon",
         config = configs.nvim_silicon,
     },
-
-    -- vimdoc 中文文档
-    {
-        'yianwillis/vimcdoc',
-        lazy = true,
-        event = 'CmdlineChanged',
-    },
 }
