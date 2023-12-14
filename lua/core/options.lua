@@ -83,6 +83,7 @@ M.init = function()
             pyxdep = "python",
             pyxbld = "python",
             resx = "xml",
+            axaml = "xml",
         }
     })
 
