@@ -14,7 +14,7 @@
                 "path": "./snippets/cython.json"
             },
             {
-                "language": ["c", "cpp", "cs"],
+                "language": ["c", "cpp", "cs", "javascript"],
                 "path": "./snippets/c.json"
             },
             {

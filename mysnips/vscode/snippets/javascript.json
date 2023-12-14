@@ -1,0 +1,20 @@
+{
+    "for/in": {
+        "prefix": "for",
+        "body": [
+            "for (let ${1:i} in ${2:object}) {",
+            "\t$3",
+            "}"
+        ],
+        "description": "Code snippet for the for/in statement."
+    },
+    "for/of": {
+        "prefix": "for",
+        "body": [
+            "for (let ${1:i} of ${2:object}) {",
+            "\t$3",
+            "}"
+        ],
+        "description": "Code snippet for the for/of statement."
+    }
+}
