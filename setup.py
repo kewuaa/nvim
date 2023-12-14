@@ -21,6 +21,7 @@ class build_ext(_build_ext):
         #endif
         return super().build_extensions()
     #enddef
+#endclass
 
 
 use_cython = False
