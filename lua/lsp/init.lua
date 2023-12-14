@@ -2,12 +2,12 @@ local M = {}
 local map = vim.keymap.set
 local languages = {
     'python',
-    'c_cpp',
+    'cpp',
     'zig',
     'lua',
     'csharp',
     'fsharp',
-    'js_ts',
+    'javascript',
     'toml',
     'json',
     -- 'cmake',
