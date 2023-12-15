@@ -163,9 +163,7 @@ function M.setup()
                     server.root_dir = lsp_config.util.root_pattern(unpack(server.rootmarks))
                     server.rootmarks = nil
                 end
-                lsp_config[name].setup(
-                vim.tbl_extend('force', base_config, server)
-                )
+                lsp_config[name].setup(vim.tbl_extend('force', base_config, server))
             end
         else
             vim.notify(string.format('load lsp of %s failed', lang))
