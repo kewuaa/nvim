@@ -1,10 +1,6 @@
 local M = {}
 
--- M.cmake = {
---     cmd = {"cmake-language-server"}
--- }
-M.neocmake = {
-    cmd = {"neocmakelsp", "--stdio"}
-}
+-- M.cmake = {}
+M.neocmake = {}
 
 return M

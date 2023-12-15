@@ -1,22 +1,11 @@
 local M = {}
-local settings = require("core.settings")
-local rootmarks = settings.get_rootmarks()
-vim.list_extend(rootmarks, {"*.csproj"})
 
 -- M.csharp_ls = {
---     rootmarks = rootmarks,
---     filetypes = {"cs"},
---     cmd = {"csharp-ls"},
---
 --     handlers = {
 --         ["textDocument/definition"] = require('csharpls_extended').handler,
 --     },
 -- }
 M.omnisharp = {
-    rootmarks = rootmarks,
-    filetypes = {"cs", "vb"},
-    cmd = {"omnisharp"},
-
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from .editorconfig.
     enable_editorconfig_support = true,

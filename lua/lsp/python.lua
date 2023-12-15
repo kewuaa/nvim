@@ -4,11 +4,6 @@ local rootmarks = vim.list_extend(settings.get_rootmarks(), {'pyproject.toml'})
 
 M.pyright = {
     rootmarks = rootmarks,
-    filetypes = {"python"},
-    cmd = {
-        'pyright-langserver',
-        '--stdio',
-    },
     settings = {
         python = {
             disableOrganizeImports = true,
@@ -26,10 +21,7 @@ M.pyright = {
         }
     }
 }
-M.cyright = vim.tbl_deep_extend("force", M.pyright, {
-    filetypes = {"cython"},
-    cmd = {"cyright", "--stdio"},
-})
+M.cyright = M.pyright
 -- M.jedi_language_server = {
 --     rootmarks = rootmarks,
 --     filetypes = {"python", "cython"},
@@ -66,8 +58,6 @@ M.cyright = vim.tbl_deep_extend("force", M.pyright, {
 -- }
 M.ruff_lsp = {
     rootmarks = rootmarks,
-    filetypes = {'python'},
-    cmd = {'ruff-lsp'},
     on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
     init_options = {
         args = {

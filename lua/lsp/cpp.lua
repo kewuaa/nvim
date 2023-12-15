@@ -14,14 +14,6 @@ M.clangd = {
             '.clang-format',
         }
     ),
-    filetypes = {
-        "c",
-        "cpp",
-        "objc",
-        "objcpp",
-        "cuda",
-        "proto",
-    },
     cmd = {
         'clangd',
         "--offset-encoding=utf-16",
