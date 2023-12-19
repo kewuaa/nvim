@@ -139,22 +139,6 @@ configs.iswap = function()
     })
 end
 
-configs.accelerated_jk = function()
-    -- conservative deceleration 
-    vim.g.accelerated_jk_enable_deceleration = 1
-    -- if default key-repeat interval check(150 ms) is too short
-    vim.g.accelerated_jk_acceleration_limit = 250
-
-    local map = vim.keymap.set
-    local opt = {
-        noremap = true,
-        silent = true,
-    }
-    map('n', 'j', '<Plug>(accelerated_jk_gj)', opt)
-    map('n', 'k', '<Plug>(accelerated_jk_gk)', opt)
-
-end
-
 configs.sentiment = function()
     require('sentiment').setup({
         pairs = {

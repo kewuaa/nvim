@@ -126,16 +126,6 @@ return {
         }
     },
 
-    -- 选择缓冲区
-    {
-        'matbme/JABS.nvim',
-        lazy = true,
-        keys = {
-            {'<leader>bb', '<cmd>JABSOpen<CR>', mode = 'n'}
-        },
-        config = configs.JABS,
-    },
-
     -- 选择窗口
     {
         's1n7ax/nvim-window-picker',

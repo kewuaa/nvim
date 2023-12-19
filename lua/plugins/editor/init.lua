@@ -103,17 +103,6 @@ return {
         config = configs.iswap,
     },
 
-    -- jk增强
-    {
-        'rainbowhxch/accelerated-jk.nvim',
-        lazy = true,
-        keys = {
-            {'j', mode = 'n'},
-            {'k', mode = 'n'},
-        },
-        config = configs.accelerated_jk,
-    },
-
     -- match enhance
     {
         'utilyre/sentiment.nvim',

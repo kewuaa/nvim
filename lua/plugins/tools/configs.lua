@@ -590,15 +590,6 @@ configs.neotree = function()
     })
 end
 
-configs.JABS = function()
-    require('jabs').setup({
-        keymap = {
-            h_split = '<C-x>',
-            v_split = '<C-v>'
-        }
-    })
-end
-
 configs.nvim_window_picker = function()
     require'window-picker'.setup({
         autoselect_one = true,
