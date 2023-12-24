@@ -6,6 +6,7 @@ configs.nvim_treesitter = function()
         'python',
         'c',
         'cpp',
+        'pascal',
         'c_sharp',
         'rust',
         'make',

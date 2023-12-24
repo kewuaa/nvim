@@ -1,0 +1,141 @@
+{
+    "begin/end": {
+        "prefix": "begin",
+        "body": [
+            "begin",
+            "\t$1",
+            "end;"
+        ],
+        "description": "Code snippet for the begin/end block."
+    },
+    "case/of": {
+        "prefix": "case",
+        "body": [
+            "case ${1:variable} of",
+            "\t$2",
+            "end;"
+        ],
+        "description": "Code snippet for the case/of statement."
+    },
+    "class": {
+        "prefix": "class",
+        "body": [
+            "class",
+            "private",
+            "\t$1",
+            "public",
+            "\t$2",
+            "end;"
+        ],
+        "description": "Code snippet for the class statement."
+    },
+    "up/for": {
+        "prefix": "for",
+        "body": [
+            "for ${1:i} := ${2:0} to ${3:stop} do",
+            "begin",
+            "\t$4",
+            "end;"
+        ],
+        "description": "Code snippet for the up for statement."
+    },
+    "down/for": {
+        "prefix": "for",
+        "body": [
+            "for ${1:i} := ${2:0} downto ${3:stop} do",
+            "begin",
+            "\t$4",
+            "end;"
+        ],
+        "description": "Code snippet for the down for statement."
+    },
+    "if": {
+        "prefix": "if",
+        "body": [
+            "if ${1:condition} then",
+            "begin",
+            "\t$2",
+            "end"
+        ],
+        "description": "Code snippet for the if statement."
+    },
+    "else": {
+        "prefix": "else",
+        "body": [
+            "else",
+            "begin",
+            "\t$1",
+            "end;"
+        ],
+        "description": "Code snippet for the else statement."
+    },
+    "if/else": {
+        "prefix": "if",
+        "body": [
+            "if ${1:condition} then",
+            "begin",
+            "\t$2",
+            "end",
+            "else",
+            "begin",
+            "\t$3",
+            "end;"
+        ],
+        "description": "Code snippet for the if/else statement."
+    },
+    "else/if": {
+        "prefix": "elif",
+        "body": [
+            "else if ${1:condition} then",
+            "begin",
+            "\t$2",
+            "end"
+        ],
+        "description": "Code snippet for the else/if statement."
+    },
+    "try/except": {
+        "prefix": "try",
+        "body": [
+            "try",
+            "\t$1",
+            "except",
+            "\ton E: ${2:Exception} do",
+            "\tbegin",
+            "\t\t$3",
+            "\tend;",
+            "end;"
+        ],
+        "description": "Code snippet for the try/except statement."
+    },
+    "on": {
+        "prefix": "on",
+        "body": [
+            "on E: ${1:Exception} do",
+            "begin",
+            "\t$2",
+            "end;"
+        ],
+        "description": "Code snippet for the on statement."
+    },
+    "try/finally": {
+        "prefix": "try",
+        "body": [
+            "try",
+            "\t$1",
+            "finally",
+            "\t$2",
+            "end;"
+        ],
+        "description": "Code snippet for the try/finally statement."
+    },
+    "with": {
+        "prefix": "with",
+        "body": [
+            "with ${1:object} do",
+            "begin",
+            "\t$2",
+            "end;"
+        ],
+        "description": "Code snippet for the with statement."
+    }
+}

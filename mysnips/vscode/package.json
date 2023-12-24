@@ -26,6 +26,10 @@
                 "path": "./snippets/csharp.json"
             },
             {
+                "language": "pascal",
+                "path": "./snippets/pascal.json"
+            },
+            {
                 "language": "javascript",
                 "path": "./snippets/javascript.json"
             },
