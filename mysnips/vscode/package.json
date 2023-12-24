@@ -29,6 +29,7 @@
                 "language": "javascript",
                 "path": "./snippets/javascript.json"
             },
+            {
                 "language": "markdown",
                 "path": "./snippets/markdown.json"
             },
