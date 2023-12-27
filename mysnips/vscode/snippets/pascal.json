@@ -8,15 +8,6 @@
         ],
         "description": "Code snippet for the begin/end block."
     },
-    "case/of": {
-        "prefix": "case",
-        "body": [
-            "case ${1:variable} of",
-            "\t$2",
-            "end;"
-        ],
-        "description": "Code snippet for the case/of statement."
-    },
     "class": {
         "prefix": "class",
         "body": [
@@ -137,5 +128,24 @@
             "end;"
         ],
         "description": "Code snippet for the with statement."
+    },
+    "while": {
+        "prefix": "while",
+        "body": [
+            "while ${1:condition} do",
+            "begin",
+            "\t$2",
+            "end;"
+        ],
+        "description": "Code snippet for the while statement."
+    },
+    "repeat": {
+        "prefix": "repeat",
+        "body": [
+            "repeat",
+            "\t$1",
+            "until ${2:condition};"
+        ],
+        "description": "Code snippet for the repeat statement."
     }
 }
