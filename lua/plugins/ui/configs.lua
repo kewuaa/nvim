@@ -293,12 +293,6 @@ end
 
 configs.neodim = function ()
     require('neodim').setup({
-        alpha = 0.45,
-        blend_color = '#232634',
-        update_in_insert = {
-            enable = true,
-            delay = 100,
-        },
         hide = {
             virtual_text = true,
             signs = false,
