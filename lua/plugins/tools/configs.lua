@@ -168,8 +168,7 @@ configs.nvim_dap = function()
                  return vim.fn.input('Path to executable (default to "a.exe"): ', vim.fn.expand("%:p:h") .. "/a.exe", "file")
             end,
             cwd = "${workspaceFolder}",
-            stopOnEntry = true,
-            terminal = "integrated",
+            stopOnEntry = false,
         },
         {
             name = "Debug (with args)",
@@ -184,7 +183,6 @@ configs.nvim_dap = function()
             end,
             cwd = "${workspaceFolder}",
             stopOnEntry = false,
-            terminal = "integrated",
         },
         {
             name = "Attach to a running process",
