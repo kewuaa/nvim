@@ -31,7 +31,7 @@ end
 
 local find_root = M.find_root_by(require('core.settings').get_rootmarks())
 M.get_cwd = function ()
-    local activate_clients = vim.lsp.get_active_clients({
+    local activate_clients = vim.lsp.get_clients({
         bufnr = 0
     })
     local num = #activate_clients
