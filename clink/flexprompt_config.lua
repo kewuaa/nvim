@@ -25,7 +25,7 @@ flexprompt.settings.nerdfonts_width = 2
 flexprompt.settings.powerline_font = true
 flexprompt.settings.right_frame = "none"
 flexprompt.settings.right_prompt = "{exit}{duration}{time:format=%a %I:%M %p}"
-flexprompt.settings.spacing = "sparse"
+flexprompt.settings.spacing = "normal"
 flexprompt.settings.style = "lean"
 flexprompt.settings.symbols =
 {
