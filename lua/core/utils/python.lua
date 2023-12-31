@@ -4,12 +4,12 @@ local find_root = require("core.utils").find_root_by({".git", "pyproject.toml"})
 
 function M.parse_pyenv(root)
     local venv = nil
-    local environ = vim.g.asynctasks_environ or {}
+    local subpath = require('core.settings').is_Windows and '/Scripts/python.exe' or '/bin/python'
     local local_venv = string.format(
         '%s%s%s',
         root,
         string.match(root, '[\\/]$') and '' or '/',
-        '.venv/Scripts/python.exe'
+        '.venv' .. subpath
     )
     if vim.loop.fs_stat(local_venv) then
         venv = local_venv
@@ -40,14 +40,13 @@ function M.parse_pyenv(root)
             venv = require('core.settings'):getpy(venv)
         else
             if os.getenv("VIRTUAL_ENV") then
-                venv = os.getenv("VIRTUAL_ENV") .. "/Scripts/python.exe"
+                venv = os.getenv("VIRTUAL_ENV") .. subpath
             else
                 venv = require("core.settings"):getpy("default")
             end
         end
     end
-    environ.pyenv = venv
-    vim.g.asynctasks_environ = environ
+    vim.cmd(string.format('let g:asynctasks_environ["pyenv"] = "%s"', venv))
     current_env = {
         name = vim.fn.fnamemodify(venv, ':h:h:t'),
         path = venv,
