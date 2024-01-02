@@ -6,6 +6,7 @@ local languages = {
     'zig',
     'lua',
     'pascal',
+    'dart',
     'csharp',
     'javascript',
     'toml',
