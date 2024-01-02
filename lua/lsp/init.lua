@@ -134,9 +134,15 @@ function M.setup()
         function()
             local cmd
             if require("core.settings").is_Windows then
-                cmd = vim.fn.executable("clink") == 1 and "cmd.exe /k clink inject" or "cmd.exe"
+                cmd = ("cd /d %s && %s"):format(
+                    require("core.utils").get_cwd(),
+                    vim.fn.executable("clink") == 1 and "cmd.exe /k clink inject" or "cmd.exe"
+                )
             else
-                cmd = os.getenv("SHELL")
+                cmd = ("cd %s && %s"):format(
+                    require("core.utils").get_cwd(),
+                    os.getenv("SHELL")
+                )
             end
             require('lspsaga.floaterm'):open_float_terminal({cmd})
         end
