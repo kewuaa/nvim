@@ -1,11 +1,19 @@
-local path = vim.fn.stdpath("config")
+local path = vim.fn.stdpath("config"):gsub("\\", "/")
 local settings = require("core.settings")
-local alacritty_config = string.format([[
-import = [%s]
-]], path .. "/alacritty.toml")
-local clink_config = string.format([[
+local clink_config = ([[
 $include %s
-]], path .. "/clink_inputrc")
+]]):format(path .. "/clink_inputrc")
+local alacritty_config = ([[
+import = ["%s"]
+]]):format(path .. "/alacritty.toml")
+if settings.is_Windows then
+    alacritty_config = alacritty_config .. [[
+
+[shell]
+program = "cmd"
+args = ["/k clink inject"]
+]]
+end
 
 local function write_alacritty_config()
     local dest_dir = nil
@@ -20,11 +28,10 @@ local function write_alacritty_config()
         vim.print(("directory `%s` not exists, create it"):format(dest_dir))
     end
     local dest_path = dest_dir .. "/alacritty.toml"
-    local file = io.open(dest_path)
+    local file = io.open(dest_path, "w")
     assert(file ~= nil)
-    io.output(file)
-    io.write(alacritty_config)
-    io.close(file)
+    file:write(alacritty_config)
+    file:close()
     vim.print(("alacritty config successfully write to `%s`"):format(dest_path))
 end
 
@@ -32,11 +39,10 @@ local function write_clink_config()
     local home_dir = vim.fn.getenv("HOME")
     assert(home_dir ~= nil)
     local dest_path = home_dir .. '/.inputrc'
-    local file = io.open(dest_path)
+    local file = io.open(dest_path, "w")
     assert(file ~= nil)
-    io.output(file)
-    io.write(clink_config)
-    io.close(file)
+    file:write(clink_config)
+    file:close()
     vim.print(("clink config successfully write to `%s`"):format(dest_path))
 end
 
