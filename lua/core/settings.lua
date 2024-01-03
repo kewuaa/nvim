@@ -14,10 +14,10 @@ local settings = {
 }
 
 function settings:getpy(name)
-    local venv = string.format(
-        (self.is_Linux or self.is_wsl) and "%s/%s/bin/python" or "%s/%s/Scripts/python.exe",
+    local venv = ("%s/%s/%s/python"):format(
         self.pyvenv_path,
-        name
+        name,
+        self.is_Windows and "bin" or "Scripts"
     )
     if vim.fn.filereadable(venv) == 0 then
         vim.notify(string.format('python venv "%s" not found, "%s" not exist', name, venv))
