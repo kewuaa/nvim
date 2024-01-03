@@ -1,4 +1,3 @@
-working_directory = "D:/Code"
 live_config_reload = true
 
 [window]
@@ -75,7 +74,7 @@ color = '0xc53b53'
 
 [font]
 builtin_box_drawing = false
-size = 10.0
+size = 12.0
 
 [font.bold]
 family = "FiraCode Nerd Font"
