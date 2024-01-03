@@ -1,26 +1,36 @@
 local path = vim.fn.stdpath("config"):gsub("\\", "/")
 local settings = require("core.settings")
-local clink_config = ([[
-$include %s
-]]):format(path .. "/clink_inputrc")
 local alacritty_config = ([[
+working_directory = "%s"
+
 import = ["%s"]
-]]):format(path .. "/alacritty.toml")
-if settings.is_Windows then
-    alacritty_config = alacritty_config .. [[
+]])
+local win_special = [[
 
 [shell]
 program = "cmd"
 args = ["/k clink inject"]
 ]]
-end
+local clink_config = ([[
+$include %s
+]]):format(path .. "/clink_inputrc")
 
 local function write_alacritty_config()
     local dest_dir = nil
     if settings.is_Windows then
+        alacritty_config = alacritty_config:format(
+            vim.fn.getenv("USERPROFILE"):gsub("\\", "/"),
+            path .. "/alacritty.toml"
+        )
+        alacritty_config = alacritty_config .. win_special
         dest_dir = vim.fn.getenv("APPDATA") .. "/alacritty"
     else
-        dest_dir = vim.fn.getenv("HOME") .. "/.config/alacritty"
+        local home_dir = vim.fn.getenv("HOME")
+        alacritty_config = alacritty_config:format(
+            home_dir,
+            path .. "/alacritty.toml"
+        )
+        dest_dir = home_dir .. "/.config/alacritty"
     end
     assert(vim.fn.exists("*mkdir") == 1)
     if vim.fn.isdirectory(dest_dir) == 0 then
@@ -52,8 +62,6 @@ local function setup()
     end
     if settings.is_Windows then
         write_clink_config()
-        vim.print("installscripts for clink")
-        vim.fn.system(("clink installscripts %s/%s"):format(path, "clink"))
         local output = vim.fn.system("python setup.py build_ext -i")
         vim.print(output)
     end
