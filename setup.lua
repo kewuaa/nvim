@@ -23,7 +23,7 @@ local function write_alacritty_config()
         dest_dir = vim.fn.getenv("HOME") .. "/.config/alacritty"
     end
     assert(vim.fn.exists("*mkdir") == 1)
-    if not vim.fn.isdirectory(dest_dir) then
+    if vim.fn.isdirectory(dest_dir) == 0 then
         vim.fn.mkdir(dest_dir, "pR")
         vim.print(("directory `%s` not exists, create it"):format(dest_dir))
     end
@@ -54,9 +54,9 @@ local function setup()
         write_clink_config()
         vim.print("installscripts for clink")
         vim.fn.system(("clink installscripts %s/%s"):format(path, "clink"))
+        local output = vim.fn.system("python setup.py build_ext -i")
+        vim.print(output)
     end
-    local output = vim.fn.system("python setup.py build_ext -i")
-    vim.print(output)
 end
 
 setup()
