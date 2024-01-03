@@ -19,7 +19,7 @@ function settings:getpy(name)
         name,
         self.is_Windows and "Scripts" or "bin"
     )
-    if vim.fn.filereadable(venv) == 0 then
+    if vim.fn.executable(venv) == 0 then
         vim.notify(string.format('python venv "%s" not found, "%s" not exist', name, venv))
     end
     return venv
