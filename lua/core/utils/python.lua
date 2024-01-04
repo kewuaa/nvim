@@ -1,6 +1,5 @@
 local M = {}
 local current_env = nil
-local find_root = require("core.utils").find_root_by({".git", "pyproject.toml"})
 
 function M.parse_pyenv(root)
     local venv = nil
@@ -57,18 +56,6 @@ end
 
 function M.get_current_env()
     return current_env
-end
-
-function M.init()
-    vim.api.nvim_create_autocmd('filetype', {
-        pattern = 'cython,python',
-        once = true,
-        callback = function()
-            local start_path = vim.api.nvim_buf_get_name(0)
-            local root = find_root(start_path)
-            M.parse_pyenv(root)
-        end
-    })
 end
 
 return M

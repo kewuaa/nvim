@@ -1,35 +1,6 @@
 local M = {}
 local fn = vim.fn
 
-M.find_root_by = function(rootmarks)
-    local fnm = fn.fnamemodify
-    local globpath = fn.globpath
-    local match = string.match
-    return function(startpath)
-        startpath = fnm(startpath, ':p')
-        local root = startpath
-        while true do
-            local if_find = false
-            for _, mark in ipairs(rootmarks) do
-                ---@diagnostic disable-next-line: param-type-mismatch
-                local match_path = globpath(startpath, mark, true, true)
-                if #match_path > 0 then
-                    root = startpath
-                    if_find = true
-                    break
-                end
-            end
-            if if_find or match(startpath, '%a:[/\\]$') then
-                break
-            else
-                startpath = fnm(startpath, ':h')
-            end
-        end
-        return root
-    end
-end
-
-local find_root = M.find_root_by(require('core.settings').get_rootmarks())
 M.get_cwd = function ()
     local activate_clients = vim.lsp.get_clients({
         bufnr = 0
@@ -41,7 +12,7 @@ M.get_cwd = function ()
     end
     if not root then
         local startpath = fn.expand('%:p:h')
-        root = find_root(startpath)
+        root = require("lspconfig").util.find_git_ancestor(startpath)
     end
     return root
 end
@@ -56,7 +27,6 @@ end
 
 M.init = function()
     require('core.utils.bigfile').init()
-    require('core.utils.python').init()
     require('core.utils.im').init()
 end
 
