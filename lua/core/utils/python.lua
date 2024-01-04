@@ -39,8 +39,9 @@ function M.parse_pyenv(root)
         if venv then
             venv = require('core.settings'):getpy(venv)
         else
-            if os.getenv("VIRTUAL_ENV") then
-                venv = os.getenv("VIRTUAL_ENV") .. subpath
+            local env = os.getenv("VIRTUAL_ENV")
+            if env then
+                venv = env:gsub("\\", "/") .. subpath
             else
                 venv = require("core.settings"):getpy("default")
             end

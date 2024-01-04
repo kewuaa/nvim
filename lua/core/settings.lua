@@ -1,6 +1,6 @@
 local os_name = vim.loop.os_uname().sysname
 local settings = {
-    pyvenv_path = os.getenv('PYVENV'),
+    pyvenv_path = os.getenv('PYVENV'):gsub("\\", "/"),
     is_mac = os_name == "Darwin",
     is_Linux = os_name == "Linux",
     is_Windows = os_name == "Windows_NT",
