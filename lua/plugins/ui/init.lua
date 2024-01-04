@@ -66,6 +66,7 @@ return {
     {
         'zbirenbaum/neodim',
         lazy = true,
+        cond = vim.version().minor > 9,
         event = 'LspAttach',
         config = configs.neodim,
     },

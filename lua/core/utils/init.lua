@@ -2,7 +2,7 @@ local M = {}
 local fn = vim.fn
 
 M.get_cwd = function ()
-    local activate_clients = vim.lsp.get_clients({
+    local activate_clients = vim.lsp.get_active_clients({
         bufnr = 0
     })
     local num = #activate_clients
