@@ -74,14 +74,6 @@ return {
         },
     },
 
-    -- quickfix window
-    {
-        'kevinhwang91/nvim-bqf',
-        lazy = true,
-        ft = 'qf',
-        config = configs.nvim_bqf,
-    },
-
     -- git集成
     {
         'lewis6991/gitsigns.nvim',
