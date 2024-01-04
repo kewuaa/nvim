@@ -87,6 +87,15 @@ function keymaps.init()
 
     map('t', '<A-q>', [[<c-\><c-n>]], opts_)
 
+    map('n', '<leader>tq', function()
+        local fn = vim.fn
+        if fn.empty(fn.filter(fn.getwininfo(), 'v:val.quickfix')) == 1 then
+            vim.cmd [[copen]]
+        else
+            vim.cmd [[cclose]]
+        end
+    end)
+
     -- map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts_)
     -- map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts_)
     -- map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
