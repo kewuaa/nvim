@@ -330,8 +330,8 @@ configs.asynctasks = function()
         '.tasks',
         '.root'
     })
-    vim.g.asyncrun_mode = 4
     vim.g.asyncrun_save = 2
+    vim.g.asyncrun_open = 10
     vim.g.asyncrun_rootmarks = rootmarks
     vim.g.asynctasks_term_pos = 'external'
     vim.g.asynctasks_term_focus = 0
