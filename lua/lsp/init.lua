@@ -22,7 +22,9 @@ local languages = {
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     if vim.list_contains({'pyright', 'cyright'}, client.name) then
-        require("core.utils.python").parse_pyenv(client.config.root_dir)
+        vim.schedule(function()
+            require("core.utils.python").parse_pyenv(client.config.root_dir)
+        end)
     end
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
