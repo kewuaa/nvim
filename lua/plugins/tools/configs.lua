@@ -337,9 +337,19 @@ configs.asynctasks = function()
     vim.g.asynctasks_term_focus = 0
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
-    vim.g.asynctasks_environ = settings.is_Windows and vim.empty_dict() or {
-        exe_suffix = '',
-    }
+    if settings.is_Windows then
+        vim.g.asynctasks_environ = {
+            exe_suffix = '.exe',
+            target_triple = 'x86_64-windows-gnu',
+            fpc_target_os = 'win64'
+        }
+    elseif settings.is_Linux then
+        vim.g.asynctasks_environ = {
+            exe_suffix = '',
+            target_triple = 'x86_64-linux-gnu',
+            fpc_target_os = 'linux'
+        }
+    end
     vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
 end
 
