@@ -88,3 +88,4 @@ class Utils:
     def imswitch_to_en(self, args) -> None:
         imtoggle.switch_to_zh() # pyright: ignore
     #enddef
+#endclass
