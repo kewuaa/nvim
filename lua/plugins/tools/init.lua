@@ -68,6 +68,7 @@ return {
             'AsyncTaskList',
             'AsyncTaskMacro',
             'AsyncTaskEdit',
+            'AsyncTaskProfile'
         },
         dependencies = {
             {'skywind3000/asyncrun.vim'},
