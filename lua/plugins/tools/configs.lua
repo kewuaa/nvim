@@ -350,6 +350,10 @@ configs.asynctasks = function()
             fpc_target_os = 'linux'
         }
     end
+    vim.cmd(([[
+    let g:asynctasks_environ["default_lib_dir"] = "%s"
+    let g:asynctasks_environ["default_include_dir"] = "%s"
+    ]]):format(os.getenv("INCLUDE") or ".", os.getenv("LIB") or "."))
     vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
 end
 
