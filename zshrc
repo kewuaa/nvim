@@ -30,8 +30,8 @@ export PP=/bin/fpc
 export FPCDIR=/usr/lib/fpc/src
 export FPCTARGET=linux
 export FPCTARGETCPU=x86_64
-export LAZARUSDIR=~/Lazarus/lazarus
-export PYVENV=~/venvs
+export LAZARUSDIR=~/ProgramFiles/Lazarus/lazarus
+export PYVENV=~/ProgramFiles/Python/venvs
 
 # do at the beginning
 source $PYVENV/default/bin/activate
