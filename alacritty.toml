@@ -74,7 +74,6 @@ color = '0xc53b53'
 
 [font]
 builtin_box_drawing = false
-size = 10.0
 
 [font.bold]
 family = "FiraCode Nerd Font"
