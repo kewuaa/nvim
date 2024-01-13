@@ -140,4 +140,14 @@ return {
             { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
         },
     },
+
+    -- sudo support
+    {
+        'lambdalisue/suda.vim',
+        lazy = true,
+        cmd = {"SudaRead", "SudaWrite"},
+        init = function()
+            vim.g["suda#prompt"] = "Enter administrator password: "
+        end,
+    },
 }
