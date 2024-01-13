@@ -24,14 +24,16 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # export environments
 export LANG=en_US.UTF-8
 export LANGUAGE=zh_CN:en_US
+export EDITOR='nvim'
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
+export no_proxy=localhost,127.0.0.1,::1
 export PP=/bin/fpc
 export FPCDIR=/usr/lib/fpc/src
 export FPCTARGET=linux
 export FPCTARGETCPU=x86_64
-export LAZARUSDIR=~/ProgramFiles/Lazarus/lazarus
-export PYVENV=~/ProgramFiles/Python/venvs
+export LAZARUSDIR=/usr/lib/lazarus
+export PYVENV=~/Python/venvs
 
 # do at the beginning
 source $PYVENV/default/bin/activate
