@@ -8,7 +8,6 @@ local languages = {
     'pascal',
     'csharp',
     'javascript',
-    'toml',
     'json',
     -- 'cmake',
     -- 'markdown',
