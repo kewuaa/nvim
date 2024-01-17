@@ -10,7 +10,6 @@ local languages = {
     'javascript',
     'toml',
     'json',
-    -- 'fsharp',
     -- 'cmake',
     -- 'markdown',
     -- 'rust',
