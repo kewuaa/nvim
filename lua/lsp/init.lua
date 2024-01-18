@@ -4,6 +4,7 @@ local languages = {
     'python',
     'cpp',
     'zig',
+    'rust',
     'lua',
     'pascal',
     'csharp',
@@ -11,7 +12,6 @@ local languages = {
     'json',
     -- 'cmake',
     -- 'markdown',
-    -- 'rust',
     -- 'vim',
 }
 
