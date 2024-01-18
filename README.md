@@ -1,5 +1,5 @@
 # nvim
-**personaly neovim config.**
+**personal config for neovim.**
 
 # install
 ```
