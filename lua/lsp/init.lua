@@ -7,6 +7,7 @@ local languages = {
     'rust',
     'lua',
     'pascal',
+    'dart',
     'csharp',
     'javascript',
     'json',
