@@ -9,7 +9,7 @@ bindkey -v
 autoload -U compinit; compinit
 zstyle ':completion:*' completer _extensions _complete _approximate
 # zstyle ':completion:*' use-cache on
-# zstyle ':completion:*' cache-path "$CACHE_HOME/zsh/.zcompcache"
+# zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
 zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
 zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
@@ -22,18 +22,15 @@ zstyle ':completion:*' complete-options true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 # export environments
+# config for locale
 export LANG=en_US.UTF-8
 export LANGUAGE=zh_CN:en_US
-export EDITOR='nvim'
+# config default editor
+export EDITOR=nvim
+# config proxy
 export http_proxy=http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890
 export no_proxy=localhost,127.0.0.1,::1
-export PP=/bin/fpc
-export FPCDIR=/usr/lib/fpc/src
-export FPCTARGET=linux
-export FPCTARGETCPU=x86_64
-export LAZARUSDIR=/usr/lib/lazarus
-export PYVENV=~/Python/venvs
-
-# do at the beginning
-source $PYVENV/default/bin/activate
+# config for flutter mirrors
+export PUB_HOSTED_URL=https://pub.flutter-io.cn
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
