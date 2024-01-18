@@ -1,5 +1,14 @@
 local M = {}
+local settings = require("core.settings")
 local imtoogle_enabled = false
+
+local function switch_to_en()
+    vim.fn.system('fcitx5-remote -c')
+end
+
+local function switch_to_zh()
+    vim.fn.system('fcitx5-remote -o')
+end
 
 function M.toggle_imtoggle(opts)
      if opts == nil then
@@ -8,6 +17,15 @@ function M.toggle_imtoggle(opts)
          }
      end
      local enabled = opts.enabled or not imtoogle_enabled
+     local im_switch_to_en = nil
+     local im_switch_to_zh = nil
+     if settings.is_Windows then
+         im_switch_to_en = vim.fn.IMSwitchToEN
+         im_switch_to_zh = vim.fn.IMSwitchToZH
+     else
+         im_switch_to_en = switch_to_en
+         im_switch_to_zh = switch_to_zh
+     end
      if enabled then
          if not opts.silent then
              vim.notify('imtoggle enabled')
@@ -15,11 +33,11 @@ function M.toggle_imtoggle(opts)
          vim.api.nvim_create_augroup('IM', {clear = true})
          vim.api.nvim_create_autocmd('InsertEnter', {
              group = 'IM',
-             callback = vim.fn.IMSwitchToZH
+             callback = im_switch_to_zh
          })
          vim.api.nvim_create_autocmd('InsertLeave', {
              group = 'IM',
-             callback = vim.fn.IMSwitchToEN
+             callback = im_switch_to_en
          })
          imtoogle_enabled = true
      else

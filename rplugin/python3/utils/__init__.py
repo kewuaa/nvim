@@ -2,8 +2,6 @@ from re import compile
 
 import pynvim
 
-from . import imtoggle  # pyright: ignore
-
 
 @pynvim.plugin
 class Utils:
@@ -76,16 +74,19 @@ class Utils:
 
     @pynvim.function("IMToggle", sync=True)
     def toggle_ime(self, args) -> None:
+        from . import imtoggle  # pyright: ignore
         imtoggle.toggle() # pyright: ignore
     #enddef
 
     @pynvim.function("IMSwitchToEN", sync=True)
     def imswitch_to_zh(self, args) -> None:
+        from . import imtoggle  # pyright: ignore
         imtoggle.switch_to_en() # pyright: ignore
     #enddef
 
     @pynvim.function("IMSwitchToZH", sync=True)
     def imswitch_to_en(self, args) -> None:
+        from . import imtoggle  # pyright: ignore
         imtoggle.switch_to_zh() # pyright: ignore
     #enddef
 #endclass
