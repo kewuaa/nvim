@@ -20,17 +20,3 @@ zstyle ':completion:*' file-list all
 zstyle ':completion:*' file-sort change reverse
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-# export environments
-# config for locale
-export LANG=en_US.UTF-8
-export LANGUAGE=zh_CN:en_US
-# config default editor
-export EDITOR=nvim
-# config proxy
-export http_proxy=http://127.0.0.1:7890
-export https_proxy=http://127.0.0.1:7890
-export no_proxy=localhost,127.0.0.1,::1
-# config for flutter mirrors
-export PUB_HOSTED_URL=https://pub.flutter-io.cn
-export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
