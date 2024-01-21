@@ -3,7 +3,6 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 setopt autocd beep extendedglob nomatch
-bindkey -v
 
 # completion config
 autoload -U compinit; compinit
@@ -20,3 +19,7 @@ zstyle ':completion:*' file-list all
 zstyle ':completion:*' file-sort change reverse
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# bind key
+bindkey -v
+bindkey '^[[Z' reverse-menu-complete
