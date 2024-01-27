@@ -2,32 +2,8 @@ local configs = {}
 
 
 configs.nvim_treesitter = function()
-    local ensure_installed = {
-        'python',
-        'c',
-        'cpp',
-        'pascal',
-        'dart',
-        'c_sharp',
-        'rust',
-        'make',
-        'cmake',
-        'zig',
-        'lua',
-        'vim',
-        'javascript',
-        'typescript',
-        'ini',
-        'markdown',
-        'markdown_inline',
-        'json',
-        'vimdoc',
-        'gitignore',
-        'yaml',
-        'toml',
-    }
     require('nvim-treesitter.configs').setup({
-        ensure_installed = ensure_installed,
+        auto_install = true,
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = { "c", "cpp" },
