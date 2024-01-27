@@ -4,14 +4,14 @@ local languages = {
     'python',
     'cpp',
     'zig',
-    'rust',
     'lua',
     'pascal',
     'dart',
-    'csharp',
     'javascript',
     'json',
     -- 'cmake',
+    -- 'csharp',
+    -- 'rust',
     -- 'markdown',
     -- 'vim',
 }
@@ -19,7 +19,7 @@ local languages = {
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    if client.name == 'pyright' or client.name == 'cyright' then
+    if client.name == 'jedi_language_server' or client.name == 'cyright' then
         vim.schedule(function()
             require("core.utils.python").parse_pyenv(
                 client.config.root_dir or vim.fn.expand("%:p:h")
