@@ -24,7 +24,7 @@ M.pyright = {
 M.cyright = M.pyright
 -- M.jedi_language_server = {
 --     rootmarks = rootmarks,
---     filetypes = {"python", "cython"},
+--     filetypes = {"python"},
 --     cmd = {'jedi-language-server'},
 --     init_options = {
 --         diagnostics = {
@@ -39,7 +39,7 @@ M.cyright = M.pyright
 --         },
 --         workspace = {
 --             -- extraPaths = {},
---             environmentPath = require("core.utils.python").get_current_env().path,
+--             -- environmentPath = require("core.utils.python").get_current_env().path,
 --             symbols = {
 --                 ignoreFolders = {
 --                     '.git',
