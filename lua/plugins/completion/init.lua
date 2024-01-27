@@ -80,9 +80,10 @@ return {
     -- copilot support
     {
         'zbirenbaum/copilot.lua',
+        lazy = true,
         cmd = "Copilot",
         build = ":Copilot auth",
-        event = "InsertEnter",
+        -- event = "InsertEnter",
         config = configs.copilot,
     }
 }
