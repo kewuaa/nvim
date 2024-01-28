@@ -1,8 +1,19 @@
 local M = {}
 local settings = require('core.settings')
-local rootmarks = vim.list_extend(settings.get_rootmarks(), {'pyproject.toml'})
-
-M.pyright = {
+local rootmarks = vim.list_extend(
+    settings.get_rootmarks(),
+    {'pyproject.toml', 'setup.py'}
+)
+local exclude = {
+    '.git',
+    '**/__pycache__',
+    'build',
+    'dist',
+    '.venv',
+    '.pytest_cache',
+    '.mypy_cache'
+}
+local pyright_config = {
     rootmarks = rootmarks,
     settings = {
         python = {
@@ -21,41 +32,9 @@ M.pyright = {
         }
     }
 }
-M.cyright = M.pyright
--- M.jedi_language_server = {
---     rootmarks = rootmarks,
---     filetypes = {"python"},
---     cmd = {'jedi-language-server'},
---     init_options = {
---         diagnostics = {
---             enable = false,
---         },
---         jediSettings = {
---             autoImportModules = {
---                 'numpy',
---                 'pandas',
---                 'torch',
---             }
---         },
---         workspace = {
---             -- extraPaths = {},
---             -- environmentPath = require("core.utils.python").get_current_env().path,
---             symbols = {
---                 ignoreFolders = {
---                     '.git',
---                     '__pycache__',
---                     '.venv',
---                     'build',
---                     'dist',
---                     '.venv',
---                     '.pytest_cache',
---                     '.mypy_cache'
---                 },
---                 maxSymbols = 10,
---             }
---         }
---     }
--- }
+
+M.pyright = pyright_config
+M.cyright = pyright_config
 M.ruff_lsp = {
     rootmarks = rootmarks,
     on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
@@ -63,7 +42,7 @@ M.ruff_lsp = {
         args = {
             '--line-length=80',
             '--ignore=E402',
-            '--exclude=.git,**/__pycache__,build,dist,.venv,.pytest_cache,.mypy_cache',
+            '--exclude=' .. vim.fn.join(exclude, ',')
         }
     }
 }
@@ -83,20 +62,14 @@ M.ruff_lsp = {
 --                 mccabe = {enabled = false},
 --                 ruff = {
 --                     enabled = false,
---                     exclude = {
---                         '.git',
---                         '**/__pycache__',
---                         'build',
---                         'dist',
---                         '.venv',
---                         '.pytest_cache',
---                         '.mypy_cache'
---                     },
+--                     exclude = vim.list_extend({}, exclude),
 --                     ignore = {'E402'},
 --                     lineLength = 80,
 --                 },
 --                 pylsp_mypy = {
---                     enabled = true,
+--                     enabled = false,
+--                     exclude = vim.list_extend({}, exclude),
+--                     overrides = {}
 --                 },
 --                 jedi = {
 --                     -- environment = '',
@@ -104,34 +77,30 @@ M.ruff_lsp = {
 --                     auto_import_modules = {'numpy', 'pandas'}
 --                 },
 --                 jedi_completion = {
---                     include_params = false,
+--                     include_params = true,
 --                     resolve_at_most = 15,
 --                     fuzzy = true,
 --                     cache_for = {
 --                         'numpy',
---                         'matplotlib',
 --                         'pandas',
---                         'torch',
+--                         'sklearn',
+--                         'seaborn',
+--                         'matplotlib',
 --                     },
 --                 },
 --                 preload = {
---                     enabled = true,
+--                     enabled = false,
 --                     modules = {},
 --                 }
 --             },
 --         },
 --     },
 --     on_new_config = function(new_config, new_root)
---         local venv = require("core.utils.python").get_current_env().path
---         venv = vim.fn.fnamemodify(venv, ':h:h')
---         new_config.settings.pylsp.plugins.jedi.environment = venv
---         -- local src = new_root .. '/src'
---         -- if vim.loop.fs_stat(src) then
---         --     new_config.settings.pylsp.plugins.jedi.extra_paths = {src}
---         -- else
---         --     new_config.settings.pylsp.plugins.jedi.extra_paths = {}
---         -- end
---         return new_config
+--         local pyutils = require("core.utils.python")
+--         pyutils.parse_pyenv(new_root)
+--         local venv = pyutils.get_current_env().path
+--         vim.list_extend(new_config.settings.pylsp.plugins.pylsp_mypy.overrides, {"--python-executable", venv, true})
+--         new_config.settings.pylsp.plugins.jedi.environment = vim.fn.fnamemodify(venv, ':h:h')
 --     end
 -- }
 
