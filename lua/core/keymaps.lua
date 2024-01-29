@@ -72,7 +72,7 @@ function keymaps.init()
         noremap = true,
         silent = true,
     }
-    vim.g.mapleader = ','
+    vim.g.mapleader = '\\'
 
     map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts_)
     -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts_)
