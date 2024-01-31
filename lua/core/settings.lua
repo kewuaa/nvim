@@ -1,6 +1,6 @@
 local os_name = vim.loop.os_uname().sysname
 local settings = {
-    pyvenv_path = os.getenv('PYVENV'):gsub("\\", "/"),
+    pyvenv_path = os.getenv('PYVENV'),
     is_mac = os_name == "Darwin",
     is_Linux = os_name == "Linux",
     is_Windows = os_name == "Windows_NT",
@@ -12,8 +12,18 @@ local settings = {
         }
     end
 }
+if settings.pyvenv_path then
+    if settings.is_Windows then
+        settings.pyvenv_path = settings.pyvenv_path:gsub("\\", "/")
+    end
+else
+    vim.notify("nil environment variable `PYVENV`, use the python in path instead")
+end
 
 function settings:getpy(name)
+    if not settings.pyvenv_path then
+        return "python"
+    end
     local venv = ("%s/%s/%s/python"):format(
         self.pyvenv_path,
         name,
