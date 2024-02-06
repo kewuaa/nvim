@@ -13,7 +13,7 @@ live_config_reload = true
 # Title bar, transparent background and no title bar buttons
 #
 # Default: _"Full"_
-decorations = "none"
+decorations = "Full"
 # Background opacity as a floating point number from _0.0_ to _1.0_. The value
 # \_0.0_ is completely transparent and _1.0_ is opaque.
 #
@@ -89,3 +89,19 @@ family = "FiraCode Nerd Font"
 
 [mouse]
 hide_when_typing = true
+
+[[keyboard.bindings]]
+key = "F11"
+mods = "Control|Shift"
+action = "ToggleFullscreen"
+
+[[keyboard.bindings]]
+key = "t"
+mods = "Control|Shift"
+action = "CreateNewWindow"
+
+[[keyboard.bindings]]
+key = "q"
+mods = "Control|Shift"
+mode = "~Alt"
+action = "Quit"
