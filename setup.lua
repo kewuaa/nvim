@@ -37,8 +37,11 @@ else
     alacritty_config_dir = home_dir .. "/.config/alacritty"
     kitty_config_dir = home_dir .. "/.config/kitty"
     local file = nil
-    vim.print("alacritty or kitty:")
+    vim.print("alacritty or kitty(default: alacritty):")
     local terminal = io.read()
+    if terminal == "" then
+        terminal = "alacritty"
+    end
     if terminal == "alacritty" then
         -- write alacritty config
         if vim.fn.isdirectory(alacritty_config_dir) == 0 then
