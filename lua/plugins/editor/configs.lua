@@ -48,9 +48,20 @@ configs.vim_illuminate = function()
 end
 
 configs.mini_pairs = function()
-    require("mini.pairs").setup({
+    local mini_pairs = require("mini.pairs")
+    mini_pairs.setup({
         -- In which modes mappings from this `config` should be created
         modes = { insert = true, command = true, terminal = true },
+    })
+    local mini_pairs_group = vim.api.nvim_create_augroup("mini_pairs", {
+        clear = true
+    })
+    vim.api.nvim_create_autocmd("FileType", {
+        group = mini_pairs_group,
+        pattern = "markdown",
+        callback = function()
+            mini_pairs.map_buf(0, 'i', '$', {action = 'closeopen', pair = '$$'})
+        end
     })
     local map_bs = function(lhs, rhs)
         vim.keymap.set('i', lhs, rhs, { expr = true, replace_keycodes = false })
