@@ -135,7 +135,7 @@ function M.setup()
     -- map('n', '<space>q', vim.diagnostic.setloclist, opts)
     map(
         {"n", "t"},
-        "<A-=>",
+        "<leader>tt",
         function()
             local cmd
             if require("core.settings").is_Windows then
