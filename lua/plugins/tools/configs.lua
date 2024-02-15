@@ -340,24 +340,12 @@ configs.asynctasks = function()
     if settings.is_Windows then
         vim.g.asynctasks_environ = {
             exe_suffix = '.exe',
-            target_triple = 'x86_64-windows-gnu',
-            fpc_target_os = 'win64'
         }
     elseif settings.is_Linux then
         vim.g.asynctasks_environ = {
             exe_suffix = '',
-            target_triple = 'x86_64-linux-gnu',
-            fpc_target_os = 'linux'
         }
     end
-    local default_include_dir = os.getenv("INCLUDE")
-    local default_lib_dir = os.getenv("LIB")
-    default_include_dir = default_include_dir and default_include_dir:gsub("\\", "/") or "."
-    default_lib_dir = default_lib_dir and default_lib_dir:gsub("\\", "/") or "."
-    vim.cmd(([[
-    let g:asynctasks_environ["default_lib_dir"] = "%s"
-    let g:asynctasks_environ["default_include_dir"] = "%s"
-    ]]):format(default_lib_dir, default_include_dir))
     vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
 end
 
