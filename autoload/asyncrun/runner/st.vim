@@ -8,6 +8,6 @@ function! asyncrun#runner#st#run(opts)
     let cmds += ['echo ""']
     let cmds += ['read -n1 -rsp "press any key to continue ..."']
     let text = shellescape(join(cmds, ";"))
-    let command = 'st -e bash -c ' . text
+    let command = 'st -f "FiraCode Nerd Font:pixelsize=17.5:antialias=true:autohint=true" -e bash -c ' . text
     call system(command . ' &')
 endfunction
