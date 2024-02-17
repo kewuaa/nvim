@@ -5,6 +5,7 @@ local clink_config_path = nil
 local alacritty_config_dir = nil
 local kitty_config_dir = nil
 if settings.is_Windows then
+    config_dir = config_dir:gsub("\\", "/")
     home_dir = os.getenv("USERPROFILE"):gsub("\\", "/")
     alacritty_config_dir = os.getenv("APPDATA"):gsub("\\", "/") .. "/alacritty"
     clink_config_path = home_dir .. "/.inputrc"
