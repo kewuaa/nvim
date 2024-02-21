@@ -147,6 +147,9 @@ configs.mini_splitjoin = function()
             toggler = '',
             split = '',
             join = '',
+        },
+        detect = {
+            separator = '[,;]'
         }
     })
 end
