@@ -6,7 +6,7 @@ M.clangd = {
         settings.get_rootmarks(),
         {
             'build.zig',
-            '.xmake.lua',
+            'xmake.lua',
             'compile_commands.json',
             'compile_flags.txt',
             '.clangd',
