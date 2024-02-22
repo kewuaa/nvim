@@ -1,4 +1,9 @@
 local M = {}
+local settings = require("core.settings")
+local rootmarks = settings.get_rootmarks()
+vim.list_extend(rootmarks, {
+    'xmake.lua', '*.lpi'
+})
 
 -- environment variables
 -- PP — Path to the FPC compiler executable
@@ -7,6 +12,7 @@ local M = {}
 -- FPCTARGET — Target OS (e.g. Linux, Darwin, ...)
 -- FPCTARGETCPU — Target architecture (e.g. x86_64, AARCH64, ...)
 M.pasls = {
+    rootmarks = rootmarks,
     init_options = {
         fpcOptions = {
             "-Fu$(root)/unit",
