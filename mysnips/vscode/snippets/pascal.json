@@ -49,6 +49,16 @@
         ],
         "description": "Code snippet for the down for statement."
     },
+    "for/in": {
+        "prefix": "for",
+        "body": [
+            "for ${1:value} in ${2:enumerator} do",
+            "begin",
+            "\t$3",
+            "end;"
+        ],
+        "description": "Code snippet for the for/in statement."
+    },
     "if": {
         "prefix": "if",
         "body": [
