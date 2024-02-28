@@ -2,7 +2,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd beep extendedglob nomatch
+setopt autocd no_beep extendedglob nomatch
 
 # completion config
 autoload -U compinit; compinit
