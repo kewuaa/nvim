@@ -619,6 +619,26 @@ configs.markdown_preview = function()
     })
 end
 
+configs.leetcode = function()
+    require("leetcode").setup({
+        arg = "leetcode",
+        lang = "cpp",
+        cn = {
+            enabled = true,
+        },
+        injector = {
+            ["python3"] = {
+                before = true
+            },
+            ["cpp"] = {
+                before = { "#include <bits/stdc++.h>", "using namespace std;" },
+                after = "int main() {}",
+            },
+        },
+        image_support = false,
+    })
+end
+
 configs.pantran = function()
     require("pantran").setup{
         -- Default engine to use for translation. To list valid engine names run

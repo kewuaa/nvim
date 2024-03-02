@@ -155,6 +155,24 @@ return {
         init = configs.markdown_preview,
     },
 
+    -- leetcode
+    {
+        'kawre/leetcode.nvim',
+        build = ':TSUpdate html',
+        lazy = vim.fn.argv()[1] ~= 'leetcode',
+        config = configs.leetcode,
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim", -- required by telescope
+            "MunifTanjim/nui.nvim",
+
+            -- optional
+            "nvim-treesitter/nvim-treesitter",
+            "rcarriga/nvim-notify",
+            "nvim-tree/nvim-web-devicons",
+        },
+    },
+
     -- 翻译
     {
         'potamides/pantran.nvim',
