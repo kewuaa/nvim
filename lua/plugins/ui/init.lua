@@ -22,6 +22,17 @@ return {
         }
     },
 
+    -- tabline
+    {
+        'crispgm/nvim-tabline',
+        lazy = true,
+        event = 'TabNew',
+        config = configs.tabline,
+        dependencies = {
+            { 'nvim-tree/nvim-web-devicons' },
+        }
+    },
+
     -- 缩进线
     {
         'lukas-reineke/indent-blankline.nvim',
