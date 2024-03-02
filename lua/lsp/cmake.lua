@@ -1,6 +1,6 @@
 local M = {}
 
--- M.cmake = {}
-M.neocmake = {}
+M.cmake = {}
+-- M.neocmake = {}
 
 return M
