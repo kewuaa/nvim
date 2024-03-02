@@ -41,11 +41,9 @@ settings.exclude_filetypes = {
     "tutor",
     "netrw",
     "Outline",
-    "NvimTree",
     "neo-tree",
     "neo-tree-pop",
     "Trouble",
-    "fugitive",
     "sagafinder",
     "sagaoutline",
     "sagarename",
@@ -62,7 +60,7 @@ settings.exclude_filetypes = {
     "dapui_scopes",
     "DiffviewFiles",
     "DiffviewFileHistory",
-    "JABSwindow",
+    "leetcode.nvim",
     "",
 }
 
