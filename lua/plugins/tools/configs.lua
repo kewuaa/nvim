@@ -468,30 +468,14 @@ configs.neotree = function()
             }
         },
         filesystem = {
+            bind_to_cwd = false,
             filtered_items = {
                 visible = false, -- when true, they will just be displayed differently than normal items
                 hide_dotfiles = true,
                 hide_gitignored = true,
-                hide_hidden = true, -- only works on Windows for hidden files/directories
-                hide_by_name = {
-                    --"node_modules"
-                },
-                hide_by_pattern = { -- uses glob style patterns
-                    --"*.meta",
-                    --"*/src/*/tsconfig.json",
-                },
-                always_show = { -- remains visible even if other settings would normally hide it
-                    --".gitignored",
-                },
-                never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-                    --".DS_Store",
-                    --"thumbs.db"
-                },
-                never_show_by_pattern = { -- uses glob style patterns
-                    --".null-ls_*",
-                },
-                bind_to_cwd = true,
-                follow_current_file = true,
+                always_show = {
+                    ".gitignore"
+                }
             },
             window = {
                 mappings = {
@@ -500,9 +484,14 @@ configs.neotree = function()
             },
             commands = {
                 system_open = function(state)
+                    local settings = require("core.settings")
                     local node = state.tree:get_node()
                     local path = node:get_id()
-                    vim.api.nvim_command('silent !explorer ' .. path)
+                    if settings.is_Windows then
+                        vim.api.nvim_command('silent !explorer ' .. path)
+                    elseif settings.is_Linux then
+                        vim.api.nvim_command('silent !xdg-open ' .. path)
+                    end
                 end,
             }
         },
