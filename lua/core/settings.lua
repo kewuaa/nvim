@@ -6,10 +6,10 @@ local settings = {
     is_Windows = os_name == "Windows_NT",
     is_wsl = vim.fn.has("wsl") == 1,
 
-    get_rootmarks = function()
-        return {
-            '.git'
-        }
+    get_rootmarks = function(...)
+        local lst = {...}
+        lst[#lst+1] = ".git"
+        return lst
     end
 }
 if settings.pyvenv_path then

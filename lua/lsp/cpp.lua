@@ -2,18 +2,7 @@ local M = {}
 local settings = require("core.settings")
 
 M.clangd = {
-    rootmarks = vim.list_extend(
-        settings.get_rootmarks(),
-        {
-            'build.zig',
-            'xmake.lua',
-            'compile_commands.json',
-            'compile_flags.txt',
-            '.clangd',
-            '.clang-tidy',
-            '.clang-format',
-        }
-    ),
+    rootmarks = settings.get_rootmarks("xmake.lua", "compile_flags.txt"),
     cmd = {
         'clangd',
         "--offset-encoding=utf-16",

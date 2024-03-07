@@ -1,9 +1,6 @@
 local M = {}
 local settings = require("core.settings")
-local rootmarks = settings.get_rootmarks()
-vim.list_extend(rootmarks, {
-    'xmake.lua', '*.lpi'
-})
+local rootmarks = settings.get_rootmarks("xmake.lua", "*.lpi")
 
 -- environment variables
 -- PP — Path to the FPC compiler executable

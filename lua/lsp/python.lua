@@ -1,9 +1,6 @@
 local M = {}
 local settings = require('core.settings')
-local rootmarks = vim.list_extend(
-    settings.get_rootmarks(),
-    {'pyproject.toml', 'setup.py'}
-)
+local rootmarks = settings.get_rootmarks('pyproject.toml')
 local exclude = {
     '.git',
     '**/__pycache__',
