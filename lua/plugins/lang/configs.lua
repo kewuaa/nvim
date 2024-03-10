@@ -24,6 +24,28 @@ configs.nvim_treesitter = function()
                 node_decremental = "_",
             },
         },
+        textobjects = {
+            move = {
+                enable = true,
+                set_jumps = true, -- whether to set jumps in the jumplist
+                goto_next_start = {
+                    ["]["] = "@function.outer",
+                    ["]m"] = "@class.outer",
+                },
+                goto_next_end = {
+                    ["]]"] = "@function.outer",
+                    ["]M"] = "@class.outer",
+                },
+                goto_previous_start = {
+                    ["[["] = "@function.outer",
+                    ["[m"] = "@class.outer",
+                },
+                goto_previous_end = {
+                    ["[]"] = "@function.outer",
+                    ["[M"] = "@class.outer",
+                },
+            },
+        },
     })
     require('nvim-treesitter.install').compilers = { "zig", "gcc" }
     -- set python indent
