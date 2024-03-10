@@ -165,7 +165,11 @@ configs.nvim_dap = function()
             type = "codelldb",
             request = "launch",
             program = function()
-                 return vim.fn.input('Path to executable (default to "a.exe"): ', vim.fn.expand("%:p:h") .. "/a.exe", "file")
+                 return vim.fn.input(
+                     'Path to executable (default to "a.exe"): ',
+                     vim.fn.expand("%:p:r"),
+                     "file"
+                 )
             end,
             cwd = "${workspaceFolder}",
             stopOnEntry = false,
@@ -175,7 +179,11 @@ configs.nvim_dap = function()
             type = "codelldb",
             request = "launch",
             program = function()
-                 return vim.fn.input('Path to executable (default to "a.exe"): ', vim.fn.expand("%:p:h") .. "/a.exe")
+                 return vim.fn.input(
+                     'Path to executable (default to "a.exe"): ',
+                     vim.fn.expand("%:p:r"),
+                     "file"
+                 )
             end,
             args = function()
                 local argument_string = vim.fn.input("Program arg(s) (enter nothing to leave it null): ")
@@ -189,7 +197,11 @@ configs.nvim_dap = function()
             type = "codelldb",
             request = "attach",
             program = function()
-                 return vim.fn.input('Path to executable (default to "a.exe"): ', vim.fn.expand("%:p:h") .. "/a.exe")
+                 return vim.fn.input(
+                     'Path to executable (default to "a.exe"): ',
+                     vim.fn.expand("%:p:r"),
+                     "file"
+                 )
             end,
             stopOnEntry = false,
             waitFor = true,
