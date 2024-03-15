@@ -117,6 +117,7 @@ configs.nvim_dap = function()
     local dap = require('dap')
     local is_Windows = require("core.settings").is_Windows
     local data_path = vim.fn.stdpath("data")
+    local utils = require("core.utils")
     -- config for python
     dap.adapters.python = {
         type = 'executable';
@@ -132,8 +133,15 @@ configs.nvim_dap = function()
 
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
-            cwd = require('core.utils').get_cwd,
-            program = "${file}"; -- This configuration will launch the current file if used.
+            cwd = utils.get_cwd,
+            program = function()
+                local lsp = vim.lsp.get_active_clients()[1]
+                local root = lsp.config.root_dir
+                if root ~= nil then
+                    return ("%s/main.py"):format(root)
+                end
+                return "${file}"
+            end; -- This configuration will launch the current file if used.
             pythonPath = function()
                 -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
                 -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
@@ -159,50 +167,44 @@ configs.nvim_dap = function()
             detached = is_Windows and false or true,
         },
     }
+    local program_for_c = function()
+        local lsp = vim.lsp.get_active_clients()[1]
+        local root = lsp.config.root_dir
+        if root ~= nil then
+            return vim.fn.input(
+                'Path to executable: ',
+                ("%s/build/linux/x86_64/debug/"):format(root),
+                "file"
+            )
+        end
+        return vim.fn.expand("%:p:r")
+    end
     dap.configurations.c = {
         {
             name = "Debug",
             type = "codelldb",
             request = "launch",
-            program = function()
-                 return vim.fn.input(
-                     'Path to executable (default to "a.exe"): ',
-                     vim.fn.expand("%:p:r"),
-                     "file"
-                 )
-            end,
-            cwd = "${workspaceFolder}",
+            program = program_for_c,
+            cwd = utils.get_cwd,
             stopOnEntry = false,
         },
         {
             name = "Debug (with args)",
             type = "codelldb",
             request = "launch",
-            program = function()
-                 return vim.fn.input(
-                     'Path to executable (default to "a.exe"): ',
-                     vim.fn.expand("%:p:r"),
-                     "file"
-                 )
-            end,
+            program = program_for_c,
             args = function()
                 local argument_string = vim.fn.input("Program arg(s) (enter nothing to leave it null): ")
                 return vim.fn.split(argument_string, " ", true)
             end,
-            cwd = "${workspaceFolder}",
+            cwd = utils.get_cwd,
             stopOnEntry = false,
         },
         {
             name = "Attach to a running process",
             type = "codelldb",
             request = "attach",
-            program = function()
-                 return vim.fn.input(
-                     'Path to executable (default to "a.exe"): ',
-                     vim.fn.expand("%:p:r"),
-                     "file"
-                 )
-            end,
+            program = program_for_c,
             stopOnEntry = false,
             waitFor = true,
         },
