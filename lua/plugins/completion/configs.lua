@@ -301,19 +301,23 @@ configs.lspsaga = function()
     local saga = require('lspsaga')
     saga.setup({
         finder = {
-            edit = { 'o', '<CR>' },
-            vsplit = '<c-v>',
-            split = '<c-x>',
-            tabe = '<c-t>',
-            quit = { 'q', '<ESC>' },
+            keys = {
+                edit = { 'o', '<CR>' },
+                vsplit = '<c-v>',
+                split = '<c-x>',
+                tabe = '<c-t>',
+                quit = { 'q', '<ESC>' },
+            }
         },
         definition = {
-            edit = '<C-c>o',
-            vsplit = '<C-c>v',
-            split = '<C-c>x',
-            tabe = '<C-c>t',
-            quit = 'q',
-            close = '<Esc>',
+            keys = {
+                edit = '<C-c>o',
+                vsplit = '<C-c>v',
+                split = '<C-c>x',
+                tabe = '<C-c>t',
+                quit = 'q',
+                close = '<Esc>',
+            },
         },
         diagnostic = {
             on_insert = false,
