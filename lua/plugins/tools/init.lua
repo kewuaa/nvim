@@ -47,7 +47,10 @@ return {
         init = require('core.keymaps'):load('dap'),
         config = configs.nvim_dap,
         dependencies = {
-            {'rcarriga/nvim-dap-ui'},
+            {
+                'rcarriga/nvim-dap-ui',
+                dependencies = {"nvim-neotest/nvim-nio"}
+            },
             {'theHamsta/nvim-dap-virtual-text'},
             -- dap source for cmp
             {'rcarriga/cmp-dap'},
