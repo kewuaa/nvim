@@ -209,6 +209,7 @@ configs.nvim_dap = function()
         },
     }
     dap.configurations.cpp = dap.configurations.c
+    dap.configurations.pascal = dap.configurations.c
     dap.configurations.rust = dap.configurations.c
 
     -- config for dotnet
