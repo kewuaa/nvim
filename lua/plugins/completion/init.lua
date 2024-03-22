@@ -64,12 +64,13 @@ return {
         -- event = {'BufRead', 'BufNewFile'},
         config = configs.nvim_lspconfig,
         dependencies = {
-            -- lsp增强
+            -- lsp 增强
             {'glepnir/lspsaga.nvim', branch = 'main', config = configs.lspsaga},
-            -- lua增强
+            -- lua 增强
             {'folke/neodev.nvim', config = configs.neodev},
             -- 符号提示
             {'ray-x/lsp_signature.nvim'},
+            -- lsp 安装
             {'williamboman/mason-lspconfig.nvim', config = configs.mason_lspconfig},
             -- csharp extended
             -- {"Decodetalkers/csharpls-extended-lsp.nvim"},
