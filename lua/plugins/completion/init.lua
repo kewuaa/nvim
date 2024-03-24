@@ -72,9 +72,6 @@ return {
             {'ray-x/lsp_signature.nvim'},
             -- lsp 安装
             {'williamboman/mason-lspconfig.nvim', config = configs.mason_lspconfig},
-            -- csharp extended
-            -- {"Decodetalkers/csharpls-extended-lsp.nvim"},
-            -- {"Hoffs/omnisharp-extended-lsp.nvim"},
         }
     },
 
