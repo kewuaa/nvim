@@ -70,8 +70,6 @@ return {
             {'folke/neodev.nvim', config = configs.neodev},
             -- 符号提示
             {'ray-x/lsp_signature.nvim'},
-            -- lsp 安装
-            {'williamboman/mason-lspconfig.nvim', config = configs.mason_lspconfig},
         }
     },
 

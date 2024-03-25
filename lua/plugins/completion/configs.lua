@@ -363,16 +363,6 @@ configs.neodev = function()
     })
 end
 
-configs.mason_lspconfig = function()
-    require('mason-lspconfig').setup({
-        automatic_installation = {
-            exclude = {
-                "zls",
-            },
-        },
-    })
-end
-
 configs.copilot = function()
     require("copilot").setup({
         panel = {
