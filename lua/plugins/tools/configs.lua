@@ -116,12 +116,13 @@ end
 configs.nvim_dap = function()
     local dap = require('dap')
     local is_Windows = require("core.settings").is_Windows
-    local data_path = vim.fn.stdpath("data")
     local utils = require("core.utils")
+    local mason_utils = require("core.utils.mason")
     -- config for python
+    mason_utils.ensure_install("debugpy")
     dap.adapters.python = {
         type = 'executable';
-        command = vim.fn.exepath("debugpy-adapter"),
+        command = "debugpy-adapter",
     }
     dap.configurations.python = {
         {
@@ -156,12 +157,12 @@ configs.nvim_dap = function()
     }
 
     -- config for c/c++/rust
+    mason_utils.ensure_install("codelldb")
     dap.adapters.codelldb = {
         type = 'server',
         port = "${port}",
         executable = {
-            -- command = vim.fn.exepath("codelldb"), -- Find codelldb on $PATH
-            command = ("%s/mason/packages/codelldb/extension/adapter/codelldb"):format(data_path),
+            command = "codelldb",
             args = { "--port", "${port}" },
             detached = is_Windows and false or true,
         },

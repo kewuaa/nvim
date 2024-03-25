@@ -122,6 +122,28 @@ local function setup_ui()
 end
 
 
+local function add_auto_install_hook()
+    local server_mapping = {
+        ["clangd"] = "clangd",
+        ["cmake"] = "cmake-language-server",
+        ["jsonls"] = "json-lsp",
+        ["lua_ls"] = "lua-language-server",
+        -- ["neocmake"] = "neocmakelsp",
+        ["pyright"] = "pyright",
+        ["ruff_lsp"] = "ruff-lsp",
+        ["tsserver"] = "typescript-language-server",
+    }
+    local util = require("lspconfig.util")
+    util.on_setup = util.add_hook_before(util.on_setup, function(config, user_config)
+        local pkg_name = server_mapping[config.name]
+        if not pkg_name then
+            return
+        end
+        require("core.utils.mason").ensure_install(pkg_name)
+    end)
+end
+
+
 function M.setup()
     setup_ui()
     local lsp_config = require('lspconfig')
@@ -153,7 +175,7 @@ function M.setup()
         end
     )
 
-    local lsp_flags = {
+    add_auto_install_hook()
       -- This is the default in Nvim 0.7+
       debounce_text_changes = 150,
     }
