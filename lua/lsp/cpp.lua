@@ -29,4 +29,7 @@ M.clangd = {
     }
 }
 
+M.neocmake = {}
+-- M.cmake = {}
+
 return M

@@ -1,19 +1,14 @@
 local M = {}
 local map = vim.keymap.set
-local languages = {
-    'python',
+local servers = {
     'cpp',
-    'zig',
-    'lua',
-    'pascal',
-    'dart',
-    'javascript',
-    'json',
-    -- 'cmake',
-    -- 'csharp',
-    -- 'rust',
-    -- 'markdown',
-    -- 'vim',
+    'dartls',
+    'jsonls',
+    'lua_ls',
+    'pasls',
+    'python',
+    'tsserver',
+    'zls',
 }
 
 -- Use an on_attach function to only map the following keys
@@ -176,32 +171,25 @@ function M.setup()
     )
 
     add_auto_install_hook()
-      -- This is the default in Nvim 0.7+
-      debounce_text_changes = 150,
-    }
+
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     local base_config = {
-        loglevel = vim.lsp.protocol.MessageType.Error,
-        autostart = true,
-        single_file_support = true,
         on_attach = on_attach,
         capabilities = capabilities,
-        flags = lsp_flags,
-        root_dir = lsp_config.util.find_git_ancestor,
     }
-    for _, lang in ipairs(languages) do
-        local ok, config = pcall(require, 'lsp.' .. lang)
+    for _, name in ipairs(servers) do
+        local ok, server = pcall(require, 'lsp.' .. name)
         if ok then
-            for name, server in pairs(config) do
-                if server.rootmarks then
-                    server.root_dir = lsp_config.util.root_pattern(unpack(server.rootmarks))
-                    server.rootmarks = nil
+            for server_name, config in pairs(server) do
+                if config.rootmarks then
+                    config.root_dir = lsp_config.util.root_pattern(unpack(config.rootmarks))
+                    config.rootmarks = nil
                 end
-                lsp_config[name].setup(vim.tbl_extend('force', base_config, server))
+                lsp_config[server_name].setup(vim.tbl_extend('force', base_config, config))
             end
         else
-            vim.notify(string.format('load lsp of %s failed', lang))
+            lsp_config[name].setup(base_config)
         end
     end
 end
