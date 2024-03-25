@@ -124,6 +124,7 @@ local function add_auto_install_hook()
         ["jsonls"] = "json-lsp",
         ["lua_ls"] = "lua-language-server",
         -- ["neocmake"] = "neocmakelsp",
+        ["pylsp"] = "python-lsp-server",
         ["pyright"] = "pyright",
         ["ruff_lsp"] = "ruff-lsp",
         ["tsserver"] = "typescript-language-server",
