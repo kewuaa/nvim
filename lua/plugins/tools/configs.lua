@@ -212,23 +212,6 @@ configs.nvim_dap = function()
     dap.configurations.pascal = dap.configurations.c
     dap.configurations.rust = dap.configurations.c
 
-    -- config for dotnet
-    dap.adapters.coreclr = {
-        type = "executable",
-        command = ("%s/mason/packages/netcoredbg/netcoredbg/netcoredbg"):format(data_path),
-        args = {'--interpreter=vscode'}
-    }
-    dap.configurations.cs = {
-        {
-            name = "netcoredbg",
-            type = "coreclr",
-            request = "launch",
-            program = function()
-                return vim.fn.input('Path to dll:', require("core.utils").get_cwd() .. '/bin/Debug/', 'file')
-            end,
-        },
-    }
-
     -- config for ui
     local dapui = require('dapui')
     local dap_icons = {
