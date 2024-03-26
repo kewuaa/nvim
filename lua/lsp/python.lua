@@ -31,7 +31,6 @@ local pyright_config = {
 }
 
 M.pyright = pyright_config
-M.cyright = pyright_config
 M.ruff_lsp = {
     rootmarks = rootmarks,
     on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
