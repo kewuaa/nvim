@@ -3,6 +3,7 @@ local map = vim.keymap.set
 local servers = {
     'cpp',
     'dartls',
+    'dockerls',
     'jsonls',
     'lua_ls',
     'pasls',
@@ -121,6 +122,7 @@ local function add_auto_install_hook()
     local server_mapping = {
         ["clangd"] = "clangd",
         ["cmake"] = "cmake-language-server",
+        ["dockerls"] = "dockerfile-language-server",
         ["jsonls"] = "json-lsp",
         ["lua_ls"] = "lua-language-server",
         -- ["neocmake"] = "neocmakelsp",
