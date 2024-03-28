@@ -178,9 +178,8 @@ configs.tabline = function()
         show_modify = true,          -- show buffer modification indicator
         show_icon = true,           -- show file extension icon
         fnamemodify = function(bufname)
-            if string.find(bufname, 'term') then
-                local cmd = vim.fn.split(bufname, ":")[3]
-                return "COMMAND: " .. cmd
+            if vim.bo.buftype == "terminal" then
+                return "TERMINAL"
             else
                 return vim.fn.fnamemodify(bufname, ':t')
             end
