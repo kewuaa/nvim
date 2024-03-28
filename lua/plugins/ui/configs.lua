@@ -103,6 +103,10 @@ configs.sttusline = function()
                 timing = false,
             })
         end,
+        disabled = {
+            filetypes = {},
+            buftypes = {}
+        },
         components = {
             {
                 "os-uname",
