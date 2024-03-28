@@ -24,7 +24,7 @@ return {
 
     -- tabline
     {
-        'crispgm/nvim-tabline',
+        'kewuaa/nvim-tabline',
         lazy = true,
         event = 'TabNew',
         config = configs.tabline,
