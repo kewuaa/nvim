@@ -1,8 +1,6 @@
 local configs = {}
-local color_scheme_name = ""
 
 configs.color_scheme = function(name)
-    color_scheme_name = name
     if name == "sonokai" then
         return configs.sonokai
     elseif name == "tokyonight" then
@@ -93,158 +91,85 @@ configs.mini_indentscope = function()
     )
 end
 
-configs.lualine = function()
-    local function diff_source()
-        ---@diagnostic disable-next-line: undefined-field
-        local gitsigns = vim.b.gitsigns_status_dict
-        if gitsigns then
-            return {
-                added = gitsigns.added,
-                modified = gitsigns.changed,
-                removed = gitsigns.removed,
-            }
-        end
-    end
-    -- local function min_window_width(width)
-    --     return function() return vim.fn.winwidth(0) > width end
-    -- end
-    local attached_lsp = function()
-        local clients = vim.lsp.get_active_clients({
-            bufnr = 0
-        })
-        if #clients > 0 then
-            local names = {}
-            for _, client in ipairs(clients) do
-                names[#names+1] = string.upper(client.name)
-            end
-            return string.format('[LSP->%s]', vim.fn.join(names, ','))
-        end
-        return ''
-    end
-    local pyenv = function()
-        local ft = vim.bo.filetype
-        if ft == 'python' or ft == "cython" then
-            local env = require('core.utils.python').get_current_env()
-            if env then
-                return ' ' .. env.name
-            end
-        end
-        return ''
-    end
-    local outline = {
-        sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = { "location" },
-        },
-        filetypes = { "lspsagaoutline" },
-    }
-    require("lualine").setup({
-        options = {
-            icons_enabled = true,
-            theme = color_scheme_name,
-            disabled_filetypes = {},
-            component_separators = { left = '', right = '' },
-            section_separators = { left = "", right = "" },
-        },
-        sections = {
-            lualine_a = {
-                {
-                    "mode",
-                    -- cond = min_window_width(40),
-                },
+configs.sttusline = function()
+    local sttusline = require("sttusline")
+    local color = require("sttusline.utils.color")
+    local pyutils = require("core.utils.python")
+    sttusline.setup({
+        on_attach = function(create_update_group)
+            create_update_group("BUF_WIN_ENTER", {
+                event = { "BufEnter", "WinEnter" },
+                user_event = { "StatusLineInit" },
+                timing = false,
+            })
+        end,
+        components = {
+            {
+                "os-uname",
+                { user_event = { "StatusLineInit" } }
             },
-            lualine_b = {
+            {
+                "mode",
+                { user_event = { "StatusLineInit" } }
+            },
+            {
+                "filename",
                 {
-                    'filename',
-                    newfile_status = true,
-                    symbols = {
-                        modified = '●',
-                        readonly = '🔒',
-                    }
-                },
-                {
-                    pyenv,
-                    color = { fg = '#ffbc03' }
+                    event = { "BufEnter", "WinEnter", "TextChanged", "TextChangedI", "BufWritePost" },
+                    user_event = { "StatusLineInit" },
                 }
             },
-            lualine_c = {
-                {
-                    "branch",
-                    icon = '',
-                    -- cond = min_window_width(120),
+            {
+                name = "pyvenv",
+                event = { "BufEnter", "WinEnter" },
+                user_event = { "PYVENVUPDATE" },
+                padding = {
+                    left = 0,
+                    right = 1,
                 },
-                {
-                    "diff",
-                    symbols = {added = ' ', modified = ' ', removed = ' '},
-                    source = diff_source,
-                }
-            },
-            lualine_x = {
-                {
-                    attached_lsp,
-                    color = { fg = "#99D1DB" }
-                },
-                {
-                    require("lazy.status").updates,
-                    cond = require("lazy.status").has_updates,
-                    color = { fg = "#ff9e64" },
-                },
-                {
-                    'g:translator_status',
-                    color = { fg = "#E5C890" }
-                },
-                {
-                    "diagnostics",
-                    sources = { "nvim_diagnostic" },
-                    symbols = { error = " ", warn = " ", info = " " },
-                },
-            },
-            lualine_y = {
-                { "filetype", colored = true, icon_only = true },
-                {
-                    "encoding",
-                    fmt = string.upper,
-                    cond = function()
-                        return string.match((vim.bo.fenc or vim.go.enc), '^utf%-8$') == ''
-                    end,
-                },
-                {
-                    "fileformat",
-                    icons_enabled = true,
-                    symbols = {
-                        unix = "Unix",
-                        dos = "Dos",
-                        mac = "Mac",
-                    },
-                    cond = function()
-                        return vim.bo.fileformat ~= 'dos'
+                condition = function()
+                    local ft = vim.bo.filetype
+                    if ft == 'python' or ft == "cython" then
+                        local env = pyutils.get_current_env()
+                        if env then
+                            return true
+                        end
                     end
-                },
+                    return false
+                end,
+                update = function(config, space)
+                    return {
+                        {
+                            '[' .. pyutils.get_current_env().name .. ']',
+                            { fg = color.yellow },
+                        },
+                    }
+                end
             },
-            lualine_z = { "searchcount", "filesize", "progress", "location" },
-        },
-        inactive_sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = { "filename" },
-            lualine_x = { "location" },
-            lualine_y = {},
-            lualine_z = {},
-        },
-        tabline = {},
-        extensions = {
-            "quickfix",
-            'neo-tree',
-            outline,
-            'lazy',
-            'trouble',
-            'nvim-dap-ui',
-        },
+            {
+                "filesize",
+                { user_event = { "StatusLineInit" } }
+            },
+            "git-branch",
+            "git-diff",
+            "%=",
+            "diagnostics",
+            "lsps-formatters",
+            "copilot",
+            "copilot-loading",
+            "indent",
+            "encoding",
+            {
+                "pos-cursor",
+                { user_event = { "StatusLineInit" } }
+            },
+            {
+                "pos-cursor-progress",
+                { user_event = { "StatusLineInit" } }
+            },
+        }
     })
+    vim.api.nvim_exec_autocmds("User", {pattern = "StatusLineInit", modeline = false})
 end
 
 configs.tabline = function()

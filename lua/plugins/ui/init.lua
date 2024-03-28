@@ -13,10 +13,11 @@ return {
 
     -- statusline
     {
-        'nvim-lualine/lualine.nvim',
+        'sontungexpt/sttusline',
+        branch = "table_version",
         lazy = true,
         event = 'ColorScheme',
-        config = configs.lualine,
+        config = configs.sttusline,
         dependencies = {
             {'nvim-tree/nvim-web-devicons'},
         }
