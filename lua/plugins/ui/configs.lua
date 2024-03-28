@@ -208,7 +208,7 @@ configs.tabline = function()
         show_modify = true,          -- show buffer modification indicator
         show_icon = true,           -- show file extension icon
         fnamemodify = function(bufname)
-            if vim.bo.buftype == "terminal" then
+            if string.find(bufname, "term") then
                 return "TERMINAL"
             else
                 return vim.fn.fnamemodify(bufname, ':t')
