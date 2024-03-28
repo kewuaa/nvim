@@ -123,10 +123,6 @@ configs.sttusline = function()
                 name = "pyvenv",
                 event = { "BufEnter", "WinEnter" },
                 user_event = { "PYVENVUPDATE" },
-                padding = {
-                    left = 0,
-                    right = 1,
-                },
                 condition = function()
                     local ft = vim.bo.filetype
                     if ft == 'python' or ft == "cython" then
