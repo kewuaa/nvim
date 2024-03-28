@@ -47,7 +47,7 @@ configs.nvim_treesitter = function()
             },
         },
     })
-    require('nvim-treesitter.install').compilers = { "zig", "gcc" }
+    require('nvim-treesitter.install').compilers = { "gcc", "zig" }
     -- set python indent
     local sw = vim.fn.shiftwidth()
     vim.g.python_indent = {
