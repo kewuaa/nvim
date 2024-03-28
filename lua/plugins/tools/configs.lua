@@ -331,7 +331,7 @@ configs.asynctasks = function()
     vim.g.asyncrun_save = 2
     vim.g.asyncrun_open = 10
     vim.g.asyncrun_rootmarks = rootmarks
-    vim.g.asynctasks_term_focus = 0
+    vim.g.asynctasks_term_focus = 1
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
     if settings.is_Windows then
