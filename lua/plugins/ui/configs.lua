@@ -155,8 +155,38 @@ configs.sttusline = function()
             "%=",
             "diagnostics",
             "lsps-formatters",
-            "copilot",
-            "copilot-loading",
+            {
+                "copilot",
+                {
+                    init = function(config)
+                        vim.api.nvim_create_autocmd("User", {
+                            pattern = "LazyLoad",
+                            callback = function(params)
+                                if params.data == 'copilot.lua' then
+                                    require("sttusline.components.copilot").init(config)
+                                    return true
+                                end
+                            end
+                        })
+                    end,
+                }
+            },
+            {
+                "copilot-loading",
+                {
+                    init = function(config)
+                        vim.api.nvim_create_autocmd("User", {
+                            pattern = "LazyLoad",
+                            callback = function(params)
+                                if params.data == 'copilot.lua' then
+                                    require("sttusline.components.copilot-loading").init(config)
+                                    return true
+                                end
+                            end
+                        })
+                    end,
+                }
+            },
             "indent",
             "encoding",
             {
