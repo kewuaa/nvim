@@ -46,11 +46,11 @@ function M.parse_pyenv(root)
             end
         end
     end
-    vim.cmd(string.format('let g:asynctasks_environ["pyenv"] = "%s"', venv))
     current_env = {
         name = vim.fn.fnamemodify(venv, ':h:h:t'),
         path = venv,
     }
+    vim.api.nvim_exec_autocmds("User", {pattern = "PYVENVUPDATE", modeline = false})
     return venv
 end
 

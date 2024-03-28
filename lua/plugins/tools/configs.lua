@@ -346,6 +346,14 @@ configs.asynctasks = function()
         }
     end
     vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "PYVENVUPDATE",
+        callback = function()
+            local venv = require("core.utils.python").get_current_env()
+            assert(venv ~= nil)
+            vim.cmd(string.format('let g:asynctasks_environ["python"] = "%s"', venv.path))
+        end
+    })
 end
 
 configs.gitsigns = function()
