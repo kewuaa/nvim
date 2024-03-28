@@ -50,7 +50,7 @@ function M.toggle_imtoggle(opts)
 end
 
 M.init = function()
-    vim.keymap.set({'n', 'i'}, '<M-;>', M.toggle_imtoggle)
+    vim.keymap.set({'n', 'i'}, '<leader>ti', M.toggle_imtoggle)
 end
 
 return M
