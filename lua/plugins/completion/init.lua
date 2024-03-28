@@ -47,17 +47,14 @@ return {
         lazy = true,
         init = function()
             local api = vim.api
-            local init_group = api.nvim_create_augroup('init_lsp', {
-                clear = true,
-            })
             api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-                group = init_group,
                 -- pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
+                desc = "delay load nvim-lspconfig",
+                once = true,
                 callback = function()
                     vim.fn.timer_start(100, function()
                         require("lazy").load({plugins = {"nvim-lspconfig"}})
                     end)
-                    api.nvim_del_augroup_by_name('init_lsp')
                 end
             })
         end,

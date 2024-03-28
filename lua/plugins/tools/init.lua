@@ -84,7 +84,7 @@ return {
         lazy = true,
         init = function ()
             vim.api.nvim_create_autocmd('BufRead', {
-                pattern = '*',
+                desc = "delay load gitsigns.nvim",
                 once = true,
                 callback = function()
                     vim.fn.timer_start(1000, function ()
