@@ -13,7 +13,7 @@ return {
 
     -- statusline
     {
-        'sontungexpt/sttusline',
+        'kewuaa/sttusline',
         branch = "table_version",
         lazy = true,
         event = 'ColorScheme',
