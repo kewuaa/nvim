@@ -252,7 +252,14 @@ configs.tabline = function()
         show_index = true,           -- show tab index
         show_modify = true,          -- show buffer modification indicator
         show_icon = true,           -- show file extension icon
-        fnamemodify = ':t',          -- file name modifier
+        fnamemodify = function(bufname)
+            if string.find(bufname, 'term') then
+                local cmd = vim.fn.split(bufname, ":")[3]
+                return "COMMAND: " .. cmd
+            else
+                return vim.fn.fnamemodify(bufname, ':t')
+            end
+        end,
         modify_indicator = '[+]',    -- modify indicator
         no_name = 'No name',         -- no name buffer name
         brackets = { '[', ']' },     -- file name brackets surrounding
