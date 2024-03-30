@@ -23,5 +23,23 @@
             "\t$2"
         ],
         "description": "Code snippet for the else statement"
+    },
+    "foreach": {
+        "prefix": "foreach",
+        "body": [
+            "foreach (${1:array})",
+            "\t$2",
+            "endforeach()"
+        ],
+        "description":"Code snippet for the foreach statement"
+    },
+    "while": {
+        "prefix": "while",
+        "body": [
+            "while (${1:condition})",
+            "\t$2",
+            "endwhile()"
+        ],
+        "description": "Code snippet for the while statement"
     }
 }
