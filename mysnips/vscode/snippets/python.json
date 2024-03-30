@@ -8,17 +8,6 @@
         ],
         "description": "Code snippet for the if statement."
     },
-    "if/else": {
-        "prefix": "if",
-        "body": [
-            "if ${1:condition}:",
-            "\t${2:pass}",
-            "else:",
-            "\t${3:pass}",
-            "#endif"
-        ],
-        "description": "Code snippet for the if/else statement."
-    },
     "elif": {
         "prefix": "elif",
         "body": [

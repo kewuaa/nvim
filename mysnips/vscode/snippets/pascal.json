@@ -65,35 +65,11 @@
             "if ${1:condition} then",
             "begin",
             "\t$2",
-            "end"
+            "end$0;"
         ],
         "description": "Code snippet for the if statement."
     },
-    "else": {
-        "prefix": "else",
-        "body": [
-            "else",
-            "begin",
-            "\t$1",
-            "end;"
-        ],
-        "description": "Code snippet for the else statement."
-    },
-    "if/else": {
-        "prefix": "if",
-        "body": [
-            "if ${1:condition} then",
-            "begin",
-            "\t$2",
-            "end",
-            "else",
-            "begin",
-            "\t$3",
-            "end;"
-        ],
-        "description": "Code snippet for the if/else statement."
-    },
-    "else/if": {
+    "elif": {
         "prefix": "elif",
         "body": [
             "else if ${1:condition} then",
@@ -102,6 +78,16 @@
             "end"
         ],
         "description": "Code snippet for the else/if statement."
+    },
+    "else": {
+        "prefix": "else",
+        "body": [
+            "else",
+            "begin",
+            "\t$1",
+            "end"
+        ],
+        "description": "Code snippet for the else statement."
     },
     "try/except": {
         "prefix": "try",

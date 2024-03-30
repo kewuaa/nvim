@@ -8,6 +8,15 @@
         ],
         "description": "Code snippet for the if statement."
     },
+    "elif": {
+        "prefix": "elif",
+        "body": [
+            "else if (${1:condition}) {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the elif statement."
+    },
     "else": {
         "prefix": "else",
         "body": [
@@ -16,17 +25,6 @@
             "}"
         ],
         "description": "Code snippet for the else statement."
-    },
-    "if/else": {
-        "prefix": "if",
-        "body": [
-            "if (${1:condition}) {",
-            "\t$2",
-            "} else {",
-            "\t $3",
-            "}"
-        ],
-        "description": "Code snippet for the if/else statement."
     },
     "for": {
         "prefix": "for",
