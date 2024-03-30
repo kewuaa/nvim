@@ -83,6 +83,17 @@ configs.mini_indentscope = function()
     vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', {
         fg = 'pink'
     })
+    local exclude_filetypes = require("core.settings").exclude_filetypes
+    local exclude_buftypes = {"terminal", "nofile", "quickfix", "prompt"}
+    vim.api.nvim_create_autocmd("BufEnter", {
+        group = vim.api.nvim_create_augroup("disable_mini_indentscope", {clear = true}),
+        callback = function()
+            if vim.tbl_contains(exclude_filetypes, vim.bo.filetype)
+                    or vim.tbl_contains(exclude_buftypes, vim.bo.buftype) then
+                vim.b.miniindentscope_disable = true
+            end
+        end
+    })
     require("core.utils.bigfile").register(
         512,
         function(_)
