@@ -39,6 +39,7 @@ M.init = function()
         end
     })
     api.nvim_create_autocmd('filetype', {
+        desc = "quick quit",
         pattern = {
             'qf',
             'help',
