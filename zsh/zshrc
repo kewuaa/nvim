@@ -26,3 +26,4 @@ bindkey '^[[Z' reverse-menu-complete
 
 # alias
 alias ls="ls -lh --color=auto"
+alias codeshot="silicon --from-clipboard --to-clipboard"
