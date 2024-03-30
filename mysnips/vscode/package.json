@@ -22,6 +22,10 @@
                 "path": "./snippets/cpp.json"
             },
             {
+                "language": "cmake",
+                "path": "./snippets/cmake.json"
+            },
+            {
                 "language": "cs",
                 "path": "./snippets/csharp.json"
             },
