@@ -52,15 +52,41 @@ configs.mini_pairs = function()
     mini_pairs.setup({
         -- In which modes mappings from this `config` should be created
         modes = { insert = true, command = true, terminal = true },
+        mappings = {
+            ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\].' },
+            ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\].' },
+            ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\].' },
+
+            [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
+            [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
+            ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
+
+            ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^\\].', register = { cr = false } },
+            ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a<&\\].', register = { cr = false } },
+            ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\].', register = { cr = false } },
+        },
     })
     local mini_pairs_group = vim.api.nvim_create_augroup("mini_pairs", {
         clear = true
     })
     vim.api.nvim_create_autocmd("FileType", {
         group = mini_pairs_group,
-        pattern = "markdown",
-        callback = function()
-            mini_pairs.map_buf(0, 'i', '$', {action = 'closeopen', pair = '$$'})
+        callback = function(params)
+            if params.match == 'markdown' then
+                mini_pairs.map_buf(0, 'i', '$', {
+                    action = 'closeopen',
+                    pair = '$$',
+                    neigh_pattern = '[^\\]',
+                    register = { cr = true }
+                })
+            elseif params.match == 'rust' or params.match == 'zig' then
+                mini_pairs.map_buf(0, 'i', '|', {
+                    action = 'closeopen',
+                    pair = '||',
+                    neigh_pattern = '[^%w\\]',
+                    register = { cr = false }
+                })
+            end
         end
     })
     local map_bs = function(lhs, rhs)
