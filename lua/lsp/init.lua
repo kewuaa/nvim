@@ -125,7 +125,7 @@ local function add_auto_install_hook()
         ["dockerls"] = "dockerfile-language-server",
         ["jsonls"] = "json-lsp",
         ["lua_ls"] = "lua-language-server",
-        -- ["neocmake"] = "neocmakelsp",
+        ["neocmake"] = "neocmakelsp",
         ["pylsp"] = "python-lsp-server",
         ["pyright"] = "pyright",
         ["ruff_lsp"] = "ruff-lsp",
