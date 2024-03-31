@@ -26,4 +26,4 @@ bindkey '^[[Z' reverse-menu-complete
 
 # alias
 alias ls="ls -lh --color=auto"
-alias codeshot="silicon --from-clipboard --to-clipboard"
+alias codeshot="silicon --from-clipboard --to-clipboard --font 'FiraCode Nerd Font; Noto Sans'"
