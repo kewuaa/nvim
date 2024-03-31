@@ -51,6 +51,7 @@ settings.exclude_filetypes = {
     "toggleterm",
     "notify",
     "mason",
+    "crates.nvim",
     "dap-repl",
     "dap-float",
     "dapui_watches",

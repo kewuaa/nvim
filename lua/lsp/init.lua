@@ -198,5 +198,6 @@ function M.setup()
         end
     end
 end
+M.on_attach = on_attach
 
 return M
