@@ -392,9 +392,7 @@ configs.crates = function()
 
         map('n', 'K', show_documentation, opts)
     end
-    if vim.fn.expand("%:t") == "Cargo.toml" then
-        set_keymaps()
-    end
+    set_keymaps()
     vim.api.nvim_create_autocmd("BufRead", {
         group = vim.api.nvim_create_augroup("crates_keymap", {clear = true}),
         pattern = "Cargo.toml",

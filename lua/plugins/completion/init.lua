@@ -65,11 +65,17 @@ return {
             {'glepnir/lspsaga.nvim', branch = 'main', config = configs.lspsaga},
             -- lua 增强
             {'folke/neodev.nvim', config = configs.neodev},
-            -- Cargo.toml 支持
-            { 'saecki/crates.nvim', config = configs.crates },
             -- 符号提示
             {'ray-x/lsp_signature.nvim'},
         }
+    },
+
+    -- Cargo.toml 支持
+    {
+        'saecki/crates.nvim',
+        lazy = true,
+        event = "BufRead Cargo.toml",
+        config = configs.crates,
     },
 
     -- copilot support
