@@ -8,7 +8,7 @@ return {
         'folke/tokyonight.nvim',
         lazy = true,
         event = 'VeryLazy',
-        config = configs.color_scheme("tokyonight"),
+        config = configs.tokyonight,
     },
 
     -- statusline
