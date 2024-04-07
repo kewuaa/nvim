@@ -4,7 +4,6 @@ local configs = require("plugins.ui.configs")
 return {
     -- 颜色主题
     {
-    --     'sainnhe/sonokai',
         'folke/tokyonight.nvim',
         lazy = true,
         event = 'VeryLazy',
