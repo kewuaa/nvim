@@ -9,6 +9,7 @@ local servers = {
     'pasls',
     'python',
     'rust_analyzer',
+    'taplo',
     'tsserver',
     'zls',
 }
@@ -131,6 +132,7 @@ local function add_auto_install_hook()
         ["pyright"] = "pyright",
         ["ruff_lsp"] = "ruff-lsp",
         ["rust_analyzer"] = "rust-analyzer",
+        ["taplo"] = "taplo",
         ["tsserver"] = "typescript-language-server",
     }
     local util = require("lspconfig.util")
