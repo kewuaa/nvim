@@ -82,7 +82,7 @@ function keymaps.init()
     map('n', '<leader>bd', '<cmd>bdelete<CR>', opts_)
 
     map('n', '<leader>tc', '<cmd>tabclose<CR>', opts_)
-    map({'n', 't'}, '<leader><TAB>', '<cmd>tabnext #<CR>', opts_)
+    map({'n', 't'}, '<A-TAB>', '<cmd>tabnext #<CR>', opts_)
     map('t', '<C-PageUp>', '<CMD>tabnext<CR>', opts_)
     map('t', '<C-PageDown>', '<CMD>tabprevious<CR>', opts_)
 
