@@ -141,7 +141,11 @@ local function add_auto_install_hook()
         if not pkg_name then
             return
         end
-        require("core.utils.mason").ensure_install(pkg_name)
+        require("core.utils.mason").ensure_install(pkg_name, {
+            success = function()
+                require("lspconfig")[config.name].setup(config)
+            end
+        })
     end)
 end
 
