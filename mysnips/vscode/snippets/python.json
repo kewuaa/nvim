@@ -154,10 +154,5 @@
         "prefix": "pprint",
         "body": "__import__(\"pprint\").pprint($1)",
         "description": "Code snippet for the pprint statement."
-    },
-    "pyright/ignore": {
-        "prefix": "pyignore",
-        "body": "# pyright: ignore",
-        "description": "Code snippet for the pyright ignore statement."
     }
 }

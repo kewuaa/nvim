@@ -17,7 +17,7 @@ local servers = {
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    if client.name == 'pyright' then
+    if client.name == 'basedpyright' then
         vim.schedule(function()
             require("core.utils.python").parse_pyenv(
                 client.config.root_dir or vim.fn.expand("%:p:h")
@@ -129,7 +129,7 @@ local function add_auto_install_hook()
         ["lua_ls"] = "lua-language-server",
         ["neocmake"] = "neocmakelsp",
         ["pylsp"] = "python-lsp-server",
-        ["pyright"] = "pyright",
+        ["basedpyright"] = "basedpyright",
         ["ruff_lsp"] = "ruff-lsp",
         ["rust_analyzer"] = "rust-analyzer",
         ["taplo"] = "taplo",

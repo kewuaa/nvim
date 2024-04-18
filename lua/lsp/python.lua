@@ -10,10 +10,11 @@ local exclude = {
     '.pytest_cache',
     '.mypy_cache'
 }
-local pyright_config = {
+
+M.basedpyright = {
     rootmarks = rootmarks,
     settings = {
-        python = {
+        basedpyright = {
             disableOrganizeImports = true,
             analysis = {
                 -- logLevel = 'track',
@@ -22,15 +23,16 @@ local pyright_config = {
                 diagnosticMode = "workspace",
                 useLibraryCodeForTypes = true,
                 stubPath = string.format("%s/../python-type-stubs/stubs", settings.pyvenv_path),
-                -- typeCheckingMode = 'off',
+                typeCheckingMode = 'standard',
             },
+        },
+        python = {
             venvPath = settings.pyvenv_path,
-            venv = "default",
+            pythonPath = require("core.settings"):getpy("default")
         }
     }
 }
-
-M.pyright = pyright_config
+vim.print(M.basedpyright)
 M.ruff_lsp = {
     rootmarks = rootmarks,
     on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
