@@ -32,7 +32,6 @@ M.basedpyright = {
         }
     }
 }
-vim.print(M.basedpyright)
 M.ruff_lsp = {
     rootmarks = rootmarks,
     on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
