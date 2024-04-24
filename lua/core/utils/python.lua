@@ -3,6 +3,7 @@ local current_env = nil
 
 function M.parse_pyenv(root)
     local venv = nil
+    local name = nil
     local subpath = require('core.settings').is_Windows and '/Scripts/python.exe' or '/bin/python'
     local local_venv = string.format(
         '%s%s%s',
@@ -12,6 +13,7 @@ function M.parse_pyenv(root)
     )
     if vim.loop.fs_stat(local_venv) then
         venv = local_venv
+        name = vim.fn.fnamemodify(root, ":t")
     else
         venv = nil
         local config_file = string.format(
@@ -45,9 +47,10 @@ function M.parse_pyenv(root)
                 venv = require("core.settings"):getpy("default")
             end
         end
+        name = vim.fn.fnamemodify(venv, ':h:h:t')
     end
     current_env = {
-        name = vim.fn.fnamemodify(venv, ':h:h:t'),
+        name = name,
         path = venv,
     }
     vim.api.nvim_exec_autocmds("User", {pattern = "PYVENVUPDATE", modeline = false})
