@@ -60,40 +60,14 @@
         ],
         "description": "Code snippet for the with statement."
     },
-    "try/except": {
+    "try": {
         "prefix": "try",
         "body": [
             "try:",
             "\t${1:pass}",
-            "except ${2:Exception}:",
-            "\t${3:pass}",
             "#endtry"
         ],
-        "description": "Code snippet for the try/except statement."
-    },
-    "try/finally": {
-        "prefix": "try",
-        "body": [
-            "try:",
-            "\t${1:pass}",
-            "finally:",
-            "\t${4:pass}",
-            "#endtry"
-        ],
-        "description": "Code snippet for the try/finally statement."
-    },
-    "try/except/finally": {
-        "prefix": "try",
-        "body": [
-            "try:",
-            "\t${1:pass}",
-            "except ${2:Exception}:",
-            "\t${3:pass}",
-            "finally:",
-            "\t${4:pass}",
-            "#endtry"
-        ],
-        "description": "Code snippet for the try/except/finally statement."
+        "description": "Code snippet for the try statement."
     },
     "except": {
         "prefix": "except",
