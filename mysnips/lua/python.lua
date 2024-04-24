@@ -30,7 +30,7 @@ return {
             dscr = "Code snippet for the def statement."
         },
         {
-            t("def "), i(1, "name"), t"(", i(2), t(") -> "), i(3, "type"), t(":"),
+            t("def "), i(1, "name"), t"(", i(2), t(") -> "), i(3, "None"), t(":"),
             d(4, function(args)
                 local params = split(args[1][1], ",")
                 if params[1] == "self" then
