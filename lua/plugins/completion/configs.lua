@@ -75,6 +75,7 @@ configs.nvim_cmp = function()
                 return true
             end
         end,
+        preselect = cmp.PreselectMode.None,
         -- window = {
         --     completion = {
         --         border = border("Normal"),
