@@ -391,7 +391,7 @@ configs.crates = function()
         map("n", "<leader>cU", crates.upgrade_crate, opts)
         map("v", "<leader>cU", crates.upgrade_crates, opts)
 
-        map('n', 'K', show_documentation, opts)
+        map('n', '<C-S-K>', show_documentation, opts)
     end
     set_keymaps()
     vim.api.nvim_create_autocmd("BufRead", {
