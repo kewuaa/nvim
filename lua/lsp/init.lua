@@ -80,7 +80,7 @@ local on_attach = function(client, bufnr)
     map("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", bufopts)
 
     -- format
-    -- map('n', '<space>f', function() vim.lsp.buf.format{async = true} end, bufopts)
+    map('n', '<leader>fmt', function() vim.lsp.buf.format{async = true} end, bufopts)
 
     -- code action
     -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
