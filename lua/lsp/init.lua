@@ -130,7 +130,7 @@ local function add_auto_install_hook()
         ["neocmake"] = "neocmakelsp",
         ["pylsp"] = "python-lsp-server",
         ["basedpyright"] = "basedpyright",
-        ["ruff_lsp"] = "ruff-lsp",
+        ["ruff"] = "ruff",
         ["rust_analyzer"] = "rust-analyzer",
         ["taplo"] = "taplo",
         ["tsserver"] = "typescript-language-server",

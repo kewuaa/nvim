@@ -32,16 +32,11 @@ M.basedpyright = {
         }
     }
 }
-M.ruff_lsp = {
+M.ruff = {
     rootmarks = rootmarks,
-    on_attach = function(client, _) client.server_capabilities.hoverProvider = false end,
-    init_options = {
-        args = {
-            '--line-length=80',
-            '--ignore=E402',
-            '--exclude=' .. vim.fn.join(exclude, ',')
-        }
-    }
+    on_attach = function(client, _)
+        client.server_capabilities.hoverProvider = false
+    end,
 }
 -- M.pylsp = {
 --     rootmarks = rootmarks,
