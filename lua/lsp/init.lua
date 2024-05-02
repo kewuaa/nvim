@@ -128,7 +128,6 @@ local function add_auto_install_hook()
         ["jsonls"] = "json-lsp",
         ["lua_ls"] = "lua-language-server",
         ["neocmake"] = "neocmakelsp",
-        ["pylsp"] = "python-lsp-server",
         ["basedpyright"] = "basedpyright",
         ["ruff"] = "ruff",
         ["rust_analyzer"] = "rust-analyzer",
