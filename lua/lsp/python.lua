@@ -19,7 +19,7 @@ M.basedpyright = {
         },
         python = {
             venvPath = settings.pyvenv_path,
-            pythonPath = require("core.settings"):getpy("default")
+            -- pythonPath = require("core.settings"):getpy("default")
         }
     }
 }
