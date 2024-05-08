@@ -11,7 +11,7 @@ M.ensure_install = function(pkg_name, callbacks)
                 vim.schedule_wrap(function()
                     if pkg:is_installed() then
                         vim.notify(("%s was successfully installed"):format(pkg_name))
-                        if callbacks.success and type(callbacks.success) == "function" then
+                        if callbacks and callbacks.success and type(callbacks.success) == "function" then
                             callbacks.success()
                         end
                     else
@@ -19,7 +19,7 @@ M.ensure_install = function(pkg_name, callbacks)
                             ("failed to install %s. Installation logs are available in :Mason and :MasonLog"):format(pkg_name),
                             vim.log.levels.ERROR
                         )
-                        if callbacks.failed and type(callbacks.failed) == "function" then
+                        if callbacks and callbacks.failed and type(callbacks.failed) == "function" then
                             callbacks.failed()
                         end
                     end
