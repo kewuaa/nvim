@@ -82,6 +82,14 @@ function keymaps.init()
     map('n', '<leader>bd', '<cmd>bdelete<CR>', opts_)
 
     map('n', '<leader>tc', '<cmd>tabclose<CR>', opts_)
+    for i = 1, 6 do
+        map(
+            {"n", "t"},
+            ("<A-%d>"):format(i),
+            ("<CMD>tabnext %d<CR>"):format(i),
+            opts_
+        )
+    end
     map({'n', 't'}, '<A-TAB>', '<cmd>tabnext #<CR>', opts_)
     map('t', '<C-PageUp>', '<CMD>tabnext<CR>', opts_)
     map('t', '<C-PageDown>', '<CMD>tabprevious<CR>', opts_)
