@@ -50,9 +50,6 @@ configs.nvim_cmp = function()
             end,
         },
     }
-    local latex_symbol_source = { name = 'latex_symbols' }
-    -- local bibliography_source = { name = 'pandoc_references' }
-    local bibliography_source = { name = 'cmp_pandoc' }
     local path_source = {
         name = 'path',
         option = {
@@ -119,9 +116,6 @@ configs.nvim_cmp = function()
                         nvim_lsp = "[LSP]",
                         path = "[PATH]",
                         cmdline = "[CMD]",
-                        -- pandoc_references = '[PANDOC]',
-                        cmp_pandoc = '[PANDOC]',
-                        latex_symbols = '[LATEX]',
                         dap = "[DAP]",
                     }),
                     ellipsis_char = '...',
@@ -204,24 +198,6 @@ configs.nvim_cmp = function()
             })
     })
     cmp.setup.filetype(
-        {'markdown'},
-        vim.tbl_deep_extend(
-            "force",
-            config,
-            {
-                sources = cmp.config.sources(
-                    { path_source },
-                    {
-                        snip_source,
-                        lsp_source,
-                        buffer_source,
-                        bibliography_source,
-                        latex_symbol_source,
-                    }
-                )
-            })
-    )
-    cmp.setup.filetype(
         { "dap-repl", "dapui_watches", "dapui_hover" },
         vim.tbl_deep_extend('force', config, { sources = { dap_source } })
     )
@@ -232,24 +208,6 @@ configs.nvim_cmp = function()
         end,
         { defer = true }
     )
-end
-
-configs.cmp_pandoc = function()
-    local fts = {'markdown', 'pandoc', 'rmd'}
-    local function setup_cmp_pandoc()
-        require('cmp_pandoc').setup({
-            filetypes = fts,
-        })
-    end
-    if vim.fn.index(fts, vim.bo.filetype) < 0 then
-        vim.api.nvim_create_autocmd('FileType', {
-            pattern = table.concat(fts, ','),
-            once = true,
-            callback = setup_cmp_pandoc
-        })
-    else
-        setup_cmp_pandoc()
-    end
 end
 
 configs.LuaSnip = function()
