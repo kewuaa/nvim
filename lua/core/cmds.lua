@@ -31,6 +31,7 @@ end
 
 M.init = function()
     api.nvim_create_autocmd('User', {
+        desc = "lazy load rplugin and clipboard",
         once = true,
         pattern = 'VeryLazy',
         callback = function ()
@@ -39,16 +40,16 @@ M.init = function()
         end
     })
     api.nvim_create_autocmd('filetype', {
-        desc = "quick quit",
-        pattern = {
-            'qf',
-            'help',
-            'notify',
-            'TelescopePrompt',
-            'dap-float',
-        },
+        desc = "custom filetype callback",
         callback = function ()
-            map('n', 'q', '<cmd>q<CR>', bufopts)
+            local ft = vim.bo.filetype
+            -- quick quit
+            if vim.fn.index({ 'qf', 'help', 'notify', 'TelescopePrompt', 'dap-float' }, ft) ~= -1 then
+                map('n', 'q', '<cmd>q<CR>', bufopts)
+            -- change commentstring
+            elseif vim.fn.index({"c", "cpp", "rust"}, ft) ~= -1 then
+                vim.bo.commentstring = "// %s"
+            end
         end
     })
 
