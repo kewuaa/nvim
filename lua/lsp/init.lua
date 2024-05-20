@@ -39,14 +39,14 @@ local on_attach = function(client, bufnr)
     map("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", bufopts)
 
     -- Diagnsotic jump can use `<c-o>` to jump back
-    map("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
-    map("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
+    map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
+    map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
 
     -- Only jump to error
-    map("n", "[E", function()
+    map("n", "[e", function()
       require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
     end, bufopts)
-    map("n", "]E", function()
+    map("n", "]e", function()
       require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
     end, bufopts)
 
