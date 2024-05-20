@@ -98,26 +98,6 @@ configs.mini_pairs = function()
     map_bs('<C-u>', 'v:lua.MiniPairs.bs("\21")')
 end
 
-configs.mini_comment = function()
-    -- No need to copy this inside `setup()`. Will be used automatically.
-    require("mini.comment").setup({
-        -- Options which control module behavior
-        options = {
-            -- Function to compute custom 'commentstring' (optional)
-            custom_commentstring = function()
-                local ft = vim.bo.ft
-                if ft == "cython" then
-                    return "#%s"
-                elseif vim.fn.index({"cpp", "c", "cs", "fsharp", "dart"}, ft) > -1 then
-                    return "//%s"
-                end
-                return require("ts_context_commentstring.internal").calculate_commentstring()
-                    or vim.bo.commentstring
-            end,
-        },
-    })
-end
-
 configs.treesj = function ()
     local tsj = require('treesj')
     local langs = require('treesj.langs')['presets']

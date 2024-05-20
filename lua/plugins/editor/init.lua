@@ -43,23 +43,6 @@ return {
         config = configs.mini_pairs,
     },
 
-    -- 注释
-    {
-        'echasnovski/mini.comment',
-        lazy = true,
-        keys = {
-            {'gcc', mode = 'n'},
-            {'gc', mode = {'n', 'x'}},
-        },
-        config = configs.mini_comment,
-        dependencies = {
-            {
-                'JoosepAlviste/nvim-ts-context-commentstring',
-                opts = {enable_autocmd = false}
-            }
-        }
-    },
-
     -- TODO 注释
     {
         'folke/todo-comments.nvim',
