@@ -9,7 +9,7 @@
         "description": "Code snippet for the cdef extern statement."
     },
     "cdef/function": {
-        "prefix": "cfunc",
+        "prefix": "cdef",
         "body": [
             "cdef ${1:type} ${2:name}($3):",
             "\t${4:pass}",
@@ -18,7 +18,7 @@
         "description": "Code snippet for the cdef statement."
     },
     "cpdef": {
-        "prefix": "cpfunc",
+        "prefix": "cpdef",
         "body": [
             "cpdef ${1:type} ${2:name}($3):",
             "\t${4:pass}",
@@ -54,7 +54,7 @@
         "description": "Code snippet for the cppclass statement."
     },
     "ctypedef": {
-        "prefix": "ctypedef",
+        "prefix": "typedef",
         "body": "ctypedef ${1:type1} ${2:type2}",
         "description": "Code snippet for the ctypedef statement."
     },

@@ -12,13 +12,11 @@ return {
             {'onsails/lspkind.nvim'},
             -- snippets
             {
-                'L3MON4D3/LuaSnip',
-                config = configs.LuaSnip,
+                'garymjr/nvim-snippets',
+                config = configs.snippets,
             },
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
-            -- snippets source
-            {'saadparwaiz1/cmp_luasnip'},
             -- underline sort
             {'lukas-reineke/cmp-under-comparator'},
             -- buffer source

@@ -1,4 +1,13 @@
 {
+    "def": {
+        "prefix": "def",
+        "body": [
+            "def ${1:name}($2) -> ${3:None}:",
+            "\t${4:pass}",
+            "#enddef"
+        ],
+        "description": "Code snippet for the def statement."
+    },
     "if": {
         "prefix": "if",
         "body": [

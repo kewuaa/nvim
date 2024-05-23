@@ -2,7 +2,6 @@ local configs = {}
 
 configs.nvim_cmp = function()
     local cmp = require('cmp')
-    local luasnip = require('luasnip')
     local compare = cmp.config.compare
     local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -32,7 +31,7 @@ configs.nvim_cmp = function()
     end
 
     local lsp_source = { name = 'nvim_lsp' }
-    local snip_source = { name = 'luasnip' }
+    local snip_source = { name = 'snippets', max_item_count = 10 }
     local buffer_source = {
         name = 'buffer',
         option = {
@@ -89,7 +88,7 @@ configs.nvim_cmp = function()
         -- },
         snippet = {
             expand = function(args)
-                luasnip.lsp_expand(args.body)
+                vim.snippet.expand(args.body)
             end,
         },
         sorting = {
@@ -112,7 +111,7 @@ configs.nvim_cmp = function()
                     maxwidth = 50,
                     menu = ({
                         buffer = "[BUF]",
-                        luasnip = "[SNIP]",
+                        snippets = "[SNIP]",
                         nvim_lsp = "[LSP]",
                         path = "[PATH]",
                         cmdline = "[CMD]",
@@ -150,17 +149,15 @@ configs.nvim_cmp = function()
                 end
             end, { "i", "s" }),
             ["<C-k>"] = cmp.mapping(function(fallback)
-                if luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
-                    -- vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
+                if vim.snippet.active({direction = -1}) then
+                    vim.snippet.jump(-1)
                 else
                     fallback()
                 end
             end, { "i", "s" }),
             ["<C-j>"] = cmp.mapping(function(fallback)
-                if luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
-                    -- vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
+                if vim.snippet.active({direction = 1}) then
+                    vim.snippet.jump(1)
                 else
                     fallback()
                 end
@@ -210,16 +207,21 @@ configs.nvim_cmp = function()
     )
 end
 
-configs.LuaSnip = function()
-    local ls = require('luasnip')
+configs.snippets = function()
     local config_path = vim.fn.stdpath("config")
-    ls.config.set_config({
-        history = true,
-        updateevents = 'TextChanged,TextChangedI',
-        delete_check_events = "TextChanged,InsertLeave",
+    require("snippets").setup({
+        create_cmp_source = true,
+        friendly_snippets = false,
+        extended_filetypes = {
+            cython = {"python"},
+            cpp = {"c"},
+            cs = {"c"},
+            javascript = {"c"}
+        },
+        search_paths = {
+            config_path .. "/snippets"
+        }
     })
-    require("luasnip.loaders.from_vscode").lazy_load({paths = ("%s/mysnips/vscode"):format(config_path)})
-    require("luasnip.loaders.from_lua").lazy_load({paths = ("%s/mysnips/lua"):format(config_path)})
 end
 
 configs.nvim_lspconfig = function ()
