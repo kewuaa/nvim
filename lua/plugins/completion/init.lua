@@ -49,7 +49,7 @@ return {
         config = configs.nvim_lspconfig,
         dependencies = {
             -- lsp 增强
-            {'glepnir/lspsaga.nvim', branch = 'main', config = configs.lspsaga},
+            {'nvimdev/lspsaga.nvim', config = configs.lspsaga},
             -- lua 增强
             {'folke/neodev.nvim', config = configs.neodev},
             -- 符号提示

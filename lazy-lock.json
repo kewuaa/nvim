@@ -21,7 +21,7 @@
   "leetcode.nvim": { "branch": "master", "commit": "458da8ea7e73e8ed221165aa56a595e33c4ec644" },
   "lsp_signature.nvim": { "branch": "master", "commit": "3cc161d4e584254a7a21050734ef07cd59bbb5d8" },
   "lspkind.nvim": { "branch": "master", "commit": "1735dd5a5054c1fb7feaf8e8658dbab925f4f0cf" },
-  "lspsaga.nvim": { "branch": "main", "commit": "234d8a0a411d43d5f265ef6c40eebf233e453aa2" },
+  "lspsaga.nvim": { "branch": "main", "commit": "e050ff4c95b9bb0ed18acb43d897e7902cdd607f" },
   "markdown-preview.nvim": { "branch": "master", "commit": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee" },
   "mason.nvim": { "branch": "main", "commit": "49ff59aded1047a773670651cfa40e76e63c6377" },
   "mini.ai": { "branch": "main", "commit": "a0262e61f79dfc7bb940d1719c00b0ede042ddd7" },
