@@ -1,7 +1,6 @@
 import sys
 
 from setuptools import Extension, setup
-from setuptools.command.build_ext import build_ext as _build_ext
 
 
 use_cython = False
