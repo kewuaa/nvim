@@ -27,7 +27,7 @@
         "description": "Code snippet for the cpdef statement."
     },
     "cdef/class": {
-        "prefix": "cclass",
+        "prefix": "cdef class",
         "body": [
             "cdef class ${1:name}:",
             "\t${2:pass}",
@@ -36,7 +36,7 @@
         "description": "Code snippet for the cclass statement."
     },
     "cdef/struct": {
-        "prefix": "struct",
+        "prefix": "cdef struct",
         "body": [
             "cdef struct ${1:name}:",
             "\t${2:pass}",
@@ -45,7 +45,7 @@
         "description": "Code snippet for the cdef struct statement."
     },
     "cdef/cppclass": {
-        "prefix": "cppclass",
+        "prefix": "cdef cppclass",
         "body": [
             "cdef cppclass ${1:name}:",
             "\t${2:pass}",
@@ -54,12 +54,12 @@
         "description": "Code snippet for the cppclass statement."
     },
     "ctypedef": {
-        "prefix": "typedef",
+        "prefix": "ctypedef",
         "body": "ctypedef ${1:type1} ${2:type2}",
         "description": "Code snippet for the ctypedef statement."
     },
     "ctypedef/struct": {
-        "prefix": "struct",
+        "prefix": "ctypedef struct",
         "body": [
             "ctypedef struct ${1:name}:",
             "\t${2:pass}",

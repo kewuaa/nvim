@@ -9,7 +9,7 @@
         "description": "Code snippet for the if statement."
     },
     "elif": {
-        "prefix": "elif",
+        "prefix": "else if",
         "body": [
             "else if (${1:condition}) {",
             "\t$2",
@@ -57,9 +57,10 @@
         "prefix": "switch",
         "body": [
             "switch ($1) {",
-            "\tcase ${2:pattern}:",
+            "\tdefault: {",
             "\t\t$3",
             "\t\tbreak;",
+            "\t}",
             "}"
         ],
         "description": "Code snippet for the switch statement."
@@ -67,9 +68,10 @@
     "case": {
         "prefix": "case",
         "body": [
-            "case ${1:pattern}:",
+            "case ${1:pattern}: {",
             "\t$2",
-            "\tbreak;"
+            "\tbreak;",
+            "}"
         ],
         "description": "Code snippet for the case statement."
     }

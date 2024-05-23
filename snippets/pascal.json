@@ -1,6 +1,6 @@
 {
     "begin/end": {
-        "prefix": "begin",
+        "prefix": "begin ... end",
         "body": [
             "begin",
             "\t$1",
@@ -9,7 +9,7 @@
         "description": "Code snippet for the begin/end block."
     },
     "case/of": {
-        "prefix": "case",
+        "prefix": "case ... of",
         "body": [
             "case ${1:variable} of",
             "\t$2",
@@ -30,7 +30,7 @@
         "description": "Code snippet for the class statement."
     },
     "up/for": {
-        "prefix": "for",
+        "prefix": "for ... to ... do",
         "body": [
             "for ${1:i} := ${2:0} to ${3:stop} do",
             "begin",
@@ -40,7 +40,7 @@
         "description": "Code snippet for the up for statement."
     },
     "down/for": {
-        "prefix": "for",
+        "prefix": "for ... downto ... do",
         "body": [
             "for ${1:i} := ${2:0} downto ${3:stop} do",
             "begin",
@@ -50,7 +50,7 @@
         "description": "Code snippet for the down for statement."
     },
     "for/in": {
-        "prefix": "for",
+        "prefix": "for ... in ... do",
         "body": [
             "for ${1:value} in ${2:enumerator} do",
             "begin",
@@ -70,7 +70,7 @@
         "description": "Code snippet for the if statement."
     },
     "elif": {
-        "prefix": "elif",
+        "prefix": "else if",
         "body": [
             "else if ${1:condition} then",
             "begin",
@@ -90,7 +90,7 @@
         "description": "Code snippet for the else statement."
     },
     "try/except": {
-        "prefix": "try",
+        "prefix": "try ... except ...",
         "body": [
             "try",
             "\t$1",
@@ -114,7 +114,7 @@
         "description": "Code snippet for the on statement."
     },
     "try/finally": {
-        "prefix": "try",
+        "prefix": "try ... finally ...",
         "body": [
             "try",
             "\t$1",

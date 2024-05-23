@@ -9,7 +9,7 @@
         "description": "Code snippet for the if statement."
     },
     "elif": {
-        "prefix": "elif",
+        "prefix": "else if",
         "body": [
             "else if ${1:condition} then",
             "\t$2"
