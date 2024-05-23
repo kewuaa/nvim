@@ -25,6 +25,15 @@
         ],
         "description": "Code snippet for the while statement."
     },
+    "repeat": {
+        "prefix": "repeat",
+        "body": [
+            "repeat",
+            "\t$1",
+            "until ${2:condition}"
+        ],
+        "description": "Code snippet for the repeat statement."
+    },
     "function": {
         "prefix": "function",
         "body": [
