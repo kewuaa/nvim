@@ -1,0 +1,62 @@
+{
+    "if": {
+        "prefix": "if",
+        "body": [
+            "if ${1:condition} then",
+            "\t$2",
+            "end"
+        ],
+        "description": "Code snippet for the if statement."
+    },
+    "elif": {
+        "prefix": "elif",
+        "body": [
+            "else if ${1:condition} then",
+            "\t$2"
+        ],
+        "description": "Code snippet for the elif statement."
+    },
+    "while": {
+        "prefix": "while",
+        "body": [
+            "while ${1:condition} do",
+            "\t$2",
+            "end"
+        ],
+        "description": "Code snippet for the while statement."
+    },
+    "function": {
+        "prefix": "function",
+        "body": [
+            "function$1($2)",
+            "\t$3",
+            "end"
+        ],
+        "description": "Code snippet for the function statement."
+    },
+    "for": {
+        "prefix": "for",
+        "body": [
+            "for ${1:i} = ${2:0},${3:stop} do",
+            "\t$4",
+            "end"
+        ],
+        "description": "Code snippet for the for statement."
+    },
+    "for/pair": {
+        "prefix": "for",
+        "body": [
+            "for ${1:k}, ${2:v} in pairs($3) do",
+            "\t$4",
+            "end"
+        ]
+    },
+    "for/ipair": {
+        "prefix": "for",
+        "body": [
+            "for ${1:i}, ${2:v} in ipairs($3) do",
+            "\t$4",
+            "end"
+        ]
+    }
+}
