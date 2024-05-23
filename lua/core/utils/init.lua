@@ -12,7 +12,7 @@ M.get_cwd = function ()
     end
     if not root then
         local startpath = fn.expand('%:p:h')
-        root = require("lspconfig").util.find_git_ancestor(startpath) or vim.fn.expand('%:p:h')
+        root = vim.fs.root(startpath, ".git") or vim.fn.expand("%:p:h")
     end
     return root
 end
