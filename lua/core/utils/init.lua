@@ -28,6 +28,7 @@ end
 M.init = function()
     require('core.utils.bigfile').init()
     require('core.utils.im').init()
+    require('core.utils.lsp').init()
 end
 
 return M
