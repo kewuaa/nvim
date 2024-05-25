@@ -26,6 +26,17 @@ M.clangd = {
         "--pretty", -- 输出的 JSON 文件更美观
         "--ranking-model=decision_forest", -- 建议的排序方案：hueristics (启发式), decision_forest (决策树)
         "-j=8", -- 同时开启的任务数量
+    },
+    settings = {
+        clangd = {
+            InlayHints = {
+                Designators = true,
+                Enabled = true,
+                ParameterNames = true,
+                DeducedTypes = true,
+            },
+            fallbackFlags = { "-std=c++20" },
+        }
     }
 }
 

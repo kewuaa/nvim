@@ -11,6 +11,12 @@ M.lua_ls = {
                     'vim',
                 }
             },
+            hint = {
+                enable = true
+            },
+            codeLens = {
+                enable = true
+            }
         }
     }
 }
