@@ -62,10 +62,6 @@ keymaps.dap = {
     {'n', '<leader>do', function () require('dap').repl.open() end},
 }
 
-keymaps.todo_comments = {
-    {'n', '<leader>ftd', todo_comments('TodoTelescope')}
-}
-
 ---------------------------------------------------------------------------------------------------
 
 function keymaps.init()

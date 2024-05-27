@@ -43,22 +43,6 @@ return {
         config = configs.mini_pairs,
     },
 
-    -- TODO 注释
-    {
-        'folke/todo-comments.nvim',
-        lazy = true,
-        init = require('core.keymaps'):load('todo_comments'),
-        cmd = {
-            'TodoQuickFix',
-            'TodoLocList',
-            'TodoTelescope',
-        },
-        config = true,
-        dependencies = {
-            {'nvim-lua/plenary.nvim'},
-        }
-    },
-
     -- 与J相反的操作
     {
         'Wansmer/treesj',
