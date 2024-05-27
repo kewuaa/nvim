@@ -24,6 +24,7 @@ keymaps.asynctasks = {
     {'n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>'},
     {'n', '<F5>', '<cmd>AsyncTask project-run<CR>'},
     {'n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>'},
+    {'n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>'},
 }
 
 keymaps.focus = {
@@ -81,7 +82,7 @@ function keymaps.init()
     map('n', '<leader>bn', '<cmd>bn<CR>', opts_)
     map('n', '<leader>bd', '<cmd>bdelete<CR>', opts_)
 
-    map('n', '<leader>tc', '<cmd>tabclose<CR>', opts_)
+    map('t', '<leader><ESC>', [[<c-\><c-n>]], opts_)
     for i = 1, 6 do
         map(
             {"n", "t"},
@@ -90,11 +91,10 @@ function keymaps.init()
             opts_
         )
     end
+    map({'n', 't'}, '<A-j>', '<cmd>tabnext<CR>', opts_)
+    map({'n', 't'}, '<A-k>', '<cmd>tabprevious<CR>', opts_)
     map({'n', 't'}, '<A-TAB>', '<cmd>tabnext #<CR>', opts_)
-    map('t', '<C-PageUp>', '<CMD>tabnext<CR>', opts_)
-    map('t', '<C-PageDown>', '<CMD>tabprevious<CR>', opts_)
-
-    map('t', '<leader><ESC>', [[<c-\><c-n>]], opts_)
+    map({'n', 't'}, '<M-S-c>', '<cmd>tabclose<CR>', opts_)
 
     map('n', '<leader>tq', function()
         local fn = vim.fn
