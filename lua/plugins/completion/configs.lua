@@ -209,26 +209,10 @@ configs.snippets = function()
         silent = true,
     }
     map(
-        "i",
+        {"i", "s"},
         "<C-j>",
         function()
-            if vim.snippet.active({ direction = 1 }) then
-                vim.schedule(function()
-                    vim.snippet.jump(1)
-                end)
-                return
-            end
-            return "<C-j>"
-        end,
-        opts
-    )
-    map(
-        "s",
-        "<C-j>",
-        function()
-            vim.schedule(function()
-                vim.snippet.jump(1)
-            end)
+            return vim.snippet.active({direction = 1}) and "<CMD>lua vim.snippet.jump(1)<CR>" or "<C-j>"
         end,
         opts
     )
@@ -236,13 +220,7 @@ configs.snippets = function()
         {"i", "s"},
         "<C-k>",
         function()
-            if vim.snippet.active({ direction = -1 }) then
-                vim.schedule(function()
-                    vim.snippet.jump(-1)
-                end)
-                return
-            end
-            return "<C-k>"
+            return vim.snippet.active({direction = -1}) and "<CMD>lua vim.snippet.jump(-1)<CR>" or "<C-k>"
         end,
         opts
     )
