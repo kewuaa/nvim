@@ -128,6 +128,18 @@ return {
         config = configs.focus,
     },
 
+    {
+        'echasnovski/mini.files',
+        version = false,
+        lazy = true,
+        keys = {
+            {"<leader>fe", function()
+                require("mini.files").open()
+            end, mode = "n"}
+        },
+        config = true,
+    },
+
     -- markdown preview
     {
         'iamcco/markdown-preview.nvim',
