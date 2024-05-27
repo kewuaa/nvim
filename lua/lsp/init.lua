@@ -31,60 +31,32 @@ local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
 
-    -- Show line diagnostics
-    map("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
-    -- Show cursor diagnostic
-    map("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", bufopts)
-    -- Show buffer diagnostic
-    map("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", bufopts)
-
-    -- Diagnsotic jump can use `<c-o>` to jump back
-    map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
-    map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
-
-    -- Only jump to error
-    map("n", "[e", function()
-      require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end, bufopts)
-    map("n", "]e", function()
-      require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end, bufopts)
+    map('n', '[d', vim.diagnostic.goto_prev, bufopts)
+    map('n', ']d', vim.diagnostic.goto_next, bufopts)
+    -- map('n', '<space>D', vim.diagnostic.open_float, bufopts)
+    map('n', '<leader>ld', vim.diagnostic.setloclist, bufopts)
 
     -- go to the definition
-    -- map('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    map("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
-    map("n","gD", "<cmd>Lspsaga goto_definition<CR>", bufopts)
-    -- map('n', 'gd', vim.lsp.buf.definition, bufopts)
+    -- map('n', '', vim.lsp.buf.declaration, bufopts)
+    map('n', 'gd', vim.lsp.buf.definition, bufopts)
+    map('n', 'gD', vim.lsp.buf.type_definition, bufopts)
 
     -- hover doc
-    -- map('n', 'K', vim.lsp.buf.hover, bufopts)
-    map("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
-    -- map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    -- map('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-
-    -- map('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+    map('n', 'K', vim.lsp.buf.hover, bufopts)
+    map('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    map({'n', 'i'}, '<M-S-k>', vim.lsp.buf.signature_help, bufopts)
 
     -- rename
-    -- map('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", bufopts)
+    map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
 
     -- find references
-    -- map('n', 'gr', vim.lsp.buf.references, bufopts)
-    map("n", "gr", "<cmd>Lspsaga finder<CR>", bufopts)
-
-    -- Outline
-    map("n","<leader>o", "<cmd>Lspsaga outline<CR>", bufopts)
-
-    -- Callhierarchy
-    map("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", bufopts)
-    map("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", bufopts)
+    map('n', 'gr', vim.lsp.buf.references, bufopts)
 
     -- format
     map('n', '<leader>fmt', function() vim.lsp.buf.format{async = true} end, bufopts)
 
     -- code action
-    -- map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    map({'n', 'v'}, '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
+    map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 
     -- workspace
     -- map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
@@ -92,7 +64,6 @@ local on_attach = function(client, bufnr)
     -- map('n', '<leader>wl', function()
     --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     -- end, bufopts)
-    require("plugins.attach").lsp(client, bufnr)
 end
 
 local function setup_ui()
@@ -153,13 +124,6 @@ function M.setup()
     setup_ui()
     local lsp_config = require('lspconfig')
 
-    -- Mappings.
-    -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    -- local opts = { noremap=true, silent=true }
-    -- map('n', '<space>e', vim.diagnostic.open_float, opts)
-    -- map('n', '<c-p>', vim.diagnostic.goto_prev, opts)
-    -- map('n', '<c-n>', vim.diagnostic.goto_next, opts)
-    -- map('n', '<space>q', vim.diagnostic.setloclist, opts)
     map(
         {"n", "t"},
         "<leader>tt",

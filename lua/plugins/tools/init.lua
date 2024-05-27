@@ -10,17 +10,6 @@ return {
         config = configs.mason,
     },
 
-    -- 显示代码错误
-    {
-        'folke/trouble.nvim',
-        lazy = true,
-        cmd = 'Trouble',
-        config = configs.trouble,
-        dependencies = {
-            {'nvim-tree/nvim-web-devicons'},
-        }
-    },
-
     -- 查找
     {
         'nvim-telescope/telescope.nvim',

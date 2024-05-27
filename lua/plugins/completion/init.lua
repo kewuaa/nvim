@@ -48,12 +48,8 @@ return {
         -- event = {'BufRead', 'BufNewFile'},
         config = configs.nvim_lspconfig,
         dependencies = {
-            -- lsp 增强
-            {'nvimdev/lspsaga.nvim', config = configs.lspsaga},
             -- lua 增强
             {'folke/neodev.nvim', config = configs.neodev},
-            -- 符号提示
-            {'ray-x/lsp_signature.nvim'},
         }
     },
 

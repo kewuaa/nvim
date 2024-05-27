@@ -232,58 +232,6 @@ configs.nvim_lspconfig = function ()
     end
 end
 
-configs.lspsaga = function()
-    local saga = require('lspsaga')
-    saga.setup({
-        finder = {
-            keys = {
-                edit = { 'o', '<CR>' },
-                vsplit = '<c-v>',
-                split = '<c-x>',
-                tabe = '<c-t>',
-                quit = { 'q', '<ESC>' },
-            }
-        },
-        definition = {
-            keys = {
-                edit = '<C-c>o',
-                vsplit = '<C-c>v',
-                split = '<C-c>x',
-                tabe = '<C-c>t',
-                quit = 'q',
-                close = '<Esc>',
-            },
-        },
-        diagnostic = {
-            on_insert = false,
-            show_code_action = false,
-            keys = {
-                exec_action = 'o',
-                quit = 'q',
-                go_action = 'g'
-            },
-        },
-        callhierarchy = {
-            show_detail = false,
-            keys = {
-                edit = 'e',
-                vsplit = 's',
-                split = 'i',
-                tabe = 't',
-                jump = 'o',
-                quit = 'q',
-                expand_collapse = 'u',
-            },
-        },
-        outline = {
-            auto_preview = false,
-        },
-        ui = {
-            border = 'single',
-        },
-    })
-end
-
 configs.neodev = function()
     require('neodev').setup({
         library = {
