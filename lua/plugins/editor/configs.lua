@@ -100,8 +100,8 @@ end
 
 configs.neotab = function()
     require("neotab").setup({
-        tabkey = "<Tab>",
-        act_as_tab = true,
+        tabkey = "<C-l>",
+        act_as_tab = false,
     })
 end
 
