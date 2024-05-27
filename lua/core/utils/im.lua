@@ -44,7 +44,7 @@ function M.toggle_imtoggle(opts)
         if not opts.silent then
             vim.notify('imtoggle disabled')
         end
-        vim.api.nvim_del_augroup_by_name('IM')
+        vim.api.nvim_del_augroup_by_name('_IM_')
         imtoogle_enabled = false
     end
 end
