@@ -124,26 +124,6 @@ function M.setup()
     setup_ui()
     local lsp_config = require('lspconfig')
 
-    map(
-        {"n", "t"},
-        "<leader>tt",
-        function()
-            local cmd
-            if require("core.settings").is_Windows then
-                cmd = ("cd /d %s && %s"):format(
-                    require("core.utils").get_cwd(),
-                    vim.fn.executable("clink") == 1 and "cmd.exe /k clink inject" or "cmd.exe"
-                )
-            else
-                cmd = ("cd %s && %s"):format(
-                    require("core.utils").get_cwd(),
-                    os.getenv("SHELL")
-                )
-            end
-            require('lspsaga.floaterm'):open_float_terminal({cmd})
-        end
-    )
-
     add_auto_install_hook()
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
