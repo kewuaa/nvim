@@ -169,6 +169,20 @@ configs.nvim_cmp = function()
         { "dap-repl", "dapui_watches", "dapui_hover" },
         vim.tbl_deep_extend('force', config, { sources = { dap_source } })
     )
+
+    cmp.event:on("confirm_done", function(event)
+        local Kind = cmp.lsp.CompletionItemKind
+        local item = event.entry:get_completion_item()
+        if vim.tbl_contains({ Kind.Function, Kind.Method }, item.kind) then
+            local cursor = vim.api.nvim_win_get_cursor(0)
+            local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2], cursor[1] - 1, cursor[2] + 1, {})[1]
+            if prev_char ~= "(" and prev_char ~= ")" then
+                local keys = vim.api.nvim_replace_termcodes("()<left>", false, false, true)
+                vim.api.nvim_feedkeys(keys, "i", true)
+            end
+        end
+    end)
+
     require('core.utils.bigfile').register(
         512,
         function(_)
