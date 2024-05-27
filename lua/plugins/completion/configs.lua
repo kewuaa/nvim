@@ -110,27 +110,23 @@ configs.nvim_cmp = function()
         },
         mapping = cmp.mapping.preset.insert({
             ["<CR>"] = cmp.mapping.confirm({ select = true }),
-            -- ["<C-p>"] = cmp.mapping.select_prev_item(),
-            -- ["<C-n>"] = cmp.mapping.select_next_item(),
+            ["<C-p>"] = cmp.mapping.select_prev_item(),
+            ["<C-n>"] = cmp.mapping(
+                function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif has_words_before() then
+                        cmp.complete()
+                    else
+                        fallback()
+                    end
+                end,
+                {"i", "s"}
+            ),
+            ["<C-space>"] = cmp.mapping.complete(),
+            ["<C-e>"] = cmp.mapping.close(),
             ["<C-b>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<C-e>"] = cmp.mapping.close(),
-            ["<Tab>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_next_item()
-                elseif has_words_before() then
-                    cmp.complete()
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_prev_item()
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
         }),
         sources = cmp.config.sources(
             { path_source },
