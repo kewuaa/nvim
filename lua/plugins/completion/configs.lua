@@ -119,20 +119,6 @@ configs.nvim_cmp = function()
                     fallback()
                 end
             end, { "i", "s" }),
-            ["<C-k>"] = cmp.mapping(function(fallback)
-                if vim.snippet.active({direction = -1}) then
-                    vim.snippet.jump(-1)
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
-            ["<C-j>"] = cmp.mapping(function(fallback)
-                if vim.snippet.active({direction = 1}) then
-                    vim.snippet.jump(1)
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
         }),
         sources = cmp.config.sources(
             { path_source },
@@ -207,6 +193,50 @@ configs.snippets = function()
             config_path .. "/snippets"
         }
     })
+
+    local map = vim.keymap.set
+    local opts = {
+        expr = true,
+        silent = true,
+    }
+    map(
+        "i",
+        "<C-j>",
+        function()
+            if vim.snippet.active({ direction = 1 }) then
+                vim.schedule(function()
+                    vim.snippet.jump(1)
+                end)
+                return
+            end
+            return "<C-j>"
+        end,
+        opts
+    )
+    map(
+        "s",
+        "<C-j>",
+        function()
+            vim.schedule(function()
+                vim.snippet.jump(1)
+            end)
+        end,
+        opts
+    )
+    map(
+        {"i", "s"},
+        "<C-k>",
+        function()
+            if vim.snippet.active({ direction = -1 }) then
+                vim.schedule(function()
+                    vim.snippet.jump(-1)
+                end)
+                return
+            end
+            return "<C-k>"
+        end,
+        opts
+    )
 end
 
 configs.nvim_lspconfig = function ()

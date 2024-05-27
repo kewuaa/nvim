@@ -10,11 +10,6 @@ return {
         dependencies = {
             -- ui 美化
             {'onsails/lspkind.nvim'},
-            -- snippets
-            {
-                'garymjr/nvim-snippets',
-                config = configs.snippets,
-            },
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
             -- underline sort
@@ -26,6 +21,13 @@ return {
             -- path source
             {'hrsh7th/cmp-path'},
         }
+    },
+    -- snippets
+    {
+        'garymjr/nvim-snippets',
+        lazy = true,
+        event = "InsertEnter",
+        config = configs.snippets,
     },
 
     -- lsp
