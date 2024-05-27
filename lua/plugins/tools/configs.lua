@@ -420,13 +420,6 @@ configs.focus = function()
     })
 end
 
-configs.markdown_preview = function()
-    vim.api.nvim_create_autocmd('filetype', {
-        pattern = 'markdown',
-        command = [[nmap <silent><buffer> <M-q> :MarkdownPreviewToggle<CR>]]
-    })
-end
-
 configs.leetcode = function()
     require("leetcode").setup({
         arg = "leetcode",
