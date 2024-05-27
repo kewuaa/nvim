@@ -176,7 +176,7 @@ configs.nvim_cmp = function()
         if vim.tbl_contains({ Kind.Function, Kind.Method }, item.kind) then
             local cursor = vim.api.nvim_win_get_cursor(0)
             local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2], cursor[1] - 1, cursor[2] + 1, {})[1]
-            if prev_char ~= "(" and prev_char ~= ")" then
+            if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
                 local keys = vim.api.nvim_replace_termcodes("()<left>", false, false, true)
                 vim.api.nvim_feedkeys(keys, "i", true)
             end
@@ -264,7 +264,7 @@ configs.crates = function()
         elseif vim.fn.expand('%:t') == 'Cargo.toml' and require('crates').popup_available() then
             crates.show_popup()
         else
-            vim.api.nvim_command("Lspsaga hover_doc")
+            vim.lsp.buf.hover()
         end
     end
     local map = vim.keymap.set
