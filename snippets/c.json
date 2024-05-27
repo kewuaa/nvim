@@ -27,7 +27,7 @@
         "description": "Code snippet for the else statement."
     },
     "for": {
-        "prefix": "for",
+        "prefix": "for (...; ...; ...)",
         "body": [
             "for (${1:init}; ${2:condition}; ${3:step}) {",
             "\t$4",
