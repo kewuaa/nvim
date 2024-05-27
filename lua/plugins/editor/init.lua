@@ -51,7 +51,6 @@ return {
         cmd = {
             'TodoQuickFix',
             'TodoLocList',
-            'TodoTrouble',
             'TodoTelescope',
         },
         config = true,
