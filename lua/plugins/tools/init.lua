@@ -103,23 +103,6 @@ return {
         }
     },
 
-    -- 文件树
-    {
-        'nvim-neo-tree/neo-tree.nvim',
-        branch = 'v3.x',
-        lazy = true,
-        keys = {
-            {'<leader>fe', '<cmd>Neotree toggle<CR>', mode = 'n'},
-            {'<leader>ge', '<cmd>Neotree float git_status<CR>', mode = 'n'},
-        },
-        config = configs.neotree,
-        dependencies = {
-            {"nvim-lua/plenary.nvim"},
-            {"nvim-tree/nvim-web-devicons"},
-            {"MunifTanjim/nui.nvim"},
-        }
-    },
-
     -- 选择窗口
     {
         's1n7ax/nvim-window-picker',

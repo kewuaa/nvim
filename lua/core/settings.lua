@@ -40,8 +40,6 @@ settings.exclude_filetypes = {
     "help",
     "tutor",
     "netrw",
-    "neo-tree",
-    "neo-tree-pop",
     "TelescopePrompt",
     "toggleterm",
     "notify",
