@@ -29,6 +29,13 @@ return {
         }
     },
 
+    {
+        'kevinhwang91/nvim-bqf',
+        lazy = true,
+        ft = "qf",
+        config = true
+    },
+
     -- debug
     {
         'mfussenegger/nvim-dap',
