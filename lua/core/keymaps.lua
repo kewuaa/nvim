@@ -38,7 +38,7 @@ keymaps.telescope = {
     {'n', '<leader>fb', '<cmd>Telescope buffers<CR>'},
     {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'},
     {'n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>'},
-    {'n', '<leader>fm', '<cmd>Telescope keymaps<CR>'},
+    {'n', '<leader>fk', '<cmd>Telescope keymaps<CR>'},
     {'n', '<leader>fc', '<cmd>Telescope commands<CR>'},
 }
 
