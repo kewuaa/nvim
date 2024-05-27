@@ -43,6 +43,13 @@ return {
         config = configs.mini_pairs,
     },
 
+    {
+        "kawre/neotab.nvim",
+        lazy = true,
+        event = "InsertEnter",
+        config = configs.neotab,
+    },
+
     -- 与J相反的操作
     {
         'Wansmer/treesj',
