@@ -89,23 +89,18 @@ configs.nvim_cmp = function()
         formatting = {
             fields = { "kind", "abbr", "menu" },
             format = function (entry, vim_item)
-                local kind = require('lspkind').cmp_format({
-                    mode = "symbol_text",
-                    maxwidth = 50,
-                    menu = ({
-                        buffer = "[BUF]",
-                        snippets = "[SNIP]",
-                        nvim_lsp = "[LSP]",
-                        path = "[PATH]",
-                        cmdline = "[CMD]",
-                        dap = "[DAP]",
-                    }),
-                    ellipsis_char = '...',
-                })(entry, vim_item)
-                local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                kind.kind = string.format(' %s ', strings[1])
-                kind.menu = string.format('(%s) %s', strings[2], kind.menu)
-                return kind
+                local kind = vim_item.kind
+                local name = ({
+                    buffer = "[BUF]",
+                    snippets = "[SNIP]",
+                    nvim_lsp = "[LSP]",
+                    path = "[PATH]",
+                    cmdline = "[CMD]",
+                    dap = "[DAP]",
+                })[entry.source.name]
+                vim_item.kind = ""
+                vim_item.menu = string.format('(%s) %s', kind, name)
+                return vim_item
             end,
         },
         mapping = cmp.mapping.preset.insert({

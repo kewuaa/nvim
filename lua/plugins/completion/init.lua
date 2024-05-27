@@ -8,8 +8,6 @@ return {
         event = {'InsertEnter', 'CmdlineEnter'},
         config = configs.nvim_cmp,
         dependencies = {
-            -- ui 美化
-            {'onsails/lspkind.nvim'},
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
             -- underline sort
