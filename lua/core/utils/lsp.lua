@@ -35,10 +35,10 @@ local toggle_codelens = function(enable)
                 visible_bufs[#visible_bufs+1] = vim.api.nvim_win_get_buf(win)
             end
             for _, bufnr in pairs(buffers) do
-                if vim.fn.index(visible_bufs, bufnr) > -1 then
+                if vim.tbl_contains(visible_bufs, bufnr) then
                     vim.lsp.codelens.refresh({bufnr = bufnr})
                 else
-                    if vim.fn.index(lazy_refresh_buffers, bufnr) == -1 then
+                    if not vim.tbl_contains(lazy_refresh_buffers, bufnr) then
                         lazy_refresh_buffers[#lazy_refresh_buffers+1] = bufnr
                         vim.api.nvim_create_autocmd("BufEnter", {
                             desc = "lazy refresh",
