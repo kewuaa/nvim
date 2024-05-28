@@ -18,6 +18,7 @@ configs.nvim_cmp = function()
         return info
     end
 
+    -- source
     local lsp_source = { name = 'nvim_lsp' }
     local snip_source = { name = 'snippets', max_item_count = 10 }
     local buffer_source = {
@@ -45,6 +46,38 @@ configs.nvim_cmp = function()
         },
     }
     local dap_source = { name = 'dap' }
+
+    -- mapping
+    local confirm = function(fallback)
+        if cmp.visible() then
+            cmp.confirm({select = true})
+        else
+            fallback()
+        end
+    end
+    local close = function(fallback)
+        if cmp.visible() then
+            cmp.close()
+        else
+            fallback()
+        end
+    end
+    local select_next_item = function(fallback)
+        if cmp.visible() then
+            cmp.select_next_item()
+        elseif has_words_before() then
+            cmp.complete()
+        else
+            fallback()
+        end
+    end
+    local select_prev_item = function(fallback)
+        if cmp.visible() then
+            cmp.select_prev_item()
+        else
+            fallback()
+        end
+    end
     local config = {
         enabled = function()
             local buffer_type = vim.bo.buftype
@@ -104,32 +137,17 @@ configs.nvim_cmp = function()
             end,
         },
         mapping = cmp.mapping.preset.insert({
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
-            ["<C-e>"] = cmp.mapping.close(),
             ["<C-b>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<Tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif has_words_before() then
-                        cmp.complete()
-                    else
-                        fallback()
-                    end
-                end,
-                { "i", "s" }
-            ),
-            ["<S-Tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    else
-                        fallback()
-                    end
-                end,
-                { "i", "s" }
-            ),
+            ["<C-e>"] = cmp.mapping(close, {"i", "s"}),
+
+            ["<c-n>"] = cmp.mapping(select_next_item, {"i", "s"}),
+            ["<c-p>"] = cmp.mapping(select_prev_item, { "i", "s" }),
+            ["<c-y>"] = cmp.mapping(confirm, {"i", "s"}),
+
+            ["<Tab>"] = cmp.mapping(select_next_item, { "i", "s" }),
+            ["<S-Tab>"] = cmp.mapping(select_prev_item, { "i", "s" }),
+            ["<CR>"] = cmp.mapping(confirm, {"i", "s"}),
         }),
         sources = cmp.config.sources(
             { path_source },
