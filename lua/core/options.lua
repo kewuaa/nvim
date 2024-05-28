@@ -57,11 +57,11 @@ if vim.fn.executable('rg') == 1 then
 end
 
 if vim.fn.exists("g:nvy") == 1 then
-    options.guifont = 'FiraCode Nerd Font Mono:h10:Consolas'
+    options.guifont = 'FiraCode Nerd Font:h10:Consolas'
 end
 
 if vim.fn.exists("g:neovide") == 1 then
-    options.guifont = 'FiraCode Nerd Font Mono,Consolas:h10'
+    options.guifont = 'FiraCode Nerd Font,Consolas:h10'
     vim.g.neovide_hide_mouse_when_typing = true
     vim.g.neovide_theme = 'auto'
     vim.g.neovide_refresh_rate = 60
