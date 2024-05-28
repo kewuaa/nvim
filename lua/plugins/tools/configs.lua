@@ -84,7 +84,7 @@ configs.nvim_dap = function()
 
             cwd = utils.get_cwd,
             program = function()
-                local lsp = vim.lsp.get_active_clients()[1]
+                local lsp = vim.lsp.get_clients({bufnr = 0})[1]
                 local root = lsp.config.root_dir
                 if root ~= nil then
                     return ("%s/main.py"):format(root)
@@ -117,7 +117,7 @@ configs.nvim_dap = function()
         },
     }
     local program_for_c = function()
-        local lsp = vim.lsp.get_active_clients()[1]
+        local lsp = vim.lsp.get_clients({bufnr = 0})[1]
         local root = lsp.config.root_dir
         if root ~= nil then
             return vim.fn.input(
