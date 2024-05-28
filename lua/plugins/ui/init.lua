@@ -57,12 +57,12 @@ return {
         config = configs.mini_indentscope,
     },
 
-    -- 消息提示
     {
-        'rcarriga/nvim-notify',
+        "echasnovski/mini.notify",
+        version = false,
         lazy = true,
-        event = 'VeryLazy',
-        config = configs.notify,
+        event = "VeryLazy",
+        config = configs.mini_notify
     },
 
     -- 增强vim UI
@@ -71,26 +71,5 @@ return {
         lazy = true,
         event = 'VeryLazy',
         config = configs.dressing,
-    },
-
-    -- 调暗未使用函数，变量和参数
-    {
-        'zbirenbaum/neodim',
-        lazy = true,
-        enabled = vim.version().minor > 9,
-        event = 'LspAttach',
-        config = configs.neodim,
-    },
-
-    -- lsp progress
-    {
-        'j-hui/fidget.nvim',
-        lazy = true,
-        event = 'LspAttach',
-        opts = {
-            window = {
-                blend = 0,
-            },
-        },
     },
 }
