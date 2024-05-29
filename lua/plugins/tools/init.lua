@@ -103,6 +103,7 @@ return {
         }
     },
 
+    -- file manager
     {
         'echasnovski/mini.files',
         version = false,
