@@ -53,7 +53,6 @@ settings.exclude_filetypes = {
     "dapui_scopes",
     "DiffviewFiles",
     "DiffviewFileHistory",
-    "leetcode.nvim",
 }
 
 return settings

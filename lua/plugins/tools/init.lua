@@ -116,18 +116,6 @@ return {
         config = true,
     },
 
-    -- leetcode
-    {
-        'kawre/leetcode.nvim',
-        build = ':TSUpdate html',
-        lazy = vim.fn.argv()[1] ~= 'leetcode',
-        config = configs.leetcode,
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-            "MunifTanjim/nui.nvim",
-        },
-    },
-
     -- 翻译
     {
         'potamides/pantran.nvim',
