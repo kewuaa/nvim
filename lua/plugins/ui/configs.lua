@@ -208,6 +208,47 @@ configs.mini_notify = function()
     local notify = require("mini.notify")
     notify.setup()
     vim.notify = notify.make_notify()
+
+    local show_history = function()
+        -- Show content in a reusable buffer
+        local buf_id
+        for _, id in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.bo[id].filetype == 'mininotify-history' then buf_id = id end
+        end
+        if buf_id == nil then
+            buf_id = vim.api.nvim_create_buf(true, true)
+            vim.bo[buf_id].filetype = 'mininotify-history'
+        end
+
+        local width = vim.api.nvim_win_get_width(0)
+        local height = vim.api.nvim_win_get_height(0)
+
+        local float_width = math.floor(width * 0.6)
+        local float_height = math.floor(height * 0.6)
+
+        local row = math.floor((height - float_height) / 2)
+        local col = math.floor((width - float_width) / 2)
+
+        vim.api.nvim_open_win(buf_id, true, {
+            relative = 'win',
+            row = row,
+            col = col,
+            width = float_width,
+            height = float_height,
+            style = 'minimal'
+        })
+        notify.show_history()
+        vim.keymap.set("n", "q", function()
+            vim.api.nvim_win_close(0, true)
+            vim.api.nvim_buf_delete(buf_id, {})
+        end, {buffer = buf_id, silent = true, noremap = true})
+        vim.bo[buf_id].readonly = true
+    end
+    vim.api.nvim_create_user_command(
+        "MiniNotifyHistory",
+        show_history,
+        {desc = "show history of mini_notify"}
+    )
 end
 
 configs.dressing = function()
