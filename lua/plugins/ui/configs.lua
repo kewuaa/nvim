@@ -31,7 +31,7 @@ end
 configs.indentmini = function()
     local exclude_fts = require("core.settings").exclude_filetypes
     require("indentmini").setup({
-        exclude = vim.list_slice(exclude_fts, nil, #exclude_fts - 1)
+        exclude = exclude_fts
     })
     vim.api.nvim_set_hl(0, 'IndentLineCurrent', {
         fg = 'pink'
