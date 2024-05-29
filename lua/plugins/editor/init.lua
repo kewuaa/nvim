@@ -44,6 +44,7 @@ return {
         config = configs.mini_pairs,
     },
 
+    -- tab out
     {
         "kawre/neotab.nvim",
         lazy = true,
