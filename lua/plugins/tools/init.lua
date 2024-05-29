@@ -103,16 +103,6 @@ return {
         }
     },
 
-    -- 自动扩展窗口宽度
-    {
-        'nvim-focus/focus.nvim',
-        version = false,
-        lazy = true,
-        init = require('core.keymaps'):load('focus'),
-        event = 'WinNew',
-        config = configs.focus,
-    },
-
     {
         'echasnovski/mini.files',
         version = false,

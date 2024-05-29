@@ -27,12 +27,6 @@ keymaps.asynctasks = {
     {'n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>'},
 }
 
-keymaps.focus = {
-    {'n', '<c-w>z', '<cmd>FocusMaximise<CR>'},
-    {'n', '<c-w>r', '<cmd>FocusAutoresize<CR>'},
-    {'n', '<c-w>=', '<cmd>FocusEqualise<CR>'},
-}
-
 keymaps.telescope = {
     {'n', '<leader>ff', telescope('find_files')},
     {'n', '<leader>fg', telescope('live_grep')},
