@@ -5,6 +5,10 @@ local bufopts = {
     silent = true,
     buffer = 0,
 }
+local quick_quit_fts = {
+    'qf',
+    'help',
+}
 local function load_clipboard()
     api.nvim_del_var('loaded_clipboard_provider')
     api.nvim_command(string.format('source %s/autoload/provider/clipboard.vim', vim.env.VIMRUNTIME))
@@ -29,6 +33,13 @@ local function create_git_commands()
     end
 end
 
+M.register_quick_quit = function(...)
+    local fts = {...}
+    for _, ft in pairs(fts) do
+        quick_quit_fts[#quick_quit_fts+1] = ft
+    end
+end
+
 M.init = function()
     api.nvim_create_autocmd('User', {
         desc = "lazy load rplugin and clipboard",
@@ -44,16 +55,16 @@ M.init = function()
         callback = function ()
             local ft = vim.bo.filetype
             -- quick quit
-            if vim.fn.index({ 'qf', 'help', 'notify', 'TelescopePrompt', 'dap-float' }, ft) ~= -1 then
+            if vim.tbl_contains(quick_quit_fts, ft) then
                 map('n', 'q', '<cmd>q<CR>', bufopts)
             -- change commentstring
-            elseif vim.fn.index({"c", "cpp", "rust"}, ft) ~= -1 then
+            elseif vim.tbl_contains({"c", "cpp", "rust"}, ft) then
                 vim.bo.commentstring = "// %s"
             end
         end
     })
 
-    local numbertoggle_group = api.nvim_create_augroup("numbertoggle", {})
+    local numbertoggle_group = api.nvim_create_augroup("_number_toggle_", {clear = true})
     api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
        pattern = "*",
        group = numbertoggle_group,

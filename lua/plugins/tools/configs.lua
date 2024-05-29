@@ -60,6 +60,7 @@ configs.telescope = function()
     -- To get fzf loaded and working with telescope, you need to call
     -- load_extension, somewhere after setup function:
     telescope.load_extension('fzf')
+    require("core.cmds").register_quick_quit("TelescopePrompt")
 end
 
 configs.nvim_dap = function()
@@ -268,6 +269,7 @@ configs.nvim_dap = function()
     end
 
     require("nvim-dap-virtual-text").setup({})
+    require("core.cmds").register_quick_quit("dap-float")
 end
 
 configs.asynctasks = function()
