@@ -220,22 +220,20 @@ configs.mini_notify = function()
             vim.bo[buf_id].filetype = 'mininotify-history'
         end
 
-        local width = vim.api.nvim_win_get_width(0)
-        local height = vim.api.nvim_win_get_height(0)
-
+        local term = vim.api.nvim_list_uis()[1]
+        local width, height = term.width, term.height
         local float_width = math.floor(width * 0.6)
         local float_height = math.floor(height * 0.6)
-
         local row = math.floor((height - float_height) / 2)
         local col = math.floor((width - float_width) / 2)
-
         vim.api.nvim_open_win(buf_id, true, {
-            relative = 'win',
+            relative = 'editor',
             row = row,
             col = col,
             width = float_width,
             height = float_height,
-            style = 'minimal'
+            style = 'minimal',
+            border = "single"
         })
         notify.show_history()
         vim.keymap.set("n", "q", function()
