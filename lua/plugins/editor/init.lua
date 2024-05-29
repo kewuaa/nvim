@@ -29,10 +29,11 @@ return {
 
     -- 高亮相同单词
     {
-        'RRethy/vim-illuminate',
+        'echasnovski/mini.cursorword',
+        version = false,
         lazy = true,
         event = 'CursorHold',
-        config = configs.vim_illuminate,
+        config = true,
     },
 
     -- 括号补全

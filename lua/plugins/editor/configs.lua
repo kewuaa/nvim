@@ -41,19 +41,6 @@ configs.mini_ai = function()
     })
 end
 
-configs.vim_illuminate = function()
-    require("illuminate").configure({
-        providers = {
-            "lsp",
-            "treesitter",
-            "regex",
-        },
-        delay = 200,
-        filetypes_denylist = require("core.settings").exclude_filetypes,
-        under_cursor = true,
-    })
-end
-
 configs.mini_pairs = function()
     local mini_pairs = require("mini.pairs")
     mini_pairs.setup({
