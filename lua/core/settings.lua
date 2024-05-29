@@ -41,7 +41,7 @@ settings.exclude_filetypes = {
     "tutor",
     "netrw",
     "TelescopePrompt",
-    "notify",
+    "mininotify-history",
     "mason",
     "crates.nvim",
     "dap-repl",
