@@ -84,12 +84,6 @@ configs.rainbow_delimiters = function()
     })
 end
 
-configs.hlargs = function()
-    require("hlargs").setup({
-        excluded_filetypes = require("core.settings").exclude_filetypes,
-    })
-end
-
 configs.nvim_treesitter_textobjects = function()
     -- When in diff mode, we want to use the default
     -- vim text objects c & C instead of the treesitter ones.
