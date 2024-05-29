@@ -41,6 +41,25 @@ configs.mini_ai = function()
     })
 end
 
+configs.mini_cursorword = function()
+    require("mini.cursorword").setup({
+        delay = 100
+    })
+    local exclude_fts = require("core.settings").exclude_filetypes
+    local mini_cursorword_group = vim.api.nvim_create_augroup("mini_cursorword", {clear = true})
+    vim.api.nvim_create_autocmd("BufRead", {
+        desc = "disable MiniursorWord on some filetypes",
+        group = mini_cursorword_group,
+        callback = function()
+            local ft = vim.bo.filetype
+            local buftype = vim.bo.buftype
+            if buftype ~= "" or vim.tbl_contains(exclude_fts, ft) then
+                vim.b.minicursorword_disable = true
+            end
+        end
+    })
+end
+
 configs.mini_pairs = function()
     local mini_pairs = require("mini.pairs")
     mini_pairs.setup({

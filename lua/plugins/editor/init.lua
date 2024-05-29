@@ -33,7 +33,7 @@ return {
         version = false,
         lazy = true,
         event = 'CursorHold',
-        config = true,
+        config = configs.mini_cursorword,
     },
 
     -- 括号补全
