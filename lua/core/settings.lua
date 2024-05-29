@@ -54,7 +54,6 @@ settings.exclude_filetypes = {
     "DiffviewFiles",
     "DiffviewFileHistory",
     "leetcode.nvim",
-    "",
 }
 
 return settings
