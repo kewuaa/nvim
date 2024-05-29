@@ -35,26 +35,10 @@ return {
 
     -- 缩进线
     {
-        'lukas-reineke/indent-blankline.nvim',
+        'nvimdev/indentmini.nvim',
         lazy = true,
-        main = "ibl",
-        event = {'BufRead', 'BufNewFile'},
-        config = configs.indent_blankline,
-    },
-    {
-        'echasnovski/mini.indentscope',
-        lazy = true,
-        version = false,
-        event = 'CursorMoved',
-        init = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = require('core.settings').exclude_filetypes,
-                callback = function()
-                    vim.b.miniindentscope_disable = true
-                end,
-            })
-        end,
-        config = configs.mini_indentscope,
+        event = {"BufRead", "BufNewFile"},
+        config = configs.indentmini,
     },
 
     {

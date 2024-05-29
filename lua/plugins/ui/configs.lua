@@ -28,50 +28,14 @@ configs.tokyonight = function()
     vim.schedule(function() vim.cmd.colorscheme('tokyonight') end)
 end
 
-configs.indent_blankline = function()
-    require("ibl").setup({
-        indent = { char = "│" },
-        scope = { enabled = false },
-        exclude = {
-            filetypes = require("core.settings").exclude_filetypes,
-            buftypes = { "terminal", "nofile", "quickfix", "prompt" },
-        }
+configs.indentmini = function()
+    local exclude_fts = require("core.settings").exclude_filetypes
+    require("indentmini").setup({
+        exclude = vim.list_slice(exclude_fts, nil, #exclude_fts - 1)
     })
-    require("core.utils.bigfile").register(
-        512,
-        function(_)
-            require("ibl").update({enabled = false})
-        end, {}
-    )
-end
-
-configs.mini_indentscope = function()
-    require('mini.indentscope').setup({
-        symbol = '╎',
-        options = {
-            try_as_border = true,
-        }
-    })
-    vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', {
+    vim.api.nvim_set_hl(0, 'IndentLineCurrent', {
         fg = 'pink'
     })
-    local exclude_filetypes = require("core.settings").exclude_filetypes
-    local exclude_buftypes = {"terminal", "nofile", "quickfix", "prompt"}
-    vim.api.nvim_create_autocmd("BufEnter", {
-        group = vim.api.nvim_create_augroup("disable_mini_indentscope", {clear = true}),
-        callback = function()
-            if vim.tbl_contains(exclude_filetypes, vim.bo.filetype)
-                    or vim.tbl_contains(exclude_buftypes, vim.bo.buftype) then
-                vim.b.miniindentscope_disable = true
-            end
-        end
-    })
-    require("core.utils.bigfile").register(
-        512,
-        function(_)
-            vim.b.miniindentscope_disable = true
-        end, {}
-    )
 end
 
 configs.sttusline = function()
