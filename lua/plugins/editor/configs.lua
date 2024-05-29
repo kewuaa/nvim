@@ -82,26 +82,29 @@ configs.mini_pairs = function()
     local mini_pairs_group = vim.api.nvim_create_augroup("mini_pairs", {
         clear = true
     })
+    local add_pairs = function()
+        local ft = vim.bo.filetype
+        if ft == "markdown" then
+            mini_pairs.map_buf(0, 'i', '$', {
+                action = 'closeopen',
+                pair = '$$',
+                neigh_pattern = '[^\\]',
+                register = { cr = true }
+            })
+        elseif ft == "rust" then
+            mini_pairs.map_buf(0, 'i', '|', {
+                action = 'closeopen',
+                pair = '||',
+                neigh_pattern = '[^%w\\]',
+                register = { cr = false }
+            })
+        end
+    end
+    vim.schedule(add_pairs)
     vim.api.nvim_create_autocmd("FileType", {
         desc = "add filetype specified pair",
         group = mini_pairs_group,
-        callback = function(params)
-            if params.match == 'markdown' then
-                mini_pairs.map_buf(0, 'i', '$', {
-                    action = 'closeopen',
-                    pair = '$$',
-                    neigh_pattern = '[^\\]',
-                    register = { cr = true }
-                })
-            elseif params.match == 'rust' or params.match == 'zig' then
-                mini_pairs.map_buf(0, 'i', '|', {
-                    action = 'closeopen',
-                    pair = '||',
-                    neigh_pattern = '[^%w\\]',
-                    register = { cr = false }
-                })
-            end
-        end
+        callback = add_pairs,
     })
     local map_bs = function(lhs, rhs)
         vim.keymap.set('i', lhs, rhs, { expr = true, replace_keycodes = false })
@@ -162,10 +165,10 @@ configs.treesj = function ()
             )
         end
     end
+    vim.schedule(callback)
     vim.api.nvim_create_autocmd({ 'FileType' }, {
         callback = callback,
     })
-    callback()
 end
 
 configs.mini_splitjoin = function()
