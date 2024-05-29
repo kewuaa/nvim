@@ -83,6 +83,7 @@ configs.mini_pairs = function()
         clear = true
     })
     vim.api.nvim_create_autocmd("FileType", {
+        desc = "add filetype specified pair",
         group = mini_pairs_group,
         callback = function(params)
             if params.match == 'markdown' then
