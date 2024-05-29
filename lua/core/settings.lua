@@ -41,7 +41,6 @@ settings.exclude_filetypes = {
     "tutor",
     "netrw",
     "TelescopePrompt",
-    "toggleterm",
     "notify",
     "mason",
     "crates.nvim",
