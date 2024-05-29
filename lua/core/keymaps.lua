@@ -12,13 +12,6 @@ local function telescope(option)
     end
 end
 
-local function todo_comments(command)
-    return function()
-        local cmd = string.format('%s cwd=%s', command, require("core.utils").get_cwd())
-        vim.cmd(cmd)
-    end
-end
-
 keymaps.asynctasks = {
     {'n', '<A-q>', '<cmd>AsyncTask file-run<CR>'},
     {'n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>'},
