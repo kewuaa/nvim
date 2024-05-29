@@ -321,7 +321,7 @@ configs.crates = function()
 
         map('n', '<C-S-K>', show_documentation, opts)
     end
-    set_keymaps()
+    vim.schedule(set_keymaps)
     vim.api.nvim_create_autocmd("BufRead", {
         group = vim.api.nvim_create_augroup("crates_keymap", {clear = true}),
         pattern = "Cargo.toml",
