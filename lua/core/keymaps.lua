@@ -71,10 +71,10 @@ function keymaps.init()
         end
     end)
 
-    -- map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts_)
-    -- map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts_)
-    -- map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
-    -- map('n', '<C-w>[', '<cmd>resize-5<CR>', opts_)
+    map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts_)
+    map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts_)
+    map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
+    map('n', '<C-w>[', '<cmd>resize-5<CR>', opts_)
 
     -- vim.cmd [[
     -- " 多行应用宏
