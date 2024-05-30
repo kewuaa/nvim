@@ -10,8 +10,6 @@ return {
         dependencies = {
             -- LSP source
             {'hrsh7th/cmp-nvim-lsp'},
-            -- underline sort
-            {'lukas-reineke/cmp-under-comparator'},
             -- buffer source
             {'hrsh7th/cmp-buffer'},
             -- cmdline source
