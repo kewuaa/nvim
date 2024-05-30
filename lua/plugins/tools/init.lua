@@ -12,21 +12,43 @@ return {
 
     -- 查找
     {
-        'nvim-telescope/telescope.nvim',
-        branch = '0.1.x',
+        'echasnovski/mini.pick',
+        version = false,
         lazy = true,
-        init = require('core.keymaps'):load('telescope'),
-        cmd = 'Telescope',
-        config = configs.telescope,
-        dependencies = {
-            {'nvim-lua/plenary.nvim'},
-            {'nvim-tree/nvim-web-devicons'},
-            -- fzf支持
+        keys = {
             {
-                'nvim-telescope/telescope-fzf-native.nvim',
-                build = 'make',
+                "<leader>ff",
+                function()
+                    local utils = require("core.utils")
+                    require("mini.pick").builtin.files(nil, {
+                        source = {
+                            cwd = utils.get_cwd(),
+                        }
+                    })
+                end,
+                mode = "n",
             },
-        }
+            {
+                "<leader>fg",
+                function()
+                    local utils = require("core.utils")
+                    require("mini.pick").builtin.grep_live(nil, {
+                        source = {
+                            cwd = utils.get_cwd(),
+                        }
+                    })
+                end,
+                mode = "n",
+            },
+            {
+                "<leader>fb",
+                function()
+                    require("mini.pick").builtin.buffers()
+                end,
+                mode = "n",
+            },
+        },
+        config = configs.mini_pick,
     },
 
     {

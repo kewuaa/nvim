@@ -5,29 +5,12 @@ local opts = {
 }
 
 ---------------------------------------------------------------------------------------------------
-local function telescope(option)
-    return function()
-        local cmd = string.format('Telescope %s cwd=%s', option, require('core.utils').get_cwd())
-        vim.cmd(cmd)
-    end
-end
-
 keymaps.asynctasks = {
     {'n', '<A-q>', '<cmd>AsyncTask file-run<CR>'},
     {'n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>'},
     {'n', '<F5>', '<cmd>AsyncTask project-run<CR>'},
     {'n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>'},
     {'n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>'},
-}
-
-keymaps.telescope = {
-    {'n', '<leader>ff', telescope('find_files')},
-    {'n', '<leader>fg', telescope('live_grep')},
-    {'n', '<leader>fb', '<cmd>Telescope buffers<CR>'},
-    {'n', '<leader>fh', '<cmd>Telescope help_tags<CR>'},
-    {'n', '<leader>f/', '<cmd>Telescope current_buffer_fuzzy_find<CR>'},
-    {'n', '<leader>fk', '<cmd>Telescope keymaps<CR>'},
-    {'n', '<leader>fc', '<cmd>Telescope commands<CR>'},
 }
 
 keymaps.diffview = {

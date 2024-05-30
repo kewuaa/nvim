@@ -14,53 +14,47 @@ configs.mason = function()
     })
 end
 
-configs.telescope = function()
-    local telescope = require("telescope")
-    telescope.setup({
-        defaults = {
-            prompt_prefix = '🔭 ',
-            selection_caret = ' ',
-            layout_config = {
-                horizontal = {
-                    prompt_position = 'top',
-                    results_width = 0.6,
-                },
-                vertical = {
-                    mirror = false,
-                },
-            },
-            sorting_strategy = 'ascending',
-            file_previewer = require('telescope.previewers').vim_buffer_cat.new,
-            grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
-            qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
-            file_ignore_patterns = {
-                "^%.git/",
-                "^.venv/",
-                "^__pycache__/",
-                "^%.cache/",
-                "^zig%-cache",
-                "^zig%-out",
-                "%.class",
-                "%.pdf",
-                "%.mkv",
-                "%.mp4",
-                "%.zip",
-            },
+configs.mini_pick = function()
+    require("mini.pick").setup({
+        -- Keys for performing actions. See `:h MiniPick-actions`.
+        mappings = {
+            caret_left  = '<Left>',
+            caret_right = '<Right>',
+
+            choose            = '<CR>',
+            choose_in_split   = '<C-x>',
+            choose_in_tabpage = '<C-t>',
+            choose_in_vsplit  = '<C-v>',
+            choose_marked     = '<M-CR>',
+
+            delete_char       = '<C-h>',
+            delete_char_right = '<Del>',
+            delete_left       = '<C-u>',
+            delete_word       = '<C-w>',
+
+            mark     = '<C-CR>',
+            mark_all = '<C-a>',
+
+            move_down  = '<C-n>',
+            move_start = '<C-g>',
+            move_up    = '<C-p>',
+
+            paste = '<C-r>',
+
+            refine        = '<C-Space>',
+            refine_marked = '<M-Space>',
+
+            scroll_down  = '<C-f>',
+            scroll_left  = '<C-,>',
+            scroll_right = '<C-.>',
+            scroll_up    = '<C-b>',
+
+            stop = '<Esc>',
+
+            toggle_info    = '<S-Tab>',
+            toggle_preview = '<Tab>',
         },
-        extensions = {
-            fzf = {
-                fuzzy = true,                    -- false will only do exact matching
-                override_generic_sorter = true,  -- override the generic sorter
-                override_file_sorter = true,     -- override the file sorter
-                case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                -- the default case_mode is "smart_case"
-            },
-        }
     })
-    -- To get fzf loaded and working with telescope, you need to call
-    -- load_extension, somewhere after setup function:
-    telescope.load_extension('fzf')
-    require("core.cmds").register_quick_quit("TelescopePrompt")
 end
 
 configs.nvim_dap = function()

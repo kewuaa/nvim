@@ -23,6 +23,7 @@
   "mini.files": { "branch": "main", "commit": "2299bf2f55993d899249a585f04bb4ff5386d37e" },
   "mini.notify": { "branch": "main", "commit": "2d506633f50bd61b1041aa4a6d62e0fe0e6ae09e" },
   "mini.pairs": { "branch": "main", "commit": "40261dfcec7623cd57be3c3beb50fa73f2650cdf" },
+  "mini.pick": { "branch": "main", "commit": "f1ca3e3ccef44c3a538999172b43e6a92257d045" },
   "mini.splitjoin": { "branch": "main", "commit": "db26e1c991ff5f8cf377e800ef7fba6b5618306b" },
   "mini.surround": { "branch": "main", "commit": "27096c1a27324ee8f2044ea2adc77366d8a782de" },
   "neodev.nvim": { "branch": "main", "commit": "ce9a2e8eaba5649b553529c5498acb43a6c317cd" },
