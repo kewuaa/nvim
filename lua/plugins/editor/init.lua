@@ -87,13 +87,6 @@ return {
         config = configs.sentiment,
     },
 
-    -- 搜索后自动关闭高亮
-    {
-        'romainl/vim-cool',
-        lazy = true,
-        event = "cursorMoved",
-    },
-
     -- 对齐
     {
         'echasnovski/mini.align',
