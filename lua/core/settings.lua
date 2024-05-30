@@ -53,6 +53,9 @@ settings.exclude_filetypes = {
     "dapui_scopes",
     "DiffviewFiles",
     "DiffviewFileHistory",
+
+    "terminal",
+    "nofile"
 }
 
 return settings
