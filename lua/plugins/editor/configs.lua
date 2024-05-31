@@ -45,11 +45,13 @@ configs.mini_cursorword = function()
     require("mini.cursorword").setup({
         delay = 100
     })
-    local exclude_fts = require("core.settings").exclude_filetypes
+    local settings = require("core.settings")
     local mini_cursorword_group = vim.api.nvim_create_augroup("mini_cursorword", {clear = true})
     local disable = function()
         local ft = vim.bo.filetype
-        if vim.tbl_contains(exclude_fts, ft) then
+        local buftype = vim.bo.buftype
+        if vim.tbl_contains(settings.exclude_filetypes, ft)
+            or vim.tbl_contains(settings.exclude_buftypes, buftype) then
             vim.b.minicursorword_disable = true
         end
     end
