@@ -19,6 +19,7 @@ M.zoom = function()
         relative = "editor",
         row = row,
         col = col,
+        zindex = 10,
         width = float_width,
         height = float_height,
         border = "single"
