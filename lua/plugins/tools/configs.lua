@@ -59,21 +59,20 @@ end
 
 configs.nvim_dap = function()
     local dap = require('dap')
-    local is_Windows = require("core.settings").is_Windows
     local utils = require("core.utils")
     local mason_utils = require("core.utils.mason")
     -- config for python
     mason_utils.ensure_install("debugpy")
     dap.adapters.python = {
-        type = 'executable';
+        type = 'executable',
         command = "debugpy-adapter",
     }
     dap.configurations.python = {
         {
             -- The first three options are required by nvim-dap
-            type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
-            request = 'launch';
-            name = "Launch file";
+            type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
+            request = 'launch',
+            name = "Launch file",
 
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
@@ -85,7 +84,7 @@ configs.nvim_dap = function()
                     return ("%s/main.py"):format(root)
                 end
                 return "${file}"
-            end; -- This configuration will launch the current file if used.
+            end, -- This configuration will launch the current file if used.
             pythonPath = function()
                 -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
                 -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
@@ -96,7 +95,7 @@ configs.nvim_dap = function()
                 else
                     return require('core.settings'):getpy('default')
                 end
-            end;
+            end,
         },
     }
 
@@ -108,7 +107,7 @@ configs.nvim_dap = function()
         executable = {
             command = "codelldb",
             args = { "--port", "${port}" },
-            detached = is_Windows and false or true,
+            detached = utils.is_win and false or true,
         },
     }
     local program_for_c = function()
@@ -262,29 +261,23 @@ configs.nvim_dap = function()
         keymap_restore = {}
     end
 
-    require("nvim-dap-virtual-text").setup({})
-    require("core.cmds").register_quick_quit("dap-float")
+    require("core.autocmds").register_quick_quit("dap-float")
 end
 
 configs.asynctasks = function()
-    local settings = require("core.settings")
-    local rootmarks = settings.get_rootmarks()
-    vim.list_extend(rootmarks, {
-        '.tasks',
-        '.root'
-    })
+    local utils = require("core.utils")
     vim.g.asyncrun_save = 2
     vim.g.asyncrun_open = 10
-    vim.g.asyncrun_rootmarks = rootmarks
+    vim.g.asyncrun_rootmarks = {".git", ".tasks", ".root"}
     vim.g.asynctasks_term_focus = 1
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
-    if settings.is_Windows then
+    if utils.is_win then
         vim.g.asynctasks_term_pos = 'external'
         vim.g.asynctasks_environ = {
             exe_suffix = '.exe',
         }
-    elseif settings.is_Linux then
+    elseif utils.is_linux then
         vim.g.asynctasks_term_pos = 'TAB'
         vim.g.asynctasks_environ = {
             exe_suffix = '',
@@ -311,14 +304,6 @@ configs.gitsigns = function()
             changedelete = { text = "▒" },
             untracked = { text = "▒" },
         },
-        watch_gitdir = { interval = 1000, follow_files = true },
-        current_line_blame = false,
-        -- current_line_blame_opts = { delay = 1000, virtual_text_pos = "eol" },
-        sign_priority = 6,
-        update_debounce = 100,
-        status_formatter = nil, -- Use default
-        word_diff = false,
-        diff_opts = { internal = true },
         on_attach = function(buffer)
             local gitsigns = package.loaded.gitsigns
 
@@ -351,46 +336,14 @@ end
 
 configs.pantran = function()
     require("pantran").setup{
-        -- Default engine to use for translation. To list valid engine names run
-        -- `:lua =vim.tbl_keys(require("pantran.engines"))`.
         default_engine = "google",
-        -- Configuration for individual engines goes here.
         engines = {
             google = {
-                -- Default languages can be defined on a per engine basis. In this case
-                -- `:lua require("pantran.async").run(function()
-                -- vim.pretty_print(require("pantran.engines").yandex:languages()) end)`
-                -- can be used to list available language identifiers.
                 default_source = "auto",
                 default_target = "zh-CN",
                 format = "html"
             },
         },
-        controls = {
-            mappings = {
-                edit = {
-                    n = {
-                        -- Use this table to add additional mappings for the normal mode in
-                        -- the translation window. Either strings or function references are
-                        -- supported.
-                        ["j"] = "gj",
-                        ["k"] = "gk"
-                    },
-                    i = {
-                        -- Similar table but for insert mode. Using 'false' disables
-                        -- existing keybindings.
-                        ["<C-y>"] = false,
-                        ["<C-a>"] = require("pantran.ui.actions").yank_close_translation
-                    }
-                },
-                -- Keybindings here are used in the selection window.
-                select = {
-                    n = {
-                        -- ...
-                    }
-                }
-            }
-        }
     }
 end
 

@@ -1,66 +1,33 @@
-local keymaps = {}
+local M = {}
 local map = vim.keymap.set
-local opts = {
-    silent = true,
-}
+local window = require("core.utils.window")
+local lsp = require("core.utils.lsp")
+local im = require("core.utils.im")
 
----------------------------------------------------------------------------------------------------
-keymaps.asynctasks = {
-    {'n', '<A-q>', '<cmd>AsyncTask file-run<CR>'},
-    {'n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>'},
-    {'n', '<F5>', '<cmd>AsyncTask project-run<CR>'},
-    {'n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>'},
-    {'n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>'},
-}
-
-keymaps.diffview = {
-    {'n', '<leader>gg', '<cmd>DiffviewOpen<CR>'},
-    {'n', '<leader>gc', '<cmd>DiffviewClose<CR>'},
-    {{'n', 'v'}, '<leader>gh', '<cmd>DiffviewFileHistory<CR>'},
-}
-
-keymaps.dap = {
-    {'n', '<F6>', function() require('dap').continue() end},
-    {'n', '<F7>', function() require('dap').terminate() require('dapui').close() end},
-    {'n', '<F8>', function() require('dap').toggle_breakpoint() end},
-    {'n', '<F9>', function() require("dap").step_into() end},
-    {'n', '<F10>', function() require("dap").step_out() end},
-    {'n', '<F11>', function() require("dap").step_over() end},
-    {'n', '<leader>db', function () require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end},
-    {'n', '<leader>dc', function () require('dap').run_to_cursor() end},
-    {'n', '<leader>dl', function () require('dap').run_last() end},
-    {'n', '<leader>do', function () require('dap').repl.open() end},
-}
-
----------------------------------------------------------------------------------------------------
-
-function keymaps.init()
-    local opts_ = {
-        noremap = true,
-        silent = true,
-    }
+function M.init()
     vim.g.mapleader = '\\'
+    local opts = { silent = true, noremap = true }
 
-    map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts_)
-    -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts_)
+    map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts)
+    -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts)
 
-    map('n', '<leader>bp', '<cmd>bp<CR>', opts_)
-    map('n', '<leader>bn', '<cmd>bn<CR>', opts_)
-    map('n', '<leader>bd', '<cmd>bdelete<CR>', opts_)
+    map('n', '<leader>bp', '<cmd>bp<CR>', opts)
+    map('n', '<leader>bn', '<cmd>bn<CR>', opts)
+    map('n', '<leader>bd', '<cmd>bdelete<CR>', opts)
 
-    map('t', '<leader><ESC>', [[<c-\><c-n>]], opts_)
+    map('t', '<leader><ESC>', [[<c-\><c-n>]], opts)
     for i = 1, 6 do
         map(
             {"n", "t"},
             ("<A-%d>"):format(i),
             ("<CMD>tabnext %d<CR>"):format(i),
-            opts_
+            opts
         )
     end
-    map({'n', 't'}, '<A-j>', '<cmd>tabnext<CR>', opts_)
-    map({'n', 't'}, '<A-k>', '<cmd>tabprevious<CR>', opts_)
-    map({'n', 't'}, '<A-TAB>', '<cmd>tabnext #<CR>', opts_)
-    map({'n', 't'}, '<M-S-c>', '<cmd>tabclose<CR>', opts_)
+    map({'n', 't'}, '<A-j>', '<cmd>tabnext<CR>', opts)
+    map({'n', 't'}, '<A-k>', '<cmd>tabprevious<CR>', opts)
+    map({'n', 't'}, '<A-TAB>', '<cmd>tabnext #<CR>', opts)
+    map({'n', 't'}, '<M-S-c>', '<cmd>tabclose<CR>', opts)
 
     map('n', '<leader>tq', function()
         local fn = vim.fn
@@ -71,10 +38,38 @@ function keymaps.init()
         end
     end)
 
-    map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts_)
-    map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts_)
-    map('n', '<C-w>]', '<cmd>resize+5<CR>', opts_)
-    map('n', '<C-w>[', '<cmd>resize-5<CR>', opts_)
+    map('n', '<C-w>=', '<cmd>vertical resize+5<CR>', opts)
+    map('n', '<C-w>-', '<cmd>vertical resize-5<CR>', opts)
+    map('n', '<C-w>]', '<cmd>resize+5<CR>', opts)
+    map('n', '<C-w>[', '<cmd>resize-5<CR>', opts)
+
+    map("n", "<C-w>z", window.zoom, opts)
+    map("n", "<leader>lsp", lsp.toggle, opts)
+    map("n", "<leader>tim", im.toggle_imtoggle, opts)
+
+    -- nvim-dap
+    map('n', '<F6>', function() require('dap').continue() end, opts)
+    map('n', '<F7>', function() require('dap').terminate() require('dapui').close() end, opts)
+    map('n', '<F8>', function() require('dap').toggle_breakpoint() end, opts)
+    map('n', '<F9>', function() require("dap").step_into() end, opts)
+    map('n', '<F10>', function() require("dap").step_out() end, opts)
+    map('n', '<F11>', function() require("dap").step_over() end, opts)
+    map('n', '<leader>db', function () require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, opts)
+    map('n', '<leader>dc', function () require('dap').run_to_cursor() end, opts)
+    map('n', '<leader>dl', function () require('dap').run_last() end, opts)
+    map('n', '<leader>do', function () require('dap').repl.open() end, opts)
+
+    -- asynctasks
+    map('n', '<A-q>', '<cmd>AsyncTask file-run<CR>', opts)
+    map('n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>', opts)
+    map('n', '<F5>', '<cmd>AsyncTask project-run<CR>', opts)
+    map('n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>', opts)
+    map('n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>', opts)
+
+    -- diffview
+    map('n', '<leader>gg', '<cmd>DiffviewOpen<CR>', opts)
+    map('n', '<leader>gc', '<cmd>DiffviewClose<CR>', opts)
+    map({'n', 'v'}, '<leader>gh', '<cmd>DiffviewFileHistory<CR>', opts)
 
     -- vim.cmd [[
     -- " 多行应用宏
@@ -86,17 +81,4 @@ function keymaps.init()
     -- ]]
 end
 
-function keymaps:load(name)
-    return function()
-        local km = self[name]
-        if km then
-            for _, item in ipairs(km) do
-                map(item[1], item[2], item[3], opts)
-            end
-        else
-            vim.notify('error during add keymaps: no keymaps of ' .. name)
-        end
-    end
-end
-
-return keymaps
+return M

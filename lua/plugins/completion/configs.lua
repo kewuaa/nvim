@@ -26,7 +26,7 @@ configs.nvim_cmp = function()
         option = {
             get_bufnrs = function()
                 local bufs = {}
-                local get_bufsize = require('core.utils').get_bufsize
+                local get_bufsize = require('core.utils').cal_bufsize
                 for _, win in ipairs(vim.api.nvim_list_wins()) do
                     local bufnr = vim.api.nvim_win_get_buf(win)
                     local size = get_bufsize(bufnr)
@@ -209,11 +209,13 @@ configs.nvim_cmp = function()
     end)
 
     require('core.utils.bigfile').register(
-        512,
-        function(_)
-            cmp.setup.buffer({ enabled = false })
-        end,
-        { defer = true }
+        {
+            threshold = 0.5,
+            callback = function(_)
+                cmp.setup.buffer({ enabled = false })
+            end,
+            defer = true
+        }, {}
     )
 end
 
@@ -259,19 +261,24 @@ end
 configs.nvim_lspconfig = function ()
     require('lsp').setup()
     local utils = require('core.utils')
-    local threshold = 512
-    require('core.utils.bigfile').register(threshold, function(bufnr)
-        vim.api.nvim_create_autocmd('LspAttach', {
-            buffer = bufnr,
-            callback = function(args)
-                vim.schedule(function()
-                    vim.lsp.buf_detach_client(bufnr, args.data.client_id)
-                end)
-            end
-        })
-    end, {do_now = false})
+    require('core.utils.bigfile').register(
+        {
+            threshold = 0.5,
+            callback = function(bufnr)
+                vim.api.nvim_create_autocmd('LspAttach', {
+                    buffer = bufnr,
+                    callback = function(args)
+                        vim.schedule(function()
+                            vim.lsp.buf_detach_client(bufnr, args.data.client_id)
+                        end)
+                    end
+                })
+            end,
+            defer = false
+        }, {schedule = false}
+    )
     local bufnr = vim.api.nvim_get_current_buf()
-    if utils.get_bufsize(bufnr) < threshold then
+    if utils.cal_bufsize(bufnr) < 0.5 then
         local matching_configs = require('lspconfig.util').get_config_by_ft(vim.bo.filetype)
         for _, config in ipairs(matching_configs) do
             config.launch()

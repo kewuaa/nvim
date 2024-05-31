@@ -62,7 +62,6 @@ return {
     {
         'mfussenegger/nvim-dap',
         lazy = true,
-        init = require('core.keymaps'):load('dap'),
         config = configs.nvim_dap,
         dependencies = {
             {
@@ -79,10 +78,6 @@ return {
     {
         'skywind3000/asynctasks.vim',
         lazy = true,
-        init = function()
-            require("core.keymaps"):load('asynctasks')()
-            configs.asynctasks()
-        end,
         cmd = {
             'AsyncRun',
             'AsyncTask',
@@ -91,6 +86,7 @@ return {
             'AsyncTaskEdit',
             'AsyncTaskProfile'
         },
+        init = configs.asynctasks,
         dependencies = {
             {'skywind3000/asyncrun.vim'},
         },
@@ -100,6 +96,7 @@ return {
     {
         'lewis6991/gitsigns.nvim',
         lazy = true,
+        -- event = 'BufRead',
         init = function ()
             vim.api.nvim_create_autocmd('BufRead', {
                 desc = "delay load gitsigns.nvim",
@@ -111,13 +108,11 @@ return {
                 end
             })
         end,
-        -- event = 'BufRead',
         config = configs.gitsigns,
     },
     {
         'sindrets/diffview.nvim',
         lazy = true,
-        init = require('core.keymaps'):load('diffview'),
         event = 'CmdUndefined Diffview*',
         config = true,
         dependencies = {

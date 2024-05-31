@@ -50,10 +50,12 @@ local disable_distribution_plugins = function()
 end
 
 disable_distribution_plugins()
-require("core.options").init()
-require("core.cmds").init()
-require('core.utils').init()
-require("core.keymaps").init()
+vim.schedule(function()
+    require("core.options").init()
+    require("core.autocmds").init()
+    require("core.keymaps").init()
+    require("core.commands").init()
+end)
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

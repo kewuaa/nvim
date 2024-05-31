@@ -1,5 +1,6 @@
 local M = {}
-local settings = require("core.settings")
+local utils = require("core.utils")
+local python = require("core.utils.python")
 local options = {
     splitright = true,
     splitbelow = true,
@@ -51,6 +52,7 @@ local options = {
     signcolumn = 'yes',
     cursorline = true,
 }
+
 if vim.fn.executable('rg') == 1 then
   options.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   options.grepprg = 'rg --vimgrep --no-heading --smart-case'
@@ -85,10 +87,10 @@ M.init = function()
         }
     })
 
-    vim.g.python3_host_prog = require('core.settings'):getpy('default')
+    vim.g.python3_host_prog = python.get_venv('default')
     -- vim.g.c_syntax_for_h = 1
     vim.g.zig_fmt_autosave = false
-    if settings.is_wsl then
+    if utils.is_wsl then
         vim.g.clipboard = {
             name = "win32yank-wsl",
             copy = {
@@ -101,7 +103,7 @@ M.init = function()
             },
             cache_enabled = 0,
         }
-    elseif settings.is_mac then
+    elseif utils.is_mac then
         vim.g.clipboard = {
             name = "macOS-clipboard",
             copy = { ["+"] = "pbcopy", ["*"] = "pbcopy" },

@@ -30,6 +30,7 @@ return {
     {
         'neovim/nvim-lspconfig',
         lazy = true,
+        -- event = {'BufRead', 'BufNewFile'},
         init = function()
             local api = vim.api
             api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
@@ -43,7 +44,6 @@ return {
                 end
             })
         end,
-        -- event = {'BufRead', 'BufNewFile'},
         config = configs.nvim_lspconfig,
         dependencies = {
             -- lua 增强
@@ -62,9 +62,9 @@ return {
     -- copilot support
     {
         'zbirenbaum/copilot.lua',
+        build = ":Copilot auth",
         lazy = true,
         cmd = "Copilot",
-        build = ":Copilot auth",
         -- event = "InsertEnter",
         config = configs.copilot,
     }

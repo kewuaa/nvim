@@ -1,9 +1,17 @@
 local M = {}
+local fn = vim.fn
+local utils = require("core.utils")
 
-local bigfile_callbacks = {
+---@class Task
+---@field threshold number threshold size
+---@field callback function callback will be called when buffer size is bigger than threshold
+---@field defer boolean if the callback will be deferrd
+
+---@type table<number, Task> task list
+local tasks = {
     {
-        1024,
-        function(_)
+        threshold = 1,
+        callback = function(_)
             -- disable vimopts
             vim.opt_local.swapfile = false
             vim.opt_local.foldmethod = "manual"
@@ -16,51 +24,55 @@ local bigfile_callbacks = {
             -- disable filetypes
             vim.opt_local.filetype = ""
         end,
-        true,
+        defer = true
     }
 }
 
-M.register = function(threshold, callback, opts)
-    if opts.do_now == nil or opts.do_now then
-        local bufnr = vim.api.nvim_get_current_buf()
-        local size = require('core.utils').get_bufsize(bufnr)
-        if size > threshold then
-            callback(bufnr)
+---check the task
+---@param task Task
+---@param bufnr number buffer number
+local check_task = function(task, bufnr)
+    local buf_size = utils.cal_bufsize(bufnr)
+    if buf_size > task.threshold then
+        if task.defer then
+            fn.timer_start(1000, function()
+                task.callback(bufnr)
+            end)
+        else
+            vim.schedule(function()
+                task.callback(bufnr)
+            end)
         end
     end
-    bigfile_callbacks[#bigfile_callbacks+1] = {threshold, callback, opts.defer}
 end
 
-M.init = function()
-    vim.api.nvim_create_autocmd('BufReadPre', {
-        pattern = '*',
-        callback = function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            local size = require('core.utils').get_bufsize(bufnr)
-            local defer_callbacks = {}
-            for _, item in ipairs(bigfile_callbacks) do
-                local threshold, callback = item[1], item[2]
-                local defer = item[3]
-                if size > threshold then
-                    if defer then
-                        defer_callbacks[#defer_callbacks+1] = callback
-                    else
-                        callback(bufnr)
-                    end
-                end
-            end
-            if #defer_callbacks > 0 then
-                vim.api.nvim_create_autocmd('BufRead', {
-                    buffer = bufnr,
-                    callback = function()
-                        for _, cb in ipairs(defer_callbacks) do
-                            cb(bufnr)
-                        end
-                    end
-                })
-            end
-        end
+----check the buffer
+---@param bufnr number buffer number
+M.check_once = function(bufnr)
+    for _, task in ipairs(tasks) do
+        check_task(task, bufnr)
+    end
+end
+
+---register a task
+---@param task Task
+---@param opts table
+M.register = function(task, opts)
+    vim.validate({
+        arg1 = {task, "table", false},
+        threshold = {task.threshold, "number", false},
+        callback = {task.callback, "function", false},
+        defer = {task.defer, "boolean", true},
+
+        arg2 = {opts, "table", false},
+        schedule = {opts.schedule, "boolean", true}
     })
+    task.defer = task.defer or false
+    opts.schedule = opts.schedule or true
+    tasks[#tasks+1] = task
+    if opts.schedule then
+        check_task(task, 0)
+    end
 end
 
 return M

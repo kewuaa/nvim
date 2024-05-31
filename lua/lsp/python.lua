@@ -1,6 +1,6 @@
 local M = {}
-local settings = require('core.settings')
-local rootmarks = settings.get_rootmarks('pyproject.toml')
+local python = require("core.utils.python")
+local rootmarks = {".git", 'pyproject.toml'}
 
 M.basedpyright = {
     rootmarks = rootmarks,
@@ -13,13 +13,13 @@ M.basedpyright = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
                 useLibraryCodeForTypes = true,
-                stubPath = string.format("%s/../python-type-stubs/stubs", settings.pyvenv_path),
+                stubPath = string.format("%s/../python-type-stubs/stubs", python.venv_root),
                 typeCheckingMode = 'standard',
             },
         },
         python = {
-            venvPath = settings.pyvenv_path,
-            -- pythonPath = require("core.settings"):getpy("default")
+            venvPath = python.venv_root,
+            -- pythonPath = python.get_venv("default")
         }
     }
 }

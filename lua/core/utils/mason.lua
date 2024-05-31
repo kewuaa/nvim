@@ -1,6 +1,13 @@
 local M = {}
 
+---ensure that the package if installed
+---@param pkg_name string name of package
+---@param callbacks table|nil callbacks that will be called after installing
 M.ensure_install = function(pkg_name, callbacks)
+    vim.validate({
+        arg1 = {pkg_name, "string", false},
+        arg2 = {callbacks, "table", true},
+    })
     local registry = require("mason-registry")
     if not registry.is_installed(pkg_name) then
         local ok, pkg = pcall(registry.get_package, pkg_name)

@@ -1,8 +1,7 @@
 local M = {}
-local settings = require("core.settings")
 
 M.clangd = {
-    rootmarks = settings.get_rootmarks("xmake.lua", "compile_flags.txt"),
+    rootmarks = {".git", "xmake.lua", "compile_flags.txt"},
     cmd = {
         'clangd',
         "--offset-encoding=utf-16",

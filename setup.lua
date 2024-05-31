@@ -1,9 +1,9 @@
-local settings = require("core.settings")
+local utils = require("core.utils")
 local config_dir = vim.fn.stdpath("config")
 local home_dir = nil
 local clink_config_path = nil
 local alacritty_config_dir = nil
-if settings.is_Windows then
+if utils.is_win then
     config_dir = config_dir:gsub("\\", "/")
     home_dir = os.getenv("USERPROFILE"):gsub("\\", "/")
     alacritty_config_dir = os.getenv("APPDATA"):gsub("\\", "/") .. "/alacritty"

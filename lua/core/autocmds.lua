@@ -1,14 +1,11 @@
 local M = {}
-local api = vim.api
-local map = vim.keymap.set
-local bufopts = {
-    silent = true,
-    buffer = 0,
-}
+local api, map = vim.api, vim.keymap.set
+local bigfile = require("core.utils.bigfile")
 local quick_quit_fts = {
     'qf',
     'help',
 }
+
 local function load_clipboard()
     api.nvim_del_var('loaded_clipboard_provider')
     api.nvim_command(string.format('source %s/autoload/provider/clipboard.vim', vim.env.VIMRUNTIME))
@@ -18,21 +15,8 @@ local function load_rplugin()
     api.nvim_command(string.format('source %s/plugin/rplugin.vim', vim.env.VIMRUNTIME))
 end
 
-local function create_git_commands()
-    local cc = vim.api.nvim_create_user_command
-    local commands = {
-        {'OpenCmd', 'AsyncTask terminal'},
-        {'GitCommit', 'AsyncTask git-commit'},
-        {'GitPush', 'AsyncTask git-push'},
-        {'GitCheckout', 'AsyncTask git-checkout'},
-        {'GitReset', 'AsyncTask git-reset'},
-        {'GitLog', 'AsyncTask git-log'},
-    }
-    for _, command in ipairs(commands) do
-        cc(command[1], command[2], command[3] or {})
-    end
-end
-
+---register filetypes to auto map 'q' to quit
+---@param ... string
 M.register_quick_quit = function(...)
     local fts = {...}
     for _, ft in pairs(fts) do
@@ -45,18 +29,19 @@ M.init = function()
         desc = "lazy load rplugin and clipboard",
         once = true,
         pattern = 'VeryLazy',
-        callback = function ()
+        callback = function()
             load_rplugin()
             load_clipboard()
         end
     })
+
     api.nvim_create_autocmd('filetype', {
         desc = "custom filetype callback",
         callback = function ()
             local ft = vim.bo.filetype
             -- quick quit
             if vim.tbl_contains(quick_quit_fts, ft) then
-                map('n', 'q', '<cmd>q<CR>', bufopts)
+                map('n', 'q', '<cmd>q<CR>', {silent = true, buffer = 0})
             -- change commentstring
             elseif vim.tbl_contains({"c", "cpp", "rust"}, ft) then
                 vim.bo.commentstring = "// %s"
@@ -99,8 +84,13 @@ M.init = function()
     })
 
     local numbertoggle_group = api.nvim_create_augroup("_number_toggle_", {clear = true})
-    api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
-       pattern = "*",
+    api.nvim_create_autocmd({
+        "BufEnter",
+        "FocusGained",
+        "InsertLeave",
+        "CmdlineLeave",
+        "WinEnter",
+    }, {
        group = numbertoggle_group,
        callback = function()
           if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
@@ -108,8 +98,13 @@ M.init = function()
           end
        end,
     })
-    api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
-       pattern = "*",
+    api.nvim_create_autocmd({
+        "BufLeave",
+        "FocusLost",
+        "InsertEnter",
+        "CmdlineEnter",
+        "WinLeave",
+    }, {
        group = numbertoggle_group,
        callback = function()
           if vim.o.nu then
@@ -119,7 +114,13 @@ M.init = function()
        end,
     })
 
-    create_git_commands()
+    api.nvim_create_autocmd("BufReadPre", {
+        desc = "bigfile autocmd",
+        callback = function(args)
+            local bufnr = args.buf
+            bigfile.check_once(bufnr)
+        end
+    })
 end
 
 return M
