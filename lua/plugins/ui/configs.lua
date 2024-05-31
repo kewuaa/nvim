@@ -29,7 +29,9 @@ configs.tokyonight = function()
 end
 
 configs.indentmini = function()
-    local exclude_fts = require("core.settings").exclude_filetypes
+    local settings = require("core.settings")
+    local exclude_fts = settings.exclude_filetypes
+    vim.list_extend(exclude_fts, settings.exclude_buftypes)
     require("indentmini").setup({
         exclude = exclude_fts
     })
