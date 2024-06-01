@@ -8,11 +8,11 @@ local quick_quit_fts = {
 
 local function load_clipboard()
     api.nvim_del_var('loaded_clipboard_provider')
-    api.nvim_command(string.format('source %s/autoload/provider/clipboard.vim', vim.env.VIMRUNTIME))
+    vim.cmd(('source %s/autoload/provider/clipboard.vim'):format(vim.env.VIMRUNTIME))
 end
 local function load_rplugin()
     api.nvim_del_var('loaded_remote_plugins')
-    api.nvim_command(string.format('source %s/plugin/rplugin.vim', vim.env.VIMRUNTIME))
+    vim.cmd(('source %s/plugin/rplugin.vim'):format(vim.env.VIMRUNTIME))
 end
 
 ---register filetypes to auto map 'q' to quit

@@ -24,7 +24,7 @@ M.zoom = function()
         height = float_height,
         border = "single"
     })
-    api.nvim_command("normal! zz")
+    vim.cmd("normal! zz")
 end
 
 return M
