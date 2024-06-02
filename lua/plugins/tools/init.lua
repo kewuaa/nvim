@@ -130,7 +130,7 @@ return {
                 require("mini.files").open()
             end, mode = "n"}
         },
-        config = true,
+        config = configs.mini_files,
     },
 
     -- 翻译
