@@ -286,18 +286,6 @@ configs.nvim_lspconfig = function ()
     end
 end
 
-configs.neodev = function()
-    require('neodev').setup({
-        library = {
-            plugins = {"lazy.nvim"},
-            types = true,
-            runtime = true,
-        },
-        setup_jsonls = true,
-        lspconfig = true,
-    })
-end
-
 configs.crates = function()
     local crates = require("crates")
     crates.setup({

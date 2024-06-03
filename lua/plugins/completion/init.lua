@@ -45,10 +45,6 @@ return {
             })
         end,
         config = configs.nvim_lspconfig,
-        dependencies = {
-            -- lua 增强
-            {'folke/neodev.nvim', config = configs.neodev},
-        }
     },
 
     -- Cargo.toml 支持
