@@ -1,6 +1,6 @@
 local M = {}
 
----@type table<string, function[]>
+---@type table<string, function[]|boolean>
 local handles = {}
 
 ---add handle
@@ -17,11 +17,11 @@ end
 ---remove handle
 ---@param plugin string
 local remove = function(plugin)
-    if handles[plugin] then
+    if handles[plugin] and handles[plugin] ~= true then
         for _, cancel in ipairs(handles[plugin]) do
             cancel()
         end
-        handles[plugin] = nil
+        handles[plugin] = true
     end
 end
 
@@ -33,9 +33,18 @@ M.load = function(plugin)
             for _, depend in ipairs(plugin.depends) do
                 local t = type(depend)
                 if t == "string" then
-                    vim.cmd("packadd " .. vim.fn.fnamemodify(depend, ":t"))
+                    local name = vim.fn.fnamemodify(depend, ":t")
+                    if handles[name] ~= true then
+                        vim.cmd("packadd " .. name)
+                    end
                 elseif t == "table" then
-                    vim.cmd("packadd " .. depend.name or vim.fn.fnamemodify(depend.source, ":t"))
+                    local name = depend.name or vim.fn.fnamemodify(depend.source, ":t")
+                    if handles[name] ~= true then
+                        vim.cmd("packadd " .. name)
+                        if depend.config then
+                            depend.config()
+                        end
+                    end
                 else
                     vim.notify("unexpected type")
                 end
