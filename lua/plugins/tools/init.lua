@@ -12,7 +12,6 @@ deps.add({
     },
     lazy_opts = {
         cmds = {"Mason"},
-        events = {"BufRead", "BufNewFile"}
     },
     config = configs.mason
 })

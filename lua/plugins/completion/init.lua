@@ -38,6 +38,12 @@ deps.add({
     config = function()
         configs.nvim_lspconfig()
     end,
+    depends = {
+        {
+            source = "williamboman/mason.nvim",
+            config = require("plugins.tools.configs").mason
+        },
+    }
 })
 
 ---------------------------------------------------------------------------------------------------
