@@ -113,7 +113,7 @@ end
 deps.add({
     source = "nvim-treesitter/nvim-treesitter",
     hooks = {
-        post_install = function()
+        post_checkout = function()
             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
             ts_update()
         end
