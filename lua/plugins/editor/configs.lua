@@ -118,13 +118,6 @@ configs.mini_pairs = function()
     map_bs('<C-u>', 'v:lua.MiniPairs.bs("\21")')
 end
 
-configs.neotab = function()
-    require("neotab").setup({
-        tabkey = "<C-l>",
-        act_as_tab = false,
-    })
-end
-
 configs.treesj = function ()
     local tsj = require('treesj')
     local langs = require('treesj.langs')['presets']

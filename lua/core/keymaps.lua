@@ -47,6 +47,7 @@ function M.init()
     map("n", "<leader>lsp", lsp.toggle, opts)
     map("n", "<leader>tim", im.toggle_imtoggle, opts)
 
+    map("i", "<C-l>", "<Right>", opts)
     -- vim.cmd [[
     -- " 多行应用宏
     -- xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
