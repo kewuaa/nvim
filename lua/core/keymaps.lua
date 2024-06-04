@@ -47,30 +47,6 @@ function M.init()
     map("n", "<leader>lsp", lsp.toggle, opts)
     map("n", "<leader>tim", im.toggle_imtoggle, opts)
 
-    -- nvim-dap
-    map('n', '<F6>', function() require('dap').continue() end, opts)
-    map('n', '<F7>', function() require('dap').terminate() require('dapui').close() end, opts)
-    map('n', '<F8>', function() require('dap').toggle_breakpoint() end, opts)
-    map('n', '<F9>', function() require("dap").step_into() end, opts)
-    map('n', '<F10>', function() require("dap").step_out() end, opts)
-    map('n', '<F11>', function() require("dap").step_over() end, opts)
-    map('n', '<leader>db', function () require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, opts)
-    map('n', '<leader>dc', function () require('dap').run_to_cursor() end, opts)
-    map('n', '<leader>dl', function () require('dap').run_last() end, opts)
-    map('n', '<leader>do', function () require('dap').repl.open() end, opts)
-
-    -- asynctasks
-    map('n', '<A-q>', '<cmd>AsyncTask file-run<CR>', opts)
-    map('n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>', opts)
-    map('n', '<F5>', '<cmd>AsyncTask project-run<CR>', opts)
-    map('n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>', opts)
-    map('n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>', opts)
-
-    -- diffview
-    map('n', '<leader>gg', '<cmd>DiffviewOpen<CR>', opts)
-    map('n', '<leader>gc', '<cmd>DiffviewClose<CR>', opts)
-    map({'n', 'v'}, '<leader>gh', '<cmd>DiffviewFileHistory<CR>', opts)
-
     -- vim.cmd [[
     -- " 多行应用宏
     -- xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
