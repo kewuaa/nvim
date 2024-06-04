@@ -47,6 +47,7 @@ function M.init()
     map("n", "<leader>lsp", lsp.toggle, opts)
     map("n", "<leader>tim", im.toggle_imtoggle, opts)
 
+    map("i", "<C-l>", "<Right>", opts)
     -- nvim-dap
     map('n', '<F6>', function() require('dap').continue() end, opts)
     map('n', '<F7>', function() require('dap').terminate() require('dapui').close() end, opts)
