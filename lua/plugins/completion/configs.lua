@@ -21,41 +21,6 @@ configs.mini_completion = function()
             end
         }
     })
-    vim.keymap.set('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   { expr = true })
-    vim.keymap.set('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
-    -- For using enter as completion, may conflict with some autopair plugin
-    vim.keymap.set("i", "<cr>", function()
-        local complete_info = vim.fn.complete_info()
-        vim.print(complete_info)
-        if complete_info.pum_visible == 1 then
-            local keys = "<C-y>"
-            local idx = complete_info.selected
-            local selected_item
-            if idx > -1 then
-                selected_item = complete_info.items[idx + 1]
-            else
-                selected_item = complete_info.items[1]
-                keys = "<C-n>" .. keys
-            end
-            if selected_item.kind == "Function" then
-                local cursor = vim.api.nvim_win_get_cursor(0)
-                local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
-                if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
-                    vim.api.nvim_feedkeys(
-                        vim.api.nvim_replace_termcodes(
-                            "()<left>",
-                            true,
-                            false,
-                            true
-                        ), "i", false
-                    )
-                end
-            end
-            return keys
-        else
-            return "<CR>"
-        end
-    end, { expr = true, noremap = true })
 end
 
 configs.snippets = function()

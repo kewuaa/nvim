@@ -4,6 +4,39 @@ local window = require("core.utils.window")
 local lsp = require("core.utils.lsp")
 local im = require("core.utils.im")
 
+CR = function()
+    local complete_info = vim.fn.complete_info()
+    vim.print(complete_info)
+    if complete_info.pum_visible == 1 then
+        local keys = "<C-y>"
+        local idx = complete_info.selected
+        local selected_item
+        if idx > -1 then
+            selected_item = complete_info.items[idx + 1]
+        else
+            selected_item = complete_info.items[1]
+            keys = "<C-n>" .. keys
+        end
+        if selected_item.kind == "Function" then
+            local cursor = vim.api.nvim_win_get_cursor(0)
+            local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
+            if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
+                vim.api.nvim_feedkeys(
+                vim.api.nvim_replace_termcodes(
+                        "()<left>",
+                        true,
+                        false,
+                        true
+                    ), "i", false
+                )
+            end
+        end
+        return keys
+    else
+        return "<CR>"
+    end
+end
+
 function M.init()
     vim.g.mapleader = '\\'
     local opts = { silent = true, noremap = true }
@@ -48,6 +81,12 @@ function M.init()
     map("n", "<leader>tim", im.toggle_imtoggle, opts)
 
     map("i", "<C-l>", "<Right>", opts)
+
+    local expr_opts = vim.tbl_extend("error", opts, {expr = true})
+    map('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   expr_opts)
+    map('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], expr_opts)
+    map('i', '<CR>', CR, expr_opts)
+
     -- vim.cmd [[
     -- " 多行应用宏
     -- xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
