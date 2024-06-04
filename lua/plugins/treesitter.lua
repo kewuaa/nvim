@@ -1,7 +1,6 @@
-local configs = {}
+local deps = require("core.deps")
 
-
-configs.nvim_treesitter = function()
+local treesitter = function()
     require('nvim-treesitter.configs').setup({
         auto_install = true,
         ignore_install = {"zig"},
@@ -61,7 +60,28 @@ configs.nvim_treesitter = function()
     }
 end
 
-configs.rainbow_delimiters = function()
+local treesitter_textobjects = function()
+    local move = require("nvim-treesitter.textobjects.move") ---@type table<string,fun(...)>
+    local treesitter_configs = require("nvim-treesitter.configs")
+    for name, fn in pairs(move) do
+        if name:find("goto") == 1 then
+            move[name] = function(q, ...)
+                if vim.wo.diff then
+                    local config = treesitter_configs.get_module("textobjects.move")[name] ---@type table<string,string>
+                    for key, query in pairs(config or {}) do
+                        if q == query and key:find("[%]%[][cC]") then
+                            vim.cmd("normal! " .. key)
+                            return
+                        end
+                    end
+                end
+                return fn(q, ...)
+            end
+        end
+    end
+end
+
+local rainbow_delimiters = function()
     local rainbow_delimiters = require("rainbow-delimiters")
     require("rainbow-delimiters.setup").setup({
         strategy = {
@@ -84,27 +104,26 @@ configs.rainbow_delimiters = function()
     })
 end
 
-configs.nvim_treesitter_textobjects = function()
-    -- When in diff mode, we want to use the default
-    -- vim text objects c & C instead of the treesitter ones.
-    local move = require("nvim-treesitter.textobjects.move") ---@type table<string,fun(...)>
-    local treesitter_configs = require("nvim-treesitter.configs")
-    for name, fn in pairs(move) do
-        if name:find("goto") == 1 then
-            move[name] = function(q, ...)
-                if vim.wo.diff then
-                    local config = treesitter_configs.get_module("textobjects.move")[name] ---@type table<string,string>
-                    for key, query in pairs(config or {}) do
-                        if q == query and key:find("[%]%[][cC]") then
-                            vim.cmd("normal! " .. key)
-                            return
-                        end
-                    end
-                end
-                return fn(q, ...)
-            end
-        end
-    end
+local config = function()
+    treesitter()
+    treesitter_textobjects()
+    rainbow_delimiters()
 end
 
-return configs
+deps.add({
+    source = "nvim-treesitter/nvim-treesitter",
+    hooks = {
+        post_install = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end
+    },
+    lazy_opts = {
+        events = {"BufRead", "BufNewFile"}
+    },
+    config = config,
+    depends = {
+        "HiPhish/rainbow-delimiters.nvim",
+        "nvim-treesitter/nvim-treesitter-textobjects"
+    }
+})

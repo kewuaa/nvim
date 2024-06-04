@@ -1,59 +1,73 @@
 local configs = require("plugins.ui.configs")
+local deps = require("core.deps")
 
-
-return {
-    -- 颜色主题
-    {
-        'folke/tokyonight.nvim',
-        lazy = true,
-        event = 'VeryLazy',
-        config = configs.tokyonight,
+---------------------------------------------------------------------------------------------------
+---colorscheme
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "folke/tokyonight.nvim",
+    lazy_opts = {
+        very_lazy = true
     },
+    config = configs.tokyonight
+})
 
-    -- statusline
-    {
-        'kewuaa/sttusline',
-        branch = "table_version",
-        lazy = true,
-        event = 'ColorScheme',
-        config = configs.sttusline,
-        dependencies = {
-            {'nvim-tree/nvim-web-devicons'},
-        }
+---------------------------------------------------------------------------------------------------
+---status line
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "kewuaa/sttusline",
+    monitor = "table_version",
+    checkout = "table_version",
+    lazy_opts = {
+        events = {"ColorScheme"},
     },
+    config = configs.sttusline
+})
 
-    -- tabline
-    {
-        'kewuaa/nvim-tabline',
-        lazy = true,
-        event = 'TabNew',
-        config = configs.tabline,
-        dependencies = {
-            { 'nvim-tree/nvim-web-devicons' },
-        }
+---------------------------------------------------------------------------------------------------
+---tab line
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "kewuaa/nvim-tabline",
+    lazy_opts = {
+        events = {"TabNew"}
     },
+    config = configs.tabline,
+    depends = {"nvim-tree/nvim-web-devicons"},
+})
 
-    -- 缩进线
-    {
-        'nvimdev/indentmini.nvim',
-        lazy = true,
-        event = {"BufRead", "BufNewFile"},
-        config = configs.indentmini,
+---------------------------------------------------------------------------------------------------
+---indent line
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "nvimdev/indentmini.nvim",
+    lazy_opts = {
+        events = {"BufRead", "BufNewFile"}
     },
+    config = configs.indentmini
+})
 
-    {
-        "echasnovski/mini.notify",
-        version = false,
-        lazy = true,
-        event = "VeryLazy",
-        config = configs.mini_notify
+---------------------------------------------------------------------------------------------------
+---enhance notify
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.notify",
+    lazy_opts = {
+        very_lazy = true
     },
+    config = configs.mini_notify,
+})
 
-    -- 增强vim UI
-    {
-        'stevearc/dressing.nvim',
-        lazy = true,
-        event = 'VeryLazy',
-        config = configs.dressing,
+---------------------------------------------------------------------------------------------------
+---enhance ui
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "stevearc/dressing.nvim",
+    lazy_opts = {
+        very_lazy = true
     },
-}
+    config = function()
+        require("dressing").setup()
+    end,
+})

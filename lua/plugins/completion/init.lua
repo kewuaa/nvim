@@ -1,67 +1,68 @@
+local deps = require("core.deps")
 local configs = require("plugins.completion.configs")
 
-return {
-    -- 自动完成
-    {
-        'hrsh7th/nvim-cmp',
-        lazy = true,
-        event = {'InsertEnter', 'CmdlineEnter'},
-        config = configs.nvim_cmp,
-        dependencies = {
-            -- LSP source
-            {'hrsh7th/cmp-nvim-lsp'},
-            -- buffer source
-            {'hrsh7th/cmp-buffer'},
-            -- cmdline source
-            {'hrsh7th/cmp-cmdline'},
-            -- path source
-            {'hrsh7th/cmp-path'},
-        }
+---------------------------------------------------------------------------------------------------
+---auto completion
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.completion",
+    lazy_opts = {
+        events = {"InsertEnter"}
     },
-    -- snippets
-    {
-        'garymjr/nvim-snippets',
-        lazy = true,
-        event = "InsertEnter",
-        config = configs.snippets,
-    },
-
-    -- lsp
-    {
-        'neovim/nvim-lspconfig',
-        lazy = true,
-        -- event = {'BufRead', 'BufNewFile'},
-        init = function()
-            local api = vim.api
-            api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-                -- pattern = [[*\(.pyx\|.pxd\|.pxi\)\@<!]],
-                desc = "delay load nvim-lspconfig",
-                once = true,
-                callback = function()
-                    vim.fn.timer_start(100, function()
-                        require("lazy").load({plugins = {"nvim-lspconfig"}})
-                    end)
-                end
-            })
-        end,
-        config = configs.nvim_lspconfig,
-    },
-
-    -- Cargo.toml 支持
-    {
-        'saecki/crates.nvim',
-        lazy = true,
-        event = "BufRead Cargo.toml",
-        config = configs.crates,
-    },
-
-    -- copilot support
-    {
-        'zbirenbaum/copilot.lua',
-        build = ":Copilot auth",
-        lazy = true,
-        cmd = "Copilot",
-        -- event = "InsertEnter",
-        config = configs.copilot,
+    config = configs.mini_completion,
+    depends = {
+        "echasnovski/mini.fuzzy"
     }
-}
+})
+
+---------------------------------------------------------------------------------------------------
+---snippets support
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "garymjr/nvim-snippets",
+    lazy_opts = {
+        events = {"InsertEnter"}
+    },
+    configs = configs.snippets
+})
+
+---------------------------------------------------------------------------------------------------
+---lsp support
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "neovim/nvim-lspconfig",
+    lazy_opts = {
+        events = {"BufRead", "BufNewFile"},
+        delay = 100,
+    },
+    config = function()
+        configs.nvim_lspconfig()
+    end,
+})
+
+---------------------------------------------------------------------------------------------------
+---Cargo.toml support
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "saecki/crates.nvim",
+    lazy_opts = {
+        events = {"BufRead Cargo.toml"}
+    },
+    config = configs.crates,
+})
+
+---------------------------------------------------------------------------------------------------
+---copilot support
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "zbirenbaum/copilot.lua",
+    hooks = {
+        post_checkout = function()
+            vim.cmd("Copilot auth")
+        end
+    },
+    lazy_opts = {
+        cmds = {"Copilot"}
+    },
+    config = configs.copilot,
+})

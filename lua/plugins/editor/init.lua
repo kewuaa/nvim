@@ -1,121 +1,155 @@
 local configs = require("plugins.editor.configs")
+local deps = require("core.deps")
 
+---------------------------------------------------------------------------------------------------
+---enhance textobjects
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.ai",
+    lazy_opts = {
+        very_lazy = true
+    },
+    config = configs.mini_ai
+})
 
-return {
-    -- 选中编辑
-    {
-        'echasnovski/mini.surround',
-        version = false,
-        lazy = true,
+---------------------------------------------------------------------------------------------------
+---text align
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.align",
+    lazy_opts = {
         keys = {
-            {'<leader>as', mode = {'n', 'x'}},
-            {'<leader>ds', mode = 'n'},
-            {'<leader>cs', mode = 'n'},
-            {'<leader>fs', mode = {'n', 'o'}},
-            {'<leader>Fs', mode = {'n', 'o'}},
-            {'<leader>sh', mode = 'n'},
-        },
-        config = configs.mini_surround,
+            {mode = "n", lhs = "ga"},
+            {mode = "n", lhs = "gA"},
+        }
     },
+    config = function()
+        require("mini.align").setup()
+    end
+})
 
-    -- enhance textobject
-    {
-        'echasnovski/mini.ai',
-        version = false,
-        lazy = true,
-        event = "VeryLazy",
-        config = configs.mini_ai,
-    },
-
-    -- 高亮相同单词
-    {
-        'echasnovski/mini.cursorword',
-        version = false,
-        lazy = true,
-        event = 'CursorHold',
-        config = configs.mini_cursorword,
-    },
-
-    -- 括号补全
-    {
-        'echasnovski/mini.pairs',
-        lazy = true,
-        event = 'InsertEnter',
-        config = configs.mini_pairs,
-    },
-
-    -- tab out
-    {
-        "kawre/neotab.nvim",
-        lazy = true,
-        event = "InsertEnter",
-        config = configs.neotab,
-    },
-
-    -- 与J相反的操作
-    {
-        'Wansmer/treesj',
-        lazy = true,
+---------------------------------------------------------------------------------------------------
+---buffer remove
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.bufremove",
+    lazy_opts = {
         keys = {
-            {'<leader>j', mode = 'n'}
-        },
-        config = configs.treesj,
+            {
+                mode = "n",
+                lhs = "<leader>bd",
+                rhs = function() require("mini.bufremove").delete(0, false) end,
+                opts = {
+                    desc = "Delete Buffer",
+                }
+            },
+            {
+                mode = "n",
+                lhs = "<leader>bD",
+                rhs = function() require("mini.bufremove").delete(0, true) end,
+                opts = {
+                    desc = "Delete Buffer (Force)",
+                }
+            },
+        }
     },
-    {
-        'echasnovski/mini.splitjoin',
-        version = false,
-        lazy = true,
-        config = configs.mini_splitjoin,
-    },
+    config = function()
+        require("mini.bufremove").setup()
+    end
+})
 
-    -- 交换函数参数, 列表元素等
-    {
-        'mizlan/iswap.nvim',
-        lazy = true,
+---------------------------------------------------------------------------------------------------
+---illumunate cursor word
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.cursorword",
+    lazy_opts = {
+        events = {"CursorHold"}
+    },
+    config = configs.mini_cursorword
+})
+
+---------------------------------------------------------------------------------------------------
+---surround
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.surround",
+    lazy_opts = {
         keys = {
-            {'<leader>sp', '<cmd>ISwapWith<CR>', mode = 'n'}
-        },
-        config = configs.iswap,
+            {mode = {"n", "x"}, lhs = "<leader>as"},
+            {mode = "n", lhs = "<leader>ds"},
+            {mode = "n", lhs = "<leader>cs"},
+        }
     },
+    config = configs.mini_surround
+})
 
-    -- match enhance
-    {
-        'utilyre/sentiment.nvim',
-        version = '*',
-        lazy = true,
-        event = 'CursorHold',
-        config = configs.sentiment,
+---------------------------------------------------------------------------------------------------
+---pair brackets
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini.pairs",
+    lazy_opts = {
+        events = {"InsertEnter"}
     },
+    config = configs.mini_pairs
+})
 
-    -- 对齐
-    {
-        'echasnovski/mini.align',
-        version = false,
-        lazy = true,
+---------------------------------------------------------------------------------------------------
+---splitjoin
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "Wansmer/treesj",
+    lazy_opts = {
         keys = {
-            {'ga', mode = 'n'},
-            {'gA', mode = 'n'},
-        },
-        config = true,
+            {mode = "n", lhs = "<leader>j", rhs = function()
+                local langs = require('treesj.langs')['presets']
+                if langs[vim.bo.filetype] then
+                    vim.cmd("TSJToggle")
+                else
+                    require('mini.splitjoin').toggle()
+                end
+            end}
+        }
     },
+    config = function()
+        configs.mini_splitjoin()
+        configs.treesj()
+    end,
+    depends = {"echasnovski/mini.splitjoin"}
+})
 
-    -- 缓冲区关闭时保留原有布局
-    {
-        'echasnovski/mini.bufremove',
-        lazy = true,
+---------------------------------------------------------------------------------------------------
+---enhance matchparen
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "utilyre/sentiment.nvim",
+    lazy_opts = {
+        events = {"CursorHold"}
+    },
+    config = configs.sentiment
+})
+
+---------------------------------------------------------------------------------------------------
+---swap params
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "mizlan/iswap.nvim",
+    lazy_opts = {
         keys = {
-            { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-            { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
-        },
+            {mode = "n", lhs = "<leader>sp", rhs = "<CMD>ISwapWith<CR>"}
+        }
     },
+    config = configs.iswap
+})
 
-    -- sudo support
-    {
-        'lambdalisue/suda.vim',
-        lazy = true,
-        cmd = {"SudaRead", "SudaWrite"},
-        init = function()
-            vim.g["suda#prompt"] = "Enter administrator password: "
-        end,
+---------------------------------------------------------------------------------------------------
+---out brackets
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "kawre/neotab.nvim",
+    lazy_opts = {
+        events = {"InsertEnter"}
     },
-}
+    config = configs.neotab,
+})

@@ -228,14 +228,4 @@ configs.dressing = function()
     })
 end
 
-configs.neodim = function ()
-    require('neodim').setup({
-        hide = {
-            virtual_text = true,
-            signs = false,
-            underline = false,
-        },
-    })
-end
-
 return configs
