@@ -23,7 +23,7 @@ deps.add({
     lazy_opts = {
         events = {"InsertEnter"}
     },
-    configs = configs.snippets
+    config = configs.snippets
 })
 
 ---------------------------------------------------------------------------------------------------
