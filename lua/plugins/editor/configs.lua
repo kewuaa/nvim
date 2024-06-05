@@ -116,6 +116,12 @@ configs.mini_pairs = function()
     map_bs('<C-h>', 'v:lua.MiniPairs.bs()')
     map_bs('<C-w>', 'v:lua.MiniPairs.bs("\23")')
     map_bs('<C-u>', 'v:lua.MiniPairs.bs("\21")')
+
+    local mini_pairs_cr = mini_pairs.cr
+    mini_pairs.cr = function()
+        local keys = CR()
+        return keys == "<CR>" and mini_pairs_cr() or vim.api.nvim_replace_termcodes(keys, true, false, true)
+    end
 end
 
 configs.treesj = function ()

@@ -18,7 +18,7 @@ local library = function()
         end
     end
     add("$VIMRUNTIME")
-    add(vim.fn.stdpath('config'))
+    add(vim.fn.stdpath("config"))
     -- local site = vim.fn.stdpath("data") .. "/site"
     -- add(site .. "/pack/*/opt/*")
     -- add(site .. "/pack/*/start/*")

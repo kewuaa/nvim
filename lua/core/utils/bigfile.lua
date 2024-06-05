@@ -1,5 +1,4 @@
 local M = {}
-local fn = vim.fn
 local utils = require("core.utils")
 
 ---@class Task
@@ -35,7 +34,7 @@ local check_task = function(task, bufnr)
     local buf_size = utils.cal_bufsize(bufnr)
     if buf_size > task.threshold then
         if task.defer then
-            fn.timer_start(1000, function()
+            vim.fn.timer_start(1000, function()
                 task.callback(bufnr)
             end)
         else

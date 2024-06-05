@@ -77,16 +77,6 @@ if vim.fn.exists("g:neovide") == 1 then
 end
 
 M.init = function()
-    vim.filetype.add({
-        extension = {
-            pyx = "cython",
-            pxd = "cython",
-            pxi = "cython",
-            pyxdep = "python",
-            pyxbld = "python",
-        }
-    })
-
     vim.g.python3_host_prog = python.get_venv('default')
     -- vim.g.c_syntax_for_h = 1
     vim.g.zig_fmt_autosave = false

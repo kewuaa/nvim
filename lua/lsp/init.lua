@@ -25,7 +25,7 @@ local on_attach = function(client, bufnr)
         end)
     end
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_var(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_set_option_value("omnifunc", "v:lua.MiniCompletion.completefunc_lsp", {buf = bufnr})
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -127,7 +127,7 @@ function M.setup()
     add_auto_install_hook()
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
     local base_config = {
         on_attach = on_attach,
         capabilities = capabilities,

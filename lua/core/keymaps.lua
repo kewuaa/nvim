@@ -4,6 +4,49 @@ local window = require("core.utils.window")
 local lsp = require("core.utils.lsp")
 local im = require("core.utils.im")
 
+CR = function()
+    local complete_info = vim.fn.complete_info()
+    if complete_info.pum_visible == 1 then
+        local keys = "<C-y>"
+        local idx = complete_info.selected
+        local selected_item
+        if idx > -1 then
+            selected_item = complete_info.items[idx + 1]
+        else
+            selected_item = complete_info.items[1]
+            keys = "<C-n>" .. keys
+        end
+        if selected_item.kind == "Function" then
+            local cursor = vim.api.nvim_win_get_cursor(0)
+            local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
+            if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
+                vim.api.nvim_feedkeys(
+                vim.api.nvim_replace_termcodes(
+                        "()<left>",
+                        true,
+                        false,
+                        true
+                    ), "i", false
+                )
+            end
+        elseif selected_item.kind == "Snippet" then
+            local data = selected_item.user_data.nvim.lsp.completion_item.data
+            local prefix_length = idx > -1 and vim.fn.strlen(selected_item.abbr) or vim.fn.strlen(data.prefix)
+            vim.schedule(function()
+                vim.snippet.expand(data.body)
+            end)
+            if prefix_length < 1 then
+                keys = "<Ignore>"
+            else
+                keys = ("<C-\\><C-o>%sX"):format(prefix_length)
+            end
+        end
+        return keys
+    else
+        return "<CR>"
+    end
+end
+
 function M.init()
     vim.g.mapleader = '\\'
     local opts = { silent = true, noremap = true }
@@ -48,29 +91,11 @@ function M.init()
     map("n", "<leader>tim", im.toggle_imtoggle, opts)
 
     map("i", "<C-l>", "<Right>", opts)
-    -- nvim-dap
-    map('n', '<F6>', function() require('dap').continue() end, opts)
-    map('n', '<F7>', function() require('dap').terminate() require('dapui').close() end, opts)
-    map('n', '<F8>', function() require('dap').toggle_breakpoint() end, opts)
-    map('n', '<F9>', function() require("dap").step_into() end, opts)
-    map('n', '<F10>', function() require("dap").step_out() end, opts)
-    map('n', '<F11>', function() require("dap").step_over() end, opts)
-    map('n', '<leader>db', function () require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, opts)
-    map('n', '<leader>dc', function () require('dap').run_to_cursor() end, opts)
-    map('n', '<leader>dl', function () require('dap').run_last() end, opts)
-    map('n', '<leader>do', function () require('dap').repl.open() end, opts)
 
-    -- asynctasks
-    map('n', '<A-q>', '<cmd>AsyncTask file-run<CR>', opts)
-    map('n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>', opts)
-    map('n', '<F5>', '<cmd>AsyncTask project-run<CR>', opts)
-    map('n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>', opts)
-    map('n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>', opts)
-
-    -- diffview
-    map('n', '<leader>gg', '<cmd>DiffviewOpen<CR>', opts)
-    map('n', '<leader>gc', '<cmd>DiffviewClose<CR>', opts)
-    map({'n', 'v'}, '<leader>gh', '<cmd>DiffviewFileHistory<CR>', opts)
+    local expr_opts = vim.tbl_extend("error", opts, {expr = true})
+    map('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   expr_opts)
+    map('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], expr_opts)
+    map('i', '<CR>', CR, expr_opts)
 
     -- vim.cmd [[
     -- " 多行应用宏
