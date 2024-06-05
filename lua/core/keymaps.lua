@@ -6,7 +6,6 @@ local im = require("core.utils.im")
 
 CR = function()
     local complete_info = vim.fn.complete_info()
-    vim.print(complete_info)
     if complete_info.pum_visible == 1 then
         local keys = "<C-y>"
         local idx = complete_info.selected
@@ -29,6 +28,17 @@ CR = function()
                         true
                     ), "i", false
                 )
+            end
+        elseif selected_item.kind == "Snippet" then
+            local data = selected_item.user_data.nvim.lsp.completion_item.data
+            local prefix_length = idx > -1 and vim.fn.strlen(selected_item.abbr) or vim.fn.strlen(data.prefix)
+            vim.schedule(function()
+                vim.snippet.expand(data.body)
+            end)
+            if prefix_length < 1 then
+                keys = "<Ignore>"
+            else
+                keys = ("<C-\\><C-o>%sX"):format(prefix_length)
             end
         end
         return keys

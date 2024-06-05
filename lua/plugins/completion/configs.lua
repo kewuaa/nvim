@@ -3,6 +3,54 @@ local configs = {}
 configs.mini_completion = function()
     local fuzzy = require("mini.fuzzy")
     fuzzy.setup()
+    local load_snippets = function(base)
+        local ok, snippets = pcall(require, "snippets")
+        if not ok then
+            vim.notify_once("load snippets failed", vim.log.levels.WARN)
+            return
+        end
+        local loaded_snippets = snippets.load_snippets_for_ft(vim.bo.filetype)
+        if not loaded_snippets then
+            return
+        end
+        local response = {}
+
+        for key in pairs(loaded_snippets) do
+            local snippet = loaded_snippets[key]
+            local body
+            if type(snippet.body) == "table" then
+                body = table.concat(snippet.body, "\n")
+            else
+                body = snippet.body
+            end
+
+            local prefix = loaded_snippets[key].prefix
+            if type(prefix) == "table" then
+                for _, p in ipairs(prefix) do
+                    table.insert(response, {
+                        label = p .. "~",
+                        kind = 15,
+                        documentation = snippet.description,
+                        data = {
+                            prefix = base,
+                            body = body,
+                        },
+                    })
+                end
+            else
+                table.insert(response, {
+                    label = prefix .. "~",
+                    kind = 15,
+                    documentation = snippet.description,
+                    data = {
+                        prefix = base,
+                        body = body,
+                    },
+                })
+            end
+        end
+        return response
+    end
     require("mini.completion").setup({
         delay = {
             completion = 100,
@@ -17,6 +65,10 @@ configs.mini_completion = function()
             source_func = "omnifunc",
             auto_setup = false,
             process_items = function(item, base)
+                local snippets = load_snippets(base)
+                if snippets then
+                    item = vim.list_extend(snippets, item)
+                end
                 return fuzzy.process_lsp_items(item, base)
             end
         }
@@ -26,6 +78,7 @@ end
 configs.snippets = function()
     local config_path = vim.fn.stdpath("config")
     require("snippets").setup({
+        create_autocmd = true,
         create_cmp_source = false,
         friendly_snippets = false,
         extended_filetypes = {
