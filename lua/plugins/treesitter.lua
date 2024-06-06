@@ -1,4 +1,4 @@
-local deps = require("core.deps")
+local deps = require("deps")
 
 local treesitter = function()
     require('nvim-treesitter.configs').setup({
@@ -9,7 +9,7 @@ local treesitter = function()
             additional_vim_regex_highlighting = { "c", "cpp" },
             ---@diagnostic disable-next-line: unused-local
             disable = function(lang, bufnr)
-                local size = require('core.utils').cal_bufsize(bufnr)
+                local size = require('utils').cal_bufsize(bufnr)
                 if size > 0.5 then
                     return true
                 end

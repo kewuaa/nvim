@@ -1,5 +1,5 @@
 local M = {}
-local utils = require("core.utils")
+local utils = require("utils")
 
 ---@class Task
 ---@field threshold number threshold size

@@ -1,5 +1,5 @@
 local M = {}
-local utils = require("core.utils")
+local utils = require("utils")
 local exe_suffix = utils.is_win and "Scripts/python.exe" or "bin/python"
 
 ---@class PyVenv

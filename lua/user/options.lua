@@ -1,6 +1,6 @@
 local M = {}
-local utils = require("core.utils")
-local python = require("core.utils.python")
+local utils = require("utils")
+local python = require("utils.python")
 local options = {
     splitright = true,
     splitbelow = true,

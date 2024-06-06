@@ -1,8 +1,8 @@
 local M = {}
 local map = vim.keymap.set
-local window = require("core.utils.window")
-local lsp = require("core.utils.lsp")
-local im = require("core.utils.im")
+local window = require("utils.window")
+local lsp = require("utils.lsp")
+local im = require("utils.im")
 
 CR = function()
     local complete_info = vim.fn.complete_info()

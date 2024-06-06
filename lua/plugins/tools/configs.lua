@@ -59,8 +59,8 @@ end
 
 configs.nvim_dap = function()
     local dap = require('dap')
-    local utils = require("core.utils")
-    local mason_utils = require("core.utils.mason")
+    local utils = require("utils")
+    local mason_utils = require("utils.mason")
     -- config for python
     mason_utils.ensure_install("debugpy")
     dap.adapters.python = {
@@ -89,11 +89,11 @@ configs.nvim_dap = function()
                 -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
                 -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
                 -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-                local pyenv = require("core.utils.python").get_current_env()
+                local pyenv = require("utils.python").get_current_env()
                 if pyenv then
                     return pyenv.path
                 else
-                    return require('core.settings'):getpy('default')
+                    return require('user.settings'):getpy('default')
                 end
             end,
         },
@@ -259,11 +259,11 @@ configs.nvim_dap = function()
         keymap_restore = {}
     end
 
-    require("core.autocmds").register_quick_quit("dap-float")
+    require("user.autocmds").register_quick_quit("dap-float")
 end
 
 configs.asynctasks = function()
-    local utils = require("core.utils")
+    local utils = require("utils")
     vim.g.asyncrun_save = 2
     vim.g.asyncrun_open = 10
     vim.g.asyncrun_rootmarks = {".git", ".tasks", ".root"}
@@ -285,7 +285,7 @@ configs.asynctasks = function()
     vim.api.nvim_create_autocmd("User", {
         pattern = "PYVENVUPDATE",
         callback = function()
-            local venv = require("core.utils.python").get_current_env()
+            local venv = require("utils.python").get_current_env()
             assert(venv ~= nil)
             vim.cmd(string.format('let g:asynctasks_environ["python"] = "%s"', venv.path))
         end

@@ -117,8 +117,8 @@ end
 
 configs.nvim_lspconfig = function ()
     require('lsp').setup()
-    local utils = require('core.utils')
-    require('core.utils.bigfile').register(
+    local utils = require('utils')
+    require('utils.bigfile').register(
         {
             threshold = 0.5,
             callback = function(bufnr)

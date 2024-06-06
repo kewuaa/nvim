@@ -1,5 +1,5 @@
 local M = {}
-local bigfile = require("core.utils.bigfile")
+local bigfile = require("utils.bigfile")
 local quick_quit_fts = { 'qf', 'help' }
 
 local quick_quit = function()
@@ -23,7 +23,7 @@ local restore_cursor = function()
         desc = "restore cursor position",
         callback = function(args)
             local bufnr = args.buf
-            local exclude_fts = require("core.settings").exclude_filetypes
+            local exclude_fts = require("user.settings").exclude_filetypes
             vim.api.nvim_create_autocmd("Filetype", {
                 once = true,
                 buffer = bufnr,

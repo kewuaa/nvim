@@ -1,4 +1,4 @@
-local deps = require("core.deps")
+local deps = require("deps")
 local configs = require("plugins.completion.configs")
 
 ---------------------------------------------------------------------------------------------------

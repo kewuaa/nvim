@@ -1,5 +1,5 @@
+local deps = require("deps")
 local configs = require("plugins.ui.configs")
-local deps = require("core.deps")
 
 ---------------------------------------------------------------------------------------------------
 ---colorscheme

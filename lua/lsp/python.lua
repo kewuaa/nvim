@@ -1,5 +1,5 @@
 local M = {}
-local python = require("core.utils.python")
+local python = require("utils.python")
 local rootmarks = {".git", 'pyproject.toml'}
 
 M.basedpyright = {

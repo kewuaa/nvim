@@ -19,7 +19,7 @@ local servers = {
 local on_attach = function(client, bufnr)
     if client.name == 'basedpyright' then
         vim.schedule(function()
-            require("core.utils.python").parse_pyenv(
+            require("utils.python").parse_pyenv(
                 client.config.root_dir or vim.fn.expand("%:p:h")
             )
         end)
@@ -111,7 +111,7 @@ local function add_auto_install_hook()
         if not pkg_name then
             return
         end
-        require("core.utils.mason").ensure_install(pkg_name, {
+        require("utils.mason").ensure_install(pkg_name, {
             success = function()
                 require("lspconfig")[config.name].setup(config)
             end

@@ -1,5 +1,5 @@
+local deps = require("deps")
 local configs = require("plugins.editor.configs")
-local deps = require("core.deps")
 
 ---------------------------------------------------------------------------------------------------
 ---enhance textobjects

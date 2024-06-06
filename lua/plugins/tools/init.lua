@@ -1,4 +1,4 @@
-local deps = require("core.deps")
+local deps = require("deps")
 local configs = require("plugins.tools.configs")
 
 
@@ -121,7 +121,7 @@ deps.add({
                 lhs = "<leader>trp",
                 rhs = function()
                     require("pantran.command").parse(1, 0, "")
-                    local im = require("core.utils.im")
+                    local im = require("utils.im")
                     im.toggle_imtoggle({silent = true, enabled = true})
                     vim.keymap.set(
                         "n",
@@ -184,7 +184,7 @@ deps.add({
                 mode = "n",
                 lhs = "<leader>ff",
                 rhs = function()
-                    local utils = require("core.utils")
+                    local utils = require("utils")
                     require("mini.pick").builtin.files(nil, {
                         source = {
                             cwd = utils.get_cwd(),
@@ -196,7 +196,7 @@ deps.add({
                 mode = "n",
                 lhs = "<leader>fg",
                 rhs = function()
-                    local utils = require("core.utils")
+                    local utils = require("utils")
                     require("mini.pick").builtin.grep_live(nil, {
                         source = {
                             cwd = utils.get_cwd(),

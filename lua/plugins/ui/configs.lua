@@ -29,7 +29,7 @@ configs.tokyonight = function()
 end
 
 configs.indentmini = function()
-    local settings = require("core.settings")
+    local settings = require("user.settings")
     local exclude_fts = settings.exclude_filetypes
     vim.list_extend(exclude_fts, settings.exclude_buftypes)
     require("indentmini").setup({
@@ -42,7 +42,7 @@ end
 
 configs.mini_statusline = function()
     local mini_statusline = require("mini.statusline")
-    local python = require("core.utils.python")
+    local python = require("utils.python")
     vim.api.nvim_set_hl(0, "pythonVenv", {
         fg = "#ffbc03",
         ctermfg = 214,

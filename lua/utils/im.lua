@@ -1,5 +1,5 @@
 local M = {}
-local utils = require("core.utils")
+local utils = require("utils")
 local imtoogle_enabled = false
 
 local function switch_to_en()

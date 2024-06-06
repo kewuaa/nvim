@@ -1,4 +1,4 @@
-local utils = require("core.utils")
+local utils = require("utils")
 local config_dir = vim.fn.stdpath("config")
 local home_dir = nil
 local clink_config_path = nil

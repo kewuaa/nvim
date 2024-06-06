@@ -1,5 +1,5 @@
 local M = {}
-local handle = require("core.deps.handle")
+local handle = require("deps.handle")
 
 M.init = function()
     vim.opt.loadplugins = false
