@@ -36,6 +36,7 @@ M.load = function(plugin)
                     local name = vim.fn.fnamemodify(depend, ":t")
                     if handles[name] ~= true then
                         vim.cmd("packadd " .. name)
+                        handles[name] = true
                     end
                 elseif t == "table" then
                     local name = depend.name or vim.fn.fnamemodify(depend.source, ":t")
@@ -44,6 +45,7 @@ M.load = function(plugin)
                         if depend.config then
                             depend.config()
                         end
+                        handles[name] = true
                     end
                 else
                     vim.notify("unexpected type")
