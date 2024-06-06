@@ -49,7 +49,18 @@ return {
         'Wansmer/treesj',
         lazy = true,
         keys = {
-            {'<leader>j', mode = 'n'}
+            {
+                '<leader>j',
+                function()
+                    local langs = require('treesj.langs')['presets']
+                    if langs[vim.bo.filetype] then
+                        vim.cmd("TSJToggle")
+                    else
+                        require('mini.splitjoin').toggle()
+                    end
+                end,
+                mode = 'n',
+            }
         },
         config = configs.treesj,
     },
