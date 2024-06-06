@@ -16,13 +16,11 @@ deps.add({
 ---status line
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "kewuaa/sttusline",
-    monitor = "table_version",
-    checkout = "table_version",
+    source = "echasnovski/mini.statusline",
     lazy_opts = {
         events = {"ColorScheme"},
     },
-    config = configs.sttusline
+    config = configs.mini_statusline
 })
 
 ---------------------------------------------------------------------------------------------------

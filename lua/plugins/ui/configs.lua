@@ -40,115 +40,53 @@ configs.indentmini = function()
     })
 end
 
-configs.sttusline = function()
-    local sttusline = require("sttusline")
-    local color = require("sttusline.utils.color")
-    local pyutils = require("core.utils.python")
-    sttusline.setup({
-        on_attach = function(create_update_group)
-            create_update_group("BUF_WIN_ENTER", {
-                event = { "BufEnter", "WinEnter" },
-                user_event = { "StatusLineInit" },
-                timing = false,
-            })
-        end,
-        disabled = {
-            filetypes = {},
-            buftypes = {}
-        },
-        components = {
-            {
-                "os-uname",
-                { user_event = { "StatusLineInit" } }
-            },
-            {
-                "mode",
-                { user_event = { "StatusLineInit" } }
-            },
-            {
-                "filename",
-                {
-                    event = { "BufEnter", "WinEnter", "TextChanged", "TextChangedI", "BufWritePost" },
-                    user_event = { "StatusLineInit" },
-                }
-            },
-            {
-                name = "pyvenv",
-                event = { "BufEnter", "WinEnter" },
-                user_event = { "PYVENVUPDATE" },
-                condition = function()
-                    local ft = vim.bo.filetype
-                    if ft == 'python' or ft == "cython" then
-                        local env = pyutils.get_current_env()
-                        if env then
-                            return true
-                        end
-                    end
-                    return false
-                end,
-                update = function(config, space)
-                    return {
-                        {
-                            '[' .. pyutils.get_current_env().name .. ']',
-                            { fg = color.yellow },
-                        },
-                    }
-                end
-            },
-            {
-                "filesize",
-                { user_event = { "StatusLineInit" } }
-            },
-            "git-branch",
-            "git-diff",
-            "%=",
-            "diagnostics",
-            "lsps-formatters",
-            {
-                "copilot",
-                {
-                    init = function(config)
-                        vim.api.nvim_create_autocmd("User", {
-                            pattern = "LazyLoad",
-                            callback = function(params)
-                                if params.data == 'copilot.lua' then
-                                    require("sttusline.components.copilot").init(config)
-                                    return true
-                                end
-                            end
-                        })
-                    end,
-                }
-            },
-            {
-                "copilot-loading",
-                {
-                    init = function(config)
-                        vim.api.nvim_create_autocmd("User", {
-                            pattern = "LazyLoad",
-                            callback = function(params)
-                                if params.data == 'copilot.lua' then
-                                    require("sttusline.components.copilot-loading").init(config)
-                                    return true
-                                end
-                            end
-                        })
-                    end,
-                }
-            },
-            "indent",
-            "encoding",
-            {
-                "pos-cursor",
-                { user_event = { "StatusLineInit" } }
-            },
-            {
-                "pos-cursor-progress",
-                { user_event = { "StatusLineInit" } }
-            },
-        }
+configs.mini_statusline = function()
+    local mini_statusline = require("mini.statusline")
+    local python = require("core.utils.python")
+    vim.api.nvim_set_hl(0, "pythonVenv", {
+        fg = "#ffbc03",
+        ctermfg = 214,
     })
-    vim.api.nvim_exec_autocmds("User", {pattern = "StatusLineInit", modeline = false})
+    local section_pyvenv = function()
+        local ft = vim.bo.filetype
+        if ft == 'python' or ft == "cython" then
+            local env = python.get_current_env()
+            if env then
+                return ("[%s]"):format(env.name)
+            end
+        end
+        return ""
+    end
+    local active_content = function()
+        local mode, mode_hl = mini_statusline.section_mode({ trunc_width = 120 })
+        local git           = mini_statusline.section_git({ trunc_width = 40 })
+        local diff          = mini_statusline.section_diff({ trunc_width = 75 })
+        local diagnostics   = mini_statusline.section_diagnostics({ trunc_width = 75 })
+        local lsp           = mini_statusline.section_lsp({ trunc_width = 75 })
+        -- local filename      = mini_statusline.section_filename({ trunc_width = 140 })
+        local pyvenv        = section_pyvenv()
+        local fileinfo      = mini_statusline.section_fileinfo({ trunc_width = 120 })
+        local location      = mini_statusline.section_location({ trunc_width = 75 })
+        local search        = mini_statusline.section_searchcount({ trunc_width = 75 })
+
+        return mini_statusline.combine_groups({
+            { hl = mode_hl,                  strings = { mode } },
+            { hl = 'MiniStatuslineDevinfo',  strings = { git, diff, diagnostics, lsp } },
+            '%<', -- Mark general truncate point
+            -- { hl = 'MiniStatuslineFilename', strings = { filename } },
+            { hl = 'pythonVenv', strings = { pyvenv } },
+            '%=', -- End left alignment
+            { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+            { hl = mode_hl,                  strings = { search, location } },
+        })
+    end
+    mini_statusline.setup({
+        content = {
+            active = active_content,
+        },
+        use_icons = true,
+        set_vim_settings = false
+    })
 end
 
 configs.tabline = function()
