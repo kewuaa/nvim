@@ -16,7 +16,7 @@ CR = function()
             selected_item = complete_info.items[1]
             keys = "<C-n>" .. keys
         end
-        if selected_item.kind == "Function" then
+        if vim.tbl_contains({"Function", "Method"}, selected_item.kind) then
             local cursor = vim.api.nvim_win_get_cursor(0)
             local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
             if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
