@@ -25,7 +25,7 @@ configs.tokyonight = function()
         dim_inactive = false, -- dims inactive windows
         lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
     })
-    vim.schedule(function() vim.cmd.colorscheme('tokyonight') end)
+    vim.cmd.colorscheme('tokyonight')
 end
 
 configs.indentmini = function()
