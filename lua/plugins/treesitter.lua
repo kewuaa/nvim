@@ -119,6 +119,7 @@ deps.add({
         end
     },
     lazy_opts = {
+        delay = 300,
         events = {"BufRead", "BufNewFile"}
     },
     config = config,
