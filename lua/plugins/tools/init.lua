@@ -60,6 +60,13 @@ deps.later(function()
     map('n', '<F5>', '<cmd>AsyncTask project-run<CR>', opts)
     map('n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>', opts)
     map('n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>', opts)
+
+    local cmd = vim.api.nvim_create_user_command
+    cmd('GitCommit', 'AsyncTask git-commit', {})
+    cmd('GitPush', 'AsyncTask git-push', {})
+    cmd('GitCheckout', 'AsyncTask git-checkout', {})
+    cmd('GitReset', 'AsyncTask git-reset', {})
+    cmd('GitLog', 'AsyncTask git-log', {})
     configs.asynctasks()
 end)
 deps.add({
