@@ -158,10 +158,10 @@ deps.later(function()
     map('n', '<F9>', function() require("dap").step_into() end, opts)
     map('n', '<F10>', function() require("dap").step_out() end, opts)
     map('n', '<F11>', function() require("dap").step_over() end, opts)
-    -- map('n', '<leader>db', function () require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, opts)
-    map('n', '<leader>dc', function () require('dap').run_to_cursor() end, opts)
-    map('n', '<leader>dl', function () require('dap').run_last() end, opts)
-    map('n', '<leader>do', function () require('dap').repl.open() end, opts)
+    -- map('n', '<leader>db', function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, opts)
+    map('n', '<leader>dc', function() require('dap').run_to_cursor() end, opts)
+    map('n', '<leader>dl', function() require('dap').run_last() end, opts)
+    map('n', '<leader>do', function() require('dap').repl.open() end, opts)
 end)
 deps.add({
     source = "mfussenegger/nvim-dap",
@@ -169,7 +169,7 @@ deps.add({
         keys = {
             {mode = 'n', lhs = '<F6>', rhs = function() require('dap').continue() end},
             {mode = 'n', lhs = '<F8>', rhs = function() require('dap').toggle_breakpoint() end},
-            {mode = 'n', lhs = '<leader>db', rhs = function () require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end},
+            {mode = 'n', lhs = '<leader>db', rhs = function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end},
         }
     },
     config = configs.nvim_dap,

@@ -5,7 +5,7 @@ local quick_quit_fts = { 'qf', 'help' }
 local quick_quit = function()
     vim.api.nvim_create_autocmd('filetype', {
         desc = "custom filetype callback",
-        callback = function ()
+        callback = function()
             local ft = vim.bo.filetype
             -- quick quit
             if vim.tbl_contains(quick_quit_fts, ft) then

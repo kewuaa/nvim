@@ -115,7 +115,7 @@ configs.snippets = function()
     )
 end
 
-configs.nvim_lspconfig = function ()
+configs.nvim_lspconfig = function()
     require('lsp').setup()
     local utils = require('utils')
     require('utils.bigfile').register(

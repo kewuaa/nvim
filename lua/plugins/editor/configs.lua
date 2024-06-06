@@ -124,7 +124,7 @@ configs.mini_pairs = function()
     end
 end
 
-configs.treesj = function ()
+configs.treesj = function()
     local tsj = require('treesj')
     local langs = require('treesj.langs')['presets']
     tsj.setup({
