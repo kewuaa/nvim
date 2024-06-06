@@ -33,6 +33,13 @@ return {
         }
     },
 
+    -- winbar
+    {
+        "SmiteshP/nvim-navic",
+        lazy = true,
+        config = configs.nvim_navic
+    },
+
     -- 缩进线
     {
         'nvimdev/indentmini.nvim',

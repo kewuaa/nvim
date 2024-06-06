@@ -24,6 +24,10 @@ local on_attach = function(client, bufnr)
             )
         end)
     end
+    if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+        vim.wo.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+    end
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_var(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

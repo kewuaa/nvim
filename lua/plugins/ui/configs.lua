@@ -28,6 +28,34 @@ configs.tokyonight = function()
     vim.schedule(function() vim.cmd.colorscheme('tokyonight') end)
 end
 
+configs.nvim_navic = function()
+    require("nvim-navic").setup({
+        lsp = {
+            auto_attach = false,
+            preference = nil,
+        },
+        highlight = true,
+        separator = " > ",
+        depth_limit = 0,
+        depth_limit_indicator = "..",
+        safe_output = true,
+        lazy_update_context = false,
+        click = false,
+    })
+    vim.api.nvim_create_autocmd("BufRead", {
+        desc = "show winbar",
+        callback = function(args)
+            local bufnr = args.buf
+            local navic = require("nvim-navic")
+            if navic.is_available(bufnr) then
+                vim.wo.winbar = "%{%v:lua.require'nvim-navic'.get_location({}, " .. bufnr .. ")%}"
+            else
+                vim.wo.winbar = ""
+            end
+        end
+    })
+end
+
 configs.indentmini = function()
     local settings = require("core.settings")
     local exclude_fts = settings.exclude_filetypes
