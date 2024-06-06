@@ -1,6 +1,12 @@
 local M = {}
 local utils = require("core.utils")
 local exe_suffix = utils.is_win and "Scripts/python.exe" or "bin/python"
+
+---@class PyVenv
+---@field name string python venv name
+---@field path string python venv path
+
+---@type PyVenv|nil current python venv
 local current_env = nil
 
 M.venv_root = os.getenv("PYVENV") or ""
@@ -15,7 +21,7 @@ M.get_venv = function(name)
         name = {name, "string", false}
     })
 
-    if M.venv_root then
+    if not M.venv_root then
         return "python"
     end
     local venv = ("%s/%s/%s"):format(M.venv_root, name, exe_suffix)
@@ -29,6 +35,8 @@ M.get_venv = function(name)
     return venv
 end
 
+---@param root string root path
+---@return string python venv path
 function M.parse_pyenv(root)
     vim.validate({
         root = {root, "string", false}
@@ -60,7 +68,8 @@ function M.parse_pyenv(root)
             end
         end
         if venv then
-            venv = M.get_venv(name)
+            venv = M.get_venv(venv)
+            vim.notify(venv)
         else
             local env = os.getenv("VIRTUAL_ENV")
             if env then
