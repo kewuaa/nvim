@@ -4,45 +4,51 @@ local window = require("utils.window")
 local lsp = require("utils.lsp")
 local im = require("utils.im")
 
+local on_complete = function()
+    local selected_item = vim.v.completed_item
+    if vim.tbl_contains({"Function", "Method"}, selected_item.kind) then
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
+        if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
+            vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes(
+            "()<left>",
+            true,
+            false,
+            true
+            ), "i", false
+            )
+        end
+    else
+        local cp_item = vim.tbl_get(selected_item, "user_data", "nvim", "lsp", "completion_item")
+        if selected_item.kind == "Snippet"
+            or (cp_item and cp_item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet) then
+            local body
+            if cp_item.textEdit and cp_item.textEdit.newText and cp_item.textEdit.newText:find("%$") then
+                body = cp_item.textEdit.newText
+            elseif cp_item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet then
+                body = cp_item.insertText
+            elseif cp_item.data then
+                body = cp_item.data.body
+            end
+            if body then
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                vim.api.nvim_buf_set_text(0, line - 1, col - #selected_item.word, line - 1, col, {})
+                vim.snippet.expand(body)
+            end
+        end
+    end
+end
+
 CR = function()
     local complete_info = vim.fn.complete_info()
     if complete_info.pum_visible == 1 then
         local idx = complete_info.selected
-        local selected_item
-        local keys
-        if idx > -1 then
-            selected_item = complete_info.items[idx + 1]
-        else
-            selected_item = complete_info.items[1]
-            keys = "<C-n>"
+        local keys = "<C-y>"
+        if idx == -1 then
+            keys = "<C-n>" .. keys
         end
-        if vim.tbl_contains({"Function", "Method"}, selected_item.kind) then
-            local cursor = vim.api.nvim_win_get_cursor(0)
-            local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
-            if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
-                vim.api.nvim_feedkeys(
-                vim.api.nvim_replace_termcodes(
-                        "()<left>",
-                        true,
-                        false,
-                        true
-                    ), "i", false
-                )
-            end
-            keys = keys and keys .. "<C-y>" or "<C-y>"
-        else
-            local cp_item = vim.tbl_get(selected_item, "user_data", "nvim", "lsp", "completion_item")
-            if selected_item.kind == "Snippet"
-                or cp_item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet then
-                local body = (cp_item.textEdit and cp_item.textEdit.newText) or cp_item.insertText or cp_item.data.body
-                vim.schedule(function()
-                    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                    vim.api.nvim_buf_set_text(0, line - 1, col - #selected_item.word, line - 1, col, {})
-                    vim.snippet.expand(body)
-                end)
-                keys = keys or "<Ignore>"
-            end
-        end
+        vim.schedule(on_complete)
         return keys
     else
         return "<CR>"
