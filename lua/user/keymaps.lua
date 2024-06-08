@@ -62,8 +62,8 @@ function M.init()
     map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts)
     -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts)
 
-    map('n', '<leader>bp', '<cmd>bp<CR>', opts)
-    map('n', '<leader>bn', '<cmd>bn<CR>', opts)
+    map('n', '[b', '<cmd>bp<CR>', opts)
+    map('n', ']b', '<cmd>bn<CR>', opts)
     map('n', '<leader>bd', '<cmd>bdelete<CR>', opts)
 
     map('t', '<leader><ESC>', [[<c-\><c-n>]], opts)
