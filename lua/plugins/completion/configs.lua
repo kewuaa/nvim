@@ -3,7 +3,7 @@ local configs = {}
 configs.mini_completion = function()
     local fuzzy = require("mini.fuzzy")
     fuzzy.setup()
-    local load_snippets = function(base)
+    local load_snippets = function()
         local ok, snippets = pcall(require, "snippets")
         if not ok then
             vim.notify_once("load snippets failed", vim.log.levels.WARN)
@@ -32,7 +32,6 @@ configs.mini_completion = function()
                         kind = 15,
                         documentation = snippet.description,
                         data = {
-                            prefix = base,
                             body = body,
                         },
                     })
@@ -43,7 +42,6 @@ configs.mini_completion = function()
                     kind = 15,
                     documentation = snippet.description,
                     data = {
-                        prefix = base,
                         body = body,
                     },
                 })
@@ -65,7 +63,7 @@ configs.mini_completion = function()
             source_func = "omnifunc",
             auto_setup = false,
             process_items = function(item, base)
-                local snippets = load_snippets(base)
+                local snippets = load_snippets()
                 if snippets then
                     item = vim.list_extend(snippets, item)
                 end

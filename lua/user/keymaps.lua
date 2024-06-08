@@ -7,14 +7,14 @@ local im = require("utils.im")
 CR = function()
     local complete_info = vim.fn.complete_info()
     if complete_info.pum_visible == 1 then
-        local keys = "<C-y>"
         local idx = complete_info.selected
         local selected_item
+        local keys
         if idx > -1 then
             selected_item = complete_info.items[idx + 1]
         else
             selected_item = complete_info.items[1]
-            keys = "<C-n>" .. keys
+            keys = "<C-n>"
         end
         if vim.tbl_contains({"Function", "Method"}, selected_item.kind) then
             local cursor = vim.api.nvim_win_get_cursor(0)
@@ -29,16 +29,18 @@ CR = function()
                     ), "i", false
                 )
             end
-        elseif selected_item.kind == "Snippet" then
-            local data = selected_item.user_data.nvim.lsp.completion_item.data
-            local prefix_length = idx > -1 and vim.fn.strlen(selected_item.abbr) or vim.fn.strlen(data.prefix)
-            vim.schedule(function()
-                vim.snippet.expand(data.body)
-            end)
-            if prefix_length < 1 then
-                keys = "<Ignore>"
-            else
-                keys = ("<C-\\><C-o>%sX"):format(prefix_length)
+            keys = keys and keys .. "<C-y>" or "<C-y>"
+        else
+            local cp_item = vim.tbl_get(selected_item, "user_data", "nvim", "lsp", "completion_item")
+            if selected_item.kind == "Snippet"
+                or cp_item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet then
+                local body = (cp_item.textEdit and cp_item.textEdit.newText) or cp_item.insertText or cp_item.data.body
+                vim.schedule(function()
+                    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                    vim.api.nvim_buf_set_text(0, line - 1, col - #selected_item.word, line - 1, col, {})
+                    vim.snippet.expand(body)
+                end)
+                keys = keys or "<Ignore>"
             end
         end
         return keys
