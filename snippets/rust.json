@@ -1,4 +1,13 @@
 {
+    "fn": {
+        "prefix": "fn",
+        "body": [
+            "fn ${1:name}($2) -> ${3:()} {",
+            "\t$4",
+            "}"
+        ],
+        "description": "Code snippet for the function statement."
+    },
     "if": {
         "prefix": "if",
         "body": [
