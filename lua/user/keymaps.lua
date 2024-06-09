@@ -66,6 +66,22 @@ function M.init()
     local expr_opts = vim.tbl_extend("error", opts, {expr = true})
     map('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   expr_opts)
     map('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], expr_opts)
+    map(
+        {"i", "s"},
+        "<C-j>",
+        function()
+            return vim.snippet.active({direction = 1}) and "<CMD>lua vim.snippet.jump(1)<CR>" or "<C-j>"
+        end,
+        expr_opts
+    )
+    map(
+        {"i", "s"},
+        "<C-k>",
+        function()
+            return vim.snippet.active({direction = -1}) and "<CMD>lua vim.snippet.jump(-1)<CR>" or "<C-k>"
+        end,
+        expr_opts
+    )
     map('i', '<CR>', M.CR, expr_opts)
 
     -- vim.cmd [[

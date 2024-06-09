@@ -89,28 +89,6 @@ configs.snippets = function()
             config_path .. "/snippets"
         }
     })
-
-    local map = vim.keymap.set
-    local opts = {
-        expr = true,
-        silent = true,
-    }
-    map(
-        {"i", "s"},
-        "<C-j>",
-        function()
-            return vim.snippet.active({direction = 1}) and "<CMD>lua vim.snippet.jump(1)<CR>" or "<C-j>"
-        end,
-        opts
-    )
-    map(
-        {"i", "s"},
-        "<C-k>",
-        function()
-            return vim.snippet.active({direction = -1}) and "<CMD>lua vim.snippet.jump(-1)<CR>" or "<C-k>"
-        end,
-        opts
-    )
 end
 
 configs.nvim_lspconfig = function()
