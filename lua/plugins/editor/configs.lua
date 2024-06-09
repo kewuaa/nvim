@@ -119,7 +119,7 @@ configs.mini_pairs = function()
 
     local mini_pairs_cr = mini_pairs.cr
     mini_pairs.cr = function()
-        local keys = CR()
+        local keys = require("user.keymaps").CR()
         return keys == "<CR>" and mini_pairs_cr() or vim.api.nvim_replace_termcodes(keys, true, false, true)
     end
 end
