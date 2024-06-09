@@ -175,18 +175,31 @@ M.create_lazy_keys = function(plugin, keys)
             function()
                 M.load(plugin)
                 if key.rhs then
-                    local t = type(key.rhs)
-                    if t == "string" then
-                        vim.api.nvim_feedkeys(
-                            vim.api.nvim_replace_termcodes(key.rhs, true, false, true),
-                            "i",
-                            false
-                        )
-                    elseif t == "function" then
-                        key.rhs()
+                    vim.validate({
+                        rhs = {
+                            key.rhs,
+                            function(rhs)
+                                local t = type(rhs)
+                                return t == "string" or t == "function"
+                            end,
+                            "rhs must be string or function"
+                        }
+                    })
+                    local expr_keys
+                    if key.opts and key.opts.expr then
+                        expr_keys = type(key.rhs) == "string" and vim.api.nvim_eval(key.rhs) or key.rhs()
                     else
-                        vim.notify("unexpected type", vim.log.levels.ERROR)
-                        return
+                        if type(key.rhs) == "function" then
+                            key.rhs()
+                        else
+                            expr_keys = key.rhs
+                        end
+                    end
+                    if expr_keys then
+                        vim.api.nvim_feedkeys(
+                            vim.api.nvim_replace_termcodes(expr_keys, true, false, true),
+                            "i", false
+                        )
                     end
                     for _, k in ipairs(keys) do
                         vim.keymap.set(k.mode, k.lhs, k.rhs, k.opts)
@@ -194,12 +207,14 @@ M.create_lazy_keys = function(plugin, keys)
                 else
                     vim.api.nvim_feedkeys(
                         vim.api.nvim_replace_termcodes(key.lhs, true, false, true),
-                        "i",
-                        false
+                        "i", false
                     )
                 end
             end,
-            key.opts
+            {
+                nowait = true,
+                expr = false
+            }
         )
     end
 end
