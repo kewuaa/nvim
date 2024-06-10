@@ -68,16 +68,8 @@ M.add = function(plugin)
     })
     local deps = require("mini.deps")
     plugin.name = plugin.name or vim.fn.fnamemodify(plugin.source, ":t")
-    local spec = {
-        source = plugin.source,
-        name = plugin.name,
-        checkout = plugin.checkout,
-        monitor = plugin.monitor,
-        depends = plugin.depends,
-        hooks = plugin.hooks,
-    }
     if not plugin.lazy_opts then
-        deps.add(spec, {bang = false})
+        deps.add(plugin, {bang = false})
         return
     end
 
@@ -91,7 +83,7 @@ M.add = function(plugin)
     plugin.lazy_opts.delay = plugin.lazy_opts.delay or 0
     if plugin.lazy_opts.very_lazy then
         local load = function()
-            deps.add(spec, {bang = false})
+            deps.add(plugin, {bang = false})
             if plugin.config then
                 plugin.config()
             end
