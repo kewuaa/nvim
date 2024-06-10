@@ -104,8 +104,6 @@ local register_on_complete_done = function()
             if not cp_item then
                 return
             end
-            local is_snip = selected_item.kind == "Snippet"
-                or cp_item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet
             local snip_body
             if selected_item.kind == "Snippet" then
                 if cp_item.textEdit
