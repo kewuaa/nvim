@@ -70,6 +70,9 @@ M.add = function(plugin)
     plugin.name = plugin.name or vim.fn.fnamemodify(plugin.source, ":t")
     if not plugin.lazy_opts then
         deps.add(plugin, {bang = false})
+        if plugin.config then
+            deps.later(plugin.config)
+        end
         return
     end
 
