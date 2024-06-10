@@ -31,6 +31,7 @@ configs.mini_completion = function()
                         label = p .. "~",
                         kind = 15,
                         documentation = snippet.description,
+                        sortText = "fffffeee",
                         data = {
                             body = body,
                         },
@@ -41,6 +42,7 @@ configs.mini_completion = function()
                     label = prefix .. "~",
                     kind = 15,
                     documentation = snippet.description,
+                    sortText = "fffffeee",
                     data = {
                         body = body,
                     },
@@ -62,12 +64,25 @@ configs.mini_completion = function()
         lsp_completion = {
             source_func = "omnifunc",
             auto_setup = false,
-            process_items = function(item, base)
+            process_items = function(items, base)
                 local snippets = load_snippets()
                 if snippets then
-                    item = vim.list_extend(snippets, item)
+                    items = vim.list_extend(snippets, items)
                 end
-                return fuzzy.process_lsp_items(item, base)
+                items = fuzzy.process_lsp_items(items, base)
+                if #items > 10 then
+                    items = vim.list_slice(items, nil, 10)
+                end
+                table.sort(
+                    items,
+                    function(a, b)
+                        if a.kind == b.kind then
+                            return vim.fn.strlen(a.label)< vim.fn.strcharlen(b.label)
+                        end
+                        return (a.sortText or a.label) < (b.sortText or b.label)
+                    end
+                )
+                return items
             end
         }
     })
