@@ -108,6 +108,9 @@ M.add = function(plugin)
     if plugin.lazy_opts.keys then
         handle.create_lazy_keys(plugin, plugin.lazy_opts.keys)
     end
+    handle.create_lazy_commands(plugin)
+    handle.create_lazy_events(plugin)
+    handle.create_lazy_keys(plugin)
 end
 
 return M

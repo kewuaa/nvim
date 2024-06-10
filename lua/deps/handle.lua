@@ -69,8 +69,11 @@ end
 
 ---create lazy handle for command
 ---@param plugin PlugSpec
----@param cmds string[]
-M.create_lazy_commands = function(plugin, cmds)
+M.create_lazy_commands = function(plugin)
+    local cmds = plugin.lazy_opts.cmds
+    if not cmds then
+        return
+    end
     add(plugin.name, function()
         for _, cmd in ipairs(cmds) do
             pcall(vim.api.nvim_del_user_command, cmd)
@@ -129,8 +132,11 @@ end
 
 ---create lazy handle for events
 ---@param plugin PlugSpec
----@param events string[]
-M.create_lazy_events = function(plugin, events)
+M.create_lazy_events = function(plugin)
+    local events = plugin.lazy_opts.events
+    if not events then
+        return
+    end
     local group = vim.api.nvim_create_augroup(
         ("_%s_event_handle_"):format(plugin.name),
         {clear = true}
@@ -157,8 +163,11 @@ end
 
 ---create lazy handle for keys
 ---@param plugin PlugSpec
----@param keys KeySpec[]
-M.create_lazy_keys = function(plugin, keys)
+M.create_lazy_keys = function(plugin)
+    local keys = plugin.lazy_opts.keys
+    if not keys then
+        return
+    end
     add(plugin.name, function()
         for _, key in ipairs(keys) do
             local opts = nil
