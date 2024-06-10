@@ -29,6 +29,13 @@ end
 ---@param plugin PlugSpec
 M.load = function(plugin)
     local task = function()
+        if plugin.lazy_opts.delay_install then
+            require("mini.deps").add(plugin, {bang = false})
+            if plugin.config then
+                plugin.config()
+            end
+            return
+        end
         if plugin.depends then
             for _, depend in ipairs(plugin.depends) do
                 local t = type(depend)

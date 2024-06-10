@@ -41,6 +41,7 @@ end
 ---@field keys KeySpec[]|nil
 ---@field very_lazy boolean|nil
 ---@field delay number|nil
+---@field delay_install boolean|nil
 
 ---@class PlugSpec
 ---@field source string uri of plugin source
@@ -81,7 +82,8 @@ M.add = function(plugin)
         keys = {plugin.lazy_opts.keys, "table", true},
         events = {plugin.lazy_opts.events, "table", true},
         very_lazy = {plugin.lazy_opts.very_lazy, "boolean", true},
-        delay = {plugin.lazy_opts.delay, "number", true}
+        delay = {plugin.lazy_opts.delay, "number", true},
+        delay_install = {plugin.lazy_opts.delay_install, "boolean", true}
     })
     plugin.lazy_opts.delay = plugin.lazy_opts.delay or 0
     if plugin.lazy_opts.very_lazy then
@@ -101,15 +103,9 @@ M.add = function(plugin)
         end)
         return
     end
-    deps.add(spec, {bang = true})
-    if plugin.lazy_opts.cmds then
-        handle.create_lazy_commands(plugin, plugin.lazy_opts.cmds)
-    end
-    if plugin.lazy_opts.events then
-        handle.create_lazy_events(plugin, plugin.lazy_opts.events)
-    end
-    if plugin.lazy_opts.keys then
-        handle.create_lazy_keys(plugin, plugin.lazy_opts.keys)
+
+    if not plugin.lazy_opts.delay_install then
+        deps.add(plugin, {bang = true})
     end
     handle.create_lazy_commands(plugin)
     handle.create_lazy_events(plugin)
