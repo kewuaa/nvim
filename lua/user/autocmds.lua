@@ -125,7 +125,12 @@ local register_on_complete_done = function()
             if snip_body then
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                 vim.api.nvim_buf_set_text(0, line - 1, col - #selected_item.word, line - 1, col, {})
+
+                local snip_sess = vim.snippet.active() and vim.snippet._session or nil
                 vim.snippet.expand(snip_body)
+                if snip_sess then
+                    vim.snippet._session = snip_sess
+                end
                 return
             elseif vim.tbl_contains({"Function", "Method"}, selected_item.kind) then
                 local cursor = vim.api.nvim_win_get_cursor(0)
