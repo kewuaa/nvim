@@ -18,7 +18,7 @@ deps.add({
 deps.add({
     source = "echasnovski/mini.statusline",
     lazy_opts = {
-        events = {"ColorScheme"},
+        very_lazy = true
     },
     config = configs.mini_statusline
 })
