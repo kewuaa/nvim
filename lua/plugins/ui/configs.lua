@@ -1,5 +1,28 @@
 local configs = {}
 
+configs.mini_hipatterns = function()
+    local hipatterns = require("mini.hipatterns")
+    hipatterns.setup({
+        highlighters = {
+            -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+            fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+            hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+            todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+            note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+
+            -- Highlight hex color strings (`#rrggbb`) using that color
+            hex_color = hipatterns.gen_highlighter.hex_color(),
+        }
+    })
+    vim.api.nvim_create_user_command("MiniHipatternsToggle", function()
+        if vim.g.minihipatterns_disable ~= nil then
+            vim.g.minihipatterns_disable = not vim.b.minicursorword_disable
+        else
+            vim.g.minihipatterns_disable = false
+        end
+    end, {})
+end
+
 configs.indentmini = function()
     local settings = require("user.settings")
     local exclude_fts = settings.exclude_filetypes
