@@ -69,7 +69,6 @@ function M.parse_pyenv(root)
         end
         if venv then
             venv = M.get_venv(venv)
-            vim.notify(venv)
         else
             local env = os.getenv("VIRTUAL_ENV")
             if env then
