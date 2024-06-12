@@ -51,7 +51,7 @@ configs.mini_statusline = function()
         local diff          = mini_statusline.section_diff({ trunc_width = 75 })
         local diagnostics   = mini_statusline.section_diagnostics({ trunc_width = 75 })
         local lsp           = mini_statusline.section_lsp({ trunc_width = 75 })
-        -- local filename      = mini_statusline.section_filename({ trunc_width = 140 })
+        local filename      = mini_statusline.section_filename({ trunc_width = 140 })
         local pyvenv        = section_pyvenv()
         local fileinfo      = mini_statusline.section_fileinfo({ trunc_width = 120 })
         local location      = mini_statusline.section_location({ trunc_width = 75 })
@@ -61,7 +61,7 @@ configs.mini_statusline = function()
             { hl = mode_hl,                  strings = { mode } },
             { hl = 'MiniStatuslineDevinfo',  strings = { git, diff, diagnostics, lsp } },
             '%<', -- Mark general truncate point
-            -- { hl = 'MiniStatuslineFilename', strings = { filename } },
+            { hl = 'MiniStatuslineFilename', strings = { filename } },
             { hl = 'pythonVenv', strings = { pyvenv } },
             '%=', -- End left alignment
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
