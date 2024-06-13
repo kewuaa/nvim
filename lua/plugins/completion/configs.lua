@@ -82,6 +82,14 @@ configs.mini_completion = function()
                         return (a.sortText or a.label) < (b.sortText or b.label)
                     end
                 )
+                local term = vim.api.nvim_list_uis()[1]
+                local width = math.floor(term.width / 3)
+                for _, item in ipairs(items) do
+                    local detail = item.detail
+                    if detail and #detail > width then
+                        item.detail = detail:sub(0, width) .. "..."
+                    end
+                end
                 return items
             end
         }
