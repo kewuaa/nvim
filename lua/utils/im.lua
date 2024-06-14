@@ -12,7 +12,7 @@ end
 
 ---toggle imtoggle
 ---@param opts table|nil if opts.silent is true, a notify will be sended
-function M.toggle_imtoggle(opts)
+function M.toggle(opts)
     vim.validate({
         opts = {opts, "table", true}
     })

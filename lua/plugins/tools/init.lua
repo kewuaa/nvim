@@ -129,12 +129,12 @@ deps.add({
                 rhs = function()
                     require("pantran.command").parse(1, 0, "")
                     local im = require("utils.im")
-                    im.toggle_imtoggle({silent = true, enabled = true})
+                    im.toggle({silent = true, enabled = true})
                     vim.keymap.set(
                         "n",
                         "q",
                         function()
-                            im.toggle_imtoggle({silent = true, enabled = false})
+                            im.toggle({silent = true, enabled = false})
                             vim.cmd("q")
                         end,
                         { silent = true, buffer = 0 }
