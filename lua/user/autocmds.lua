@@ -1,5 +1,4 @@
 local M = {}
-local bigfile = require("utils.bigfile")
 local quick_quit_fts = { 'qf', 'help' }
 
 local quick_quit = function()
@@ -90,7 +89,7 @@ local number_toggle = function()
         desc = "bigfile autocmd",
         callback = function(args)
             local bufnr = args.buf
-            bigfile.check_once(bufnr)
+            require("utils.bigfile").check_once(bufnr)
         end
     })
 end

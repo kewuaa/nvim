@@ -1,8 +1,5 @@
 local M = {}
 local map = vim.keymap.set
-local window = require("utils.window")
-local lsp = require("utils.lsp")
-local im = require("utils.im")
 
 M.CR = function()
     local complete_info = vim.fn.complete_info()
@@ -57,9 +54,9 @@ function M.init()
     map('n', '<C-w>]', '<cmd>resize+5<CR>', opts)
     map('n', '<C-w>[', '<cmd>resize-5<CR>', opts)
 
-    map("n", "<C-w>z", window.zoom, opts)
-    map("n", "<leader>lsp", lsp.toggle, opts)
-    map("n", "<leader>tim", im.toggle_imtoggle, opts)
+    map("n", "<C-w>z", function() require("utils.window").zoom() end, opts)
+    map("n", "<leader>lsp", function() require("utils.lsp").toggle() end, opts)
+    map("n", "<leader>tim", function() require("utils.im").toggle() end, opts)
 
     map("i", "<C-l>", "<Right>", opts)
 
