@@ -9,6 +9,9 @@ M.CR = function()
         if idx == -1 then
             keys = "<C-n>" .. keys
         end
+        vim.schedule(function()
+            vim.api.nvim_exec_autocmds("User", {pattern = "CompleteDone", modeline = false})
+        end)
         return keys
     else
         return "<CR>"

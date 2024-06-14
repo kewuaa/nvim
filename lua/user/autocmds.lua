@@ -95,8 +95,9 @@ local number_toggle = function()
 end
 
 local register_on_complete_done = function()
-    vim.api.nvim_create_autocmd("CompleteDone", {
+    vim.api.nvim_create_autocmd("User", {
         desc = "do on CompleteDone",
+        pattern = "CompleteDone",
         callback = function()
             local selected_item = vim.v.completed_item
             local cp_item = vim.tbl_get(selected_item, "user_data", "nvim", "lsp", "completion_item")
