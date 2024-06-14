@@ -1,6 +1,5 @@
 local M = {}
 local utils = require("utils")
-local python = require("utils.python")
 local options = {
     splitright = true,
     splitbelow = true,
@@ -77,7 +76,6 @@ if vim.fn.exists("g:neovide") == 1 then
 end
 
 M.init = function()
-    vim.g.python3_host_prog = python.get_venv('default')
     -- vim.g.c_syntax_for_h = 1
     vim.g.zig_fmt_autosave = false
     if utils.is_wsl then

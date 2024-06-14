@@ -58,6 +58,8 @@ local function load_clipboard()
 end
 
 local function load_rplugin()
+    local python = require("utils.python")
+    vim.g.python3_host_prog = python.get_venv('default')
     vim.api.nvim_del_var('loaded_remote_plugins')
     vim.cmd(('source %s/plugin/rplugin.vim'):format(vim.env.VIMRUNTIME))
 end
