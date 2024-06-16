@@ -66,7 +66,6 @@ function M.init()
     local expr_opts = vim.tbl_extend("error", opts, {expr = true})
     map('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   expr_opts)
     map('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], expr_opts)
-    map('i', '<C-e>', [[pumvisible() ? "\<C-y>" : "\<C-e>"]], expr_opts)
     map(
         {"i", "s"},
         "<C-j>",
