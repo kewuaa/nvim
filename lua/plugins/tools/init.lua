@@ -8,10 +8,15 @@ local configs = require("plugins.tools.configs")
 deps.add({
     source = "williamboman/mason.nvim",
     hooks = {
-        post_checkout = function() vim.cmd("MasonUpdate") end
+        post_checkout = function() vim.cmd("MasonUpdate") end,
+        post_install = function()
+            vim.schedule(function()
+                vim.cmd("MasonUpdate")
+            end)
+        end
     },
     lazy_opts = {
-        cmds = {"Mason"},
+        cmds = {"Mason", "MasonUpdate"},
     },
     config = configs.mason
 })
@@ -236,4 +241,20 @@ deps.add({
         }
     },
     config = configs.mini_files
+})
+
+---------------------------------------------------------------------------------------------------
+---preview markdown
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "iamcco/markdown-preview.nvim",
+    hooks = {
+        post_install = function()
+            vim.schedule(vim.fn["mkdp#util#install"])
+        end,
+    },
+    lazy_opts = {
+        cmds = {"MarkdownPreviewToggle"},
+        delay_install = true,
+    }
 })
