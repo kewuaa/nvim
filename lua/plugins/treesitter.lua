@@ -108,6 +108,12 @@ local config = function()
     treesitter()
     treesitter_textobjects()
     rainbow_delimiters()
+    for _, mod in pairs({"auto_install", "highlight", "textobjects.move", "incremental_selection"}) do
+        vim.api.nvim_get_autocmds({
+            group = "NvimTreesitter-" .. mod,
+            event = "FileType",
+        })[1].callback({buf = 0})
+    end
 end
 
 deps.add({
