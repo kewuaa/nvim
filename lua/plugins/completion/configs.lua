@@ -24,6 +24,7 @@ configs.mini_completion = function()
                 body = snippet.body
             end
 
+            local sortText = "1"
             local prefix = loaded_snippets[key].prefix
             if type(prefix) == "table" then
                 for _, p in ipairs(prefix) do
@@ -31,7 +32,7 @@ configs.mini_completion = function()
                         label = p .. "~",
                         kind = 15,
                         documentation = snippet.description,
-                        sortText = "fffffeee",
+                        sortText = sortText,
                         data = {
                             body = body,
                         },
@@ -42,7 +43,7 @@ configs.mini_completion = function()
                     label = prefix .. "~",
                     kind = 15,
                     documentation = snippet.description,
-                    sortText = "fffffeee",
+                    sortText = sortText,
                     data = {
                         body = body,
                     },
