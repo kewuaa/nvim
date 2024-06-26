@@ -65,10 +65,16 @@ deps.add({
     hooks = {
         post_checkout = function()
             vim.cmd("Copilot auth")
+        end,
+        post_install = function()
+            vim.schedule(function()
+                vim.cmd("Copilot auth")
+            end)
         end
     },
     lazy_opts = {
-        cmds = {"Copilot"}
+        cmds = {"Copilot"},
+        delay_install = true,
     },
     config = configs.copilot,
 })
