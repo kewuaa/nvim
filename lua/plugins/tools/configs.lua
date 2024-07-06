@@ -292,44 +292,49 @@ configs.asynctasks = function()
     })
 end
 
-configs.gitsigns = function()
-    require('gitsigns').setup {
-        signs = {
-            add = { text = "┃" },
-            change = { text = "┃" },
-            delete = { text = "" },
-            topdelete = { text = "" },
-            changedelete = { text = "~" },
-            untracked = { text = "┃" },
-        },
-        on_attach = function(buffer)
-            local gitsigns = package.loaded.gitsigns
+configs.mini_git = function()
+    local mini_git = require("mini.git")
+    mini_git.setup()
 
-            local function map(mode, l, r, desc)
-                vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-            end
-
-            map("n", "]h", function() gitsigns.nav_hunk("next") end, "Next Hunk")
-            map("n", "[h", function() gitsigns.nav_hunk("prev") end, "Prev Hunk")
-            map("n", "]H", function() gitsigns.nav_hunk("last") end, "Last Hunk")
-            map("n", "[H", function() gitsigns.nav_hunk("first") end, "First Hunk")
-            map('n', '<leader>hs', gitsigns.stage_hunk, "stage hunk")
-            map('n', '<leader>hr', gitsigns.reset_hunk, "reset hunk")
-            map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, "stage hunk")
-            map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, "reset hunk")
-            map('n', '<leader>hu', gitsigns.undo_stage_hunk, "undo stage hunk")
-            map('n', '<leader>hS', gitsigns.stage_buffer, "stage buffer")
-            map('n', '<leader>hR', gitsigns.reset_buffer, "reset buffer")
-            map('n', '<leader>hp', gitsigns.preview_hunk, "preview hunk")
-            map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end, "blame line")
-            map('n', '<leader>tb', gitsigns.toggle_current_line_blame, "toggle blame of current line")
-            map('n', '<leader>hd', gitsigns.diffthis, "diff this")
-            map('n', '<leader>hD', function() gitsigns.diffthis('~') end, "diff ~")
-            map('n', '<leader>td', gitsigns.toggle_deleted, "toggle delete")
-            -- Text object
-            map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>', "git hunk")
-        end,
+    local map = vim.keymap.set
+    local opts = {
+        buffer = 0,
+        silent = true,
+        noremap = true
     }
+    local mini_git_group = vim.api.nvim_create_augroup("mini_git", {
+        clear = true
+    })
+    vim.api.nvim_create_autocmd("FileType", {
+        group = mini_git_group,
+        pattern = "git",
+        callback = function()
+            map("n", "gs", function()
+                mini_git.show_diff_source()
+            end, opts)
+        end
+    })
+end
+
+configs.mini_diff = function()
+    local mini_diff = require("mini.diff")
+    mini_diff.setup({
+        view = {
+            style = 'sign',
+            -- Signs used for hunks with 'sign' view
+            signs = { add = '┃', change = '┃', delete = '' },
+        },
+        mappings = {
+            textobject = "ih"
+        }
+    })
+
+    local map = vim.keymap.set
+    local opts = {
+        silent = true,
+        noremap = true
+    }
+    map("n", "ghp", function() mini_diff.toggle_overlay() end, opts)
 end
 
 configs.mini_files = function()

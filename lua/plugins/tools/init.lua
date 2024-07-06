@@ -22,36 +22,40 @@ deps.add({
 })
 
 ---------------------------------------------------------------------------------------------------
+---git helper
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "echasnovski/mini-git",
+    lazy_opts = {
+        cmds = {"Git"},
+        keys = {
+            {
+                mode = "n",
+                lhs = "<leader>gs",
+                rhs = "<CMD>lua MiniGit.show_at_cursor()<CR>",
+                opts = {silent = true, noremap = true},
+            },
+            {
+                mode = "v",
+                lhs = "<leader>gs",
+                rhs = "<CMD>lua MiniGit.show_range_history()<CR>",
+                opts = {silent = true, noremap = true},
+            }
+        }
+    },
+    config = configs.mini_git,
+})
+
+---------------------------------------------------------------------------------------------------
 ---git signs
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "lewis6991/gitsigns.nvim",
+    source = "echasnovski/mini.diff",
     lazy_opts = {
         events = {"BufRead"},
         delay = 1000,
     },
-    config = configs.gitsigns
-})
-
----------------------------------------------------------------------------------------------------
----diff view
----------------------------------------------------------------------------------------------------
-deps.later(function()
-    local opts = {silent = true, noremap = true}
-    local map = vim.keymap.set
-    map('n', '<leader>gg', '<cmd>DiffviewOpen<CR>', opts)
-    map('n', '<leader>gc', '<cmd>DiffviewClose<CR>', opts)
-    map({'n', 'v'}, '<leader>gh', '<cmd>DiffviewFileHistory<CR>', opts)
-end)
-deps.add({
-    source = "sindrets/diffview.nvim",
-    lazy_opts = {
-        events = {"CmdUndefined Diffview*"},
-    },
-    config = function()
-        require("diffview").setup()
-    end,
-    depends = {"nvim-lua/plenary.nvim"}
+    config = configs.mini_diff,
 })
 
 ---------------------------------------------------------------------------------------------------
@@ -66,12 +70,12 @@ deps.later(function()
     map('n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>', opts)
     map('n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>', opts)
 
-    local cmd = vim.api.nvim_create_user_command
-    cmd('GitCommit', 'AsyncTask git-commit', {})
-    cmd('GitPush', 'AsyncTask git-push', {})
-    cmd('GitCheckout', 'AsyncTask git-checkout', {})
-    cmd('GitReset', 'AsyncTask git-reset', {})
-    cmd('GitLog', 'AsyncTask git-log', {})
+    -- local cmd = vim.api.nvim_create_user_command
+    -- cmd('GitCommit', 'AsyncTask git-commit', {})
+    -- cmd('GitPush', 'AsyncTask git-push', {})
+    -- cmd('GitCheckout', 'AsyncTask git-checkout', {})
+    -- cmd('GitReset', 'AsyncTask git-reset', {})
+    -- cmd('GitLog', 'AsyncTask git-log', {})
     configs.asynctasks()
 end)
 deps.add({
