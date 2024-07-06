@@ -85,27 +85,15 @@ M.add = function(plugin)
         delay = {plugin.lazy_opts.delay, "number", true},
         delay_install = {plugin.lazy_opts.delay_install, "boolean", true}
     })
-    plugin.lazy_opts.delay = plugin.lazy_opts.delay or 0
-    if plugin.lazy_opts.very_lazy then
-        local load = function()
-            deps.add(plugin, {bang = false})
-            if plugin.config then
-                plugin.config()
-            end
-        end
-        deps.later(function()
-            local delay = plugin.lazy_opts.delay
-            if delay > 0 then
-                vim.fn.timer_start(delay, load)
-            else
-                load()
-            end
-        end)
-        return
-    end
+   plugin.lazy_opts.delay = plugin.lazy_opts.delay or 0
 
     if not plugin.lazy_opts.delay_install then
         deps.add(plugin, {bang = true})
+        if plugin.lazy_opts.very_lazy then
+            deps.later(function()
+                handle.load(plugin)
+            end)
+        end
     end
     handle.create_lazy_commands(plugin)
     handle.create_lazy_events(plugin)
