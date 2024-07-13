@@ -52,6 +52,30 @@ local options = {
     cursorline = true,
 }
 
+if vim.env.SSH_TTY then
+    options.clipboard = nil
+    local function paste(reg)
+        return function(lines)
+            local content = vim.fn.getreg('"')
+            return vim.split(content, '\n')
+
+        end
+    end
+    vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = {
+            ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+            ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+        },
+        paste = {
+            ['+'] = paste("+"),
+            ['*'] = paste("*"),
+            -- ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+            -- ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+        },
+    }
+end
+
 if vim.fn.executable('rg') == 1 then
   options.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   options.grepprg = 'rg --vimgrep --no-heading --smart-case'
