@@ -56,7 +56,7 @@ function M.parse_pyenv(root)
             local find = false
             for _, line in ipairs(lines) do
                 if not find then
-                    if string.match(line, '[tool.pyright]') then
+                    if string.match(line, '[tool.basedpyright]') then
                         find = true
                     end
                 else
