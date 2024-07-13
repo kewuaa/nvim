@@ -15,6 +15,7 @@ if utils.is_win then
     local config_dir = vim.fn.stdpath("config"):gsub("\\", "/")
     local home_dir = os.getenv("USERPROFILE"):gsub("\\", "/")
     local appdata_dir = os.getenv("APPDATA"):gsub("\\", "/")
+    local local_appdata_dir = os.getenv("LOCALAPPDATA"):gsub("\\", "/")
 
     local clink_config_path = home_dir .. "/.inputrc"
     write(
@@ -23,7 +24,11 @@ if utils.is_win then
             ("$include %s"):format(config_dir .. "/clink_inputrc")
         }
     )
-    local clink_profile_path = appdata_dir .. "/clink"
+    local clink_profile_path = local_appdata_dir .. "/clink"
+    if vim.fn.isdirectory(clink_profile_path) == 0 then
+        vim.fn.mkdir(clink_profile_path, "pR")
+        vim.print(("directory `%s` not exists, create it"):format(clink_profile_path))
+    end
     write(
         clink_profile_path .. "/clink_start.cmd",
         {
