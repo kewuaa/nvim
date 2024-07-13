@@ -38,6 +38,9 @@ if utils.is_win then
         {
             "@echo off",
             "%PYVENV%/default/Scripts/activate",
+            "@doskey usepy=%PYVENV%/$1/Scripts/activate",
+            "@doskey createpy=python -m venv %PYVENV%/$1",
+            "@doskey defaultpy=%PYVENV%/default/Scripts/python",
         }
     )
 
