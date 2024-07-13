@@ -76,6 +76,28 @@ if vim.env.SSH_TTY then
     }
 end
 
+if utils.is_wsl then
+    vim.g.clipboard = {
+        name = "win32yank-wsl",
+        copy = {
+            ["+"] = "win32yank.exe -i --crlf",
+            ["*"] = "win32yank.exe -i --crlf",
+        },
+        paste = {
+            ["+"] = "win32yank.exe -o --lf",
+            ["*"] = "win32yank.exe -o --lf",
+        },
+        cache_enabled = 0,
+    }
+elseif utils.is_mac then
+    vim.g.clipboard = {
+        name = "macOS-clipboard",
+        copy = { ["+"] = "pbcopy", ["*"] = "pbcopy" },
+        paste = { ["+"] = "pbpaste", ["*"] = "pbpaste" },
+        cache_enabled = 0,
+    }
+end
+
 if vim.fn.executable('rg') == 1 then
   options.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   options.grepprg = 'rg --vimgrep --no-heading --smart-case'
