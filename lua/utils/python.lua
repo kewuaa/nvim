@@ -14,6 +14,8 @@ if M.venv_root == "" then
     vim.schedule(function()
         vim.notify("nil environment variable `PYVENV`, use the python in path instead", vim.log.levels.WARN)
     end)
+elseif utils.is_win then
+    M.venv_root = M.venv_root:gsub("\\", "/")
 end
 
 M.get_venv = function(name)
