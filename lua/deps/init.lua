@@ -1,10 +1,11 @@
 local M = {}
 local handle = require("deps.handle")
+local path_package = vim.fn.stdpath('data') .. '/site/'
+M.package_path = path_package .. "pack/deps/"
 
 M.init = function()
     vim.opt.loadplugins = false
     -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
-    local path_package = vim.fn.stdpath('data') .. '/site/'
     local mini_path = path_package .. 'pack/deps/start/mini.deps'
     if not vim.loop.fs_stat(mini_path) then
         vim.cmd('echom "Installing `mini.deps`" | redraw')
