@@ -1,6 +1,12 @@
 local M = {}
 local python = require("utils.python")
+local deps = require("deps")
 local rootmarks = {".git", 'pyproject.toml'}
+
+deps.add({
+    source = "microsoft/python-type-stubs",
+    lazy_opts = {}
+})
 
 M.basedpyright = {
     rootmarks = rootmarks,
@@ -13,7 +19,7 @@ M.basedpyright = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
                 useLibraryCodeForTypes = true,
-                stubPath = string.format("%s/../python-type-stubs/stubs", python.venv_root),
+                stubPath = deps.package_path .. "opt/python-type-stubs/stubs",
                 typeCheckingMode = 'standard',
             },
         },
