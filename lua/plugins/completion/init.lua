@@ -10,9 +10,6 @@ deps.add({
         events = {"InsertEnter"}
     },
     config = configs.mini_completion,
-    depends = {
-        "echasnovski/mini.fuzzy"
-    }
 })
 
 ---------------------------------------------------------------------------------------------------

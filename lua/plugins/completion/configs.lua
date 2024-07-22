@@ -1,8 +1,6 @@
 local configs = {}
 
 configs.mini_completion = function()
-    local fuzzy = require("mini.fuzzy")
-    fuzzy.setup()
     local load_snippets = function()
         local ok, snippets = pcall(require, "snippets")
         if not ok then
@@ -24,15 +22,13 @@ configs.mini_completion = function()
                 body = snippet.body
             end
 
-            local sortText = "1"
             local prefix = loaded_snippets[key].prefix
             if type(prefix) == "table" then
                 for _, p in ipairs(prefix) do
                     table.insert(response, {
-                        label = p .. "~",
+                        label = p,
                         kind = 15,
                         documentation = snippet.description,
-                        sortText = sortText,
                         data = {
                             body = body,
                         },
@@ -40,10 +36,9 @@ configs.mini_completion = function()
                 end
             else
                 table.insert(response, {
-                    label = prefix .. "~",
+                    label = prefix,
                     kind = 15,
                     documentation = snippet.description,
-                    sortText = sortText,
                     data = {
                         body = body,
                     },
@@ -70,19 +65,30 @@ configs.mini_completion = function()
                 if snippets then
                     items = vim.list_extend(snippets, items)
                 end
-                items = fuzzy.process_lsp_items(items, base)
-                if #items > 10 then
-                    items = vim.list_slice(items, nil, 10)
-                end
+                local lower_base = base:lower()
+                items = vim.tbl_filter(function(item)
+                    local text = item.filterText or (item.textEdit and item.textEdit.newText) or item.insertText or item.label or ""
+                    return vim.startswith(text:lower(), lower_base)
+                end, items)
                 table.sort(
                     items,
                     function(a, b)
                         if a.kind == b.kind then
-                            return vim.fn.strlen(a.label)< vim.fn.strcharlen(b.label)
+                            return vim.fn.strlen(a.label) < vim.fn.strcharlen(b.label)
+                        end
+                        if a.kind == 15 then
+                            return true
+                        end
+                        if b.kind == 15 then
+                            return false
                         end
                         return (a.sortText or a.label) < (b.sortText or b.label)
                     end
                 )
+                local size = 15
+                if #items > size then
+                    items = vim.list_slice(items, nil, size)
+                end
                 local term = vim.api.nvim_list_uis()[1]
                 local width = math.floor(term.width / 3)
                 for _, item in ipairs(items) do
