@@ -32,14 +32,10 @@ deps.add({
             {
                 mode = "n",
                 lhs = "<leader>gs",
-                rhs = "<CMD>lua MiniGit.show_at_cursor()<CR>",
-                opts = {silent = true, noremap = true},
             },
             {
                 mode = "v",
                 lhs = "<leader>gs",
-                rhs = "<CMD>lua MiniGit.show_range_history()<CR>",
-                opts = {silent = true, noremap = true},
             }
         }
     },

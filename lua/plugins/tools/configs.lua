@@ -297,7 +297,10 @@ configs.mini_git = function()
     mini_git.setup()
 
     local map = vim.keymap.set
-    local opts = {
+    local opts = {silent = true, noremap = true}
+    map("n", "<leader>gs", mini_git.show_at_cursor, opts)
+    map("v", "<leader>gs", mini_git.show_range_history, opts)
+    local bufopts = {
         buffer = 0,
         silent = true,
         noremap = true
@@ -311,7 +314,7 @@ configs.mini_git = function()
         callback = function()
             map("n", "gs", function()
                 mini_git.show_diff_source()
-            end, opts)
+            end, bufopts)
         end
     })
 end
