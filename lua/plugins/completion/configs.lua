@@ -1,6 +1,20 @@
 local configs = {}
 
 configs.mini_completion = function()
+    local redraw = function()
+        local wins = vim.api.nvim_list_wins()
+        for _, win in ipairs(wins) do
+            local bufnr = vim.api.nvim_win_get_buf(win)
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            if buf_name:match("MiniCompletion") then
+                vim.api.nvim_win_close(win, false)
+            end
+        end
+    end
+    vim.keymap.set("n", "<C-w>r", function()
+        redraw()
+        vim.cmd.redraw()
+    end)
     local load_snippets = function()
         local ok, snippets = pcall(require, "snippets")
         if not ok then
