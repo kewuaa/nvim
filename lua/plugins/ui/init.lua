@@ -40,7 +40,9 @@ deps.add({
         very_lazy = true
     },
     config = function()
-        require("mini.icons").setup()
+        local mini_icons = require("mini.icons")
+        mini_icons.setup()
+        mini_icons.tweak_lsp_kind()
     end
 })
 
