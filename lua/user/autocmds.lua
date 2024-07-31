@@ -105,7 +105,7 @@ local register_on_complete_done = function()
                 return
             end
             local snip_body
-            if selected_item.kind == "Snippet" then
+            if selected_item.kind:match("Snippet") then
                 if cp_item.textEdit
                     and cp_item.textEdit.newText
                     and cp_item.textEdit.newText:find("%$") then
@@ -132,7 +132,7 @@ local register_on_complete_done = function()
                     vim.snippet._session = snip_sess
                 end
                 return
-            elseif vim.tbl_contains({"Function", "Method"}, selected_item.kind) then
+            elseif selected_item.kind:match("Function") or selected_item.kind:match("Method") then
                 local cursor = vim.api.nvim_win_get_cursor(0)
                 local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
                 if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
