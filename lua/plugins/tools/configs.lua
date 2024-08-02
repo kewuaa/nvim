@@ -271,7 +271,7 @@ configs.asynctasks = function()
     vim.g.asynctasks_template = 1
     vim.g.asynctasks_confirm = 0
     if utils.is_win then
-        vim.g.asynctasks_term_pos = 'external'
+        vim.g.asynctasks_term_pos = vim.env.SSH_TTY and "TAB" or 'external'
         vim.g.asynctasks_environ = {
             exe_suffix = '.exe',
         }
