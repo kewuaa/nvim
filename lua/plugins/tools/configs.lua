@@ -114,9 +114,10 @@ configs.nvim_dap = function()
         local lsp = vim.lsp.get_clients({bufnr = 0})[1]
         local root = lsp.config.root_dir
         if root ~= nil then
+            vim.uv.chdir(root)
             return vim.fn.input(
                 'Path to executable: ',
-                ("%s/build/linux/x86_64/debug/"):format(root),
+                "",
                 "file"
             )
         end
