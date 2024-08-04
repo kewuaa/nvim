@@ -343,7 +343,14 @@ end
 
 configs.mini_files = function()
     local mini_files = require("mini.files")
-    mini_files.setup()
+    mini_files.setup({
+        windows = {
+            preview = true,
+            width_focus = 30,
+            width_nofocus = 15,
+            width_preview = 50,
+        }
+    })
 
     -- toggle dotfiles
     local show_dotfiles = true
