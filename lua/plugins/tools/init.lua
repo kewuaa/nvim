@@ -247,14 +247,12 @@ deps.add({
 ---preview markdown
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "iamcco/markdown-preview.nvim",
-    hooks = {
-        post_install = function()
-            vim.schedule(vim.fn["mkdp#util#install"])
-        end,
-    },
+    source = "MeanderingProgrammer/render-markdown.nvim",
     lazy_opts = {
-        cmds = {"MarkdownPreviewToggle"},
+        cmds = {"RenderMarkdown"},
         delay_install = true,
-    }
+    },
+    config = function()
+        require("render-markdown").setup()
+    end
 })
