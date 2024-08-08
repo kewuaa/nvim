@@ -1,5 +1,30 @@
 local configs = {}
 
+configs.tokyonight = function()
+    require("tokyonight").setup({
+        style = "moon",
+        plugins = {
+            dap = true,
+            indentmini = true,
+            markdown = true,
+            mini_completion = true,
+            mini_cursorword = true,
+            mini_deps = true,
+            mini_diff = true,
+            mini_files = true,
+            mini_hipatterns = true,
+            mini_icons = true,
+            mini_notify = true,
+            mini_pick = true,
+            mini_statusline = true,
+            mini_surround = true,
+            rainbow = true,
+            treesitter = true,
+            vimwiki = true
+        }
+    })
+end
+
 configs.mini_hipatterns = function()
     local hipatterns = require("mini.hipatterns")
     hipatterns.setup({
@@ -68,6 +93,7 @@ configs.mini_statusline = function()
             { hl = mode_hl,                  strings = { search, location } },
         })
     end
+    vim.api.nvim_set_hl(0, "pythonVenv", {ctermfg = 214, fg = "#ffbc03"})
     mini_statusline.setup({
         content = {
             active = active_content,

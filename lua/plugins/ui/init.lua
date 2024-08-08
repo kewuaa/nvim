@@ -4,6 +4,13 @@ local configs = require("plugins.ui.configs")
 ---------------------------------------------------------------------------------------------------
 ---colorscheme
 ---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "folke/tokyonight.nvim",
+    lazy_opts = {
+        very_lazy = true
+    },
+    config = configs.tokyonight
+})
 deps.later(function()
     vim.cmd.colorscheme("tokyonight")
 end)
