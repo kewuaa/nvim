@@ -19,7 +19,7 @@ M.CR = function()
 end
 
 function M.init()
-    vim.g.mapleader = '\\'
+    vim.g.mapleader = ' '
     local opts = { silent = true, noremap = true }
 
     map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts)
