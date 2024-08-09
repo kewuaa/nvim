@@ -4,6 +4,8 @@ configs.tokyonight = function()
     require("tokyonight").setup({
         style = "moon",
         plugins = {
+            all = false,
+            auto = false,
             dap = true,
             indentmini = true,
             markdown = true,
