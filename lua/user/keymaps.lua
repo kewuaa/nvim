@@ -61,7 +61,8 @@ function M.init()
     map("n", "<leader>lsp", function() require("utils.lsp").toggle() end, opts)
     map("n", "<leader>tim", function() require("utils.im").toggle() end, opts)
 
-    map("i", "<C-l>", "<Right>", opts)
+    map("i", "<C-f>", "<Right>", opts)
+    map("i", "<C-b>", "<Left>", opts)
 
     local expr_opts = vim.tbl_extend("error", opts, {expr = true})
     map('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   expr_opts)
