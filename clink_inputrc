@@ -20,7 +20,5 @@ set vi-ins-mode-string 
 # "\e[Z":             old-menu-complete-backward      # Shift-Tab
 # "\e[27;5;32~":      clink-select-complete           # Ctrl-Space
 "\t": clink-select-complete
-c-f: forward-char
-c-b: backward-char
 
 $endif
