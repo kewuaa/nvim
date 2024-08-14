@@ -27,17 +27,18 @@ deps.add({
 deps.add({
     source = "echasnovski/mini-git",
     lazy_opts = {
-        cmds = {"Git"},
-        keys = {
-            {
-                mode = "n",
-                lhs = "<leader>gs",
-            },
-            {
-                mode = "v",
-                lhs = "<leader>gs",
-            }
-        }
+        events = {"BufRead"},
+        -- cmds = {"Git"},
+        -- keys = {
+        --     {
+        --         mode = "n",
+        --         lhs = "<leader>gs",
+        --     },
+        --     {
+        --         mode = "v",
+        --         lhs = "<leader>gs",
+        --     }
+        -- }
     },
     config = configs.mini_git,
 })
