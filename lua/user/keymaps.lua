@@ -29,7 +29,7 @@ function M.init()
     map('n', ']b', '<cmd>bn<CR>', opts)
     map('n', '<leader>bd', '<cmd>bdelete<CR>', opts)
 
-    map('t', '<leader><ESC>', [[<c-\><c-n>]], opts)
+    map('t', '<A-q>', [[<c-\><c-n>]], opts)
     for i = 1, 6 do
         map(
             {"n", "t"},
