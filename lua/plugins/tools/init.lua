@@ -73,7 +73,7 @@ deps.later(function()
     -- cmd('GitCheckout', 'AsyncTask git-checkout', {})
     -- cmd('GitReset', 'AsyncTask git-reset', {})
     -- cmd('GitLog', 'AsyncTask git-log', {})
-    configs.asynctasks()
+    pcall(configs.asynctasks)
 end)
 deps.add({
     source = "skywind3000/asynctasks.vim",
