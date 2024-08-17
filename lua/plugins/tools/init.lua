@@ -223,6 +223,39 @@ deps.add({
                 rhs = function()
                     require("mini.pick").builtin.buffers()
                 end
+            },
+            {
+                mode = "n",
+                lhs = "<leader>ft",
+                rhs = function()
+                    local ok, tasks = pcall(vim.fn["asynctasks#list"], "")
+                    if not ok then
+                        vim.cmd.packadd("asynctasks.vim")
+                        tasks = vim.fn["asynctasks#list"]("")
+                    end
+                    local opts = {
+                        source = {
+                            items = tasks,
+                            name = "Task",
+                            show = function(buf_id, items_arr, query)
+                                local lines = vim.tbl_map(function(task)
+                                    return task.name
+                                end, items_arr)
+                                vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+                            end,
+                            choose = function(item)
+                                vim.schedule(function()
+                                    vim.cmd.AsyncTask(item.name)
+                                end)
+                            end,
+                            choose_marked = function(items)
+                                vim.notify("not support start multiple tasks")
+                                return true
+                            end
+                        }
+                    }
+                    require("mini.pick").start(opts)
+                end
             }
         }
     },
