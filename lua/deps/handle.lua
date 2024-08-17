@@ -42,13 +42,13 @@ M.load = function(plugin)
                 if t == "string" then
                     local name = vim.fn.fnamemodify(depend, ":t")
                     if handles[name] ~= true then
-                        vim.cmd("packadd " .. name)
+                        vim.cmd.packadd(name)
                         handles[name] = true
                     end
                 elseif t == "table" then
                     local name = depend.name or vim.fn.fnamemodify(depend.source, ":t")
                     if handles[name] ~= true then
-                        vim.cmd("packadd " .. name)
+                        vim.cmd.packadd(name)
                         if depend.config then
                             depend.config()
                         end
@@ -59,7 +59,7 @@ M.load = function(plugin)
                 end
             end
         end
-        vim.cmd("packadd " .. plugin.name)
+        vim.cmd.packadd(plugin.name)
         if plugin.config then
             plugin.config()
         end
