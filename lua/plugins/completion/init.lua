@@ -75,3 +75,11 @@ deps.add({
     },
     config = configs.copilot,
 })
+deps.add({
+    source = "luozhiya/fittencode.nvim",
+    lazy_opts = {
+        cmds = {"Fitten"},
+        delay_install = true,
+    },
+    config = configs.fittencode
+})
