@@ -10,7 +10,7 @@ local quick_quit = function()
             if vim.tbl_contains(quick_quit_fts, ft) then
                 vim.keymap.set('n', 'q', '<cmd>q<CR>', {silent = true, buffer = 0})
             -- change commentstring
-            elseif vim.tbl_contains({"c", "cpp", "rust"}, ft) then
+            elseif vim.tbl_contains({"c", "cpp", "rust", "typst"}, ft) then
                 vim.bo.commentstring = "// %s"
             end
         end
