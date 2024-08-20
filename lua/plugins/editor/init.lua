@@ -19,8 +19,8 @@ deps.add({
     source = "echasnovski/mini.align",
     lazy_opts = {
         keys = {
-            {mode = "n", lhs = "ga"},
-            {mode = "n", lhs = "gA"},
+            {mode = {"n", "v"}, lhs = "ga"},
+            {mode = {"n", "v"}, lhs = "gA"},
         }
     },
     config = function()
