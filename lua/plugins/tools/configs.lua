@@ -44,10 +44,10 @@ configs.mini_pick = function()
             refine        = '<C-Space>',
             refine_marked = '<M-Space>',
 
-            scroll_down  = '<C-d>',
+            scroll_down  = '<C-S-f>',
             scroll_left  = '<C-,>',
             scroll_right = '<C-.>',
-            scroll_up    = '<C-u>',
+            scroll_up    = '<C-S-b>',
 
             stop = '<Esc>',
 
