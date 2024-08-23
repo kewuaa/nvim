@@ -18,11 +18,11 @@ configs.mini_pick = function()
     require("mini.pick").setup({
         -- Keys for performing actions. See `:h MiniPick-actions`.
         mappings = {
-            caret_left  = '<Left>',
-            caret_right = '<Right>',
+            caret_left  = '<c-b>',
+            caret_right = '<c-f>',
 
             choose            = '<CR>',
-            choose_in_split   = '<C-x>',
+            choose_in_split   = '<C-s>',
             choose_in_tabpage = '<C-t>',
             choose_in_vsplit  = '<C-v>',
             choose_marked     = '<M-CR>',
@@ -44,10 +44,10 @@ configs.mini_pick = function()
             refine        = '<C-Space>',
             refine_marked = '<M-Space>',
 
-            scroll_down  = '<C-f>',
+            scroll_down  = '<C-d>',
             scroll_left  = '<C-,>',
             scroll_right = '<C-.>',
-            scroll_up    = '<C-b>',
+            scroll_up    = '<C-u>',
 
             stop = '<Esc>',
 
