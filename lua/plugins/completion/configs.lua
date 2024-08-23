@@ -74,9 +74,11 @@ configs.mini_completion = function()
             source_func = "omnifunc",
             auto_setup = false,
             process_items = function(items, base)
-                local snippets = load_snippets()
-                if snippets then
-                    items = vim.list_extend(snippets, items)
+                if base ~= "" then
+                    local snippets = load_snippets()
+                    if snippets then
+                        items = vim.list_extend(snippets, items)
+                    end
                 end
                 local lower_base = base:lower()
                 items = vim.tbl_filter(function(item)
