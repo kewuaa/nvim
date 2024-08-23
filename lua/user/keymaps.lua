@@ -58,6 +58,7 @@ function M.init()
     map('n', '<C-w>[', '<cmd>resize-5<CR>', opts)
 
     map("n", "<C-w>z", function() require("utils.window").zoom() end, opts)
+    map("n", "<C-w><C-z>", function() require("utils.window").zoom() end, opts)
     map("n", "<leader>lsp", function() require("utils.lsp").toggle() end, opts)
     map("n", "<leader>tim", function() require("utils.im").toggle() end, opts)
 
