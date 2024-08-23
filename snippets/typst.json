@@ -1,0 +1,10 @@
+{
+    "bold": {
+        "prefix": "b",
+        "body": "*$1*$2",
+        "description": "bold statement."
+    },
+    "italics": "i",
+    "body": "_$1_$2",
+    "description": "italics statement."
+}

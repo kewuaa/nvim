@@ -10,6 +10,7 @@ local servers = {
     'python',
     'rust_analyzer',
     'taplo',
+    'tinymist',
     'tsserver',
     'zls',
 }
@@ -103,6 +104,7 @@ local function add_auto_install_hook()
         ["ruff"] = "ruff",
         ["rust_analyzer"] = "rust-analyzer",
         ["taplo"] = "taplo",
+        ["tinymist"] = "tinymist",
         ["tsserver"] = "typescript-language-server",
     }
     local util = require("lspconfig.util")
