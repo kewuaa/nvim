@@ -61,42 +61,67 @@ configs.nvim_dap = function()
     local dap = require('dap')
     local utils = require("utils")
     local mason_utils = require("utils.mason")
+    local python = require("utils.python")
+    local get_args = function()
+        local argument_string = vim.fn.input("Program arg(s) (enter nothing to leave it null): ")
+        return vim.fn.split(argument_string, " ", true)
+    end
     -- config for python
     mason_utils.ensure_install("debugpy")
-    dap.adapters.python = {
-        type = 'executable',
-        command = "debugpy-adapter",
-    }
+    dap.adapters.python = function(cb, config)
+        local adapter = {
+            type = 'executable',
+            options = {
+                source_filetype = "python"
+            }
+        }
+        if utils.is_win then
+            local debugpy_root = require("mason-registry").get_package("debugpy"):get_install_path()
+            adapter.command = debugpy_root .. "/venv/Scripts/pythonw.exe"
+            adapter.args = {"-m", "debugpy.adapter"}
+        else
+            adapter.command = vim.fn.exepath("debugpy-adapter")
+        end
+        cb(adapter)
+    end
+    local program_for_py = function()
+        local lsp = vim.lsp.get_clients({bufnr = 0})[1]
+        local root = lsp.config.root_dir
+        if root ~= nil then
+            return ("%s/main.py"):format(root)
+        end
+        return "${file}"
+    end
+    local py_path = function()
+        local pyenv = python.get_current_env()
+        if pyenv ~= nil then
+            return pyenv.path
+        else
+            return python.get_venv('default')
+        end
+    end
     dap.configurations.python = {
         {
             -- The first three options are required by nvim-dap
+            name = "Debug",
             type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
             request = 'launch',
-            name = "Launch file",
 
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
             cwd = utils.get_cwd,
-            program = function()
-                local lsp = vim.lsp.get_clients({bufnr = 0})[1]
-                local root = lsp.config.root_dir
-                if root ~= nil then
-                    return ("%s/main.py"):format(root)
-                end
-                return "${file}"
-            end, -- This configuration will launch the current file if used.
-            pythonPath = function()
-                -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-                -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-                -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-                local pyenv = require("utils.python").get_current_env()
-                if pyenv then
-                    return pyenv.path
-                else
-                    return require('user.settings'):getpy('default')
-                end
-            end,
+            program = program_for_py, -- This configuration will launch the current file if used.
+            pythonPath = py_path,
         },
+        {
+            name = "Debug (with args)",
+            type = "python",
+            request = "launch",
+            args = get_args,
+            cwd = utils.get_cwd,
+            program = program_for_py, -- This configuration will launch the current file if used.
+            pythonPath = py_path,
+        }
     }
 
     -- config for c/c++/rust
@@ -105,7 +130,7 @@ configs.nvim_dap = function()
         type = 'server',
         port = "${port}",
         executable = {
-            command = "codelldb",
+            command = vim.fn.exepath("codelldb"),
             args = { "--port", "${port}" },
             detached = utils.is_win and false or true,
         },
@@ -137,10 +162,7 @@ configs.nvim_dap = function()
             type = "codelldb",
             request = "launch",
             program = program_for_c,
-            args = function()
-                local argument_string = vim.fn.input("Program arg(s) (enter nothing to leave it null): ")
-                return vim.fn.split(argument_string, " ", true)
-            end,
+            args = get_args,
             cwd = utils.get_cwd,
             stopOnEntry = false,
         },
