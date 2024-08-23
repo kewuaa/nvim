@@ -147,7 +147,8 @@ deps.add({
                     )
                 end,
             }
-        }
+        },
+        delay_install = true
     },
     config = configs.pantran
 })
@@ -176,7 +177,8 @@ deps.add({
             {mode = 'n', lhs = '<F6>', rhs = function() require('dap').continue() end},
             {mode = 'n', lhs = '<F8>', rhs = function() require('dap').toggle_breakpoint() end},
             {mode = 'n', lhs = '<leader>db', rhs = function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end},
-        }
+        },
+        delay_install = true
     },
     config = configs.nvim_dap,
     depends = {
