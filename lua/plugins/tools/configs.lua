@@ -313,6 +313,24 @@ configs.asynctasks = function()
             vim.cmd(string.format('let g:asynctasks_environ["python"] = "%s"', venv.path))
         end
     })
+
+    local async_run_cmd = function()
+        local cmd = vim.fn.input("command to run: ", "", "shellcmd")
+        if cmd == "" then
+            vim.notify("empty command", vim.log.levels.WARN)
+            return
+        end
+        local opts = {
+            "-save=0",
+            "-cwd=<root>",
+            "-mode=terminal",
+            "-pos=" .. vim.g.asynctasks_term_pos,
+            "-raw"
+        }
+        vim.cmd.AsyncRun(vim.fn.join(opts, " ") .. " " .. cmd)
+    end
+    local opts = { silent = true, noremap = true }
+    vim.keymap.set("n", "<leader>rr", async_run_cmd, opts)
 end
 
 configs.mini_git = function()
