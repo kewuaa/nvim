@@ -8,6 +8,14 @@
         ],
         "description": "Code snippet for the if statement."
     },
+    "else": {
+        "prefix": "else",
+        "body": [
+            "else",
+            "\t$1"
+        ],
+        "description": "Code snippet for the else statement."
+    },
     "elif": {
         "prefix": "elseif",
         "body": [
