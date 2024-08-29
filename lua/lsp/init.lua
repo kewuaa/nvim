@@ -2,7 +2,6 @@ local M = {}
 local map = vim.keymap.set
 local servers = {
     'cpp',
-    'dartls',
     'dockerls',
     'jsonls',
     'lua_ls',
