@@ -8,6 +8,16 @@ class Utils:
     def __init__(self, nvim: pynvim.Nvim) -> None:
         self._nvim = nvim
         self.__blank_pattern = compile(r'\s*')
+        self._im = None
+    #enddef
+
+    @property
+    def imtoggler(self):
+        if self._im is None:
+            from .imtoggle import IMToggle
+            self._im = IMToggle()
+        #endif
+        return self._im
     #enddef
 
     def _format_dict_cs(self, key: str, value: str) -> str:
@@ -74,19 +84,16 @@ class Utils:
 
     @pynvim.function("IMToggle", sync=True)
     def toggle_ime(self, args) -> None:
-        from . import imtoggle  # pyright: ignore
-        imtoggle.toggle() # pyright: ignore
+        self.imtoggler.toggle()
     #enddef
 
     @pynvim.function("IMSwitchToEN", sync=True)
     def imswitch_to_zh(self, args) -> None:
-        from . import imtoggle  # pyright: ignore
-        imtoggle.switch_to_en() # pyright: ignore
+        self.imtoggler.switch_to_en()
     #enddef
 
     @pynvim.function("IMSwitchToZH", sync=True)
     def imswitch_to_en(self, args) -> None:
-        from . import imtoggle  # pyright: ignore
-        imtoggle.switch_to_zh() # pyright: ignore
+        self.imtoggler.switch_to_zh()
     #enddef
 #endclass
