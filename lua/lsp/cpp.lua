@@ -1,7 +1,7 @@
 local M = {}
 
 M.clangd = {
-    rootmarks = {".git", "xmake.lua", "CMakeLists.txt", "compile_flags.txt"},
+    rootmarks = {".git", ".clangd", "meson.build"},
     cmd = {
         'clangd',
         "--offset-encoding=utf-16",
