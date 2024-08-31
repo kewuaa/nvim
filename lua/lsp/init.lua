@@ -3,6 +3,7 @@ local map = vim.keymap.set
 local servers = {
     'cpp',
     'dockerls',
+    'efm',
     'jsonls',
     'lua_ls',
     'mesonlsp',
@@ -90,6 +91,7 @@ local function add_auto_install_hook()
         ["clangd"] = "clangd",
         ["cmake"] = "cmake-language-server",
         ["dockerls"] = "dockerfile-language-server",
+        ["efm"] = "efm",
         ["jedi_language_server"] = "jedi-language-server",
         ["jsonls"] = "json-lsp",
         ["lua_ls"] = "lua-language-server",
