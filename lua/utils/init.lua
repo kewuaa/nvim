@@ -37,6 +37,7 @@ M.cal_bufsize = function(bufnr)
     return 0
 end
 
+---@return string path python3 executable path
 M.find_py = function()
     if vim.fn.executable('uv') == 0 then
         vim.notify('uv not found, use python3 in path', vim.log.levels.WARN)
@@ -48,7 +49,9 @@ M.find_py = function()
     return res
 end
 
+---@type string
 local cache_py
+---@return string path similar with find_py, but use cache first
 M.get_py = function()
     if cache_py == nil then
         cache_py = M.find_py()
