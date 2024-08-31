@@ -61,7 +61,6 @@ configs.nvim_dap = function()
     local dap = require('dap')
     local utils = require("utils")
     local mason_utils = require("utils.mason")
-    local python = require("utils.python")
     local get_args = function()
         local argument_string = vim.fn.input("Program arg(s) (enter nothing to leave it null): ")
         return vim.fn.split(argument_string, " ", true)
@@ -92,14 +91,6 @@ configs.nvim_dap = function()
         end
         return "${file}"
     end
-    local py_path = function()
-        local pyenv = python.get_current_env()
-        if pyenv ~= nil then
-            return pyenv.path
-        else
-            return python.get_venv('default')
-        end
-    end
     dap.configurations.python = {
         {
             -- The first three options are required by nvim-dap
@@ -111,7 +102,7 @@ configs.nvim_dap = function()
 
             cwd = utils.get_cwd,
             program = program_for_py, -- This configuration will launch the current file if used.
-            pythonPath = py_path,
+            pythonPath = utils.find_py,
         },
         {
             name = "Debug (with args)",
@@ -120,7 +111,7 @@ configs.nvim_dap = function()
             args = get_args,
             cwd = utils.get_cwd,
             program = program_for_py, -- This configuration will launch the current file if used.
-            pythonPath = py_path,
+            pythonPath = utils.find_py,
         }
     }
 
@@ -305,14 +296,6 @@ configs.asynctasks = function()
         }
     end
     vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
-    vim.api.nvim_create_autocmd("User", {
-        pattern = "PYVENVUPDATE",
-        callback = function()
-            local venv = require("utils.python").get_current_env()
-            assert(venv ~= nil)
-            vim.cmd(string.format('let g:asynctasks_environ["python"] = "%s"', venv.path))
-        end
-    })
 
     local async_run_cmd = function()
         local cmd = vim.fn.input("command to run: ", "", "shellcmd")

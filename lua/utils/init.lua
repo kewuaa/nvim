@@ -37,4 +37,23 @@ M.cal_bufsize = function(bufnr)
     return 0
 end
 
+M.find_py = function()
+    if vim.fn.executable('uv') == 0 then
+        vim.notify('uv not found, use python3 in path', vim.log.levels.WARN)
+        return vim.fn.exepath("python3")
+    end
+    local prog = "uv run python -c 'import sys; print(sys.executable)'"
+    local res = io.popen(prog, "r")
+    assert(res)
+    return res:read()
+end
+
+local cache_py
+M.get_py = function()
+    if cache_py == nil then
+        cache_py = M.find_py()
+    end
+    return cache_py
+end
+
 return M

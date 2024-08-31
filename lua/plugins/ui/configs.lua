@@ -61,17 +61,6 @@ end
 
 configs.mini_statusline = function()
     local mini_statusline = require("mini.statusline")
-    local python = require("utils.python")
-    local section_pyvenv = function()
-        local ft = vim.bo.filetype
-        if ft == 'python' or ft == "cython" then
-            local env = python.get_current_env()
-            if env then
-                return ("[%s]"):format(env.name)
-            end
-        end
-        return ""
-    end
     local active_content = function()
         local mode, mode_hl = mini_statusline.section_mode({ trunc_width = 120 })
         local git           = mini_statusline.section_git({ trunc_width = 40 })
@@ -79,7 +68,6 @@ configs.mini_statusline = function()
         local diagnostics   = mini_statusline.section_diagnostics({ trunc_width = 75 })
         local lsp           = mini_statusline.section_lsp({ trunc_width = 75 })
         local filename      = mini_statusline.section_filename({ trunc_width = 140 })
-        local pyvenv        = section_pyvenv()
         local fileinfo      = mini_statusline.section_fileinfo({ trunc_width = 120 })
         local location      = mini_statusline.section_location({ trunc_width = 75 })
         local search        = mini_statusline.section_searchcount({ trunc_width = 75 })
@@ -89,7 +77,6 @@ configs.mini_statusline = function()
             { hl = 'MiniStatuslineDevinfo',  strings = { git, diff, diagnostics, lsp } },
             '%<', -- Mark general truncate point
             { hl = 'MiniStatuslineFilename', strings = { filename } },
-            { hl = 'pythonVenv', strings = { pyvenv } },
             '%=', -- End left alignment
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
             { hl = mode_hl,                  strings = { search, location } },
