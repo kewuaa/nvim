@@ -18,13 +18,6 @@ local servers = {
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    if client.name == 'basedpyright' then
-        vim.schedule(function()
-            require("utils.python").parse_pyenv(
-                client.config.root_dir or vim.fn.expand("%:p:h")
-            )
-        end)
-    end
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_set_option_value("omnifunc", "v:lua.MiniCompletion.completefunc_lsp", {buf = bufnr})
 
@@ -97,11 +90,11 @@ local function add_auto_install_hook()
         ["clangd"] = "clangd",
         ["cmake"] = "cmake-language-server",
         ["dockerls"] = "dockerfile-language-server",
+        ["jedi_language_server"] = "jedi-language-server",
         ["jsonls"] = "json-lsp",
         ["lua_ls"] = "lua-language-server",
         ["mesonlsp"] = "mesonlsp",
         ["neocmake"] = "neocmakelsp",
-        ["basedpyright"] = "basedpyright",
         ["ruff"] = "ruff",
         ["rust_analyzer"] = "rust-analyzer",
         ["taplo"] = "taplo",
