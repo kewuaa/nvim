@@ -304,7 +304,7 @@ configs.asynctasks = function()
             return
         end
         local opts = {
-            "-save=0",
+            "-save=2",
             "-cwd=<root>",
             "-mode=terminal",
             "-pos=" .. vim.g.asynctasks_term_pos,
