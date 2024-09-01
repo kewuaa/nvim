@@ -28,7 +28,7 @@ deps.add({
     source = "echasnovski/mini-git",
     lazy_opts = {
         events = {"BufRead"},
-        -- cmds = {"Git"},
+        cmds = {"Git"},
         -- keys = {
         --     {
         --         mode = "n",
