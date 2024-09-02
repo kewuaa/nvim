@@ -36,7 +36,7 @@ mason.ensure_install("mypy")
 M.efm = {
     rootmarks = rootmarks,
     filetypes = vim.tbl_keys(languages),
-    single_file_support = true,
+    single_file_support = false,
     init_options = {
         documentFormatting = true,
         documentRangeFormatting = true,
