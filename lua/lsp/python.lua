@@ -1,33 +1,34 @@
 local M = {}
+local deps = require("deps")
 local utils = require("utils")
 local rootmarks = {".git", 'pyproject.toml'}
 
-M.jedi_language_server = {
+deps.add({
+    source = "microsoft/python-type-stubs",
+    lazy_opts = {}
+})
+
+M.basedpyright = {
     rootmarks = rootmarks,
-    init_options = {
-        diagnostics = {
-            enable = false,
+    settings = {
+        basedpyright = {
+            disableOrganizeImports = true,
+            analysis = {
+                -- logLevel = 'track',
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+                stubPath = deps.package_path .. "opt/python-type-stubs/stubs",
+                typeCheckingMode = 'standard',
+                diagnosticSeverityOverrides = {
+                    reportUnusedImport = false
+                }
+            },
         },
-        completion = {
-            resolveEagerly = false
-        },
-        jediSettings = {
-            autoImportModules = {"numpy", "pandas"},
-            caseInsensitiveCompletion = true
-        },
-        workspace = {
-            extraPaths = {},
-            environmentPath = utils.get_py(),
-            symbols = {
-                ignoreFolders = {
-                    ".venv",
-                    "__pycache__",
-                    "build",
-                    "dist"
-                },
-                maxSymbols = 20
-            }
-        },
+        python = {
+            pythonPath = utils.get_py()
+        }
     }
 }
 M.ruff = {
