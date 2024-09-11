@@ -6,7 +6,7 @@ local treesitter = function()
         ignore_install = {"zig"},
         highlight = {
             enable = true,
-            additional_vim_regex_highlighting = { "c", "cpp" },
+            additional_vim_regex_highlighting = false,
             ---@diagnostic disable-next-line: unused-local
             disable = function(lang, bufnr)
                 local size = require('utils').cal_bufsize(bufnr)
