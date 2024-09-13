@@ -49,6 +49,7 @@ deps.add({
 deps.add({
     source = "saecki/crates.nvim",
     lazy_opts = {
+        delay_install = true,
         events = {"BufRead Cargo.toml"}
     },
     config = configs.crates,
