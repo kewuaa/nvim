@@ -3,6 +3,9 @@ local configs = {}
 configs.tokyonight = function()
     require("tokyonight").setup({
         style = "moon",
+        styles = {
+            functions = {bold = true},
+        },
         plugins = {
             all = false,
             auto = false,
