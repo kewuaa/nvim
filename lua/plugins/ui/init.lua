@@ -96,16 +96,3 @@ deps.add({
     },
     config = configs.mini_notify,
 })
-
----------------------------------------------------------------------------------------------------
----enhance ui
----------------------------------------------------------------------------------------------------
-deps.add({
-    source = "stevearc/dressing.nvim",
-    lazy_opts = {
-        very_lazy = true
-    },
-    config = function()
-        require("dressing").setup()
-    end,
-})

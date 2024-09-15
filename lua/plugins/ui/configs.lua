@@ -156,17 +156,4 @@ configs.mini_notify = function()
     )
 end
 
-configs.dressing = function()
-    require("dressing").setup({
-        input = {
-            enabled = true,
-        },
-        select = {
-            enabled = true,
-            backend = "telescope",
-            trim_prompt = true,
-        },
-    })
-end
-
 return configs
