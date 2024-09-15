@@ -14,7 +14,6 @@ configs.tokyonight = function()
             mini_deps = true,
             mini_diff = true,
             mini_files = true,
-            mini_hipatterns = true,
             mini_icons = true,
             mini_notify = true,
             mini_pick = true,
