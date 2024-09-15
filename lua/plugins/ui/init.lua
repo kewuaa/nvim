@@ -14,18 +14,6 @@ deps.add({
 deps.later(function()
     vim.cmd.colorscheme("tokyonight")
 end)
-deps.add({
-    source = "echasnovski/mini.colors",
-    lazy_opts = {
-        cmds = {"MiniColorsInteractive"},
-        delay_install = true,
-    },
-    config = function()
-        local mini_colors = require("mini.colors")
-        mini_colors.setup()
-        vim.api.nvim_create_user_command("MiniColorsInteractive", mini_colors.interactive, {})
-    end
-})
 
 ---------------------------------------------------------------------------------------------------
 ---icons
