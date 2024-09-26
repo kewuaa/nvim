@@ -6,7 +6,6 @@ local servers = {
     'jsonls',
     'lua_ls',
     'mesonlsp',
-    'pasls',
     'python',
     'rust_analyzer',
     'taplo',
