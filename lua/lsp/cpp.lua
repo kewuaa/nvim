@@ -39,7 +39,6 @@ M.clangd = {
     }
 }
 
-M.neocmake = {}
--- M.cmake = {}
+M[vim.fn.executable("cargo") == 1 and "neocmake" or "cmake"] = {}
 
 return M
