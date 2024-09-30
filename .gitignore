@@ -1,6 +1,7 @@
 **/__pycache__/
 /build
-/subprojects
+/subprojects/*
+!/subprojects/*.wrap
 /.cache
 *.pyd
 *.a
