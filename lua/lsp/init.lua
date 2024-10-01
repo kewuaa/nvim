@@ -24,8 +24,8 @@ local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
 
-    map('n', '[d', vim.diagnostic.goto_prev, bufopts)
-    map('n', ']d', vim.diagnostic.goto_next, bufopts)
+    map('n', '[d', function() vim.diagnostic.jump({count = -1, float = true}) end, bufopts)
+    map('n', ']d', function() vim.diagnostic.jump({count = 1, float = true}) end, bufopts)
     -- map('n', '<space>D', vim.diagnostic.open_float, bufopts)
     map('n', '<leader>ld', vim.diagnostic.setloclist, bufopts)
 
