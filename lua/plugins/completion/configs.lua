@@ -14,6 +14,27 @@ configs.mini_completion = function()
     local map = vim.keymap.set
     map("n", "<C-w>r", clear_MiniCompletion_wins)
     map("i", "<C-l>", clear_MiniCompletion_wins)
+
+    local kind_map
+    local  make_add_kind_hlgroup = function()
+        -- Account for possible effect of `MiniIcons.tweak_lsp_kind()` which modifies
+        -- only array part of `CompletionItemKind` but not "map" part
+        if kind_map == nil then
+            -- Cache kind map so as to not recompute it each time (as it will be called
+            -- in performance sensitive context). Assumes `tweak_lsp_kind()` is called
+            -- right after `require('mini.icons').setup()`.
+            kind_map = {}
+            for k, v in pairs(vim.lsp.protocol.CompletionItemKind) do
+                if type(k) == 'string' and type(v) == 'number' then kind_map[v] = k end
+            end
+        end
+
+        return function(item)
+            ---@diagnostic disable-next-line: undefined-field
+            local _, hl, is_default = _G.MiniIcons.get('lsp', kind_map[item.kind] or 'Unknown')
+            item.kind_hlgroup = not is_default and hl or nil
+        end
+    end
     local load_snippets = function()
         local ok, snippets = pcall(require, "snippets")
         if not ok then
@@ -110,6 +131,14 @@ configs.mini_completion = function()
                     local detail = item.detail
                     if detail and #detail > width then
                         item.detail = detail:sub(0, width) .. "..."
+                    end
+                end
+                -- Possibly add "kind" highlighting
+                ---@diagnostic disable-next-line: undefined-field
+                if _G.MiniIcons ~= nil then
+                    local add_kind_hlgroup = make_add_kind_hlgroup()
+                    for _, item in ipairs(items) do
+                        add_kind_hlgroup(item)
                     end
                 end
                 return items
