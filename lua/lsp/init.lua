@@ -67,13 +67,19 @@ local function setup_ui()
         Info = "",
         Hint = "󰌶",
     }
+    local text = {}
+    local numhl = {}
     for type, icon in pairs(diagnostic_icons) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl })
+        local key = vim.diagnostic.severity[type:upper()]
+        text[key] = icon
+        local numhl_name = "DiagnosticSign" .. type
+        numhl[key] = numhl_name
     end
-
     vim.diagnostic.config({
-      signs = true,
+      signs = {
+          text = text,
+          numhl = numhl,
+      },
       update_in_insert = false,
       underline = true,
       severity_sort = true,
