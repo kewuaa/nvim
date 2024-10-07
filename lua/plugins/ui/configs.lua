@@ -61,7 +61,6 @@ configs.mini_statusline = function()
             { hl = mode_hl,                  strings = { search, location } },
         })
     end
-    vim.api.nvim_set_hl(0, "pythonVenv", {ctermfg = 214, fg = "#ffbc03"})
     mini_statusline.setup({
         content = {
             active = active_content,
