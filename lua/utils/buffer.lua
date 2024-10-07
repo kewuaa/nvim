@@ -1,5 +1,7 @@
 local M = {}
 
+---delete all buffers except the current one
+---@param force boolean if force to delete the buffer that had been modified
 M.bufonly = function(force)
     local cur_buf = vim.api.nvim_get_current_buf()
 
