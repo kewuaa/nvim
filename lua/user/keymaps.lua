@@ -59,7 +59,7 @@ function M.init()
         "n", "<leader>ot",
         function()
             local utils = require("utils")
-            local cmd = utils.is_win and "where clink >nul 2>nul && if %errorlevel% equ 0 (cmd.exe /k clink inject) else (cmd.exe)" or "$SHELL"
+            local cmd = utils.is_win and "where clink >nul 2>nul && if \\%errorlevel\\% equ 0 (cmd.exe /k clink inject) else (cmd.exe)" or "$SHELL"
             utils.run_in_terminal(cmd)
         end, opts
     )
