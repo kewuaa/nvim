@@ -25,6 +25,16 @@ local remove = function(plugin)
     end
 end
 
+---return if the plugin is loaded
+---@param plugin string
+M.if_loaded = function(plugin)
+    if handles[plugin] == nil then
+        vim.notify(plugin.." not register yet", vim.log.levels.ERROR)
+        return false
+    end
+    return handles[plugin] == true
+end
+
 ---load plugin
 ---@param plugin PlugSpec
 M.load = function(plugin)
