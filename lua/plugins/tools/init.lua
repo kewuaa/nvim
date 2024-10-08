@@ -56,41 +56,6 @@ deps.add({
 })
 
 ---------------------------------------------------------------------------------------------------
----task runner
----------------------------------------------------------------------------------------------------
-deps.later(function()
-    local opts = {silent = true, noremap = true}
-    local map = vim.keymap.set
-    map('n', '<A-q>', '<cmd>AsyncTask file-run<CR>', opts)
-    map('n', '<leader><A-q>', '<cmd>AsyncTask file-build<CR>', opts)
-    map('n', '<F5>', '<cmd>AsyncTask project-run<CR>', opts)
-    map('n', '<leader><F5>', '<cmd>AsyncTask project-build<CR>', opts)
-    map('n', '<leader>ot', '<cmd>AsyncTask open-terminal<CR>', opts)
-
-    -- local cmd = vim.api.nvim_create_user_command
-    -- cmd('GitCommit', 'AsyncTask git-commit', {})
-    -- cmd('GitPush', 'AsyncTask git-push', {})
-    -- cmd('GitCheckout', 'AsyncTask git-checkout', {})
-    -- cmd('GitReset', 'AsyncTask git-reset', {})
-    -- cmd('GitLog', 'AsyncTask git-log', {})
-    pcall(configs.asynctasks)
-end)
-deps.add({
-    source = "skywind3000/asynctasks.vim",
-    lazy_opts = {
-        cmds = {
-            'AsyncRun',
-            'AsyncTask',
-            'AsyncTaskList',
-            'AsyncTaskMacro',
-            'AsyncTaskEdit',
-            'AsyncTaskProfile'
-        }
-    },
-    depends = {"skywind3000/asyncrun.vim"}
-})
-
----------------------------------------------------------------------------------------------------
 ---quickfix enhance
 ---------------------------------------------------------------------------------------------------
 deps.add({
@@ -226,39 +191,6 @@ deps.add({
                     require("mini.pick").builtin.buffers()
                 end
             },
-            {
-                mode = "n",
-                lhs = "<leader>ft",
-                rhs = function()
-                    local ok, tasks = pcall(vim.fn["asynctasks#list"], "")
-                    if not ok then
-                        vim.cmd.packadd("asynctasks.vim")
-                        tasks = vim.fn["asynctasks#list"]("")
-                    end
-                    local opts = {
-                        source = {
-                            items = tasks,
-                            name = "Task",
-                            show = function(buf_id, items_arr, query)
-                                local lines = vim.tbl_map(function(task)
-                                    return task.name
-                                end, items_arr)
-                                vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
-                            end,
-                            choose = function(item)
-                                vim.schedule(function()
-                                    vim.cmd.AsyncTask(item.name)
-                                end)
-                            end,
-                            choose_marked = function(items)
-                                vim.notify("not support start multiple tasks")
-                                return true
-                            end
-                        }
-                    }
-                    require("mini.pick").start(opts)
-                end
-            }
         }
     },
     config = configs.mini_pick

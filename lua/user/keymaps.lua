@@ -52,6 +52,29 @@ function M.init()
         end
     end)
 
+    map('n', '<A-q>', function() require("utils").run_file() end, opts)
+    map('n', '<leader><A-q>', function() require("utils").run_file({build = true}) end, opts)
+    map('n', '<leader><leader><A-q>', function() require("utils").run_file({debug = true}) end, opts)
+    map(
+        "n", "<leader>ot",
+        function()
+            local utils = require("utils")
+            local cmd = utils.is_win and "where clink >nul 2>nul && if %errorlevel% equ 0 (cmd.exe /k clink inject) else (cmd.exe)" or "$SHELL"
+            utils.run_in_terminal(cmd)
+        end, opts
+    )
+    map(
+        "n", "<leader>rr",
+        function()
+            local cmd = vim.fn.input("command to run: ", "", "shellcmd")
+            if cmd == "" then
+                vim.notify("empty command", vim.log.levels.WARN)
+                return
+            end
+            require("utils").run_in_terminal(cmd)
+        end, opts
+    )
+
     map("n", "<C-w>z", function() require("utils.window").zoom() end, opts)
     map("n", "<C-w><C-z>", function() require("utils.window").zoom() end, opts)
     map("n", "<leader>lsp", function() require("utils.lsp").toggle() end, opts)

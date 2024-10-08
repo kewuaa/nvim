@@ -276,46 +276,6 @@ configs.nvim_dap = function()
     require("user.autocmds").register_quick_quit("dap-float")
 end
 
-configs.asynctasks = function()
-    local utils = require("utils")
-    vim.g.asyncrun_save = 2
-    vim.g.asyncrun_open = 10
-    vim.g.asyncrun_rootmarks = {".git", ".tasks", ".root"}
-    vim.g.asynctasks_term_focus = 1
-    vim.g.asynctasks_template = 1
-    vim.g.asynctasks_confirm = 0
-    if utils.is_win then
-        vim.g.asynctasks_term_pos = vim.env.SSH_TTY and "TAB" or 'external'
-        vim.g.asynctasks_environ = {
-            exe_suffix = '.exe',
-        }
-    elseif utils.is_linux then
-        vim.g.asynctasks_term_pos = 'TAB'
-        vim.g.asynctasks_environ = {
-            exe_suffix = '',
-        }
-    end
-    vim.g.asynctasks_extra_config = {vim.fn.stdpath('config') .. '/mytasks.ini'}
-
-    local async_run_cmd = function()
-        local cmd = vim.fn.input("command to run: ", "", "shellcmd")
-        if cmd == "" then
-            vim.notify("empty command", vim.log.levels.WARN)
-            return
-        end
-        local opts = {
-            "-save=2",
-            "-cwd=<root>",
-            "-mode=terminal",
-            "-pos=" .. vim.g.asynctasks_term_pos,
-            "-raw"
-        }
-        vim.cmd.AsyncRun(vim.fn.join(opts, " ") .. " " .. cmd)
-    end
-    local opts = { silent = true, noremap = true }
-    vim.keymap.set("n", "<leader>rr", async_run_cmd, opts)
-end
-
 configs.mini_git = function()
     local mini_git = require("mini.git")
     mini_git.setup()
