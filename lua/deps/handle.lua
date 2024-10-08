@@ -65,6 +65,10 @@ M.load = function(plugin)
         end
     end
 
+    if handles[plugin.name] == true then
+        vim.notify("load "..plugin.name.." repeatedly", vim.log.levels.WARN)
+        return
+    end
     remove(plugin.name)
     local delay = plugin.lazy_opts.delay
     if delay > 0 then
