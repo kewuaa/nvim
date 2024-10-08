@@ -196,7 +196,9 @@ M.create_lazy_keys = function(plugin)
                 opts = {buffer = key.opts.buffer}
             end
             pcall(vim.keymap.del, key.mode, key.lhs, opts)
-            vim.keymap.set(key.mode, key.lhs, key.rhs, key.opts)
+            if key.rhs then
+                vim.keymap.set(key.mode, key.lhs, key.rhs, key.opts)
+            end
         end
     end)
     for _, key in ipairs(keys) do
