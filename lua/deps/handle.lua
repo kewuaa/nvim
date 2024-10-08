@@ -196,6 +196,7 @@ M.create_lazy_keys = function(plugin)
                 opts = {buffer = key.opts.buffer}
             end
             pcall(vim.keymap.del, key.mode, key.lhs, opts)
+            vim.keymap.set(key.mode, key.lhs, key.rhs, key.opts)
         end
     end)
     for _, key in ipairs(keys) do
@@ -230,9 +231,6 @@ M.create_lazy_keys = function(plugin)
                             vim.api.nvim_replace_termcodes(expr_keys, true, false, true),
                             "i", false
                         )
-                    end
-                    for _, k in ipairs(keys) do
-                        vim.keymap.set(k.mode, k.lhs, k.rhs, k.opts)
                     end
                 else
                     vim.api.nvim_feedkeys(
