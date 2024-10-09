@@ -83,6 +83,7 @@ M.run_in_terminal = function(cmd, wd)
         end, "nil or string not empty"}
     })
     wd = wd or M.wrap_path(M.get_cwd())
+    vim.cmd.wall()
     vim.cmd(('-tab terminal cd %s && %s'):format(wd, cmd))
     vim.cmd("setlocal nonumber signcolumn=no norelativenumber")
     vim.cmd.startinsert()
@@ -161,7 +162,6 @@ M.run_file = function(opts)
     end
     file = file ~= "" and M.wrap_path(file) or file
     local cmd = ("%s %s"):format(program, file)
-    vim.cmd.wall()
     M.run_in_terminal(cmd)
 end
 
