@@ -56,7 +56,7 @@ M.find_py = function()
         vim.notify('uv not found, use python3 in path', vim.log.levels.WARN)
         return vim.fn.exepath("python3")
     end
-    local cmd = [[uv run python -c "import sys; print(sys.executable, end='')"]]
+    local cmd = "uv python find"
     local res = vim.fn.system(cmd)
     assert(res)
     return res
