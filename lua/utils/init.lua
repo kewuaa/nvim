@@ -59,7 +59,7 @@ M.find_py = function()
     local cmd = "uv python find"
     local res = vim.fn.system(cmd)
     assert(res)
-    return res
+    return res:sub(1, -2)
 end
 
 ---@type string
