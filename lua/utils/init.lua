@@ -30,9 +30,9 @@ M.get_cwd = function()
     if num > 0 then
         root = activate_clients[num].config.root_dir
     end
-    if not root then
+    if not root or root == "" then
         local startpath = fn.expand('%:p:h')
-        root = vim.fs.root(startpath, ".git") or vim.fn.expand("%:p:h")
+        root = vim.fs.root(startpath, ".git") or startpath
     end
     return root
 end
