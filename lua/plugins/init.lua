@@ -75,12 +75,12 @@ local setup_filetype = function()
 end
 
 M.init = function()
+    setup_filetype()
     disable_distribution_plugins()
     deps.init()
     deps.later(function()
         load_clipboard()
         load_rplugin()
-        setup_filetype()
     end)
     require("plugins.ui")
     require("plugins.tools")
