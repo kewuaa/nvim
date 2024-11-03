@@ -108,7 +108,7 @@ M.run_file = function(opts)
     local program = ""
     if not opts then
         if ft == "python" then
-            program = "uv run python"
+            program = "uv run"
         elseif ft == "javascript" then
             program = "node"
         elseif ft == "lua" then
