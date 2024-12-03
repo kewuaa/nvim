@@ -117,10 +117,44 @@ configs.mini_pairs = function()
     map_bs('<C-w>', 'v:lua.MiniPairs.bs("\23")')
     map_bs('<C-u>', 'v:lua.MiniPairs.bs("\21")')
 
-    local mini_pairs_cr = mini_pairs.cr
-    mini_pairs.cr = function()
-        local keys = require("user.keymaps").CR()
-        return keys == "<CR>" and mini_pairs_cr() or vim.api.nvim_replace_termcodes(keys, true, false, true)
+    local mini_pairs_callback = function()
+        if vim.v.char == " " then
+            local keys = vim.api.nvim_replace_termcodes(
+                "<space><left>",
+                true,
+                false,
+                true
+            )
+            vim.api.nvim_feedkeys(keys, "i", false)
+        end
+    end
+    local mini_pairs_open = mini_pairs.open
+    mini_pairs.open = function(...)
+        local ret = mini_pairs_open(...)
+        vim.schedule(
+            function()
+                local have_called = false
+                local autocmd_id = vim.api.nvim_create_autocmd("InsertCharPre", {
+                    once = true,
+                    group = mini_pairs_group,
+                    buffer = 0,
+                    callback = function()
+                        mini_pairs_callback()
+                        have_called = true
+                    end
+                })
+                vim.api.nvim_create_autocmd("InsertLeave", {
+                    once = true,
+                    group = mini_pairs_group,
+                    callback = function()
+                        if not have_called then
+                            vim.api.nvim_del_autocmd(autocmd_id)
+                        end
+                    end
+                })
+            end
+        )
+        return ret
     end
 end
 
