@@ -56,7 +56,7 @@ M.find_py = function()
         vim.notify('uv not found, use python3 in path', vim.log.levels.WARN)
         return vim.fn.exepath("python3")
     end
-    local cmd = "uv python find"
+    local cmd = "uv python --python-preference=system find"
     local res = vim.fn.system(cmd)
     assert(res)
     return res:sub(1, -2)
@@ -108,7 +108,7 @@ M.run_file = function(opts)
     local program = ""
     if not opts then
         if ft == "python" then
-            program = "uv run"
+            program = "uv run --python-preference=system"
         elseif ft == "javascript" then
             program = "node"
         elseif ft == "lua" then
@@ -151,7 +151,7 @@ M.run_file = function(opts)
         end
     elseif opts.debug then
         if ft == "python" then
-            program = "uv run python -m pdb"
+            program = "uv run --python-preference=system python -m pdb"
         elseif vim.tbl_contains({"c", "cpp", "rust", "pascal"}, ft) then
             program = "gdb"
             file = file_noext..exe_suffix

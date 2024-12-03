@@ -127,7 +127,7 @@ configs.mini_notify = function()
             style = 'minimal',
             border = "single"
         })
-        notify.show_history()
+        mini_notify.show_history()
         vim.keymap.set("n", "q", function()
             vim.api.nvim_win_close(0, true)
             vim.api.nvim_buf_delete(buf_id, {})
