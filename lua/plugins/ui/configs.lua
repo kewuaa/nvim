@@ -90,9 +90,16 @@ configs.tabline = function()
 end
 
 configs.mini_notify = function()
-    local notify = require("mini.notify")
-    notify.setup()
-    vim.notify = notify.make_notify()
+    local mini_notify = require("mini.notify")
+    mini_notify.setup()
+    local notify = mini_notify.make_notify()
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.notify = function(msg, ...)
+        if msg:match("warning: multiple different client offset_encodings") then
+            return
+        end
+        notify(msg, ...)
+    end
 
     local show_history = function()
         -- Show content in a reusable buffer
