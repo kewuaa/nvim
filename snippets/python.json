@@ -34,7 +34,7 @@
         "description": "Code snippet for the else statement."
     },
     "for": {
-        "prefix": "for ... in ...",
+        "prefix": "for",
         "body": [
             "for ${1:value} in ${2:iterator}:",
             "\t${3:pass}",
@@ -43,7 +43,7 @@
         "description": "Code snippet for the for statement."
     },
     "fori": {
-        "prefix": "for ... in enumerate(...)",
+        "prefix": "fori",
         "body": [
             "for ${1:index}, ${2:value} in enumerate(${3:iterator}):",
             "\t${4:pass}",
