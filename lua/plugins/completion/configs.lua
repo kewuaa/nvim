@@ -1,167 +1,109 @@
 local configs = {}
 
-configs.mini_completion = function()
-    local clear_MiniCompletion_wins = function()
-        local wins = vim.api.nvim_list_wins()
-        for _, win in ipairs(wins) do
-            local bufnr = vim.api.nvim_win_get_buf(win)
-            local buf_name = vim.api.nvim_buf_get_name(bufnr)
-            if buf_name:match("MiniCompletion") then
-                vim.api.nvim_win_close(win, false)
-            end
-        end
-    end
-    local map = vim.keymap.set
-    map("n", "<C-w>r", clear_MiniCompletion_wins)
-    map("i", "<C-l>", clear_MiniCompletion_wins)
+configs.blink_cmp = function()
+    require("blink.cmp").setup({
+        keymap = {
+            preset = 'default',
+            ["<C-y>"] = {'select_and_accept', 'fallback'},
+            ["<C-e>"] = {'cancel', 'fallback'},
+        },
 
-    local kind_map
-    local  make_add_kind_hlgroup = function()
-        -- Account for possible effect of `MiniIcons.tweak_lsp_kind()` which modifies
-        -- only array part of `CompletionItemKind` but not "map" part
-        if kind_map == nil then
-            -- Cache kind map so as to not recompute it each time (as it will be called
-            -- in performance sensitive context). Assumes `tweak_lsp_kind()` is called
-            -- right after `require('mini.icons').setup()`.
-            kind_map = {}
-            for k, v in pairs(vim.lsp.protocol.CompletionItemKind) do
-                if type(k) == 'string' and type(v) == 'number' then kind_map[v] = k end
-            end
-        end
+        appearance = {
+            -- Sets the fallback highlight groups to nvim-cmp's highlight groups
+            -- Useful for when your theme doesn't support blink.cmp
+            -- will be removed in a future release
+            use_nvim_cmp_as_default = false,
+            -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+            -- Adjusts spacing to ensure icons are aligned
+            nerd_font_variant = 'mono'
+        },
 
-        return function(item)
-            ---@diagnostic disable-next-line: undefined-field
-            local _, hl, is_default = _G.MiniIcons.get('lsp', kind_map[item.kind] or 'Unknown')
-            item.kind_hlgroup = not is_default and hl or nil
-        end
-    end
-    local load_snippets = function()
-        local ok, snippets = pcall(require, "snippets")
-        if not ok then
-            vim.notify_once("load snippets failed", vim.log.levels.WARN)
-            return
-        end
-        local loaded_snippets = snippets.load_snippets_for_ft(vim.bo.filetype)
-        if not loaded_snippets then
-            return
-        end
-        local response = {}
-
-        for key in pairs(loaded_snippets) do
-            local snippet = loaded_snippets[key]
-            local body
-            if type(snippet.body) == "table" then
-                body = table.concat(snippet.body, "\n")
-            else
-                body = snippet.body
-            end
-
-            local prefix = loaded_snippets[key].prefix
-            if type(prefix) == "table" then
-                for _, p in ipairs(prefix) do
-                    table.insert(response, {
-                        label = p,
-                        kind = 15,
-                        documentation = snippet.description,
-                        data = {
-                            body = body,
+        -- default list of enabled providers defined so that you can extend it
+        -- elsewhere in your config, without redefining it, via `opts_extend`
+        sources = {
+            completion = {
+                enabled_providers = function(ctx)
+                    local node = vim.treesitter.get_node()
+                    if node and vim.tbl_contains(
+                        {
+                            'comment',
+                            'line_comment',
+                            'block_comment',
                         },
-                    })
-                end
-            else
-                table.insert(response, {
-                    label = prefix,
-                    kind = 15,
-                    documentation = snippet.description,
-                    data = {
-                        body = body,
-                    },
-                })
-            end
-        end
-        return response
-    end
-    require("mini.completion").setup({
-        delay = {
-            completion = 100,
-            info = 100,
-            signature = 50
+                        node:type()
+                    ) then
+                        return { 'path', 'buffer' }
+                    else
+                        return { 'path', 'snippets', 'lsp', 'buffer' }
+                    end
+                end,
+            },
+            providers = {
+                path = {
+                    opts = {
+                        trailing_slash = false,
+                        label_trailing_slash = true,
+                        get_cwd = function(context)
+                            return vim.fn.expand(('#%d:p:h'):format(context.bufnr))
+                        end,
+                        show_hidden_files_by_default = false,
+                    }
+                },
+                snippets = {
+                    enabled = function(ctx)
+                        return ctx ~= nil
+                        and ctx.trigger.kind ~= vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter
+                    end,
+                    opts = {
+                        friendly_snippets = false,
+                        search_paths = {
+                            vim.fn.stdpath('config') .. '/snippets',
+                        },
+                        global_snippets = { 'all' },
+                        extended_filetypes = {
+                            cython = {"python"},
+                            cpp = {"c"},
+                            cs = {"c"},
+                            javascript = {"c"}
+                        },
+                        ignored_filetypes = {},
+                        get_filetype = function(context)
+                            return vim.bo.filetype
+                        end
+                    }
+                },
+                buffer = {
+                    fallback_for = { 'lsp' },
+                    opts = {
+                        -- default to all visible buffers
+                        get_bufnrs = function()
+                            return vim
+                            .iter(vim.api.nvim_list_wins())
+                            :map(function(win) return vim.api.nvim_win_get_buf(win) end)
+                            :filter(function(buf) return vim.bo[buf].buftype ~= 'nofile' end)
+                            :totable()
+                        end,
+                    }
+                },
+            }
         },
-        window = {
-            info = { height = 25, width = 80, border = 'single' },
-            signature = { height = 25, width = 80, border = 'single' },
-        },
-        lsp_completion = {
-            source_func = "omnifunc",
-            auto_setup = false,
-            process_items = function(items, base)
-                if base ~= "" then
-                    local snippets = load_snippets()
-                    if snippets then
-                        items = vim.list_extend(snippets, items)
-                    end
-                end
-                local lower_base = base:lower()
-                items = vim.tbl_filter(function(item)
-                    local text = item.filterText or (item.textEdit and item.textEdit.newText) or item.insertText or item.label or ""
-                    return vim.startswith(text:lower(), lower_base)
-                end, items)
-                table.sort(
-                    items,
-                    function(a, b)
-                        if a.kind == b.kind then
-                            return vim.fn.strlen(a.label) < vim.fn.strcharlen(b.label)
-                        end
-                        if a.kind == 15 then
-                            return true
-                        end
-                        if b.kind == 15 then
-                            return false
-                        end
-                        return (a.sortText or a.label) < (b.sortText or b.label)
-                    end
-                )
-                local size = 15
-                if #items > size then
-                    items = vim.list_slice(items, nil, size)
-                end
-                local term = vim.api.nvim_list_uis()[1]
-                local width = math.floor(term.width / 3)
-                for _, item in ipairs(items) do
-                    local detail = item.detail
-                    if detail and #detail > width then
-                        item.detail = detail:sub(0, width) .. "..."
-                    end
-                end
-                -- Possibly add "kind" highlighting
-                ---@diagnostic disable-next-line: undefined-field
-                if _G.MiniIcons ~= nil then
-                    local add_kind_hlgroup = make_add_kind_hlgroup()
-                    for _, item in ipairs(items) do
-                        add_kind_hlgroup(item)
-                    end
-                end
-                return items
-            end
-        }
-    })
-end
 
-configs.snippets = function()
-    local config_path = vim.fn.stdpath("config")
-    require("snippets").setup({
-        create_autocmd = true,
-        create_cmp_source = false,
-        friendly_snippets = false,
-        extended_filetypes = {
-            cython = {"python"},
-            cpp = {"c"},
-            cs = {"c"},
-            javascript = {"c"}
+        completion = {
+            list = {
+                max_items = 100,
+                selection = "auto_insert",
+            },
+
+            accept = {
+                -- experimental auto-brackets support
+                auto_brackets = {
+                    enabled = true,
+                },
+            },
         },
-        search_paths = {
-            config_path .. "/snippets"
-        }
+
+        -- experimental signature help support
+        -- signature = { enabled = true },
     })
 end
 

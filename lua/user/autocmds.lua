@@ -94,62 +94,6 @@ local number_toggle = function()
     })
 end
 
-local register_on_complete_done = function()
-    vim.api.nvim_create_autocmd("User", {
-        desc = "do on CompleteDone",
-        pattern = "CompleteDone",
-        callback = function()
-            local selected_item = vim.v.completed_item
-            local cp_item = vim.tbl_get(selected_item, "user_data", "nvim", "lsp", "completion_item")
-            if not cp_item then
-                return
-            end
-            local snip_body
-            if selected_item.kind:match("Snippet") then
-                if cp_item.textEdit
-                    and cp_item.textEdit.newText
-                    and cp_item.textEdit.newText:find("%$") then
-                    snip_body = cp_item.textEdit.newText
-                elseif cp_item.data then
-                    snip_body = cp_item.data.body
-                end
-            elseif cp_item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet then
-                if cp_item.textEdit
-                    and cp_item.textEdit.newText
-                    and cp_item.textEdit.newText:find("%$") then
-                    snip_body = cp_item.textEdit.newText
-                elseif cp_item.insertText and cp_item.insertText:find("%$") then
-                    snip_body = cp_item.insertText
-                end
-            end
-            if snip_body then
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                vim.api.nvim_buf_set_text(0, line - 1, col - #selected_item.word, line - 1, col, {})
-
-                local snip_sess = vim.snippet.active() and vim.snippet._session or nil
-                vim.snippet.expand(snip_body)
-                if snip_sess then
-                    vim.snippet._session = snip_sess
-                end
-                return
-            elseif selected_item.kind:match("Function") or selected_item.kind:match("Method") then
-                local cursor = vim.api.nvim_win_get_cursor(0)
-                local prev_char = vim.api.nvim_buf_get_text(0, cursor[1] - 1, cursor[2] - 1, cursor[1] - 1, cursor[2], {})[1]
-                if vim.fn.mode() ~= "s" and prev_char ~= "(" and prev_char ~= ")" then
-                    vim.api.nvim_feedkeys(
-                        vim.api.nvim_replace_termcodes(
-                            "()<left>",
-                            true,
-                            false,
-                            true
-                        ), "i", false
-                    )
-                end
-            end
-        end
-    })
-end
-
 ---register filetypes to auto map 'q' to quit
 ---@param ... string
 M.register_quick_quit = function(...)
@@ -163,7 +107,6 @@ M.init = function()
     quick_quit()
     restore_cursor()
     number_toggle()
-    register_on_complete_done()
 end
 
 return M

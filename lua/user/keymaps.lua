@@ -1,23 +1,6 @@
 local M = {}
 local map = vim.keymap.set
 
-M.CR = function()
-    local complete_info = vim.fn.complete_info()
-    if complete_info.pum_visible == 1 then
-        local idx = complete_info.selected
-        local keys = "<C-y>"
-        if idx == -1 then
-            keys = "<C-n>" .. keys
-        end
-        vim.schedule(function()
-            vim.api.nvim_exec_autocmds("User", {pattern = "CompleteDone", modeline = false})
-        end)
-        return keys
-    else
-        return "<CR>"
-    end
-end
-
 function M.init()
     vim.g.mapleader = ' '
     local opts = { silent = true, noremap = true }
@@ -82,27 +65,6 @@ function M.init()
 
     map("i", "<C-f>", "<Right>", opts)
     map("i", "<C-b>", "<Left>", opts)
-
-    local expr_opts = vim.tbl_extend("error", opts, {expr = true})
-    map('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   expr_opts)
-    map('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], expr_opts)
-    map(
-        {"i", "s"},
-        "<C-j>",
-        function()
-            return vim.snippet.active({direction = 1}) and "<CMD>lua vim.snippet.jump(1)<CR>" or "<C-j>"
-        end,
-        expr_opts
-    )
-    map(
-        {"i", "s"},
-        "<C-k>",
-        function()
-            return vim.snippet.active({direction = -1}) and "<CMD>lua vim.snippet.jump(-1)<CR>" or "<C-k>"
-        end,
-        expr_opts
-    )
-    map('i', '<CR>', M.CR, expr_opts)
 
     -- vim.cmd [[
     -- " 多行应用宏
