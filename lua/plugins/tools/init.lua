@@ -22,6 +22,42 @@ deps.add({
 })
 
 ---------------------------------------------------------------------------------------------------
+---search and replace
+---------------------------------------------------------------------------------------------------
+deps.add({
+    source = "MagicDuck/grug-far.nvim",
+    lazy_opts = {
+        delay_install = true,
+        keys = {
+            {
+                mode = {"n", "v"},
+                lhs = "<leader>sr",
+                rhs = function()
+                    local utils = require("utils")
+                    local grug = require("grug-far")
+                    local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+                    grug.open({
+                        transient = true,
+                        prefills = {
+                            paths = utils.get_cwd(),
+                            filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+                        },
+                    })
+                end,
+                opts = {
+                    desc = "Search and Replace"
+                }
+            }
+        }
+    },
+    config = function()
+        require("grug-far").setup({
+            headerMaxWidth = 80,
+        })
+    end
+})
+
+---------------------------------------------------------------------------------------------------
 ---git helper
 ---------------------------------------------------------------------------------------------------
 deps.add({
