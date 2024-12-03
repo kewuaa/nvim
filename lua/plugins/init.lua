@@ -70,6 +70,12 @@ local setup_filetype = function()
             pxi = "cython",
             pyxdep = "python",
             pyxbld = "python",
+        },
+        filename = {
+            ["vifmrc"] = "vim",
+        },
+        pattern = {
+            ["%.env%.[%w_.-]+"] = "sh",
         }
     })
 end
