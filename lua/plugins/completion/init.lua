@@ -13,6 +13,7 @@ local blink_build = function(params)
         vim.notify('Building blink.cmp failed', vim.log.levels.ERROR)
     end
 end
+---@type PlugSpec
 local blink_spec = {
     source = "saghen/blink.cmp",
     lazy_opts = {
