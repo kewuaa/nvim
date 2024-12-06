@@ -143,14 +143,16 @@ configs.mini_pairs = function()
                         have_called = true
                     end
                 })
-                vim.api.nvim_create_autocmd("InsertLeave", {
-                    once = true,
-                    group = mini_pairs_group,
+                local cleanup_group = vim.api.nvim_create_augroup("PairSpaceCleanup", {clear = true})
+                vim.api.nvim_create_autocmd({"InsertLeave", "CursorMovedI"}, {
+                    group = cleanup_group,
                     callback = function()
                         if not have_called then
                             vim.api.nvim_del_autocmd(autocmd_id)
                         end
-                    end
+                        vim.api.nvim_del_augroup_by_id(cleanup_group)
+                    end,
+                    desc = "delete autocmd for pair space adding"
                 })
             end
         )
