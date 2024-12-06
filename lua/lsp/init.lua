@@ -127,27 +127,7 @@ function M.setup()
 
     add_auto_install_hook()
 
-    local capabilities = vim.tbl_extend("force", vim.lsp.protocol.make_client_capabilities(), {
-        textDocument = {
-            completion = {
-                completionItem = {
-                    snippetSupport = vim.snippet and true or false,
-                    resolveSupport = {
-                        properties = { 'edit', 'documentation', 'detail', 'additionalTextEdits' },
-                    },
-                },
-                completionList = {
-                    itemDefaults = {
-                        'editRange',
-                        'insertTextFormat',
-                        'insertTextMode',
-                        'data',
-                    },
-                },
-            },
-        }
-    })
-    -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
     local base_config = {
         on_attach = on_attach,
         capabilities = capabilities,
