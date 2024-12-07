@@ -98,6 +98,20 @@ configs.blink_cmp = function()
                 selection = "auto_insert",
             },
 
+            menu = {
+                draw = {
+                    columns = {
+                        { "kind_icon" },
+                        {
+                            "label",
+                            "label_description",
+                            gap = 1,
+                        },
+                        { "kind" },
+                    },
+                }
+            },
+
             accept = {
                 -- experimental auto-brackets support
                 auto_brackets = {
