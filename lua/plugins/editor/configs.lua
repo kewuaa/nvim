@@ -117,6 +117,7 @@ configs.mini_pairs = function()
     map_bs('<C-w>', 'v:lua.MiniPairs.bs("\23")')
     map_bs('<C-u>', 'v:lua.MiniPairs.bs("\21")')
 
+    -- add space inner brackets
     local mini_pairs_callback = function()
         if vim.v.char == " " then
             local keys = vim.api.nvim_replace_termcodes(
@@ -158,6 +159,7 @@ configs.mini_pairs = function()
         )
         return ret
     end
+    -- hide completion menu before <CR>
     local mini_pairs_cr = mini_pairs.cr
     mini_pairs.cr = function(key)
         local res = mini_pairs_cr(key)
