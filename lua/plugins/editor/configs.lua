@@ -158,6 +158,18 @@ configs.mini_pairs = function()
         )
         return ret
     end
+    local mini_pairs_cr = mini_pairs.cr
+    mini_pairs.cr = function(key)
+        local res = mini_pairs_cr(key)
+        local complete_info = vim.fn.complete_info()
+        if complete_info.pum_visible == 1 then
+            local idx = complete_info.selected
+            res = vim.keycode(
+                idx == -1 and "<C-e>" or "<C-y>"
+            )..res
+        end
+        return res
+    end
 end
 
 configs.treesj = function()
