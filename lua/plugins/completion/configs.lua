@@ -4,7 +4,10 @@ configs.compl = function()
     local compl = require("compl")
     compl.setup({
         completion = {
-            fuzzy = true,
+            fuzzy = {
+                enable = true,
+                max_item_num = 50
+            },
             timeout = 100
         },
         info = {
