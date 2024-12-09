@@ -18,7 +18,7 @@ local servers = {
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_set_option_value("omnifunc", "v:lua.MiniCompletion.completefunc_lsp", {buf = bufnr})
+    vim.api.nvim_buf_set_var(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
