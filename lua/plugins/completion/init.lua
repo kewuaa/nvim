@@ -4,32 +4,16 @@ local configs = require("plugins.completion.configs")
 ---------------------------------------------------------------------------------------------------
 ---auto completion
 ---------------------------------------------------------------------------------------------------
-local blink_build = function(params)
-    vim.notify('Building blink.cmp', vim.log.levels.INFO)
-    local obj = vim.system({ 'cargo', 'build', '--release' }, { cwd = params.path }):wait()
-    if obj.code == 0 then
-        vim.notify('Building blink.cmp done', vim.log.levels.INFO)
-    else
-        vim.notify('Building blink.cmp failed', vim.log.levels.ERROR)
-    end
-end
----@type PlugSpec
-local blink_spec = {
-    source = "saghen/blink.cmp",
+deps.add({
+    -- source = "brianaung/compl.nvim",
+    source = "kewuaa/compl.nvim",
+    checkout = "personal",
+    monitor = "personal",
     lazy_opts = {
         events = {"InsertEnter"},
     },
-    hooks = {
-        post_install = blink_build,
-        post_checkout = blink_build
-    },
-    config = configs.blink_cmp,
-}
-if not require("utils").has_cargo then
-    blink_spec.hooks = nil
-    blink_spec.checkout = "v0.7.1"
-end
-deps.add(blink_spec)
+    config = configs.compl
+})
 
 ---------------------------------------------------------------------------------------------------
 ---lsp support

@@ -1,0 +1,54 @@
+{
+    "name": "mysnips",
+    "engines": {
+        "vscode": "^1.11.0"
+    },
+    "contributes": {
+        "snippets": [
+            {
+                "language": ["python", "cython"],
+                "path": "./python.json"
+            },
+            {
+                "language": "cython",
+                "path": "./cython.json"
+            },
+            {
+                "language": ["c", "cpp", "cs", "javascript"],
+                "path": "./c.json"
+            },
+            {
+                "language": "cpp",
+                "path": "./cpp.json"
+            },
+            {
+                "language": "cmake",
+                "path": "./cmake.json"
+            },
+            {
+                "language": "cs",
+                "path": "./csharp.json"
+            },
+            {
+                "language": "pascal",
+                "path": "./pascal.json"
+            },
+            {
+                "language": "javascript",
+                "path": "./javascript.json"
+            },
+            {
+                "language": "lua",
+                "path": "./lua.json"
+            },
+            {
+                "language": "meson",
+                "path": "./meson.json"
+            },
+            {
+                "language": "rust",
+                "path": "./rust.json"
+            }
+        ]
+    }
+}

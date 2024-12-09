@@ -127,7 +127,7 @@ function M.setup()
 
     add_auto_install_hook()
 
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
     local base_config = {
         on_attach = on_attach,
         capabilities = capabilities,

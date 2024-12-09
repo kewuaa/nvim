@@ -1,128 +1,26 @@
 local configs = {}
 
-configs.blink_cmp = function()
-    require("blink.cmp").setup({
-        keymap = {
-            preset = 'default',
-            ["<C-y>"] = {'select_and_accept', 'fallback'},
-            ["<C-e>"] = {'cancel', 'fallback'},
-        },
-
-        appearance = {
-            -- Sets the fallback highlight groups to nvim-cmp's highlight groups
-            -- Useful for when your theme doesn't support blink.cmp
-            -- will be removed in a future release
-            use_nvim_cmp_as_default = false,
-            -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- Adjusts spacing to ensure icons are aligned
-            nerd_font_variant = 'mono'
-        },
-
-        fuzzy = {
-            sorts = { "score", "label" }
-        },
-
-        -- default list of enabled providers defined so that you can extend it
-        -- elsewhere in your config, without redefining it, via `opts_extend`
-        sources = {
-            completion = {
-                enabled_providers = function(ctx)
-                    local node = vim.treesitter.get_node()
-                    if node and vim.tbl_contains(
-                        {
-                            'comment',
-                            'line_comment',
-                            'block_comment',
-                        },
-                        node:type()
-                    ) then
-                        return { 'path', 'buffer' }
-                    else
-                        return { 'path', 'snippets', 'lsp', 'buffer' }
-                    end
-                end,
-            },
-            providers = {
-                path = {
-                    opts = {
-                        trailing_slash = false,
-                        label_trailing_slash = true,
-                        get_cwd = function(context)
-                            return vim.fn.expand(('#%d:p:h'):format(context.bufnr))
-                        end,
-                        show_hidden_files_by_default = false,
-                    }
-                },
-                snippets = {
-                    enabled = function(ctx)
-                        return ctx ~= nil
-                        and ctx.trigger.kind ~= vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter
-                    end,
-                    opts = {
-                        friendly_snippets = false,
-                        search_paths = {
-                            vim.fn.stdpath('config') .. '/snippets',
-                        },
-                        global_snippets = { 'all' },
-                        extended_filetypes = {
-                            cython = {"python"},
-                            cpp = {"c"},
-                            cs = {"c"},
-                            javascript = {"c"}
-                        },
-                        ignored_filetypes = {},
-                        get_filetype = function(context)
-                            return vim.bo.filetype
-                        end
-                    }
-                },
-                buffer = {
-                    fallback_for = { 'lsp' },
-                    opts = {
-                        -- default to all visible buffers
-                        get_bufnrs = function()
-                            return vim
-                            .iter(vim.api.nvim_list_wins())
-                            :map(function(win) return vim.api.nvim_win_get_buf(win) end)
-                            :filter(function(buf) return vim.bo[buf].buftype ~= 'nofile' end)
-                            :totable()
-                        end,
-                    }
-                },
-            }
-        },
-
+configs.compl = function()
+    local compl = require("compl")
+    compl.setup({
         completion = {
-            list = {
-                max_items = 100,
-                selection = "auto_insert",
-            },
-
-            menu = {
-                draw = {
-                    columns = {
-                        { "kind_icon" },
-                        {
-                            "label",
-                            "label_description",
-                            gap = 1,
-                        },
-                        { "kind" },
-                    },
-                }
-            },
-
-            accept = {
-                -- experimental auto-brackets support
-                auto_brackets = {
-                    enabled = true,
-                },
+            fuzzy = true,
+            timeout = 100
+        },
+        info = {
+            enable = true,
+            timeout = 100,
+        },
+        snippet = {
+            enable = true,
+            paths = {
+                vim.fn.stdpath("config") .. "/snippets"
             },
         },
-
-        -- experimental signature help support
-        -- signature = { enabled = true },
     })
+    compl.attach_buffer(vim.api.nvim_get_current_buf())
+    vim.keymap.set("i", "<C-Space>", "<C-x><C-u>", {silent = true, noremap = true})
+    vim.keymap.set("i", "<C-y>", compl.accept, {silent = true, noremap = true, expr = true})
 end
 
 configs.nvim_lspconfig = function()
