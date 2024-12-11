@@ -119,8 +119,7 @@ M.run_file = function(opts)
         elseif ft == "zig" then
             program = "zig run"
         elseif ft == "typst" then
-            vim.ui.open(file_noext..".pdf")
-            return
+            program = "tinymist preview"
         elseif ft == "cython" then
             vim.ui.open(file_noext..".html")
             return
