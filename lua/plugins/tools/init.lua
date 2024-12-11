@@ -277,6 +277,30 @@ deps.add({
 ---------------------------------------------------------------------------------------------------
 ---preview markdown
 ---------------------------------------------------------------------------------------------------
+vim.api.nvim_create_autocmd("Filetype", {
+    pattern = "markdown",
+    callback = function()
+        local enable = false
+        vim.keymap.set(
+            "n",
+            "<A-q>",
+            function()
+                if enable then
+                    vim.cmd("RenderMarkdown disable")
+                    enable = false
+                else
+                    vim.cmd("RenderMarkdown enable")
+                    enable = true
+                end
+            end,
+            {
+                buffer = true,
+                silent = true,
+                noremap = true,
+            }
+        )
+    end
+})
 deps.add({
     source = "MeanderingProgrammer/render-markdown.nvim",
     lazy_opts = {
