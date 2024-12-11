@@ -134,23 +134,17 @@ configs.mini_pairs = function()
         local ret = mini_pairs_open(...)
         vim.schedule(
             function()
-                local have_called = false
                 local autocmd_id = vim.api.nvim_create_autocmd("InsertCharPre", {
                     once = true,
                     group = mini_pairs_group,
                     buffer = 0,
-                    callback = function()
-                        mini_pairs_callback()
-                        have_called = true
-                    end
+                    callback = mini_pairs_callback
                 })
                 local cleanup_group = vim.api.nvim_create_augroup("PairSpaceCleanup", {clear = true})
                 vim.api.nvim_create_autocmd({"InsertLeave", "CursorMovedI"}, {
                     group = cleanup_group,
                     callback = function()
-                        if not have_called then
-                            vim.api.nvim_del_autocmd(autocmd_id)
-                        end
+                        pcall(vim.api.nvim_del_autocmd, autocmd_id)
                         vim.api.nvim_del_augroup_by_id(cleanup_group)
                     end,
                     desc = "delete autocmd for pair space adding"
