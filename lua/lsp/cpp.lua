@@ -1,7 +1,7 @@
 local M = {}
 
 M.clangd = {
-    rootmarks = {".git", ".clangd", "meson.build"},
+    rootmarks = {".clangd", ".git"},
     cmd = {
         'clangd',
         "--offset-encoding=utf-16",

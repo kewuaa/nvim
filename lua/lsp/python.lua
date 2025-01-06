@@ -1,7 +1,7 @@
 local M = {}
 local deps = require("deps")
 local utils = require("utils")
-local rootmarks = {".git", 'pyproject.toml'}
+local rootmarks = {"pyproject.toml", ".git"}
 
 deps.add({
     source = "microsoft/python-type-stubs",
