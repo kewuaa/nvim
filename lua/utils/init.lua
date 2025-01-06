@@ -1,6 +1,6 @@
 local M = {}
 local api, fn = vim.api, vim.fn
-local os_name = vim.loop.os_uname().sysname
+local os_name = vim.uv.os_uname().sysname
 
 M.is_linux = os_name == "Linux"
 M.is_mac = os_name == "Darwin"
@@ -44,7 +44,7 @@ end
 ---@return integer|nil size in MiB if buffer is valid, nil otherwise
 M.cal_bufsize = function(bufnr)
     local ok, stats = pcall(
-        vim.loop.fs_stat,
+        vim.uv.fs_stat,
         api.nvim_buf_get_name(bufnr)
     )
     if ok and stats then
