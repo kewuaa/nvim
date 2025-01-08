@@ -1,10 +1,47 @@
 {
-    "bold": {
-        "prefix": "b",
-        "body": "*$1*$2",
-        "description": "bold statement."
+    "if": {
+        "prefix": "if",
+        "body": [
+            "if ${1:condition} {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the if statement."
     },
-    "italics": "i",
-    "body": "_$1_$2",
-    "description": "italics statement."
+    "elif": {
+        "prefix": "elif",
+        "body": [
+            "else if ${1:condition} {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the elif statement."
+    },
+    "else": {
+        "prefix": "else",
+        "body": [
+            "else {",
+            "\t$1",
+            "}"
+        ],
+        "description": "Code snippet for the else statement."
+    },
+    "for": {
+        "prefix": "for",
+        "body": [
+            "for ${1:value} in ${2:iterator} {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the for statement."
+    },
+    "while": {
+        "prefix": "while",
+        "body": [
+            "while ${1:condition} {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the while statement."
+    }
 }
