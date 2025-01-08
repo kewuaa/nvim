@@ -87,7 +87,7 @@ configs.mini_pairs = function()
     })
     local add_pairs = function()
         local ft = vim.bo.filetype
-        if ft == "markdown" then
+        if vim.list_contains({"markdown", "typst"}, ft) then
             mini_pairs.map_buf(0, 'i', '$', {
                 action = 'closeopen',
                 pair = '$$',
