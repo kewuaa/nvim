@@ -30,7 +30,7 @@
         "prefix": "for",
         "body": [
             "for ${1:value} in ${2:iterator} {",
-            "\t$2",
+            "\t$3",
             "}"
         ],
         "description": "Code snippet for the for statement."
