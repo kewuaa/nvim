@@ -116,14 +116,12 @@ configs.nvim_dap = function()
     }
 
     -- config for c/c++/rust
-    mason_utils.ensure_install("codelldb")
-    dap.adapters.codelldb = {
-        type = 'server',
-        port = "${port}",
-        executable = {
-            command = vim.fn.exepath("codelldb"),
-            args = { "--port", "${port}" },
-            detached = utils.is_win and false or true,
+    dap.adapters.gdb = {
+        type = 'executable',
+        command = "gdb",
+        args = {
+            "--interpreter=dap",
+            "--eval-command", "set print pretty on"
         },
     }
     local program_for_c = function()
@@ -142,7 +140,7 @@ configs.nvim_dap = function()
     dap.configurations.c = {
         {
             name = "Debug",
-            type = "codelldb",
+            type = "gdb",
             request = "launch",
             program = program_for_c,
             cwd = utils.get_cwd,
@@ -150,7 +148,7 @@ configs.nvim_dap = function()
         },
         {
             name = "Debug (with args)",
-            type = "codelldb",
+            type = "gdb",
             request = "launch",
             program = program_for_c,
             args = get_args,
@@ -159,12 +157,25 @@ configs.nvim_dap = function()
         },
         {
             name = "Attach to a running process",
-            type = "codelldb",
+            type = "gdb",
             request = "attach",
             program = program_for_c,
+            pid = function()
+                local name = vim.fn.input('Executable name (filter): ')
+                return require("dap.utils").pick_process({ filter = name })
+            end,
+            cwd = utils.get_cwd,
             stopOnEntry = false,
-            waitFor = true,
         },
+        {
+            name = "Attach to gdbserver :1234",
+            type = "gdb",
+            request = "attach",
+            target = "localhost:1234",
+            program = program_for_c,
+            cwd = utils.get_cwd,
+            stopOnEntry = false,
+        }
     }
     dap.configurations.cpp = dap.configurations.c
     dap.configurations.pascal = dap.configurations.c
