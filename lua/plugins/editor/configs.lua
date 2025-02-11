@@ -130,8 +130,11 @@ configs.mini_pairs = function()
         end
     end
     local mini_pairs_open = mini_pairs.open
-    mini_pairs.open = function(...)
-        local ret = mini_pairs_open(...)
+    mini_pairs.open = function(pairs, neigh_pattern)
+        local ret = mini_pairs_open(pairs, neigh_pattern)
+        if not vim.tbl_contains({ "{}", "$$" }, pairs) then
+            return ret
+        end
         vim.schedule(
             function()
                 local autocmd_id = vim.api.nvim_create_autocmd("InsertCharPre", {
