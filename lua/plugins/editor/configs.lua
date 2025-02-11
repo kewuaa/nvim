@@ -101,6 +101,13 @@ configs.mini_pairs = function()
                 neigh_pattern = '[^%w\\]',
                 register = { cr = false }
             })
+        elseif ft == "html" then
+            mini_pairs.map_buf(0, 'i', '<', {
+                action = 'closeopen',
+                pair = '<>',
+                neigh_pattern = '[^\\]',
+                register = { cr = true }
+            })
         end
     end
     vim.schedule(add_pairs)
