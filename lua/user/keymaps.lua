@@ -67,6 +67,9 @@ function M.init()
     map("i", "<C-f>", "<Right>", opts)
     map("i", "<C-b>", "<Left>", opts)
 
+    map({"n", "v"}, "<leader><leader>y", '"+y', opts)
+    map({"n", "v"}, "<leader><leader>p", '"+p', opts)
+
     -- vim.cmd [[
     -- " 多行应用宏
     -- xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
