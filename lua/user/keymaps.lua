@@ -1,9 +1,16 @@
 local M = {}
 local map = vim.keymap.set
+local opts = { silent = true, noremap = true }
+
+---@param mode string
+---@param lhs string
+---@param rhs string|function
+function M.set(mode, lhs, rhs)
+    map(mode, lhs, rhs, opts)
+end
 
 function M.init()
     vim.g.mapleader = ' '
-    local opts = { silent = true, noremap = true }
 
     map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts)
     -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts)
