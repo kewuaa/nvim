@@ -56,8 +56,11 @@ function M.init()
     map(
         "n", "<leader>rr",
         function()
-            vim.uv.chdir(require("utils").get_cwd())
+            local origin_cwd = vim.fn.getcwd()
+            local cwd = require("utils").get_cwd()
+            vim.fn.chdir(cwd)
             local cmd = vim.fn.input("command to run: ", "", "shellcmd")
+            vim.fn.chdir(origin_cwd)
             if cmd == "" then
                 vim.notify("empty command", vim.log.levels.WARN)
                 return
