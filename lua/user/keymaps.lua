@@ -59,8 +59,6 @@ function M.init()
         end, opts
     )
 
-    map("n", "<C-w>z", function() require("utils.window").zoom() end, opts)
-    map("n", "<C-w><C-z>", function() require("utils.window").zoom() end, opts)
     map("n", "<leader>lsp", function() require("utils.lsp").toggle() end, opts)
     map("n", "<leader>tim", function() require("utils.im").toggle() end, opts)
 

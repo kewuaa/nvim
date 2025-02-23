@@ -390,6 +390,17 @@ configs.mini_files = function()
     })
 end
 
+configs.mini_misc = function()
+    local mini_misc = require("mini.misc")
+    mini_misc.setup({
+        make_global = { "put", "put_text" }
+    })
+    mini_misc.setup_restore_cursor()
+    mini_misc.setup_termbg_sync()
+    require("user.keymaps").set("n", "<C-w>z", mini_misc.zoom)
+    require("user.keymaps").set("n", "<C-w><C-z>", mini_misc.zoom)
+end
+
 configs.pantran = function()
     require("pantran").setup{
         default_engine = "google",

@@ -17,42 +17,6 @@ local quick_quit = function()
     })
 end
 
-local restore_cursor = function()
-    vim.api.nvim_create_autocmd("BufReadPre", {
-        desc = "restore cursor position",
-        callback = function(args)
-            local bufnr = args.buf
-            local exclude_fts = require("user.settings").exclude_filetypes
-            vim.api.nvim_create_autocmd("Filetype", {
-                once = true,
-                buffer = bufnr,
-                callback = function()
-                    -- Stop if not a normal buffer
-                    if vim.bo.buftype ~= '' then return end
-
-                    -- Stop if filetype is ignored
-                    if vim.tbl_contains(exclude_fts, vim.bo.filetype) then return end
-
-                    -- Stop if line is already specified (like during start with `nvim file +num`)
-                    local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
-                    if cursor_line > 1 then return end
-
-                    -- Stop if can't restore proper line for some reason
-                    local mark_line = vim.api.nvim_buf_get_mark(0, [["]])[1]
-                    local n_lines = vim.api.nvim_buf_line_count(0)
-                    if not (1 <= mark_line and mark_line <= n_lines) then return end
-
-                    -- Restore cursor and open just enough folds
-                    vim.cmd([[normal! g`"zv]])
-
-                    -- Center window
-                    vim.cmd('normal! zz')
-                end
-            })
-        end
-    })
-end
-
 local number_toggle = function()
     local numbertoggle_group = vim.api.nvim_create_augroup("_number_toggle_", {clear = true})
     vim.api.nvim_create_autocmd({
@@ -105,7 +69,6 @@ end
 
 M.init = function()
     quick_quit()
-    restore_cursor()
     number_toggle()
 end
 
