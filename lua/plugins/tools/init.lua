@@ -241,9 +241,50 @@ deps.add({
                     require("mini.pick").builtin.buffers()
                 end
             },
+            {
+                mode = "n",
+                lhs = "<leader>fd",
+                rhs = function()
+                    require("mini.extra").pickers.diagnostic()
+                end
+            },
+            {
+                mode = "n",
+                lhs = "<leader>fh",
+                rhs = function()
+                    require("mini.extra").pickers.history()
+                end
+            },
+            {
+                mode = "n",
+                lhs = "<leader>fO",
+                rhs = function()
+                    require("mini.extra").pickers.lsp({ scope = "document_symbol" })
+                end
+            },
+            {
+                mode = "n",
+                lhs = "<leader>fs",
+                rhs = function()
+                    require("mini.extra").pickers.lsp({ scope = "workspace_symbol" })
+                end
+            },
+            {
+                mode = "n",
+                lhs = "<leader>fr",
+                rhs = function()
+                    require("mini.pick").builtin.resume()
+                end
+            }
         }
     },
-    config = configs.mini_pick
+    config = configs.mini_pick,
+    depends = {
+        {
+            source = "echasnovski/mini.extra",
+            config = function() require("mini.extra").setup() end
+        }
+    }
 })
 
 ---------------------------------------------------------------------------------------------------
