@@ -193,6 +193,7 @@ deps.add({
 ---picker
 ---------------------------------------------------------------------------------------------------
 deps.later(function()
+    ---@diagnostic disable-next-line: duplicate-set-field
     vim.ui.select =  function(items, opts, on_choice)
         if not require("deps.handle").if_loaded("mini.pick") then
             vim.api.nvim_exec_autocmds(
@@ -201,21 +202,7 @@ deps.later(function()
             )
         end
         local mini_pick = require("mini.pick")
-        mini_pick.start({
-            source = {
-                items = items,
-                name = opts.prompt,
-                show = function(buf_id, items_arr, query)
-                    local lines = vim.tbl_map(function(item)
-                        return opts.format_item(item)
-                    end, items_arr)
-                    vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
-                end,
-                choose = function(item)
-                    on_choice(item)
-                end
-            }
-        })
+        mini_pick.ui_select(items, opts, on_choice)
     end
 end)
 deps.add({
