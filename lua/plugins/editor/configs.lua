@@ -20,6 +20,7 @@ end
 
 configs.mini_ai = function()
     local ai = require("mini.ai")
+    local gen_ai_spec = require("mini.extra").gen_ai_spec
     ai.setup({
         n_lines = 500,
         custom_textobjects = {
@@ -37,6 +38,11 @@ configs.mini_ai = function()
             },
             u = ai.gen_spec.function_call(), -- u for "Usage"
             U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+            B = gen_ai_spec.buffer(),
+            D = gen_ai_spec.diagnostic(),
+            I = gen_ai_spec.indent(),
+            L = gen_ai_spec.line(),
+            N = gen_ai_spec.number(),
         },
     })
 end

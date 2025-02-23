@@ -9,7 +9,13 @@ deps.add({
     lazy_opts = {
         very_lazy = true
     },
-    config = configs.mini_ai
+    config = configs.mini_ai,
+    depends = {
+        {
+            source = "echasnovski/mini.extra",
+            config = function() require("mini.extra").setup() end
+        }
+    }
 })
 
 ---------------------------------------------------------------------------------------------------
