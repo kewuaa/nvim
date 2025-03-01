@@ -83,14 +83,6 @@ configs.nvim_dap = function()
         end
         cb(adapter)
     end
-    local program_for_py = function()
-        local lsp = vim.lsp.get_clients({bufnr = 0})[1]
-        local root = lsp.config.root_dir
-        if root ~= nil then
-            return ("%s/main.py"):format(root)
-        end
-        return "${file}"
-    end
     dap.configurations.python = {
         {
             -- The first three options are required by nvim-dap
@@ -101,7 +93,7 @@ configs.nvim_dap = function()
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
             cwd = utils.get_cwd,
-            program = program_for_py, -- This configuration will launch the current file if used.
+            program = "${file}", -- This configuration will launch the current file if used.
             pythonPath = utils.find_py,
         },
         {
@@ -110,7 +102,7 @@ configs.nvim_dap = function()
             request = "launch",
             args = get_args,
             cwd = utils.get_cwd,
-            program = program_for_py, -- This configuration will launch the current file if used.
+            program = "${file}", -- This configuration will launch the current file if used.
             pythonPath = utils.find_py,
         }
     }
@@ -125,17 +117,12 @@ configs.nvim_dap = function()
         },
     }
     local program_for_c = function()
-        local lsp = vim.lsp.get_clients({bufnr = 0})[1]
-        local root = lsp.config.root_dir
-        if root ~= nil then
-            vim.uv.chdir(root)
-            return vim.fn.input(
-                'Path to executable: ',
-                "",
-                "file"
-            )
-        end
-        return vim.fn.expand("%:p:r")
+        local file require("utils").input(
+            'Path to executable: ',
+            "",
+            "file"
+        )
+        return file ~= "" and file or vim.fn.expand("%:p:r")
     end
     dap.configurations.c = {
         {
