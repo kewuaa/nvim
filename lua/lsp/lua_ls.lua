@@ -1,6 +1,4 @@
 local M = {}
-local runtime_path = vim.fn.split(package.path, ";")
-vim.list_extend(runtime_path, {"?.lua", "?/init.lua"})
 
 M.lua_ls = {
     settings = {
