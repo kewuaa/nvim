@@ -42,6 +42,18 @@ M.get_cwd = function()
     return root
 end
 
+---@param prompt string
+---@param default string?
+---@param completion string?
+M.input = function(prompt, default, completion)
+    local origin_cwd = vim.fn.getcwd()
+    local cwd = M.get_cwd()
+    vim.fn.chdir(cwd)
+    local input = vim.fn.input(prompt, default, completion)
+    vim.fn.chdir(origin_cwd)
+    return input
+end
+
 ---@param bufnr number
 ---@return integer|nil size in MiB if buffer is valid, nil otherwise
 M.cal_bufsize = function(bufnr)
