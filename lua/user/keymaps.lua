@@ -77,6 +77,8 @@ function M.init()
 
     map({"n", "v"}, "<leader><leader>y", '"+y', opts)
     map({"n", "v"}, "<leader><leader>p", '"+p', opts)
+    map("n", "<leader><leader>Y", '"+y$', opts)
+    map("n", "<leader><leader>P", '"+P', opts)
 
     -- vim.cmd [[
     -- " 多行应用宏
