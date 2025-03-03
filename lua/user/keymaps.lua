@@ -49,14 +49,14 @@ function M.init()
         "n", "<leader>ot",
         function()
             local utils = require("utils")
-            local cmd = utils.is_win and "where clink >nul 2>nul && if \\%errorlevel\\% equ 0 (cmd.exe /k clink inject) else (cmd.exe)" or "$SHELL"
+            local cmd = utils.is_win and "where clink >nul 2>nul && if \\%errorlevel\\% equ 0 (cmd.exe /k clink inject) else (cmd.exe)" or ""
             utils.run_in_terminal(cmd)
         end, opts
     )
     map(
         "n", "<leader>rr",
         function()
-            local cmd = require("utils").input("command to run: ", "", "shellcmd")
+            local cmd = vim.fn.input("command to run: ", "", "shellcmd")
             if cmd == "" then
                 vim.notify("empty command", vim.log.levels.WARN)
                 return

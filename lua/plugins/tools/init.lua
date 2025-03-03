@@ -33,13 +33,11 @@ deps.add({
                 mode = {"n", "v"},
                 lhs = "<leader>sr",
                 rhs = function()
-                    local utils = require("utils")
                     local grug = require("grug-far")
                     local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
                     grug.open({
                         transient = true,
                         prefills = {
-                            paths = utils.get_cwd(),
                             filesFilter = ext and ext ~= "" and "*." .. ext or nil,
                         },
                     })
@@ -214,24 +212,14 @@ deps.add({
                 mode = "n",
                 lhs = "<leader>ff",
                 rhs = function()
-                    local utils = require("utils")
-                    require("mini.pick").builtin.files(nil, {
-                        source = {
-                            cwd = utils.get_cwd(),
-                        }
-                    })
+                    require("mini.pick").builtin.files()
                 end
             },
             {
                 mode = "n",
                 lhs = "<leader>fg",
                 rhs = function()
-                    local utils = require("utils")
-                    require("mini.pick").builtin.grep_live(nil, {
-                        source = {
-                            cwd = utils.get_cwd(),
-                        }
-                    })
+                    require("mini.pick").builtin.grep_live()
                 end
             },
             {

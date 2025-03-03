@@ -92,7 +92,6 @@ configs.nvim_dap = function()
 
             -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
 
-            cwd = utils.get_cwd,
             program = "${file}", -- This configuration will launch the current file if used.
             pythonPath = utils.find_py,
         },
@@ -101,7 +100,6 @@ configs.nvim_dap = function()
             type = "python",
             request = "launch",
             args = get_args,
-            cwd = utils.get_cwd,
             program = "${file}", -- This configuration will launch the current file if used.
             pythonPath = utils.find_py,
         }
@@ -117,7 +115,7 @@ configs.nvim_dap = function()
         },
     }
     local program_for_c = function()
-        local file require("utils").input(
+        local file = vim.fn.input(
             'Path to executable: ',
             "",
             "file"
@@ -130,7 +128,6 @@ configs.nvim_dap = function()
             type = "gdb",
             request = "launch",
             program = program_for_c,
-            cwd = utils.get_cwd,
             stopOnEntry = false,
         },
         {
@@ -139,7 +136,6 @@ configs.nvim_dap = function()
             request = "launch",
             program = program_for_c,
             args = get_args,
-            cwd = utils.get_cwd,
             stopOnEntry = false,
         },
         {
@@ -151,7 +147,6 @@ configs.nvim_dap = function()
                 local name = vim.fn.input('Executable name (filter): ')
                 return require("dap.utils").pick_process({ filter = name })
             end,
-            cwd = utils.get_cwd,
             stopOnEntry = false,
         },
         {
@@ -160,7 +155,6 @@ configs.nvim_dap = function()
             request = "attach",
             target = "localhost:1234",
             program = program_for_c,
-            cwd = utils.get_cwd,
             stopOnEntry = false,
         }
     }
@@ -384,6 +378,17 @@ configs.mini_misc = function()
     })
     mini_misc.setup_restore_cursor()
     mini_misc.setup_termbg_sync()
+    mini_misc.setup_auto_root(
+        { ".git", "root" },
+        function()
+            local clients = vim.lsp.get_clients()
+            for _, client in ipairs(clients) do
+                if client.config.root_dir then
+                    return client.config.root_dir
+                end
+            end
+        end
+    )
     require("user.keymaps").set("n", "<C-w>z", mini_misc.zoom)
     require("user.keymaps").set("n", "<C-w><C-z>", mini_misc.zoom)
 end

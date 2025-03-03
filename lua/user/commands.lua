@@ -8,9 +8,8 @@ M.init = function()
 
     user_command("TypstPreview", function()
         local utils = require("utils")
-        local cwd = utils.wrap_path(utils.get_cwd())
         local file = utils.wrap_path(vim.fn.expand("%:p"))
-        local cmd = ("tinymist preview --root %s %s"):format(cwd, file)
+        local cmd = ("tinymist preview %s"):format(file)
         utils.run_in_terminal(cmd)
     end, {bang = false})
 end
