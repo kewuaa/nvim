@@ -1,5 +1,5 @@
 local M = {}
-local api, fn = vim.api, vim.fn
+local api = vim.api
 local os_name = vim.uv.os_uname().sysname
 
 M.is_linux = os_name == "Linux"
@@ -21,37 +21,6 @@ M.wrap_path = function(path)
         path = '"'..path..'"'
     end
     return path
-end
-
----@return string root get root_dir of lsp if lsp attached else get cwd
-M.get_cwd = function()
-    local activate_clients = vim.lsp.get_clients({
-        bufnr = 0
-    })
-    local root = nil
-    for _, client in ipairs(activate_clients) do
-       root = client.config.root_dir
-       if root then
-           break
-       end
-    end
-    if not root or root == "" then
-        local startpath = fn.expand('%:p:h')
-        root = vim.fs.root(startpath, ".git") or startpath
-    end
-    return root
-end
-
----@param prompt string
----@param default string?
----@param completion string?
-M.input = function(prompt, default, completion)
-    local origin_cwd = vim.fn.getcwd()
-    local cwd = M.get_cwd()
-    vim.fn.chdir(cwd)
-    local input = vim.fn.input(prompt, default, completion)
-    vim.fn.chdir(origin_cwd)
-    return input
 end
 
 ---@param bufnr number
@@ -94,17 +63,12 @@ end
 
 ---run command in terminal
 ---@param cmd string command to run
----@param wd string|nil work directory
-M.run_in_terminal = function(cmd, wd)
+M.run_in_terminal = function(cmd)
     vim.validate({
         cmd = {cmd, "string", false},
-        wd = {wd, function(s)
-            return s == nil or (type(s) == "string" and s ~= "")
-        end, "nil or string not empty"}
     })
-    wd = wd or M.wrap_path(M.get_cwd())
     vim.cmd("silent wall")
-    vim.cmd(('-tab terminal cd %s && %s'):format(wd, cmd))
+    vim.cmd(('-tab terminal %s'):format(cmd))
     vim.cmd("setlocal nonumber signcolumn=no norelativenumber")
     vim.cmd.startinsert()
 end
