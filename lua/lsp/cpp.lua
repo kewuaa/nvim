@@ -2,6 +2,7 @@ local M = {}
 
 M.clangd = {
     rootmarks = {".clangd", ".git"},
+    filetypes = {"c", "cpp", "objc", "objcpp", "cuda"},
     cmd = {
         'clangd',
         "--offset-encoding=utf-16",
