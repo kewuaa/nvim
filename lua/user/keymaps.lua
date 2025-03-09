@@ -1,39 +1,43 @@
 local M = {}
-local map = vim.keymap.set
-local opts = { silent = true, noremap = true }
+local default_opts = { silent = true, noremap = true }
 
----@param mode string
+---@param mode string|string[]
 ---@param lhs string
 ---@param rhs string|function
-function M.set(mode, lhs, rhs)
-    map(mode, lhs, rhs, opts)
+---@param opts vim.keymap.set.Opts|nil
+function M.set(mode, lhs, rhs, opts)
+    vim.keymap.set(
+        mode,
+        lhs,
+        rhs,
+        vim.tbl_extend("keep", opts or {}, default_opts)
+    )
 end
 
 function M.init()
     vim.g.mapleader = ' '
 
-    map('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>', opts)
+    M.set('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>')
     -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts)
 
-    map('n', '[b', '<cmd>bp<CR>', opts)
-    map('n', ']b', '<cmd>bn<CR>', opts)
-    map('n', '<leader>bd', '<cmd>bdelete<CR>', opts)
+    M.set('n', '[b', '<cmd>bp<CR>')
+    M.set('n', ']b', '<cmd>bn<CR>')
+    M.set('n', '<leader>bd', '<cmd>bdelete<CR>')
 
-    map('t', '<A-q>', [[<c-\><c-n>]], opts)
+    M.set('t', '<A-q>', [[<c-\><c-n>]])
     for i = 1, 6 do
-        map(
+        M.set(
             {"n", "t"},
             ("<A-%d>"):format(i),
-            ("<CMD>tabnext %d<CR>"):format(i),
-            opts
+            ("<CMD>tabnext %d<CR>"):format(i)
         )
     end
-    map({'n', 't'}, '<A-j>', '<cmd>tabnext<CR>', opts)
-    map({'n', 't'}, '<A-k>', '<cmd>tabprevious<CR>', opts)
-    map({'n', 't'}, '<A-TAB>', '<cmd>tabnext #<CR>', opts)
-    map({'n', 't'}, '<M-S-c>', '<cmd>tabclose<CR>', opts)
+    M.set({'n', 't'}, '<A-j>', '<cmd>tabnext<CR>')
+    M.set({'n', 't'}, '<A-k>', '<cmd>tabprevious<CR>')
+    M.set({'n', 't'}, '<A-TAB>', '<cmd>tabnext #<CR>')
+    M.set({'n', 't'}, '<M-S-c>', '<cmd>tabclose<CR>')
 
-    map('n', '<leader>tq', function()
+    M.set('n', '<leader>tq', function()
         local fn = vim.fn
         if fn.empty(fn.filter(fn.getwininfo(), 'v:val.quickfix')) == 1 then
             vim.cmd [[copen]]
@@ -42,18 +46,18 @@ function M.init()
         end
     end)
 
-    map('n', '<A-q>', function() require("utils").run_file() end, opts)
-    map('n', '<leader><A-q>', function() require("utils").run_file({build = true}) end, opts)
-    map('n', '<leader><leader><A-q>', function() require("utils").run_file({debug = true}) end, opts)
-    map(
+    M.set('n', '<A-q>', function() require("utils").run_file() end)
+    M.set('n', '<leader><A-q>', function() require("utils").run_file({build = true}) end)
+    M.set('n', '<leader><leader><A-q>', function() require("utils").run_file({debug = true}) end)
+    M.set(
         "n", "<leader>ot",
         function()
             local utils = require("utils")
             local cmd = utils.is_win and "where clink >nul 2>nul && if \\%errorlevel\\% equ 0 (cmd.exe /k clink inject) else (cmd.exe)" or ""
             utils.run_in_terminal(cmd)
-        end, opts
+        end
     )
-    map(
+    M.set(
         "n", "<leader>rr",
         function()
             local cmd = vim.fn.input("command to run: ", "", "shellcmd")
@@ -62,19 +66,19 @@ function M.init()
                 return
             end
             require("utils").run_in_terminal(cmd)
-        end, opts
+        end
     )
 
-    map("n", "<leader>lsp", function() require("utils.lsp").toggle() end, opts)
-    map("n", "<leader>tim", function() require("utils.im").toggle() end, opts)
+    M.set("n", "<leader>lsp", function() require("utils.lsp").toggle() end)
+    M.set("n", "<leader>tim", function() require("utils.im").toggle() end)
 
-    map("i", "<C-f>", "<Right>", opts)
-    map("i", "<C-b>", "<Left>", opts)
+    M.set("i", "<C-f>", "<Right>")
+    M.set("i", "<C-b>", "<Left>")
 
-    map({"n", "v"}, "<leader><leader>y", '"+y', opts)
-    map({"n", "v"}, "<leader><leader>p", '"+p', opts)
-    map("n", "<leader><leader>Y", '"+y$', opts)
-    map("n", "<leader><leader>P", '"+P', opts)
+    M.set({"n", "v"}, "<leader><leader>y", '"+y')
+    M.set({"n", "v"}, "<leader><leader>p", '"+p')
+    M.set("n", "<leader><leader>Y", '"+y$')
+    M.set("n", "<leader><leader>P", '"+P')
 
     -- vim.cmd [[
     -- " 多行应用宏
