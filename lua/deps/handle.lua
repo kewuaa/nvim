@@ -1,4 +1,5 @@
 local M = {}
+local keymaps = require("user.keymaps")
 
 ---@type table<string, function[]|boolean>
 local handles = {}
@@ -197,7 +198,7 @@ M.create_lazy_keys = function(plugin)
             end
             pcall(vim.keymap.del, key.mode, key.lhs, opts)
             if key.rhs then
-                vim.keymap.set(key.mode, key.lhs, key.rhs, key.opts)
+                keymaps.set(key.mode, key.lhs, key.rhs, key.opts)
             end
         end
     end)

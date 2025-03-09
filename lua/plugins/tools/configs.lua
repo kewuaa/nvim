@@ -379,7 +379,7 @@ configs.mini_misc = function()
     mini_misc.setup_restore_cursor()
     mini_misc.setup_termbg_sync()
     mini_misc.setup_auto_root(
-        { ".git", "root" },
+        { ".git", ".root" },
         function()
             local clients = vim.lsp.get_clients()
             for _, client in ipairs(clients) do

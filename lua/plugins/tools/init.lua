@@ -240,7 +240,7 @@ deps.add({
                 mode = "n",
                 lhs = "<leader>fh",
                 rhs = function()
-                    require("mini.extra").pickers.history()
+                    require("mini.extra").pickers.git_hunks()
                 end
             },
             {
