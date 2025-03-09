@@ -93,6 +93,7 @@ M.init = function()
     require("plugins.editor")
     require("plugins.completion")
     require("plugins.treesitter")
+    require("plugins.firenvim")
 end
 
 return M
