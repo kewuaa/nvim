@@ -47,8 +47,8 @@ local treesitter = function()
             },
         },
     })
-    vim.api.nvim_set_option_value("foldmethod", "expr", {})
-    vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     require('nvim-treesitter.install').compilers = { "gcc", "zig", "cl" }
     -- set python indent
     local sw = vim.fn.shiftwidth()
