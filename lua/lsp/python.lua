@@ -8,10 +8,10 @@ deps.add({
     lazy_opts = {}
 })
 
-M.basedpyright = {
+M.pyright = {
     rootmarks = rootmarks,
     settings = {
-        basedpyright = {
+        python = {
             disableOrganizeImports = true,
             analysis = {
                 -- logLevel = 'track',
@@ -25,8 +25,6 @@ M.basedpyright = {
                     reportUnusedImport = false
                 }
             },
-        },
-        python = {
             pythonPath = utils.get_py()
         }
     }

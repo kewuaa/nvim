@@ -284,6 +284,7 @@ deps.add({
         keys = {
             {mode = "n", lhs = "<leader>fe", rhs = function()
                 require("mini.files").open()
+            end},
             end}
         }
     },
