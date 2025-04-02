@@ -24,6 +24,7 @@ local treesitter = function()
                 node_decremental = "_",
             },
         },
+        indent = { enable = true },
         textobjects = {
             move = {
                 enable = true,
@@ -47,17 +48,9 @@ local treesitter = function()
             },
         },
     })
-    vim.api.nvim_set_option_value("foldmethod", "expr", {})
-    vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     require('nvim-treesitter.install').compilers = { "gcc", "zig", "cl" }
-    -- set python indent
-    local sw = vim.fn.shiftwidth()
-    vim.g.python_indent = {
-        open_paren = sw,
-        nested_paren = sw,
-        continue = sw,
-        closed_paren_align_last_line = false
-    }
 end
 
 local treesitter_textobjects = function()

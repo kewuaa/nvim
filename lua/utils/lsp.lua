@@ -6,12 +6,9 @@ local lazy_refresh_buffers = {}
 ---toggle inlay hint
 ---@param enable boolean
 local toggle_inlay_hint = function(enable)
-    local client = vim.lsp.get_clients({bufnr = 0})[1]
+    local client = vim.lsp.get_clients({bufnr = 0, method = "textDocument/inlayHint"})[1]
     if client == nil then
-        return
-    end
-    if not client.supports_method("textDocument/inlayHint") then
-        vim.notify(("%s seems not support inlayHint"):format(client.name))
+        vim.notify("no clients support textDocument/inlayHint", vim.log.levels.WARN)
         return
     end
     local buffers = vim.lsp.get_buffers_by_client_id(client.id)
@@ -23,12 +20,9 @@ end
 ---toggle codelens
 ---@param enable boolean
 local toggle_codelens = function(enable)
-    local client = vim.lsp.get_clients({bufnr = 0})[1]
+    local client = vim.lsp.get_clients({bufnr = 0, method = "textDocument/codeLens"})[1]
     if client == nil then
-        return
-    end
-    if not client.supports_method("textDocument/codeLens") then
-        vim.notify(("%s seems not support codeLens"):format(client.name))
+        vim.notify("no clients support textDocument/codeLens", vim.log.levels.WARN)
         return
     end
     local buffers = vim.lsp.get_buffers_by_client_id(client.id)

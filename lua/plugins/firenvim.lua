@@ -26,7 +26,8 @@ vim.g.firenvim_config = {
             content  = "text",
             priority = 0,
             selector = "textarea",
-            takeover = "never"
+            takeover = "never",
+            filename = "/tmp/{hostname}_{pathname%10}.{extension}"
         }
     }
 }

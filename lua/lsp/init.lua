@@ -92,7 +92,7 @@ end
 
 local function add_auto_install_hook()
     local server_mapping = {
-        ["basedpyright"] = "basedpyright",
+        ["pyright"] = "pyright",
         ["clangd"] = "clangd",
         ["cmake"] = "cmake-language-server",
         ["dockerls"] = "dockerfile-language-server",

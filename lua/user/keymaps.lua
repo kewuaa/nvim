@@ -17,8 +17,7 @@ end
 function M.init()
     vim.g.mapleader = ' '
 
-    M.set('n', '<leader>rc', '<cmd>e $MYVIMRC<CR>')
-    -- map('n', '<leader>rr', ':source $MYVIMRC<CR>', opts)
+    M.set('n', '<leader>eh', '<cmd>e $MYVIMRC<CR>')
 
     M.set('n', '[b', '<cmd>bp<CR>')
     M.set('n', ']b', '<cmd>bn<CR>')
@@ -57,17 +56,27 @@ function M.init()
             utils.run_in_terminal(cmd)
         end
     )
+
+    local cache_cmd
     M.set(
-        "n", "<leader>rr",
+        "n", "<leader>rc",
         function()
             local cmd = vim.fn.input("command to run: ", "", "shellcmd")
             if cmd == "" then
                 vim.notify("empty command", vim.log.levels.WARN)
                 return
             end
+            cache_cmd = cmd
             require("utils").run_in_terminal(cmd)
         end
     )
+    M.set("n", "<leader>rr", function()
+        if not cache_cmd then
+            vim.notify("no cache command", vim.log.levels.WARN)
+            return
+        end
+        require("utils").run_in_terminal(cache_cmd)
+    end)
 
     M.set("n", "<leader>lsp", function() require("utils.lsp").toggle() end)
     M.set("n", "<leader>tim", function() require("utils.im").toggle() end)

@@ -69,6 +69,7 @@ M.run_in_terminal = function(cmd)
     })
     vim.cmd("silent wall")
     vim.cmd(('-tab terminal %s'):format(cmd))
+    vim.cmd("set nobuflisted")
     vim.cmd("setlocal nonumber signcolumn=no norelativenumber")
     vim.cmd.startinsert()
 end
