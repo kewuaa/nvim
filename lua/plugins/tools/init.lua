@@ -285,7 +285,6 @@ deps.add({
             {mode = "n", lhs = "<leader>fe", rhs = function()
                 require("mini.files").open()
             end},
-            end}
         }
     },
     config = configs.mini_files
