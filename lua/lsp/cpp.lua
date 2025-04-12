@@ -40,6 +40,27 @@ M.clangd = {
     }
 }
 
-M[require("utils").has_cargo and "neocmake" or "cmake"] = {}
+if require("utils").has_cargo then
+    M.neocmake = {
+        capabilities = {
+            textDocument = {
+                completion = {
+                    completionItem = {
+                        snippetSupport = false
+                    }
+                }
+            },
+            workspace = {
+                didChangeWatchedFiles = {
+                    dynamicRegistration = true,
+                    relative_pattern_support = true,
+                },
+
+            }
+        }
+    }
+else
+    M.cmake = {}
+end
 
 return M

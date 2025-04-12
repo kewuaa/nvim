@@ -24,6 +24,7 @@ configs.compl = function()
     compl.attach_buffer(vim.api.nvim_get_current_buf())
     vim.keymap.set("i", "<C-Space>", "<C-x><C-u>", {silent = true, noremap = true})
     vim.keymap.set("i", "<C-y>", compl.accept, {silent = true, noremap = true, expr = true})
+    vim.keymap.set("i", "<A-Space>", "<C-e><C-n>", {silent = true, noremap = true})
     require("mini.icons").tweak_lsp_kind()
 end
 
