@@ -12,7 +12,7 @@ configs.compl = function()
         },
         info = {
             enable = true,
-            timeout = 100,
+            timeout = -1,
         },
         snippet = {
             enable = true,
@@ -22,7 +22,23 @@ configs.compl = function()
         },
     })
     compl.attach_buffer(vim.api.nvim_get_current_buf())
-    vim.keymap.set("i", "<C-Space>", "<C-x><C-u>", {silent = true, noremap = true})
+    vim.keymap.set(
+        "i",
+        "<C-Space>",
+        function()
+            local complete_info = vim.fn.complete_info()
+            if complete_info.pum_visible and complete_info.selected ~= -1 then
+                compl.toggle_info()
+            else
+                vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes("<C-x><C-u>", true, false, true),
+                    "n",
+                    false
+                )
+            end
+        end,
+        {silent = true, noremap = true}
+    )
     vim.keymap.set("i", "<C-y>", compl.accept, {silent = true, noremap = true, expr = true})
     vim.keymap.set("i", "<A-Space>", "<C-e><C-n>", {silent = true, noremap = true})
     require("mini.icons").tweak_lsp_kind()
