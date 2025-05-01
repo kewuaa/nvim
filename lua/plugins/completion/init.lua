@@ -24,9 +24,7 @@ deps.add({
         events = {"BufRead", "BufNewFile"},
         delay = 100,
     },
-    config = function()
-        configs.nvim_lspconfig()
-    end,
+    config = configs.nvim_lspconfig,
     depends = {
         {
             source = "williamboman/mason.nvim",
