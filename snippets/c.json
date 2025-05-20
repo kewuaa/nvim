@@ -74,5 +74,13 @@
             "}"
         ],
         "description": "Code snippet for the case statement."
+    },
+    "main": {
+        "prefix": "main",
+        "body": [
+            "int main($1) {",
+            "\t$2",
+            "}"
+        ]
     }
 }
