@@ -48,14 +48,6 @@ local number_toggle = function()
           end
        end,
     })
-
-    vim.api.nvim_create_autocmd("BufReadPre", {
-        desc = "bigfile autocmd",
-        callback = function(args)
-            local bufnr = args.buf
-            require("utils.bigfile").check_once(bufnr)
-        end
-    })
 end
 
 ---register filetypes to auto map 'q' to quit
