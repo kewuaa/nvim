@@ -1,21 +1,42 @@
 local M = {}
-local map = vim.keymap.set
-local servers = {
-    'cpp',
-    'dockerls',
-    'jsonls',
-    'lua_ls',
-    'python',
-    'rust_analyzer',
-    'taplo',
-    'tinymist',
-    'ts_ls',
-    'zls',
-}
+local group = vim.api.nvim_create_augroup("kewuaa.lsp", { clear = true })
+
+
+local function setup_ui()
+    -- Set icons for sidebar.
+    local diagnostic_icons = {
+        Error = "󰅚",
+        Warn = "󰀪",
+        Info = "",
+        Hint = "󰌶",
+    }
+    local text = {}
+    local numhl = {}
+    for type, icon in pairs(diagnostic_icons) do
+        local key = vim.diagnostic.severity[type:upper()]
+        text[key] = icon
+        local numhl_name = "DiagnosticSign" .. type
+        numhl[key] = numhl_name
+    end
+    vim.diagnostic.config({
+        signs = {
+            text = text,
+            numhl = numhl,
+        },
+        update_in_insert = false,
+        underline = true,
+        severity_sort = true,
+        virtual_text = {
+            source = true,
+        },
+    })
+end
+
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+function M.on_attach(client, bufnr)
+    local map = vim.keymap.set
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_var(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -58,93 +79,36 @@ local on_attach = function(client, bufnr)
     -- end, bufopts)
 end
 
-local function setup_ui()
-    -- Set icons for sidebar.
-    local diagnostic_icons = {
-        Error = "󰅚",
-        Warn = "󰀪",
-        Info = "",
-        Hint = "󰌶",
-    }
-    local text = {}
-    local numhl = {}
-    for type, icon in pairs(diagnostic_icons) do
-        local key = vim.diagnostic.severity[type:upper()]
-        text[key] = icon
-        local numhl_name = "DiagnosticSign" .. type
-        numhl[key] = numhl_name
-    end
-    vim.diagnostic.config({
-      signs = {
-          text = text,
-          numhl = numhl,
-      },
-      update_in_insert = false,
-      underline = true,
-      severity_sort = true,
-      virtual_text = {
-        source = true,
-      },
-    })
-end
-
-
-local function add_auto_install_hook()
-    local server_mapping = {
-        ["pyright"] = "pyright",
-        ["clangd"] = "clangd",
-        ["cmake"] = "cmake-language-server",
-        ["dockerls"] = "dockerfile-language-server",
-        ["jsonls"] = "json-lsp",
-        ["lua_ls"] = "lua-language-server",
-        ["neocmake"] = "neocmakelsp",
-        ["ruff"] = "ruff",
-        ["rust_analyzer"] = "rust-analyzer",
-        ["taplo"] = "taplo",
-        ["tinymist"] = "tinymist",
-        ["ts_ls"] = "typescript-language-server",
-    }
-    local util = require("lspconfig.util")
-    util.on_setup = util.add_hook_before(util.on_setup, function(config, user_config)
-        local pkg_name = server_mapping[config.name]
-        if not pkg_name then
-            return
-        end
-        require("utils.mason").ensure_install(pkg_name, {
-            success = function()
-                require("lspconfig")[config.name].setup(config)
-            end
-        })
-    end)
-end
-
 
 function M.setup()
     setup_ui()
-    local lsp_config = require('lspconfig')
 
-    add_auto_install_hook()
+    vim.lsp.config("*", {
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
+        root_markers = { ".git" }
+    })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local base_config = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    }
-    for _, name in ipairs(servers) do
-        local ok, server = pcall(require, 'lsp.' .. name)
-        if ok then
-            for server_name, config in pairs(server) do
-                if config.rootmarks then
-                    config.root_dir = lsp_config.util.root_pattern(unpack(config.rootmarks))
-                    config.rootmarks = nil
-                end
-                lsp_config[server_name].setup(vim.tbl_extend('force', base_config, config))
+    local names = {}
+    local lsp_path = vim.fn.stdpath("config") .. "/lua/lsp"
+    for _, file in ipairs(vim.fn.readdir(lsp_path)) do
+        if file:match("%.lua$") and file ~= "init.lua" then
+            local module_name = "lsp." .. file:gsub("%.lua$", "")
+            for name, config in pairs(require(module_name)) do
+                names[#names+1] = name
+                vim.lsp.config(name, config)
+                -- vim.lsp.enable(name, true)
             end
-        else
-            lsp_config[name].setup(base_config)
         end
     end
+
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = group,
+        callback = function(args)
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            M.on_attach(client, args.buf)
+        end
+    })
+    return names
 end
-M.on_attach = on_attach
 
 return M

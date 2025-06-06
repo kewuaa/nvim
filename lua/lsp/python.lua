@@ -1,7 +1,7 @@
 local M = {}
 local deps = require("deps")
 local utils = require("utils")
-local rootmarks = {"pyproject.toml", ".git"}
+local root_markers = {"pyproject.toml", ".git"}
 
 deps.add({
     source = "microsoft/python-type-stubs",
@@ -9,7 +9,9 @@ deps.add({
 })
 
 M.pyright = {
-    rootmarks = rootmarks,
+    cmd = { 'pyright-langserver', '--stdio' },
+    filetypes = { "python" },
+    root_markers = root_markers,
     settings = {
         python = {
             disableOrganizeImports = true,
@@ -30,7 +32,9 @@ M.pyright = {
     }
 }
 M.ruff = {
-    rootmarks = rootmarks,
+    cmd = { 'ruff', 'server' },
+    filetypes = { 'python' },
+    root_markers = root_markers,
     on_attach = function(client, _)
         client.server_capabilities.hoverProvider = false
     end,

@@ -44,34 +44,6 @@ configs.compl = function()
     require("mini.icons").tweak_lsp_kind()
 end
 
-configs.nvim_lspconfig = function()
-    require('lsp').setup()
-    local utils = require('utils')
-    require('utils.bigfile').register(
-        {
-            threshold = 0.5,
-            callback = function(bufnr)
-                vim.api.nvim_create_autocmd('LspAttach', {
-                    buffer = bufnr,
-                    callback = function(args)
-                        vim.schedule(function()
-                            vim.lsp.buf_detach_client(bufnr, args.data.client_id)
-                        end)
-                    end
-                })
-            end,
-            defer = false
-        }, {schedule = false}
-    )
-    local bufnr = vim.api.nvim_get_current_buf()
-    if utils.cal_bufsize(bufnr) < 0.5 then
-        local matching_configs = require('lspconfig.util').get_config_by_ft(vim.bo.filetype)
-        for _, config in ipairs(matching_configs) do
-            config.launch()
-        end
-    end
-end
-
 configs.crates = function()
     local crates = require("crates")
     crates.setup({

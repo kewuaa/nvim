@@ -1,6 +1,8 @@
 local M = {}
 
 M.lua_ls = {
+    cmd = { "lua-language-server" },
+    filetypes = { "lua" },
     settings = {
         Lua = {
             runtime = {
