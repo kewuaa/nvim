@@ -12,7 +12,7 @@ configs.compl = function()
         },
         info = {
             enable = true,
-            timeout = 100,
+            timeout = -1,
         },
         snippet = {
             enable = true,
@@ -22,38 +22,26 @@ configs.compl = function()
         },
     })
     compl.attach_buffer(vim.api.nvim_get_current_buf())
-    vim.keymap.set("i", "<C-Space>", "<C-x><C-u>", {silent = true, noremap = true})
+    vim.keymap.set(
+        "i",
+        "<C-Space>",
+        function()
+            local complete_info = vim.fn.complete_info()
+            if complete_info.pum_visible and complete_info.selected ~= -1 then
+                compl.toggle_info()
+            else
+                vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes("<C-x><C-u>", true, false, true),
+                    "n",
+                    false
+                )
+            end
+        end,
+        {silent = true, noremap = true}
+    )
     vim.keymap.set("i", "<C-y>", compl.accept, {silent = true, noremap = true, expr = true})
     vim.keymap.set("i", "<A-Space>", "<C-e><C-n>", {silent = true, noremap = true})
     require("mini.icons").tweak_lsp_kind()
-end
-
-configs.nvim_lspconfig = function()
-    require('lsp').setup()
-    local utils = require('utils')
-    require('utils.bigfile').register(
-        {
-            threshold = 0.5,
-            callback = function(bufnr)
-                vim.api.nvim_create_autocmd('LspAttach', {
-                    buffer = bufnr,
-                    callback = function(args)
-                        vim.schedule(function()
-                            vim.lsp.buf_detach_client(bufnr, args.data.client_id)
-                        end)
-                    end
-                })
-            end,
-            defer = false
-        }, {schedule = false}
-    )
-    local bufnr = vim.api.nvim_get_current_buf()
-    if utils.cal_bufsize(bufnr) < 0.5 then
-        local matching_configs = require('lspconfig.util').get_config_by_ft(vim.bo.filetype)
-        for _, config in ipairs(matching_configs) do
-            config.launch()
-        end
-    end
 end
 
 configs.crates = function()

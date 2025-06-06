@@ -12,6 +12,14 @@ configs.mason = function()
             }
         }
     })
+    local mason = require("utils.mason")
+    local names = require("lsp").setup()
+    for _, name in ipairs(names) do
+        mason.ensure_install(name)
+    end
+    vim.schedule(function()
+        vim.lsp.enable(names)
+    end)
 end
 
 configs.mini_pick = function()

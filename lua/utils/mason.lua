@@ -1,13 +1,32 @@
 local M = {}
+local server_mapping = {
+    ["pyright"] = "pyright",
+    ["clangd"] = "clangd",
+    ["cmake"] = "cmake-language-server",
+    ["dockerls"] = "dockerfile-language-server",
+    ["gopls"] = "gopls",
+    ["jsonls"] = "json-lsp",
+    ["lua_ls"] = "lua-language-server",
+    ["neocmake"] = "neocmakelsp",
+    ["ruff"] = "ruff",
+    ["rust_analyzer"] = "rust-analyzer",
+    ["taplo"] = "taplo",
+    ["tinymist"] = "tinymist",
+    ["ts_ls"] = "typescript-language-server",
+}
 
 ---ensure that the package if installed
----@param pkg_name string name of package
+---@param name string name of lsp server
 ---@param callbacks table|nil callbacks that will be called after installing
-M.ensure_install = function(pkg_name, callbacks)
+M.ensure_install = function(name, callbacks)
     vim.validate({
-        arg1 = {pkg_name, "string", false},
+        arg1 = {name, "string", false},
         arg2 = {callbacks, "table", true},
     })
+    local pkg_name = server_mapping[name]
+    if not pkg_name then
+        return
+    end
     local registry = require("mason-registry")
     if not registry.is_installed(pkg_name) then
         local ok, pkg = pcall(registry.get_package, pkg_name)
