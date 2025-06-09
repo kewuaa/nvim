@@ -19,8 +19,6 @@ function M.init()
 
     M.set('n', '<leader>eh', '<cmd>e $MYVIMRC<CR>')
 
-    M.set('n', '[b', '<cmd>bp<CR>')
-    M.set('n', ']b', '<cmd>bn<CR>')
     M.set('n', '<leader>bd', '<cmd>bdelete<CR>')
 
     M.set('t', '<A-q>', [[<c-\><c-n>]])
