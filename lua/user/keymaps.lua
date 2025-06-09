@@ -57,7 +57,6 @@ function M.init()
         end
     )
 
-    local cache_cmd
     M.set(
         "n", "<leader>rc",
         function()
@@ -66,16 +65,15 @@ function M.init()
                 vim.notify("empty command", vim.log.levels.WARN)
                 return
             end
-            cache_cmd = cmd
             require("utils").run_in_terminal(cmd)
         end
     )
     M.set("n", "<leader>rr", function()
-        if not cache_cmd then
+        if vim.fn.histnr("input") == 0 then
             vim.notify("no cache command", vim.log.levels.WARN)
             return
         end
-        require("utils").run_in_terminal(cache_cmd)
+        require("utils").run_in_terminal(vim.fn.histget("input", -1))
     end)
 
     M.set("n", "<leader>lsp", function() require("utils.lsp").toggle() end)
