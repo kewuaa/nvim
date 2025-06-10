@@ -87,6 +87,9 @@ configs.mini_pairs = function()
             ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a<&\\].', register = { cr = false } },
             ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\].', register = { cr = false } },
         },
+        skip_ts = "string",
+        skip_unbalanced = true,
+        markdown = true
     })
     local mini_pairs_group = vim.api.nvim_create_augroup("mini_pairs", {
         clear = true
