@@ -51,6 +51,11 @@ function M.on_attach(client, bufnr)
 
     -- format
     map('n', '<leader>fmt', function() vim.lsp.buf.format{async = true} end, bufopts)
+
+    if client:supports_method("textDocument/foldingRange") then
+        local win = vim.api.nvim_get_current_win()
+        vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+    end
 end
 
 
