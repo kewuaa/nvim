@@ -37,46 +37,20 @@ end
 -- after the language server attaches to the current buffer
 function M.on_attach(client, bufnr)
     local map = vim.keymap.set
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_var(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
 
     map('n', '[d', function() vim.diagnostic.jump({count = -1, float = true}) end, bufopts)
     map('n', ']d', function() vim.diagnostic.jump({count = 1, float = true}) end, bufopts)
-    -- map('n', '<space>D', vim.diagnostic.open_float, bufopts)
-    map('n', '<leader>ld', vim.diagnostic.setloclist, bufopts)
 
     -- go to the definition
     -- map('n', '', vim.lsp.buf.declaration, bufopts)
     map('n', 'gd', vim.lsp.buf.definition, bufopts)
     map('n', 'gD', vim.lsp.buf.type_definition, bufopts)
 
-    -- hover doc
-    map('n', 'K', vim.lsp.buf.hover, bufopts)
-    map('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    map({'n', 'i'}, '<M-S-k>', vim.lsp.buf.signature_help, bufopts)
-
-    -- rename
-    map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-
-    -- find references
-    map('n', 'gr', vim.lsp.buf.references, bufopts)
-
     -- format
     map('n', '<leader>fmt', function() vim.lsp.buf.format{async = true} end, bufopts)
-
-    -- code action
-    map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-
-    -- workspace
-    -- map('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    -- map('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    -- map('n', '<leader>wl', function()
-    --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- end, bufopts)
 end
 
 
