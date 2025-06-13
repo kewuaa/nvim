@@ -24,17 +24,25 @@ vim.g.firenvim_config = {
         [".*"] = {
             cmdline  = "firenvim",
             content  = "text",
-            priority = 0,
+            priority = 1,
             selector = "textarea",
             takeover = "never",
             filename = "/tmp/{hostname}_{pathname%10}.{extension}"
-        }
+        },
+        ["leetcode.cn"] = {
+            filename = "/tmp/{hostname}_{pathname%10}.cpp"
+        },
     }
 }
 
 local firenvim_group = vim.api.nvim_create_augroup("firenvim", { clear = true })
-vim.api.nvim_create_autocmd({'BufEnter'}, {
+vim.api.nvim_create_autocmd('BufRead', {
     group = firenvim_group,
     pattern = "github.com_*.txt",
-    command = "set filetype=markdown"
+    callback = function(arg)
+        local buf_name = arg.file
+        if buf_name:match("github.com_*.txt") then
+            vim.bo.filetype = "markdown"
+        end
+    end
 })
