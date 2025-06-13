@@ -293,6 +293,9 @@ deps.add({
             {mode = "n", lhs = "<leader>fe", rhs = function()
                 require("mini.files").open()
             end},
+            {mode = "n", lhs = "<leader>fwd", rhs = function()
+                require("mini.files").open(vim.api.nvim_buf_get_name(0), false)
+            end}
         }
     },
     config = configs.mini_files
