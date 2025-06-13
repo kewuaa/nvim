@@ -51,6 +51,8 @@ local options = {
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
     signcolumn = 'yes',
     cursorline = true,
+    foldmethod = 'expr',
+    foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 }
 
 if vim.fn.has("gui_running") then

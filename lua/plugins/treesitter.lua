@@ -48,8 +48,6 @@ local treesitter = function()
             },
         },
     })
-    vim.wo.foldmethod = "expr"
-    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     require('nvim-treesitter.install').compilers = { "gcc", "zig", "cl" }
 end
 

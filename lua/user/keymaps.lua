@@ -19,8 +19,6 @@ function M.init()
 
     M.set('n', '<leader>eh', '<cmd>e $MYVIMRC<CR>')
 
-    M.set('n', '[b', '<cmd>bp<CR>')
-    M.set('n', ']b', '<cmd>bn<CR>')
     M.set('n', '<leader>bd', '<cmd>bdelete<CR>')
 
     M.set('t', '<A-q>', [[<c-\><c-n>]])
@@ -57,7 +55,6 @@ function M.init()
         end
     )
 
-    local cache_cmd
     M.set(
         "n", "<leader>rc",
         function()
@@ -66,23 +63,22 @@ function M.init()
                 vim.notify("empty command", vim.log.levels.WARN)
                 return
             end
-            cache_cmd = cmd
             require("utils").run_in_terminal(cmd)
         end
     )
     M.set("n", "<leader>rr", function()
-        if not cache_cmd then
+        if vim.fn.histnr("input") == 0 then
             vim.notify("no cache command", vim.log.levels.WARN)
             return
         end
-        require("utils").run_in_terminal(cache_cmd)
+        require("utils").run_in_terminal(vim.fn.histget("input", -1))
     end)
 
     M.set("n", "<leader>lsp", function() require("utils.lsp").toggle() end)
     M.set("n", "<leader>tim", function() require("utils.im").toggle() end)
 
-    M.set("i", "<C-f>", "<Right>")
-    M.set("i", "<C-b>", "<Left>")
+    M.set("i", "<C-f>", "<C-g>U<Right>")
+    M.set("i", "<C-b>", "<C-g>U<Left>")
 
     M.set({"n", "v"}, "<leader><leader>y", '"+y')
     M.set({"n", "v"}, "<leader><leader>p", '"+p')
