@@ -102,6 +102,8 @@ M.run_file = function(opts)
             program = "zig run"
         elseif ft == "typst" then
             program = "tinymist preview"
+        elseif ft == "go" then
+            program = "go run"
         elseif ft == "cython" then
             vim.ui.open(file_noext..".html")
             return
@@ -121,6 +123,8 @@ M.run_file = function(opts)
             program = "gcc -g -Wall -o"..file_noext..exe_suffix
         elseif ft == "cpp" then
             program = "g++ -g -Wall -o"..file_noext..exe_suffix
+        elseif ft == "go" then
+            program = "go build -o "..file_noext..exe_suffix
         elseif ft == "zig" then
             program = "zig build-exe -O Debug"
         elseif ft == "rust" then
