@@ -232,6 +232,13 @@ deps.add({
             },
             {
                 mode = "n",
+                lhs = "<leader>fc",
+                rhs = function()
+                    require("mini.extra").pickers.commands()
+                end
+            },
+            {
+                mode = "n",
                 lhs = "<leader>fd",
                 rhs = function()
                     require("mini.extra").pickers.diagnostic()
