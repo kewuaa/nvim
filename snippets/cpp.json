@@ -25,5 +25,15 @@
             "}"
         ],
         "description": "Code snippet for the foreach statement."
+    },
+    "try": {
+        "prefix": "try",
+        "body": [
+            "try {",
+            "\t$1",
+            "} catch (${2:const std::exception& e}) {",
+            "\t$3",
+            "}"
+        ]
     }
 }
