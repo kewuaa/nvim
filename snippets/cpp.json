@@ -34,6 +34,7 @@
             "} catch (${2:const std::exception& e}) {",
             "\t$3",
             "}"
-        ]
+        ],
+        "description": "Code snippet for the try statement."
     }
 }
