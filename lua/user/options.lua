@@ -48,6 +48,7 @@ local options = {
     wildmenu = true,
     wildignorecase = true,
     wildoptions = "fuzzy,pum,tagfile",
+    wildmode = 'noselect:lastused,full',
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
     signcolumn = 'yes',
     cursorline = true,
