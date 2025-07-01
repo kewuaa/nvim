@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    disabled = not require("utils").has("zig")
+}
 
 M.zls = {
     cmd = { 'zls' },

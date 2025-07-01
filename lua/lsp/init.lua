@@ -72,10 +72,14 @@ function M.setup()
     for _, file in ipairs(vim.fn.readdir(lsp_path)) do
         if file:match("%.lua$") and file ~= "init.lua" then
             local module_name = "lsp." .. file:gsub("%.lua$", "")
-            for name, config in pairs(require(module_name)) do
-                names[#names+1] = name
-                vim.lsp.config(name, config)
-                -- vim.lsp.enable(name, true)
+            local module = require(module_name)
+            if not module.disabled then
+                module.disabled = nil
+                for name, config in pairs(module) do
+                    names[#names+1] = name
+                    vim.lsp.config(name, config)
+                    -- vim.lsp.enable(name, true)
+                end
             end
         end
     end

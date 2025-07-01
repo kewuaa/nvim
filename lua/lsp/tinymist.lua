@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    disabled = not require("utils").has("typst")
+}
 
 local group = vim.api.nvim_create_augroup("tinymist_pin_main", {clear = true})
 vim.api.nvim_create_autocmd("LspAttach", {
