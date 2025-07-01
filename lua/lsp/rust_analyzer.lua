@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    disabled = not require("utils").has("cargo")
+}
 ---@brief
 ---
 --- https://github.com/rust-lang/rust-analyzer

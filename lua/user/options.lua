@@ -106,7 +106,7 @@ elseif utils.is_mac then
     }
 end
 
-if utils.has_rg then
+if utils.has("rg") then
   options.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   options.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end
