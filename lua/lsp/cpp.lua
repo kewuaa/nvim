@@ -134,7 +134,7 @@ M.clangd = {
     }
 }
 
-if require("utils").has_cargo then
+if require("utils").has("cargo") then
     M.neocmake = {
         cmd = { 'neocmakelsp', '--stdio' },
         filetypes = { 'cmake' },

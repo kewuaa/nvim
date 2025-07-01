@@ -6,9 +6,10 @@ M.is_linux = os_name == "Linux"
 M.is_mac = os_name == "Darwin"
 M.is_win = os_name == "Windows_NT"
 M.is_wsl = vim.fn.has("wsl") == 1
-M.has_cargo = vim.fn.executable("cargo") == 1
-M.has_rg = vim.fn.executable("rg")
-M.has_uv = vim.fn.executable("uv") == 1
+
+M.has = function(name)
+    return vim.fn.executable(name) == 1
+end
 
 ---wrap path with "" if path include space
 ---@param path string
@@ -38,7 +39,7 @@ end
 
 ---@return string path python3 executable path
 M.find_py = function()
-    if not M.has_uv then
+    if not M.has("uv") then
         vim.notify('uv not found, use python3 in path', vim.log.levels.WARN)
         return vim.fn.exepath("python3")
     end
