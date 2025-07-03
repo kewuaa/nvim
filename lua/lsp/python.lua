@@ -8,12 +8,15 @@ deps.add({
     lazy_opts = {}
 })
 
-M.pyright = {
-    cmd = { 'pyright-langserver', '--stdio' },
+M.basedpyright = {
+    cmd = { 'basedpyright-langserver', '--stdio' },
     filetypes = { "python" },
     root_markers = root_markers,
     settings = {
         python = {
+            pythonPath = utils.get_py()
+        },
+        basedpyright = {
             disableOrganizeImports = true,
             analysis = {
                 -- logLevel = 'track',
@@ -27,7 +30,6 @@ M.pyright = {
                     reportUnusedImport = false
                 }
             },
-            pythonPath = utils.get_py()
         }
     }
 }

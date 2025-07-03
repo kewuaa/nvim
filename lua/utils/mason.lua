@@ -1,5 +1,6 @@
 local M = {}
 local server_mapping = {
+    ["basedpyright"] = "basedpyright",
     ["pyright"] = "pyright",
     ["clangd"] = "clangd",
     ["cmake"] = "cmake-language-server",
