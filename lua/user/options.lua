@@ -111,19 +111,6 @@ if utils.has("rg") then
   options.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end
 
-if vim.fn.exists("g:neovide") == 1 then
-    vim.g.neovide_hide_mouse_when_typing = true
-    vim.g.neovide_theme = 'auto'
-    vim.g.neovide_refresh_rate = 60
-    vim.g.neovide_profiler = false
-    vim.keymap.set(
-        "n",
-        "<a-Enter>",
-        function() vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen end,
-        {silent = true}
-    )
-end
-
 M.init = function()
     -- vim.g.c_syntax_for_h = 1
     vim.g.zig_fmt_autosave = false
