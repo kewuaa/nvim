@@ -7,8 +7,13 @@ M.is_mac = os_name == "Darwin"
 M.is_win = os_name == "Windows_NT"
 M.is_wsl = vim.fn.has("wsl") == 1
 
-M.has = function(name)
-    return vim.fn.executable(name) == 1
+M.has = function(...)
+    for _, name in ipairs({ ... }) do
+        if not vim.fn.executable(name) == 0 then
+            return false
+        end
+    end
+    return true
 end
 
 ---wrap path with "" if path include space
