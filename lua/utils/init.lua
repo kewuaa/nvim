@@ -9,7 +9,7 @@ M.is_wsl = vim.fn.has("wsl") == 1
 
 M.has = function(...)
     for _, name in ipairs({ ... }) do
-        if not vim.fn.executable(name) == 0 then
+        if vim.fn.executable(name) == 0 then
             return false
         end
     end
