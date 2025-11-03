@@ -17,14 +17,14 @@
         ],
         "description": "Code snippet for the if statement."
     },
-    "if/let": {
+    "if let": {
         "prefix": "if let",
         "body": [
             "if let $1 = $2 {",
             "\t$3",
             "}"
         ],
-        "description": "Code snippet for the if/let statement."
+        "description": "Code snippet for the if let statement."
     },
     "elif": {
         "prefix": "elif",
@@ -53,14 +53,14 @@
         ],
         "description": "Code snippet for the while statement."
     },
-    "while/let": {
+    "while let": {
         "prefix": "while let",
         "body": [
             "while let $1 = $2 {",
             "\t$3",
             "}"
         ],
-        "description": "Code snippet for the while/let statement."
+        "description": "Code snippet for the while let statement."
     },
     "loop": {
         "prefix": "loop",
@@ -79,5 +79,14 @@
             "}"
         ],
         "description": "Code snippet for the match statement."
+    },
+    "for": {
+        "prefix": "for",
+        "body": [
+            "for $1 in $2 {",
+            "\t$3",
+            "}"
+        ],
+        "description": "Code snippet for for statement."
     }
 }
