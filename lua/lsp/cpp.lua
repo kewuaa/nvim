@@ -134,37 +134,26 @@ M.clangd = {
     }
 }
 
-if require("utils").has("cargo") then
-    M.neocmake = {
-        cmd = { 'neocmakelsp', '--stdio' },
-        filetypes = { 'cmake' },
-        root_markers = { '.git', 'build', 'cmake' },
-        capabilities = {
-            textDocument = {
-                completion = {
-                    completionItem = {
-                        snippetSupport = false
-                    }
+M.neocmake = {
+    cmd = { 'neocmakelsp', '--stdio' },
+    filetypes = { 'cmake' },
+    root_markers = { '.git', 'build', 'cmake' },
+    capabilities = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = false
                 }
-            },
-            workspace = {
-                didChangeWatchedFiles = {
-                    dynamicRegistration = true,
-                    relative_pattern_support = true,
-                },
-
             }
+        },
+        workspace = {
+            didChangeWatchedFiles = {
+                dynamicRegistration = true,
+                relative_pattern_support = true,
+            },
+
         }
     }
-else
-    M.cmake = {
-        cmd = { 'cmake-language-server' },
-        filetypes = { 'cmake' },
-        root_markers = { 'CMakePresets.json', 'CTestConfig.cmake', '.git', 'build', 'cmake' },
-        init_options = {
-            buildDirectory = 'build',
-        },
-    }
-end
+}
 
 return M
