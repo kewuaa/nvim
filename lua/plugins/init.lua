@@ -88,12 +88,12 @@ M.init = function()
         load_clipboard()
         load_rplugin()
     end)
-    require("plugins.ui")
-    require("plugins.tools")
-    require("plugins.editor")
-    require("plugins.completion")
     require("plugins.treesitter")
+    require("plugins.completion")
     require("plugins.firenvim")
+    require("plugins.editor")
+    require("plugins.tools")
+    require("plugins.ui")
 end
 
 return M
