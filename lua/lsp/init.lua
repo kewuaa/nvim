@@ -63,7 +63,7 @@ function M.setup()
     setup_ui()
 
     vim.lsp.config("*", {
-        capabilities = vim.lsp.protocol.make_client_capabilities(),
+        capabilities = require("mini.completion").get_lsp_capabilities(),
         root_markers = { ".git" }
     })
 

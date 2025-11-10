@@ -5,14 +5,17 @@ local configs = require("plugins.completion.configs")
 ---auto completion
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    -- source = "brianaung/compl.nvim",
-    source = "kewuaa/compl.nvim",
-    checkout = "personal",
-    monitor = "personal",
+    source = "echasnovski/mini.completion",
     lazy_opts = {
-        events = {"InsertEnter"},
+        events = { "InsertEnter" }
     },
-    config = configs.compl
+    config = configs.mini_completion,
+    depends = {
+        {
+            source = "echasnovski/mini.snippets",
+            config = configs.mini_snippets
+        }
+    }
 })
 
 ---------------------------------------------------------------------------------------------------

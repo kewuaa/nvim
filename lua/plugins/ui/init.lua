@@ -26,8 +26,7 @@ deps.add({
     config = function()
         local mini_icons = require("mini.icons")
         mini_icons.setup()
-        -- call after setup compl.nvim
-        -- mini_icons.tweak_lsp_kind()
+        mini_icons.tweak_lsp_kind()
     end
 })
 
