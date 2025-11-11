@@ -121,16 +121,9 @@ M.clangd = {
             symbol_info()
         end, { desc = 'Show symbol info' })
     end,
-    settings = {
-        clangd = {
-            InlayHints = {
-                Designators = true,
-                Enabled = true,
-                ParameterNames = true,
-                DeducedTypes = true,
-            },
-            fallbackFlags = { "-std=c++20" },
-        }
+    init_options = {
+        clangdFileStatus = true,
+        fallbackFlags = { "-Wall", "-g", "-ggdb", "-O0", "-std=c++23" },
     }
 }
 
