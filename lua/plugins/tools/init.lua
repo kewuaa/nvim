@@ -93,14 +93,24 @@ deps.add({
 ---------------------------------------------------------------------------------------------------
 ---quickfix enhance
 ---------------------------------------------------------------------------------------------------
+deps.later(function()
+    require("bqf").setup({
+        func_map = {
+            drop = 'o',
+            openc = 'O',
+            split = '<C-s>',
+            tabdrop = '<C-t>',
+            -- set to empty string to disable
+            tabc = '',
+            ptogglemode = 'z,',
+        },
+    })
+end)
 deps.add({
     source = "kevinhwang91/nvim-bqf",
     lazy_opts = {
         events = {"FileType qf"},
-    },
-    config = function()
-        require("bqf").setup()
-    end
+    }
 })
 
 ---------------------------------------------------------------------------------------------------
