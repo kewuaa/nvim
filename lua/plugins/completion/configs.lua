@@ -1,6 +1,7 @@
 local configs = {}
 
 configs.mini_completion = function()
+    local mini_completion = require("mini.completion")
     local accept = function()
         local keys = "<C-y>"
         local complete_info = vim.fn.complete_info()
@@ -12,9 +13,21 @@ configs.mini_completion = function()
         end
         return keys
     end
+    local update_process_items = function()
+        if vim.tbl_contains({ "c", "cpp" }, vim.bo.filetype) then
+            vim.b.minicompletion_config = {
+                lsp_completion = {
+                    process_items = function(items, base)
+                        if base:sub(1, 1) == '.' then base = base:sub(2) end
+                        return mini_completion.default_process_items(items, base)
+                    end
+                }
+            }
+        end
+    end
 
     local source_func = "omnifunc"
-    require("mini.completion").setup({
+    mini_completion.setup({
         lsp_completion = {
             source_func = source_func,
             auto_setup = false
@@ -25,6 +38,7 @@ configs.mini_completion = function()
         }
     })
     vim.bo[source_func] = "v:lua.MiniCompletion.completefunc_lsp"
+    update_process_items()
 
     local group = vim.api.nvim_create_augroup("kewuaa.completion", { clear = true })
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -32,6 +46,10 @@ configs.mini_completion = function()
         callback = function(args)
             vim.bo[args.buf][source_func] = "v:lua.MiniCompletion.completefunc_lsp"
         end
+    })
+    vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        callback = update_process_items
     })
     vim.api.nvim_create_autocmd("CompleteDone", {
         group = group,
