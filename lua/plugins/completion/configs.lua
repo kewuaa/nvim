@@ -85,6 +85,53 @@ configs.mini_completion = function()
     vim.keymap.set("i", "<C-y>", accept, {silent = true, noremap = true, expr = true})
 end
 
+configs.mini_cmdline = function()
+    require("mini.cmdline").setup(
+        -- No need to copy this inside `setup()`. Will be used automatically.
+        {
+            -- Autocompletion: show `:h 'wildmenu'` as you type
+            autocomplete = {
+                enable = true,
+
+                -- Delay (in ms) after which to trigger completion
+                -- Neovim>=0.12 is recommended for positive values
+                delay = 0,
+
+                -- Custom rule of when to trigger completion
+                predicate = nil,
+
+                -- Whether to map arrow keys for more consistent wildmenu behavior
+                map_arrows = true,
+            },
+
+            -- Autocorrection: adjust non-existing words (commands, options, etc.)
+            autocorrect = {
+                enable = true,
+
+                -- Custom autocorrection rule
+                func = nil,
+            },
+
+            -- Autopeek: show command's target range in a floating window
+            autopeek = {
+                enable = true,
+
+                -- Number of lines to show above and below range lines
+                n_context = 5,
+
+                -- Window options
+                window = {
+                    -- Floating window config
+                    config = {},
+
+                    -- Function to render statuscolumn
+                    statuscolumn = nil,
+                },
+            },
+        }
+    )
+end
+
 configs.mini_snippets = function()
     local mini_snippets = require("mini.snippets")
     local loader = mini_snippets.gen_loader
