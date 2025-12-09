@@ -5,14 +5,14 @@ local configs = require("plugins.editor.configs")
 ---enhance textobjects
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.ai",
+    source = "nvim-mini/mini.ai",
     lazy_opts = {
         very_lazy = true
     },
     config = configs.mini_ai,
     depends = {
         {
-            source = "echasnovski/mini.extra",
+            source = "nvim-mini/mini.extra",
             config = function() require("mini.extra").setup() end
         }
     }
@@ -22,7 +22,7 @@ deps.add({
 ---text align
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.align",
+    source = "nvim-mini/mini.align",
     lazy_opts = {
         keys = {
             {mode = {"n", "v"}, lhs = "ga"},
@@ -38,7 +38,7 @@ deps.add({
 ---buffer remove
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.bufremove",
+    source = "nvim-mini/mini.bufremove",
     lazy_opts = {
         keys = {
             {
@@ -68,7 +68,7 @@ deps.add({
 ---illumunate cursor word
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.cursorword",
+    source = "nvim-mini/mini.cursorword",
     lazy_opts = {
         events = {"CursorHold"}
     },
@@ -79,7 +79,7 @@ deps.add({
 ---surround
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.surround",
+    source = "nvim-mini/mini.surround",
     lazy_opts = {
         keys = {
             {mode = {"n", "x"}, lhs = "<leader>as"},
@@ -94,7 +94,7 @@ deps.add({
 ---pair brackets
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.pairs",
+    source = "nvim-mini/mini.pairs",
     lazy_opts = {
         events = {"InsertEnter"}
     },
@@ -122,7 +122,7 @@ deps.add({
         configs.mini_splitjoin()
         configs.treesj()
     end,
-    depends = {"echasnovski/mini.splitjoin"}
+    depends = {"nvim-mini/mini.splitjoin"}
 })
 
 ---------------------------------------------------------------------------------------------------

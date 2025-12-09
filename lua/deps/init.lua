@@ -11,7 +11,7 @@ M.init = function()
         vim.cmd('echom "Installing `mini.deps`" | redraw')
         local clone_cmd = {
             'git', 'clone', '--filter=blob:none',
-            'https://github.com/echasnovski/mini.deps', mini_path
+            'https://github.com/nvim-mini/mini.deps', mini_path
         }
         vim.fn.system(clone_cmd)
         vim.cmd('packadd mini.deps | helptags ALL')

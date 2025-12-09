@@ -19,7 +19,7 @@ end)
 ---icons
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.icons",
+    source = "nvim-mini/mini.icons",
     lazy_opts = {
         very_lazy = true
     },
@@ -34,7 +34,7 @@ deps.add({
 ---status line
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.statusline",
+    source = "nvim-mini/mini.statusline",
     lazy_opts = {
         very_lazy = true
     },
@@ -67,7 +67,7 @@ deps.add({
 ---enhance notify
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.notify",
+    source = "nvim-mini/mini.notify",
     lazy_opts = {
         very_lazy = true
     },

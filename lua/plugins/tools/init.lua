@@ -60,7 +60,7 @@ deps.add({
 ---git helper
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini-git",
+    source = "nvim-mini/mini-git",
     lazy_opts = {
         events = {"BufRead"},
         cmds = {"Git"},
@@ -82,7 +82,7 @@ deps.add({
 ---git signs
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.diff",
+    source = "nvim-mini/mini.diff",
     lazy_opts = {
         events = {"BufRead"},
         delay = 1000,
@@ -215,7 +215,7 @@ deps.later(function()
     end
 end)
 deps.add({
-    source = "echasnovski/mini.pick",
+    source = "nvim-mini/mini.pick",
     lazy_opts = {
         events = {"User LoadMiniPick"},
         keys = {
@@ -287,7 +287,7 @@ deps.add({
     config = configs.mini_pick,
     depends = {
         {
-            source = "echasnovski/mini.extra",
+            source = "nvim-mini/mini.extra",
             config = function() require("mini.extra").setup() end
         }
     }
@@ -297,7 +297,7 @@ deps.add({
 ---file manager
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.files",
+    source = "nvim-mini/mini.files",
     lazy_opts = {
         keys = {
             {mode = "n", lhs = "<leader>fe", rhs = function()
@@ -315,7 +315,7 @@ deps.add({
 --- misc
 ---------------------------------------------------------------------------------------------------
 deps.add({
-    source = "echasnovski/mini.misc",
+    source = "nvim-mini/mini.misc",
     lazy_opts = {
         very_lazy = true
     },
