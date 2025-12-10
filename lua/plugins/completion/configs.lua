@@ -130,6 +130,12 @@ configs.mini_cmdline = function()
             },
         }
     )
+
+    -- manually execute CmdlineEnter callback
+    vim.api.nvim_get_autocmds({
+        group = "MiniCmdline",
+        event = "CmdlineEnter",
+    })[1].callback()
 end
 
 configs.mini_snippets = function()
