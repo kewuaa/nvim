@@ -48,7 +48,7 @@ M.find_py = function()
         vim.notify('uv not found, use python3 in path', vim.log.levels.WARN)
         return vim.fn.exepath("python3")
     end
-    local cmd = {"uv", "python", "--python-preference=system", "find"}
+    local cmd = {"uv", "python", "find"}
     local res = vim.system(cmd, { text = true }):wait()
     if res.code ~= 0 then
         vim.notify(res.stderr, vim.log.levels.WARN)
