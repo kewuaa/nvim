@@ -211,24 +211,4 @@ configs.crates = function()
     })
 end
 
-configs.copilot = function()
-    require("copilot").setup({
-        panel = {
-            enabled = false,
-        },
-        suggestion = {
-            enabled = true,
-            auto_trigger = true,
-            keymap = {
-                accept = "<C-l>",
-                accept_word = false,
-                accept_line = false,
-                next = "<M-]>",
-                prev = "<M-[>",
-                dismiss = "<C-]>",
-            }
-        },
-    })
-end
-
 return configs

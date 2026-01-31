@@ -40,25 +40,3 @@ deps.add({
     },
     config = configs.crates,
 })
-
----------------------------------------------------------------------------------------------------
----ai support
----------------------------------------------------------------------------------------------------
-deps.add({
-    source = "zbirenbaum/copilot.lua",
-    hooks = {
-        post_checkout = function()
-            vim.cmd("Copilot auth")
-        end,
-        post_install = function()
-            vim.schedule(function()
-                vim.cmd("Copilot auth")
-            end)
-        end
-    },
-    lazy_opts = {
-        cmds = {"Copilot"},
-        delay_install = true,
-    },
-    config = configs.copilot,
-})
