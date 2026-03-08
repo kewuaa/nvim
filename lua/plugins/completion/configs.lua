@@ -69,10 +69,11 @@ configs.mini_completion = function()
             then
                 local row, col = unpack(vim.api.nvim_win_get_cursor(0))
                 local prev_char = vim.api.nvim_buf_get_text(0, row - 1, col - 1, row - 1, col, {})[1]
+                local pair = vim.tbl_contains({ "tex", "plaintex", "bib" }, vim.bo.ft) and "{}" or "()"
                 if prev_char:match("%w") then
                     vim.api.nvim_feedkeys(
                         vim.api.nvim_replace_termcodes(
-                            "<C-g>U()<C-g>U<left>",
+                            "<C-g>U"..pair.."<C-g>U<left>",
                             true,
                             false,
                             true
