@@ -1,6 +1,7 @@
 local configs = {}
 
 configs.mini_completion = function()
+    local mini_fuzzy = require("mini.fuzzy")
     local mini_completion = require("mini.completion")
     local accept = function()
         local keys = "<C-y>"
@@ -19,7 +20,11 @@ configs.mini_completion = function()
                 lsp_completion = {
                     process_items = function(items, base)
                         if base:sub(1, 1) == '.' then base = base:sub(2) end
-                        return mini_completion.default_process_items(items, base)
+                        return mini_completion.default_process_items(
+                            items,
+                            base,
+                            { filtersort = mini_fuzzy.process_lsp_items }
+                        )
                     end
                 }
             }
@@ -29,6 +34,13 @@ configs.mini_completion = function()
     local source_func = "omnifunc"
     mini_completion.setup({
         lsp_completion = {
+            process_items = function(items, base)
+                return mini_completion.default_process_items(
+                    items,
+                    base,
+                    { filtersort = mini_fuzzy.process_lsp_items }
+                )
+            end,
             source_func = source_func,
             auto_setup = false
         },
@@ -137,6 +149,10 @@ configs.mini_cmdline = function()
         group = "MiniCmdline",
         event = "CmdlineEnter",
     })[1].callback()
+end
+
+configs.mini_fuzzy = function()
+    require("mini.fuzzy").setup()
 end
 
 configs.mini_snippets = function()

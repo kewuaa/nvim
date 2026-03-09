@@ -12,6 +12,10 @@ deps.add({
     config = configs.mini_completion,
     depends = {
         {
+            source = "nvim-mini/mini.fuzzy",
+            config = configs.mini_fuzzy,
+        },
+        {
             source = "nvim-mini/mini.snippets",
             config = configs.mini_snippets
         }
