@@ -1,5 +1,6 @@
 local M = {}
-local deps = require("deps")
+local keymap = require("user.keymaps")
+local github = "https://github.com/"
 
 local disable_distribution_plugins = function()
     -- disable menu loading
@@ -65,8 +66,7 @@ end
 local setup_filetype = function()
     vim.filetype.add({
         extension = {
-            pyx = "cython",
-            pxd = "cython",
+            pyx = "cython", pxd = "cython",
             pxi = "cython",
             pyxdep = "python",
             pyxbld = "python",
@@ -80,20 +80,109 @@ local setup_filetype = function()
     })
 end
 
+local selective_load = function(plug_data)
+    if (plug_data.spec.data or {}).skip_load then
+        return
+    end
+    vim.cmd.packadd(plug_data.spec.name)
+end
+
+local setup_mini_misc = function()
+    local mini_misc = require("mini.misc")
+
+    mini_misc.setup({
+        make_global = { "put", "put_text" }
+    })
+    mini_misc.setup_restore_cursor()
+    mini_misc.setup_termbg_sync()
+    mini_misc.setup_auto_root(
+        { ".git", ".root" },
+        function()
+            local clients = vim.lsp.get_clients()
+            for _, client in ipairs(clients) do
+                if client.config.root_dir then
+                    return client.config.root_dir
+                end
+            end
+        end
+    )
+    keymap.set("n", "<C-w>z", mini_misc.zoom)
+    keymap.set("n", "<C-w><C-z>", mini_misc.zoom)
+end
+
+---@type vim.pack.Spec[]
+local specs = {
+    -- completion
+    { src = github.."nvim-mini/mini.fuzzy" },
+    { src = github.."nvim-mini/mini.snippets" },
+    { src = github.."nvim-mini/mini.completion" },
+    { src = github.."nvim-mini/mini.cmdline" },
+    { src = github.."saecki/crates.nvim", skip_load = true },
+
+    -- editor
+    { src = github.."nvim-mini/mini.extra" },
+    { src = github.."nvim-mini/mini.ai" },
+    { src = github.."nvim-mini/mini.align" },
+    { src = github.."nvim-mini/mini.bufremove" },
+    { src = github.."nvim-mini/mini.cursorword" },
+    { src = github.."nvim-mini/mini.surround" },
+    { src = github.."nvim-mini/mini.pairs" },
+    { src = github.."nvim-mini/mini.splitjoin" },
+    { src = github.."utilyre/sentiment.nvim" },
+
+    -- tools
+    { src = github.."nvim-mini/mini-git" },
+    { src = github.."nvim-mini/mini.diff" },
+    { src = github.."nvim-mini/mini.pick" },
+    { src = github.."nvim-mini/mini.files" },
+    { src = github.."nvim-mini/mini.misc" },
+    { src = github.."mason-org/mason.nvim", skip_load = true },
+    { src = github.."kevinhwang91/nvim-bqf", skip_load = true },
+    { src = github.."lambdalisue/vim-suda", skip_load = true },
+
+    -- ui
+    { src = github.."folke/tokyonight.nvim" },
+    { src = github.."nvim-mini/mini.icons" },
+    { src = github.."nvim-mini/mini.statusline" },
+    { src = github.."nvim-mini/mini.indentscope" },
+    { src = github.."nvim-mini/mini.notify" },
+    { src = github.."kewuaa/nvim-tabline", skip_load = true },
+}
+
 M.init = function()
     setup_filetype()
     disable_distribution_plugins()
-    deps.init()
-    deps.later(function()
-        load_clipboard()
-        load_rplugin()
-    end)
-    require("plugins.treesitter")
-    require("plugins.completion")
-    require("plugins.firenvim")
-    require("plugins.editor")
-    require("plugins.tools")
-    require("plugins.ui")
+
+    vim.api.nvim_create_autocmd(
+        'PackChanged',
+        {
+            callback = function(ev)
+                local name, kind = ev.data.spec.name, ev.data.kind
+                vim.notify(name, kind)
+                if name == "mason.nvim" and kind == "update" then
+                    if not ev.data.active then
+                        vim.cmd.packadd("mason.nvim")
+                    end
+                    vim.cmd("MasonUpdate")
+                end
+            end
+        }
+    )
+    vim.pack.add(specs, { load = selective_load })
+
+    setup_mini_misc()
+    require("mini.misc").safely(
+        "later",
+        function()
+            load_rplugin()
+            load_clipboard()
+            for name, type in vim.fs.dir(vim.fn.stdpath("config").."/lua/plugins/configs") do
+                if type == "file" then
+                    require("plugins.configs."..vim.fn.fnamemodify(name, ":t:r"))
+                end
+            end
+        end
+    )
 end
 
 return M

@@ -1,5 +1,10 @@
 local M = {}
+local utils = require("utils")
 local group = vim.api.nvim_create_augroup("kewuaa.lsp", { clear = true })
+
+vim.env.PATH = vim.fn.stdpath("data").."/mason/bin"
+    ..(utils.is_win and ";" or ":")
+    ..vim.env.PATH
 
 
 local function setup_ui()
@@ -67,7 +72,6 @@ function M.setup()
         root_markers = { ".git" }
     })
 
-    local names = {}
     local lsp_path = vim.fn.stdpath("config") .. "/lua/lsp"
     for _, file in ipairs(vim.fn.readdir(lsp_path)) do
         if file:match("%.lua$") and file ~= "init.lua" then
@@ -76,9 +80,8 @@ function M.setup()
             if not module.disabled then
                 module.disabled = nil
                 for name, config in pairs(module) do
-                    names[#names+1] = name
                     vim.lsp.config(name, config)
-                    -- vim.lsp.enable(name, true)
+                    vim.lsp.enable(name, true)
                 end
             end
         end
@@ -91,7 +94,6 @@ function M.setup()
             M.on_attach(client, args.buf)
         end
     })
-    return names
 end
 
 return M

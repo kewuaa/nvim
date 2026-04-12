@@ -1,5 +1,4 @@
 local M = {}
-local api = vim.api
 local os_name = vim.uv.os_uname().sysname
 
 M.is_linux = os_name == "Linux"
@@ -16,6 +15,66 @@ M.has = function(...)
     return true
 end
 
+---@param cmds string[]
+---@param callback function
+M.on_command = function(cmds, callback)
+    local cb = function()
+        for _, cmd in ipairs(cmds) do
+            vim.api.nvim_del_user_command(cmd)
+        end
+        callback()
+    end
+
+    for _, cmd in ipairs(cmds) do
+        vim.api.nvim_create_user_command(
+            cmd,
+            function(event)
+                cb()
+
+                local command = {
+                    cmd = cmd,
+                    bang = event.bang or nil,
+                    mods = event.smods,
+                    args = event.fargs,
+                    count = event.count >= 0 and event.range == 0 and event.count or nil,
+                }
+
+                if event.range == 1 then
+                    command.range = { event.line1 }
+                elseif event.range == 2 then
+                    command.range = { event.line1, event.line2 }
+                end
+
+                local info = vim.api.nvim_get_commands({})[cmd]
+                    or vim.api.nvim_buf_get_commands(0, {})[cmd]
+                if not info then
+                    vim.notify(
+                        ("Command `%s` not found"):format(cmd),
+                        vim.log.levels.ERROR
+                    )
+                    return
+                end
+
+                command.nargs = info.nargs
+                if event.args and event.args ~= "" and info.nargs and info.nargs:find("[1?]") then
+                    command.args = { event.args }
+                end
+                vim.cmd(command)
+            end,
+            {
+                bang = true,
+                range = true,
+                nargs = "*",
+                complete = function(_, line)
+                    cb()
+                    -- NOTE: return the newly loaded command completion
+                    return vim.fn.getcompletion(line, "cmdline")
+                end,
+            }
+        )
+    end
+end
+
 ---wrap path with "" if path include space
 ---@param path string
 ---@return string wrapped path
@@ -27,44 +86,6 @@ M.wrap_path = function(path)
         path = '"'..path..'"'
     end
     return path
-end
-
----@param bufnr number
----@return integer|nil size in MiB if buffer is valid, nil otherwise
-M.cal_bufsize = function(bufnr)
-    local ok, stats = pcall(
-        vim.uv.fs_stat,
-        api.nvim_buf_get_name(bufnr)
-    )
-    if ok and stats then
-        return stats.size / (1024 * 1024)
-    end
-    return 0
-end
-
----@return string path python3 executable path
-M.find_py = function()
-    if not M.has("uv") then
-        vim.notify('uv not found, use python3 in path', vim.log.levels.WARN)
-        return vim.fn.exepath("python3")
-    end
-    local cmd = {"uv", "python", "find"}
-    local res = vim.system(cmd, { text = true }):wait()
-    if res.code ~= 0 then
-        vim.notify(res.stderr, vim.log.levels.WARN)
-        return "python"
-    end
-    return res.stdout:sub(1, -2)
-end
-
----@type string
-local cache_py
----@return string path similar with find_py, but use cache first
-M.get_py = function()
-    if cache_py == nil then
-        cache_py = M.find_py()
-    end
-    return cache_py
 end
 
 ---run command in terminal
@@ -99,7 +120,7 @@ M.run_file = function(opts)
     local program = ""
     if not opts then
         if ft == "python" then
-            program = "uv run --python-preference=system"
+            program = "uv run"
         elseif ft == "javascript" then
             program = "node"
         elseif ft == "lua" then
@@ -113,6 +134,8 @@ M.run_file = function(opts)
         elseif ft == "cython" then
             vim.ui.open(file_noext..".html")
             return
+        elseif ft == "java" then
+            program = "java"
         elseif vim.tbl_contains({"c", "cpp", "rust", "pascal"}, ft) then
             program = M.wrap_path(file_noext)
             file = ""
@@ -139,6 +162,8 @@ M.run_file = function(opts)
             program = "cython -3 -a"
         elseif ft == "pascal" then
             program = "fpc -gw -gl"
+        elseif ft == "java" then
+            program = "javac"
         else
             vim.notify(("unsupport to build filetype `%s`"):format(ft), vim.log.levels.WARN)
             return

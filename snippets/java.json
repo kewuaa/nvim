@@ -1,0 +1,31 @@
+{
+    "class": {
+        "prefix": "class",
+        "body": [
+            "class ${1:name} {",
+            "\t$2",
+            "}"
+        ],
+        "description": "Code snippet for the class statement."
+    },
+    "foreach": {
+        "prefix": "foreach",
+        "body": [
+            "for (${1:value} : ${2:iterator}) {",
+            "\t$3",
+            "}"
+        ],
+        "description": "Code snippet for the foreach statement."
+    },
+    "try": {
+        "prefix": "try",
+        "body": [
+            "try {",
+            "\t$1",
+            "} catch (${2:Exception e}) {",
+            "\t$3",
+            "}"
+        ],
+        "description": "Code snippet for the try statement."
+    }
+}

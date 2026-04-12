@@ -74,9 +74,6 @@ function M.init()
         require("utils").run_in_terminal(vim.fn.histget("input", -1))
     end)
 
-    M.set("n", "<leader>lsp", function() require("utils.lsp").toggle() end)
-    M.set("n", "<leader>tim", function() require("utils.im").toggle() end)
-
     M.set("i", "<C-f>", "<C-g>U<Right>")
     M.set("i", "<C-b>", "<C-g>U<Left>")
 
