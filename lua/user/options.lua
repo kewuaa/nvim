@@ -40,6 +40,7 @@ local options = {
     smartcase = true,
     shortmess = 'aoOTIcF',
     updatetime = 200,
+    pumborder = "single",
     pumheight = 16,
     completeopt = 'menu,menuone,noselect,noinsert,fuzzy',
     concealcursor = "niv",
