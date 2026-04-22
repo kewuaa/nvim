@@ -1,6 +1,8 @@
 local mini_misc = require("mini.misc")
 
 mini_misc.safely("filetype:qf", function()
+    vim.cmd.packadd("nvim-bqf")
+
     require("bqf").setup({
         func_map = {
             drop = 'o',

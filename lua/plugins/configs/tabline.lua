@@ -1,7 +1,7 @@
 local mini_misc = require("mini.misc")
 
 mini_misc.safely("event:TabNew", function()
-    vim.cmd.packadd("tabline")
+    vim.cmd.packadd("nvim-tabline")
 
     require('tabline').setup({
         show_index = true,           -- show tab index
