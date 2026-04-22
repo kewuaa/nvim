@@ -2,10 +2,6 @@ local M = {}
 local utils = require("utils")
 local group = vim.api.nvim_create_augroup("kewuaa.lsp", { clear = true })
 
-vim.env.PATH = vim.fn.stdpath("data").."/mason/bin"
-    ..(utils.is_win and ";" or ":")
-    ..vim.env.PATH
-
 
 local function setup_ui()
     -- Set icons for sidebar.
@@ -65,6 +61,10 @@ end
 
 
 function M.setup()
+    vim.env.PATH = vim.env.PATH
+        ..(utils.is_win and ";" or ":")
+        ..vim.fn.stdpath("data").."/mason/bin"
+
     setup_ui()
 
     vim.lsp.config("*", {

@@ -5,7 +5,7 @@ utils.on_command({ "Mason" }, function()
     vim.cmd.packadd("mason.nvim")
 
     require("mason").setup({
-        PATH = "prepend",
+        PATH = "skip",
         max_concurrent_installers = 4,
         ui = {
             icons = {
