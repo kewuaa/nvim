@@ -5,6 +5,7 @@ require("tokyonight").setup({
         comments = { italic = true },
         keywords = { italic = true },
     },
+    dim_inactive = true,
     plugins = {
         all = false,
         auto = false,
