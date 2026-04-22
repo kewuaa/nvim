@@ -136,6 +136,7 @@ local specs = {
     { src = github.."nvim-mini/mini.pick" },
     { src = github.."nvim-mini/mini.files" },
     { src = github.."nvim-mini/mini.misc" },
+    { src = github.."acidsugarx/babel.nvim", data = { skip_load = true } },
     { src = github.."mason-org/mason.nvim", data = { skip_load = true } },
     { src = github.."kevinhwang91/nvim-bqf", data = { skip_load = true } },
     { src = github.."lambdalisue/vim-suda", data = { skip_load = true } },
