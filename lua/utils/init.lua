@@ -75,6 +75,81 @@ M.on_command = function(cmds, callback)
     end
 end
 
+
+---@class KeySpec
+---@field mode string|string[]
+---@field lhs string
+---@field rhs string|function|nil
+---@field opts vim.keymap.set.Opts|nil
+---
+---@param keys KeySpec[]
+---@param callback function
+M.on_keys = function(keys, callback)
+    local keymap = require("user.keymaps")
+
+    local cb = function()
+        for _, key in ipairs(keys) do
+            ---@type vim.keymap.del.Opts
+            local opts = nil
+            if key.opts and key.opts.buf then
+                opts = { buf = key.opts.buf }
+            end
+            pcall(vim.keymap.del, key.mode, key.lhs, opts)
+            if key.rhs then
+                keymap.set(key.mode, key.lhs, key.rhs, key.opts)
+            end
+        end
+        callback()
+    end
+    for _, key in ipairs(keys) do
+        vim.keymap.set(
+            key.mode,
+            key.lhs,
+            function()
+                cb()
+
+                if key.rhs then
+                    vim.validate({
+                        rhs = {
+                            key.rhs,
+                            function(rhs)
+                                local t = type(rhs)
+                                return t == "string" or t == "function"
+                            end,
+                            "rhs must be string or function"
+                        }
+                    })
+                    local expr_keys
+                    if key.opts and key.opts.expr then
+                        expr_keys = type(key.rhs) == "string" and vim.api.nvim_eval(key.rhs) or key.rhs()
+                    else
+                        if type(key.rhs) == "function" then
+                            key.rhs()
+                        else
+                            expr_keys = key.rhs
+                        end
+                    end
+                    if expr_keys then
+                        vim.api.nvim_feedkeys(
+                            vim.api.nvim_replace_termcodes(expr_keys, true, false, true),
+                            "i", false
+                        )
+                    end
+                else
+                    vim.api.nvim_feedkeys(
+                        vim.api.nvim_replace_termcodes(key.lhs, true, false, true),
+                        "i", false
+                    )
+                end
+            end,
+            {
+                nowait = true,
+                expr = false
+            }
+        )
+    end
+end
+
 ---wrap path with "" if path include space
 ---@param path string
 ---@return string wrapped path
