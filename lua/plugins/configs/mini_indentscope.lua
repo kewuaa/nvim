@@ -20,12 +20,18 @@ require("mini.indentscope").setup({
     },
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
+local group = vim.api.nvim_create_augroup("mini_indentscope", { clear = true })
+vim.api.nvim_create_autocmd("BufNew", {
+    group = group,
     callback = function(args)
         if vim.tbl_contains(settings.exclude_buftypes, vim.bo[args.buf].buftype)
         or vim.tbl_contains(settings.exclude_filetypes, vim.bo[args.buf].filetype)
-            then
-                vim.b[args.buf].miniindentscope_disable = true
+        then
+            vim.b[args.buf].miniindentscope_disable = true
         end
     end
+})
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = group,
+    command = "let b:miniindentscope_disable = v:true",
 })
