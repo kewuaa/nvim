@@ -10,7 +10,7 @@ utils.on_keys({
         end,
         opts = { expr = true }
     },
-    -- { lhs = "<leader>tr", mode = "v" },
+    { lhs = "<leader>tr", mode = "v" },
     { mode = "n", lhs = "<leader>tw" },
 }, function()
     vim.cmd.packadd("babel.nvim")
