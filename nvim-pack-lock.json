@@ -9,7 +9,7 @@
       "src": "https://github.com/saecki/crates.nvim"
     },
     "mason.nvim": {
-      "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
+      "rev": "cb8445f8ce85d957416c106b780efd51c6298f89",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini-git": {
@@ -49,7 +49,7 @@
       "src": "https://github.com/nvim-mini/mini.extra"
     },
     "mini.files": {
-      "rev": "e8db416c9f5dbce70f5501da28263d45c0a4df6b",
+      "rev": "3e247eb12ca8c05622ceb8745f9004f761b22ef8",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.fuzzy": {
