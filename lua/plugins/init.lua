@@ -159,7 +159,6 @@ M.init = function()
         {
             callback = function(ev)
                 local name, kind = ev.data.spec.name, ev.data.kind
-                vim.notify(name, kind)
                 if name == "mason.nvim" and kind == "update" then
                     if not ev.data.active then
                         vim.cmd.packadd("mason.nvim")
