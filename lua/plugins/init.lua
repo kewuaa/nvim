@@ -146,6 +146,7 @@ local specs = {
     { src = github.."nvim-mini/mini.icons" },
     { src = github.."nvim-mini/mini.statusline" },
     { src = github.."nvim-mini/mini.indentscope" },
+    { src = github.."nvim-mini/mini.input" },
     { src = github.."nvim-mini/mini.notify" },
     { src = github.."kewuaa/nvim-tabline", data = { skip_load = true } },
 }

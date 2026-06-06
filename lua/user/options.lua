@@ -118,9 +118,6 @@ M.init = function()
     for key, value in pairs(options) do
         vim.o[key] = value
     end
-    vim.ui.input = function(opts, on_confirm)
-        require("utils.input").input(opts or {}, on_confirm)
-    end
 end
 
 
