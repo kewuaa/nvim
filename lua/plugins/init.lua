@@ -149,6 +149,9 @@ local specs = {
     { src = github.."nvim-mini/mini.input" },
     { src = github.."nvim-mini/mini.notify" },
     { src = github.."kewuaa/nvim-tabline", data = { skip_load = true } },
+
+    -- java
+    { src = github.."idelice/nvim-jls", data = { skip_load = true } },
 }
 
 M.init = function()
