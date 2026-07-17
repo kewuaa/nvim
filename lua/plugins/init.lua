@@ -1,4 +1,5 @@
 local M = {}
+local utils = require("utils")
 local keymap = require("user.keymaps")
 local github = "https://github.com/"
 local codeberg = "https://codeberg.org/"
@@ -94,8 +95,10 @@ local setup_mini_misc = function()
     mini_misc.setup({
         make_global = { "put", "put_text" }
     })
+    if not utils.is_win then
+        mini_misc.setup_termbg_sync()
+    end
     mini_misc.setup_restore_cursor()
-    mini_misc.setup_termbg_sync()
     mini_misc.setup_auto_root(
         { ".git", ".root" },
         function()
