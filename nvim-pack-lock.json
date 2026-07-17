@@ -104,9 +104,9 @@
       "rev": "c282a62bec6c0621a1ef5132aa3f4c9fc4dcc2c7",
       "src": "https://github.com/kevinhwang91/nvim-bqf"
     },
-    "nvim-jls": {
-      "rev": "56cf84c7f842415605e54d3351f321c22f0d1ff1",
-      "src": "https://github.com/idelice/nvim-jls"
+    "nvim-jdtls": {
+      "rev": "6e9d953f0b82bccdb834cfde0e893f3119c22592",
+      "src": "https://codeberg.org/mfussenegger/nvim-jdtls"
     },
     "nvim-tabline": {
       "rev": "5ee6af44e634f580d6e64b20a2a2d0cebab27cf4",

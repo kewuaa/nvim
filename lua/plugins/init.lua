@@ -1,6 +1,7 @@
 local M = {}
 local keymap = require("user.keymaps")
 local github = "https://github.com/"
+local codeberg = "https://codeberg.org/"
 
 local disable_distribution_plugins = function()
     -- disable menu loading
@@ -151,7 +152,7 @@ local specs = {
     { src = github.."kewuaa/nvim-tabline", data = { skip_load = true } },
 
     -- java
-    { src = github.."idelice/nvim-jls", data = { skip_load = true } },
+    { src = codeberg.."mfussenegger/nvim-jdtls", data = { skip_load = true } },
 }
 
 M.init = function()
