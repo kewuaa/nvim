@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    disabled = not require("utils").has("python")
+}
 local root_markers = {
     'ty.toml',
     'pyproject.toml',

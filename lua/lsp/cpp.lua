@@ -1,4 +1,7 @@
-local M = {}
+local utils = require("utils")
+local M = {
+    disabled = not utils.has("gcc", "clang")
+}
 
 ---@brief
 ---
@@ -126,6 +129,10 @@ M.clangd = {
         fallbackFlags = { "-Wall", "-g", "-ggdb", "-O0", "-std=c++23" },
     }
 }
+
+if not utils.has("cmake") then
+    return M
+end
 
 M.neocmakelsp = {
     cmd = { 'neocmakelsp', 'stdio' },

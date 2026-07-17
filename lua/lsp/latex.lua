@@ -11,7 +11,9 @@
 --- `LspTexlabDependencyGraph`, `LspTexlabCleanArtifacts`,
 --- `LspTexlabCleanAuxiliary`, `LspTexlabFindEnvironments`,
 --- and `LspTexlabChangeEnvironment`.
-local M = {}
+local M = {
+    disabled = not require("utils").has("latex")
+}
 
 local function buf_build(client, bufnr)
     local win = vim.api.nvim_get_current_win()

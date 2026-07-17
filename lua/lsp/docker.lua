@@ -1,6 +1,5 @@
 local M = {
-    disabled = not require("utils").has("docker")
-            or not require("utils").has("npm")
+    disabled = not require("utils").has("docker", "npm")
 }
 
 M["dockerfile-language-server"] = {

@@ -31,7 +31,9 @@
 ---       -- init.lua
 ---       vim.lsp.config('jdtls', { cmd = { 'jdtls' } })
 ---     ```
-local M = {}
+local M = {
+    disabled = not require("utils").has("javac")
+}
 
 local function get_jdtls_cache_dir()
   return vim.fn.stdpath('cache') .. '/jdtls'

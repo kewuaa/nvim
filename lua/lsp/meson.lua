@@ -1,4 +1,6 @@
-local M = {}
+local M = {
+    disabled = not require("utils").has("meson")
+}
 
 local meson_matcher = function(_, path)
     local pattern = 'meson.build'
