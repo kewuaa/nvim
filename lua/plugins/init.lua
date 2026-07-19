@@ -95,7 +95,7 @@ local setup_mini_misc = function()
     mini_misc.setup({
         make_global = { "put", "put_text" }
     })
-    if not utils.is_win then
+    if utils.is_linux then
         mini_misc.setup_termbg_sync()
     end
     mini_misc.setup_restore_cursor()
