@@ -53,4 +53,4 @@ keymaps.set("n", "<leader>fc", function() require("mini.extra").pickers.commands
 keymaps.set("n", "<leader>fd", function() require("mini.extra").pickers.diagnostic() end)
 keymaps.set("n", "<leader>fh", function() require("mini.extra").pickers.git_hunks() end)
 keymaps.set("n", "<leader>fo", function() require("mini.extra").pickers.lsp({ scope = "document_symbol" }) end)
-keymaps.set("n", "<leader>fO", function() require("mini.extra").pickers.lsp({ scope = "workspace_symbol" }) end)
+keymaps.set("n", "<leader>fO", function() require("mini.extra").pickers.lsp({ scope = "workspace_symbol_live" }) end)
