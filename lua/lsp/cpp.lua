@@ -1,6 +1,7 @@
 local utils = require("utils")
 local M = {
-    disabled = not utils.has("gcc", "clang")
+    disabled = not utils.has("gcc", "g++")
+        and not utils.has("clang", "clang++")
 }
 
 ---@brief
