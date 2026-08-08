@@ -162,6 +162,10 @@ M.init = function()
     setup_filetype()
     disable_distribution_plugins()
 
+    require("vim._core.ui2").enable({
+        enable = true,
+    })
+
     vim.api.nvim_create_autocmd(
         'PackChanged',
         {
