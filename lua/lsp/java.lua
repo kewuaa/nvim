@@ -102,6 +102,23 @@ M.jdtls = {
     root_markers = vim.fn.has('nvim-0.11.3') == 1 and { root_markers1, root_markers2 }
         or vim.list_extend(root_markers1, root_markers2),
     init_options = {},
+        settings = {
+            java = {
+                configuration = {
+                    runtimes = {
+                        {
+                            name = "JavaSE-1.8",
+                            path = vim.fn.expand("~/Java/zulu8"),
+                            default = true,
+                        },
+                        {
+                            name = "JavaSE-25",
+                            path = "/usr/lib/jvm/openjdk25/"
+                        }
+                    }
+                }
+            }
+        }
 }
 
 return M
