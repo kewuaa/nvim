@@ -95,7 +95,7 @@ local setup_mini_misc = function()
     mini_misc.setup({
         make_global = { "put", "put_text" }
     })
-    if utils.is_linux then
+    if utils.is_linux and not utils.is_wsl then
         mini_misc.setup_termbg_sync()
     end
     mini_misc.setup_restore_cursor()
