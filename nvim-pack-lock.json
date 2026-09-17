@@ -5,7 +5,7 @@
       "src": "https://github.com/acidsugarx/babel.nvim"
     },
     "crates.nvim": {
-      "rev": "b8281be336498035f9288d6542b2881a7140a9ec",
+      "rev": "7039bc1d130e424232a7aa64ceddb170a154ff5b",
       "src": "https://github.com/saecki/crates.nvim"
     },
     "grug-far.nvim": {
@@ -17,7 +17,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini-git": {
-      "rev": "62aa54f41c50181dceff90b55f989efe69ad198c",
+      "rev": "cf5aaa83be51d0419aeb0a2060fc4ec13ea22b74",
       "src": "https://github.com/nvim-mini/mini-git"
     },
     "mini.ai": {
@@ -53,7 +53,7 @@
       "src": "https://github.com/nvim-mini/mini.extra"
     },
     "mini.files": {
-      "rev": "a249438d15fa6f64085ba83a9d1794d726aaf5ad",
+      "rev": "f1cfece89892274f4f4a59d71f24eb90dcfe1b5a",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.fuzzy": {
