@@ -154,9 +154,6 @@ local specs = {
     { src = github.."nvim-mini/mini.input" },
     { src = github.."nvim-mini/mini.notify" },
     { src = github.."kewuaa/nvim-tabline", data = { skip_load = true } },
-
-    -- java
-    { src = codeberg.."mfussenegger/nvim-jdtls", data = { skip_load = true } },
 }
 
 M.init = function()
