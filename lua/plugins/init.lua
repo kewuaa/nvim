@@ -145,6 +145,7 @@ local specs = {
     { src = github.."kevinhwang91/nvim-bqf", data = { skip_load = true } },
     { src = github.."lambdalisue/vim-suda", data = { skip_load = true } },
     { src = github.."MagicDuck/grug-far.nvim", data = { skip_load = true } },
+    { src = github.."dlyongemallo/diffview-plus.nvim", data = { skip_load = true } },
 
     -- ui
     { src = github.."folke/tokyonight.nvim" },
