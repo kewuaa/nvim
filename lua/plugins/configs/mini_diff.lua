@@ -12,4 +12,4 @@ mini_diff.setup({
     }
 })
 
-keymap.set("n", "ghp", function() mini_diff.toggle_overlay() end, opts)
+keymap.set("n", "ghp", function() mini_diff.toggle_overlay() end)
