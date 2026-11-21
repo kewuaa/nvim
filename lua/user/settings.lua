@@ -9,6 +9,7 @@ M.exclude_filetypes = {
     "TelescopePrompt",
     "mininotify-history",
     "mason",
+    "pager",
     "crates.nvim",
     "dap-repl",
     "dap-float",
