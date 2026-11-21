@@ -68,7 +68,11 @@ function M.setup()
     setup_ui()
 
     vim.lsp.config("*", {
-        capabilities = require("mini.completion").get_lsp_capabilities(),
+        capabilities = vim.tbl_deep_extend(
+            "force",
+            vim.lsp.protocol.make_client_capabilities(),
+            require("mini.completion").get_lsp_capabilities()
+        ),
         root_markers = { ".git" }
     })
 
